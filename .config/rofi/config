@@ -1,0 +1,5 @@
+rofi.modi: window,run,ssh,drun
+rofi.font: SF Pro Text 12
+rofi.show-icons: true
+rofi.terminal: alacritty
+rofi.theme: ~/.config/rofi/MyTheme.rasi
