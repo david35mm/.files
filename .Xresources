@@ -5,42 +5,41 @@
 ! ------------------------------------------------------------------------------
 
 ! special
-*.foreground:   #d2c5bc
-*.background:   #101010
-*.cursorColor:  #d2c5bc
+*.foreground:   #dcdfe4
+*.background:   #141414
+*.cursorColor:  #dcdfe4
 
 ! black
-*.color0:       #202020
-*.color8:       #606060
+*.color0:       #282c34
+*.color8:       #282c34
 
 ! red
-*.color1:       #b91e2e
-*.color9:       #d14548
+*.color1:       #e06c75
+*.color9:       #e06c75
 
 ! green
-*.color2:       #81957c
-*.color10:      #a7b79a
+*.color2:       #98c379
+*.color10:      #98c379
 
 ! yellow
-*.color3:       #f9bb80
-*.color11:      #fae3a0
+*.color3:       #e5c07b
+*.color11:      #e5c07b
 
 ! blue
-*.color4:       #356579
-*.color12:      #7491a1
+*.color4:       #61afef
+*.color12:      #61afef
 
 ! magenta
-*.color5:       #2d2031
-*.color13:      #87314e
+*.color5:       #c678dd
+*.color13:      #c678dd
 
 ! cyan
-*.color6:       #2b6c8c
-*.color14:      #0f829d
+*.color6:       #56b6c2
+*.color14:      #56b6bc
 
 ! white
-*.color7:       #909090
-*.color15:      #fff0f0
-
+*.color7:       #abb2bf
+*.color15:      #dcdfe4
 
 
 ! XTerm Settings
