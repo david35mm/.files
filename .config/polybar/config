@@ -13,7 +13,16 @@ greycolour		= #75827D
 5colour			= #606970
 6colour			= #897B75
 
-background-simple = #00edeff2
+background-simple = #BF141414
+foreground-simple = #DCDFE4
+greycolour-simple = #BF75827D
+1colour-simple	  = #E06C75
+2colour-simple	  = #98C379
+3colour-simple	  = #E5C07B
+4colour-simple	  = #61AFEF
+5colour-simple	  = #C678DD
+6colour-simple	  = #56B6BC
+
 
 ############### GLOBAL WM SETTINGS ###############
 [global/wm]
@@ -179,7 +188,7 @@ dim-value = 1.0
 ; If the value is empty or undefined, the atom value
 ; will be created from the following template: polybar-[BAR]_[MONITOR]
 ; NOTE: The placeholders are not available for custom values
-wm-name =
+wm-name = LG3D
 
 ; Locale used to localize various module data (e.g. date)
 ; Expects a valid libc locale, for example: sv_SE.UTF-8
@@ -262,7 +271,7 @@ modules-right = 6sep cpu 5sep memory 4sep temperature 3sep pulseaudio 2sep batte
 inherit = bar/defaults
 module-margin = 2
 background = ${colours.background-simple}
-foreground = ${colours.foreground}
+foreground = ${colours.foreground-simple}
 tray-background = ${colours.background-simple}
 battery-background = ${colours.background-simple}
 cpu-background = ${colours.background-simple}
@@ -271,13 +280,23 @@ memory-background = ${colours.background-simple}
 volume-background = ${colours.background-simple}
 temperature-background = ${colours.background-simple}
 wname-background = ${colours.background-simple}
-separator =
+
+;tray-foreground = ${colours.background-simple}
+battery-foreground = ${colours.5colour-simple}
+cpu-foreground = ${colours.1colour-simple}
+date-foreground = ${colours.6colour-simple}
+memory-foreground = ${colours.2colour-simple}
+volume-foreground = ${colours.4colour-simple}
+temperature-foreground = ${colours.3colour-simple}
+ewmh-background = ${colours.background-simple}
+ewmh-active-background = ${colours.greycolour-simple}
+separator = |
 modules-left = startmenu ewmh xwindow
 ;modules-center =  
 modules-right = cpu memory temperature pulseaudio battery date
 
 [bar/spectrwm]
-inherit = bar/powerline
+inherit = bar/simple
 override-redirect = true
 
 ############### BUILT-IN MODULES ###############
@@ -308,6 +327,7 @@ poll-interval = 5
 ;   <animation-charging>
 format-charging = %{T3}<animation-charging>%{T-}<label-charging>
 format-charging-background = ${root.battery-background}
+format-charging-foreground = ${root.battery-foreground}
 
 ; Available tags:
 ;   <label-discharging> (default)
@@ -316,13 +336,15 @@ format-charging-background = ${root.battery-background}
 ;   <animation-discharging>
 format-discharging = %{T3}<ramp-capacity>%{T-}<label-discharging>
 format-discharging-background = ${root.battery-background}
+format-discharging-foreground = ${root.battery-foreground}
 
-; Available tags:
+; Available tags
 ;   <label-full> (default)
 ;   <bar-capacity>
 ;   <ramp-capacity>
 ;format-full = <ramp-capacity> <label-full>
 format-full-background = ${root.battery-background}
+format-full-foreground = ${root.battery-foreground}
 
 ; Available tokens:
 ;   %percentage% (default) - is set to 100 if full-at is reached
@@ -376,6 +398,7 @@ type = internal/cpu
 ;   <ramp-coreload>
 format = %{T3}﬙ %{T-}<label>
 format-background = ${root.cpu-background}
+format-foreground = ${root.cpu-foreground}
 
 ; Available tokens:
 ;   %percentage% (default) - total cpu load averaged over all cores
@@ -401,9 +424,10 @@ date-alt = %d/%m/%Y
 time-alt = %T
 
 ;label = "%date% %time%  "
-label = "%date%  %time%      "
+label = "%date%  %time%    "
 label-font = 0
 label-background = ${root.date-background}
+label-foreground = ${root.date-foreground}
 
 	#### WORKSPACE NAME ####
 [module/ewmh]
@@ -415,7 +439,7 @@ type = internal/xworkspaces
 ; on different bars
 ;
 ; Default: false
-pin-workspaces = true
+pin-workspaces = false
 
 ; Create click handler used to focus desktop
 ; Default: true
@@ -457,8 +481,8 @@ label-monitor = %name%
 ;   %index%
 ; Default: %icon%  %name%
 label-active = %icon%%name%
-label-active-foreground = ${colours.foreground}
-label-active-background = ${colours.3colour}
+label-active-foreground = ${root.foreground}
+label-active-background = ${root.ewmh-active-background}
 label-active-padding = 1
 
 ; (unreleased)
@@ -468,7 +492,8 @@ label-active-padding = 1
 ;   %index%
 ; Default: %icon%  %name%
 label-occupied = %icon%
-label-occupied-foreground = ${colours.background}
+label-occupied-foreground = ${root.ewmh-background}
+label-occupied-underline = #9b0a20
 
 ; Available tokens:
 ;   %name%
@@ -487,8 +512,8 @@ label-urgent-padding = 4
 ;   %index%
 ; Default: %icon%  %name%
 label-empty = %icon%
-label-empty-foreground = #C8CACC
-label-empty-background = ${colours.greycolour}
+label-empty-foreground = ${root.foreground}
+label-empty-background = ${root.ewmh-background}
 label-empty-padding = 1
 
 	#### MEMORY ####
@@ -511,6 +536,7 @@ interval = 3
 ;   <ramp-swap-free>
 format = %{T3} %{T-}<label>
 format-background = ${root.memory-background}
+format-foreground = ${root.memory-foreground}
 
 ; Available tokens:
 ;   %percentage_used% (default)
@@ -554,6 +580,7 @@ interval = 5
 ;   <bar-volume>
 format-volume = %{T3}<ramp-volume>%{T-}<label-volume>
 format-volume-background = ${root.volume-background}
+format-volume-foreground = ${root.volume-foreground}
 
 ; Available tags:
 ;   <label-muted> (default)
@@ -561,6 +588,7 @@ format-volume-background = ${root.volume-background}
 ;   <bar-volume>
 ;format-muted = <label-muted>
 format-muted-background = ${root.volume-background}
+format-muted-foreground = ${root.volume-foreground}
 
 ; Available tokens:
 ;   %percentage% (default)
@@ -615,6 +643,7 @@ units = true
 ;   <ramp>
 format = %{T3}<ramp>%{T-}<label>
 format-background = ${root.temperature-background}
+format-foreground = ${root.temperature-foreground}
 
 ; Available tags:
 ;   <label-warn> (default)
@@ -708,7 +737,7 @@ type = custom/text
 content = "  "
 
 content-background = ${root.wname-background}
-content-foreground = ${colours.2colour}
+content-foreground = ${colours.6colour-simple}
 ;content-foreground = #DB2D20
 content-font = 3
 
