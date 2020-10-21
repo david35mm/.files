@@ -19,30 +19,24 @@ myMusicPlayer = "rhythmbox"
 myConfig = "~/.config/qtile/config.py"
 
 keys = [
-	# Qtile controls
+	# Qtile Controls
 	Key([mod, "control"], "r", lazy.restart()),
 	Key([mod, "control"], "q", lazy.shutdown()),
 
-	# Window controls
+	# Window and Layout Controls
 	Key([mod], "k", lazy.layout.down()),
 	Key([mod], "j", lazy.layout.up()),
-	Key([mod], "w", lazy.window.kill()),
-	Key([mod], "f", lazy.window.toggle_floating()),
-	Key([mod], "s", lazy.window.toggle_fullscreen()),
-
-	# Increase and decrease windows size
-	Key([mod], "l", lazy.layout.grow(),lazy.layout.increase_nmaster()),
-	Key([mod], "h",lazy.layout.shrink(),lazy.layout.decrease_nmaster()),
-
-	# Move windows up or down in current stack
 	Key([mod, "control"], "k", lazy.layout.shuffle_down()),
 	Key([mod, "control"], "j", lazy.layout.shuffle_up()),
-
-	# Switch window focus to other pane(s) of stack
 	Key([mod], "space", lazy.layout.next()),
-
-	# Toggle between different layouts as defined below
 	Key([mod], "Tab", lazy.next_layout()),
+	Key([mod], "l", lazy.layout.grow()),
+	Key([mod], "h",lazy.layout.shrink()),
+	Key([mod], "f", lazy.window.toggle_floating()),
+	Key([mod], "s", lazy.window.toggle_fullscreen()),
+	Key([mod], "w", lazy.window.kill()),
+	Key([mod], "period", lazy.next_screen()),
+	Key([mod], "comma", lazy.prev_screen()),
 
 	# System Controls
 	Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
@@ -54,6 +48,9 @@ keys = [
 	#Key(["mod1"], "j", lazy.spawn("brightnessctl set 10%-")),
 
 	# Applications launcher
+	Key(["mod1"], "Tab", lazy.spawn("rofi -show window")),
+	Key([mod, "mod1"], "r", lazy.spawn("rofi -show run")),
+	Key([mod], "r", lazy.spawn("rofi -show drun")),
 	Key([mod], "Return", lazy.spawn(myTerm)),
 	Key([mod, "mod1"], "s", lazy.spawn("spotify")),
 	Key([mod, "mod1"], "v", lazy.spawn("vlc")),
@@ -64,9 +61,6 @@ keys = [
 	Key([mod], "e", lazy.spawn(myFileManager)),
 	Key([mod, "mod1"], "i", lazy.spawn(myBrowser)),
 	Key([mod, "mod1"], "m", lazy.spawn(myMusicPlayer)),
-	Key(["mod1"], "Tab", lazy.spawn("rofi -show window")),
-	Key([mod, "mod1"], "r", lazy.spawn("rofi -show run")),
-	Key([mod], "r", lazy.spawn("rofi -show drun")),
 ]
 
 group_names	=	[("web", {'layout': 'max'}),
@@ -339,8 +333,8 @@ focus_on_window_activation = "smart"
 
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
-    subprocess.call([home])
+	home = os.path.expanduser('~/.config/qtile/autostart.sh')
+	subprocess.call([home])
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
