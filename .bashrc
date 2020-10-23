@@ -82,7 +82,7 @@ alias cp='cp -i'
 alias df='df -h'
 alias free='free -mt'
 alias lynx='lynx -accept_all_cookies'
-alias librespot='librespot -n "A315-41" -b 320 -u d.geek -p j3RR6#yJq8Es -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
+alias librespot='librespot -n "A315-41" -b 320 -u yourUsername -p yourPassword -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
 
 #userlist
 alias userlist='cut -d: -f1 /etc/passwd'
