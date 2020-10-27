@@ -14,15 +14,6 @@ export PATH
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
-#PS1='[\u@\h \W]\$ '
-#function _update_ps1() {
- #   PS1="$($GOPATH/bin/powerline-go -error $? -mode flat -theme solarized-dark16)"
-#}
-
-#if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
- #   PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-#fi
-
 eval "$(starship init bash)"
 
 # User specific aliases and functions
@@ -142,19 +133,26 @@ alias ytv-best="youtube-dl -f bestvideo+bestaudio "
 alias jctl='journalctl -p 3 -xb'
 
 #vim for important configuration files
-alias vqtile='vim ~/.config/qtile/config.py'
-alias vdnf='sudo vim /etc/dnf/dnf.conf'
-alias vpicom='vim ~/.config/picom/picom.conf'
-alias valacritty='vim ~/.config/alacritty/alacritty.yml'
-alias vbashrc='vim ~/.bashrc'
-alias vvim='vim ~/.vimrc'
+alias vqtile='vi ~/.config/qtile/config.py'
+alias vdnf='sudo nvim /etc/dnf/dnf.conf'
+alias vpicom='vi ~/.config/picom/picom.conf'
+alias valacritty='vi ~/.config/alacritty/alacritty.yml'
+alias vbashrc='vi ~/.bashrc'
+alias vvim='vi ~/.vimrc'
+alias vspectrwm='vi ~/.config/spectrwm/spectrwm.conf'
+alias vherbstluftwm='vi ~/.config/herbstluftwm/autostart'
 
 #git
 alias addot='git add .'
 alias commit='git commit -m'
-alias push='git push -u origin master'
+alias push='git push'
 alias pull='git pull'
 alias config='/usr/bin/git --git-dir=/home/david35mm/.files/ --work-tree=/home/david35mm'
+alias cadd='config add'
+alias ccommit='config commit -m'
+alias cpush='config push'
+alias cpull='config pull'
+alias cstatus='config status'
 
 #gpg
 #verify signature for isos
