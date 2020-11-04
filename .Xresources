@@ -5,25 +5,25 @@
 ! ------------------------------------------------------------------------------
 
 ! special
-*.foreground:   #dcdfe4
+*.foreground:   #ffffff
 *.background:   #141414
-*.cursorColor:  #dcdfe4
+*.cursorColor:  #ffffff
 
 ! black
 *.color0:       #282c34
 *.color8:       #282c34
 
 ! red
-*.color1:       #e06c75
-*.color9:       #e06c75
+*.color1:       #e35374
+*.color9:       #e35374
 
 ! green
 *.color2:       #98c379
 *.color10:      #98c379
 
 ! yellow
-*.color3:       #e5c07b
-*.color11:      #e5c07b
+*.color3:       #f0c674
+*.color11:      #f0c674
 
 ! blue
 *.color4:       #61afef
@@ -38,8 +38,8 @@
 *.color14:      #56b6bc
 
 ! white
-*.color7:       #abb2bf
-*.color15:      #dcdfe4
+*.color7:       #848484
+*.color15:      #ffffff
 
 
 ! XTerm Settings
