@@ -14,11 +14,11 @@ greycolour		= #75827D
 6colour			= #897B75
 
 background-simple = #BF141414
-foreground-simple = #DCDFE4
-greycolour-simple = #BF75827D
-1colour-simple	  = #E06C75
+foreground-simple = #FFFFFF
+greycolour-simple = #848484
+1colour-simple	  = #E35374
 2colour-simple	  = #98C379
-3colour-simple	  = #E5C07B
+3colour-simple	  = #F0C674
 4colour-simple	  = #61AFEF
 5colour-simple	  = #C678DD
 6colour-simple	  = #56B6BC
@@ -624,7 +624,7 @@ thermal-zone = 0
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/pci0000:00/0000:00:08.1/0000:03:00.0/hwmon/hwmon2/temp1_input
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input
 
 ; Base temperature for where to start the ramp (in degrees celsius)
 ; Default: 0
