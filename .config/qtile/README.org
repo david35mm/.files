@@ -22,7 +22,7 @@
 * About
 #+CAPTION: Qtile Screenshot
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
-[[https://github.com/david35mm/.files/blob/master/.screenshots/qtile.png]]
+[[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
 This config file was modified by David Salomón on November 5, 2020 at 06:38 pm.
 - My YouTube Channel: https://9m.no/𑅁텚
