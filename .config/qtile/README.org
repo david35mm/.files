@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/master/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on October 21, 2020 at 02:05 pm
+This config file was modified by David Salomón on November 5, 2020 at 06:38 pm.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -58,7 +58,7 @@ myTerm = "alacritty"
 myBrowser = "brave-browser"
 myFileManager = "nemo"
 myTextEditor = "subl"
-myOfficeSuite = "onlyoffice"
+myOfficeSuite = "desktopeditors"
 myLaTeXEditor = "gnome-latex"
 myMusicPlayer = "rhythmbox"
 myConfig = "~/.config/qtile/config.py"
@@ -198,8 +198,8 @@ Also, on the "layouts" section you can uncomment the layouts you want to use and
 #+BEGIN_SRC python
 layout_theme = {"border_width": 2,
 				"margin": 4,
-				"border_focus": "205E74", #colours[4]
-				"border_normal": "606970" #colours[7]
+				"border_focus": "61AFEF", #colours[6]
+				"border_normal": "848484" #colours[2]
 				}
 
 layouts = [
@@ -224,15 +224,15 @@ layouts = [
 A set of 9 colours to use in our panel, if you have your own set of colours, this is where you should put them.
 
 #+BEGIN_SRC python
-colours = [["#1A1211", "#1A1211"], # Background
-		   ["#A8BAB3", "#A8BAB3"], # Foreground
-		   ["#75827D", "#75827D"], # Grey Colour
-		   ["#324F6B", "#324F6B"],
-		   ["#205E74", "#205E74"],
-		   ["#494956", "#494956"],
-		   ["#49546A", "#49546A"],
-		   ["#606970", "#606970"],
-		   ["#897B75", "#897B75"]]
+colours = [["#141414", "#141414"], # Background
+		   ["#FFFFFF", "#FFFFFF"], # Foreground
+		   ["#848484", "#848484"], # Grey Colour
+		   ["#E35374", "#E35374"],
+		   ["#98C379", "#98C379"],
+		   ["#F0C674", "#F0C674"],
+		   ["#61AFEF", "#61AFEF"],
+		   ["#C678DD", "#C678DD"],
+		   ["#56B6BC", "#56B6BC"]]
 #+END_SRC
 
 * PROMPT
@@ -249,10 +249,11 @@ PD: At the end of this section there's a number 18 floating there all alone and 
 
 #+BEGIN_SRC python
 widget_defaults = dict(background= colours[0],
-	foreground='EDEFF2',
+	foreground=colours[1],
 	font="SF Pro Text Regular",
-	fontsize = 12,
-	padding = 2)
+	fontsize=12,
+	padding=1
+	)
 extension_defaults = widget_defaults.copy()
 
 screens = [
@@ -261,41 +262,39 @@ screens = [
 			[
 			widget.Sep(
 				foreground=colours[0],
-				linewidth=2
+				linewidth=4
 				),
 			widget.Image(
 				scale=True,
 				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn("rofi -show drun")},
 				filename="~/.config/qtile/py.png"
 				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				fontsize=16,
-				width=22,
+			widget.Sep(
 				foreground=colours[2],
-				background=colours[0],
-				text='\uE0BA'
+				linewidth=1,
+				padding=10
 				),
 			widget.GroupBox(
-				background=colours[2],
 				padding=0,
-				active=colours[0],
-				inactive='C8CACC',
-				highlight_color=colours[5],
-				highlight_method='line',
-				this_current_screen_border=colours[5]
+				active=colours[4],
+				inactive=colours[6],
+				margin=2,
+				highlight_method='text',
+				this_current_screen_border=colours[7],
+				urgent_alert_method='text',
+				urgent_border=colours[3],
+				urgent_text=colours[3],
+				disable_drag=True,
+				invert_mouse_wheel=True
 				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				fontsize=16,
-				width=22,
-				foreground=colours[0],
-				background=colours[2],
-				text='\uE0BA'
+			widget.Sep(
+				foreground=colours[2],
+				linewidth=1,
+				padding=10
 				),
 			widget.CurrentLayout(
 				font="SF Pro Text Semibold",
-				foreground='477AB3'
+				foreground=colours[7]
 				),
 			widget.Systray(
 				),
@@ -304,99 +303,81 @@ screens = [
 				noplay_color='C8CACC'
 				),
 			widget.Sep(
-				foreground='C8CACC',
-				padding=8
+				foreground=colours[2],
+				linewidth=1,
+				padding=10
 				),
 			widget.WindowName(
 				),
 			widget.TextBox(
 				font="JetBrainsMono Nerd Font Regular",
-				fontsize=16,
-				width=22,
 				foreground=colours[3],
-				text='\uE0BA'
-				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				background=colours[3],
 				fontsize=14,
 				padding=0,
 				text='﬙ '
 				),
 			widget.CPU(
-				background=colours[3],
+				foreground=colours[3],
 				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
 				format='{load_percent}%',
 				update_interval=1.0
 				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				fontsize=16,
-				width=22,
-				foreground=colours[4],
-				background=colours[3],
-				text='\uE0BA'
+			widget.Sep(
+				foreground=colours[2],
+				linewidth=1,
+				padding=10
 				),
 			widget.TextBox(
 				font="JetBrainsMono Nerd Font Regular",
-				background=colours[4],
+				foreground=colours[4],
 				fontsize=14,
 				padding=0,
 				text=' '
 				),
 			widget.Memory(
-				background=colours[4],
-				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e htop')},
+				foreground=colours[4],
+				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
 				format='{MemUsed} MB'
 				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				fontsize=16,
-				width=22,
-				foreground=colours[5],
-				background=colours[4],
-				text='\uE0BA'
+			widget.Sep(
+				foreground=colours[2],
+				linewidth=1,
+				padding=10
 				),
 			widget.TextBox(
 				font="JetBrainsMono Nerd Font Regular",
-				background=colours[5],
+				foreground=colours[5],
 				fontsize=14,
 				padding=0,
 				text=' '
 				),
 			widget.ThermalSensor(
-				background=colours[5],
+				foreground=colours[5],
 				threshold=80,
-				foreground_alert='DE935F'
+				foreground_alert='DE935F',
+				tag_sensor="Tctl"
+				),
+			widget.Sep(
+				foreground=colours[2],
+				linewidth=1,
+				padding=10
 				),
 			widget.TextBox(
 				font="JetBrainsMono Nerd Font Regular",
-				fontsize=16,
-				width=22,
 				foreground=colours[6],
-				background=colours[5],
-				text='\uE0BA'
-				),
-			widget.TextBox(
-				background=colours[6],
-				text='Vol.'
+				fontsize=14,
+				padding=0,
+				text='墳 '
 				),
 			widget.Volume(
-				background=colours[6],
+				foreground=colours[6],
 				step=5
 				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				fontsize=16,
-				width=22,
-				foreground=colours[7],
-				background=colours[6],
-				text='\uE0BA'
+			widget.Sep(
+				foreground=colours[2],
+				linewidth=1,
+				padding=10
 				),
-			#widget.Image(
-			#	scale=True,
-			#	filename="~/.config/qtile/2.png"
-			#	),
 			#widget.Net(
 			#	background=colours[7],
 			#	interface='enp1s0',
@@ -407,23 +388,25 @@ screens = [
 			#	url='https://www.alphavantage.co/query?'
 			#	),
 			widget.TextBox(
-				background=colours[7],
-				text='Power'),
-			widget.Battery(
-				background=colours[7],
-				format='{char} {percent:2.0%}',
-				low_foreground='DE935F'
-				),
-			widget.TextBox(
 				font="JetBrainsMono Nerd Font Regular",
-				fontsize=16,
-				width=22,
-				foreground=colours[8],
-				background=colours[7],
-				text='\uE0BA'
+				foreground=colours[7],
+				fontsize=14,
+				padding=0,
+				text=' '
+				),
+			widget.Battery(
+				foreground=colours[7],
+				format='{char} {percent:2.0%}',
+				low_foreground='DE935F',
+				notify_below=20,
+				),
+			widget.Sep(
+				foreground=colours[2],
+				linewidth=1,
+				padding=10
 				),
 			widget.Clock(
-				background=colours[8],
+				foreground=colours[8],
 				format='%a %b %d  %I:%M %P    '
 				)
 			],
