@@ -162,6 +162,8 @@ screens = [
 				foreground=colours[7]
 				),
 			widget.Systray(
+				icon_size=14,
+				padding=4
 				),
 			widget.Cmus(
 				play_color='FFFFFF',
