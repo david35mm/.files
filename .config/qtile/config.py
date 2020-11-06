@@ -166,8 +166,8 @@ screens = [
 				padding=4
 				),
 			widget.Cmus(
-				play_color='FFFFFF',
-				noplay_color='C8CACC'
+				play_color=colours[1],
+				noplay_color=colours[2]
 				),
 			widget.Sep(
 				foreground=colours[2],
@@ -221,7 +221,7 @@ screens = [
 			widget.ThermalSensor(
 				foreground=colours[5],
 				threshold=80,
-				foreground_alert='DE935F',
+				foreground_alert=colours[3],
 				tag_sensor="Tctl"
 				),
 			widget.Sep(
@@ -254,17 +254,24 @@ screens = [
 			#	apikey='AESKWL5CJVHHJKR5',
 			#	url='https://www.alphavantage.co/query?'
 			#	),
-			widget.TextBox(
+			widget.Battery(
 				font="JetBrainsMono Nerd Font Regular",
-				foreground=colours[7],
 				fontsize=14,
 				padding=0,
-				text=' '
+				foreground=colours[7],
+				charge_char=' ',
+				discharge_char=' ',
+				empty_char=' ',
+				full_char=' ',
+				unknown_char=' ',
+				format='{char}',
+				low_foreground=colours[3],
+				show_short_text=False
 				),
 			widget.Battery(
 				foreground=colours[7],
-				format='{char} {percent:2.0%}',
-				low_foreground='DE935F',
+				format='{percent:2.0%}',
+				low_foreground=colours[3],
 				notify_below=20,
 				),
 			widget.Sep(
@@ -274,7 +281,8 @@ screens = [
 				),
 			widget.Clock(
 				foreground=colours[8],
-				format='%a %b %d  %I:%M %P    '
+				format='%a %b %d  %I:%M %P    ',
+				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e cal')}
 				)
 			],
 			18,
