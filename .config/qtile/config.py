@@ -63,20 +63,20 @@ keys = [
 	Key([mod, "mod1"], "m", lazy.spawn(myMusicPlayer)),
 ]
 
-group_names	=	[("web", {'layout': 'max'}),
-				 ("dev", {'layout': 'monadtall'}),
-				 ("sys", {'layout': 'bsp'}),
-				 ("doc", {'layout': 'bsp'}),
-				 ("chat", {'layout': 'monadtall'}),
-				 ("game", {'layout': 'max'}),
-				 ("media", {'layout': 'max'}),
-				 ("gfx", {'layout': 'floating'})]
+groups = [
+	Group("web", layout="max"),
+	Group("dev", layout="monadtall"),
+	Group("sys", layout="bsp"),
+	Group("doc", layout="bsp"),
+	Group("chat", layout="monadtall"),
+	Group("game", layout="max"),
+	Group("media", layout="max"),
+	Group("gfx", layout="floating")
+]
 
-groups = [Group(name, **kwargs) for name, kwargs in group_names]
-
-for i, (name, kwargs) in enumerate(group_names, 1):
-	keys.append(Key([mod], str(i), lazy.group[name].toscreen()))		# Switch to another group
-	keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))	# Send current window to another group
+for k, group in zip(["1", "2", "3", "4", "5", "6", "7", "8"], groups):
+	keys.append(Key([mod], k, lazy.group[group.name].toscreen()))			# Send current window to another group
+	keys.append(Key([mod, "shift"], k, lazy.window.togroup(group.name)))	# Send current window to another group
 
 layout_theme = {"border_width": 2,
 				"margin": 4,

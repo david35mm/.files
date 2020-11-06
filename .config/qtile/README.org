@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on November 5, 2020 at 06:38 pm.
+This config file was modified by David Salomón on November 6, 2020 at 10:39 am.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -172,23 +172,23 @@ keys = [
 
 * GROUPS
 For some reason Qtile decided to call them groups, but basically they are workspaces.
-Feel free to change the names and default layouts on the "group_names" section.
+Feel free to change the names and default layouts on the "groups" section.
 
 #+BEGIN_SRC python
-group_names	=	[("web", {'layout': 'max'}),
-				 ("dev", {'layout': 'monadtall'}),
-				 ("sys", {'layout': 'bsp'}),
-				 ("doc", {'layout': 'bsp'}),
-				 ("chat", {'layout': 'monadtall'}),
-				 ("game", {'layout': 'max'}),
-				 ("media", {'layout': 'max'}),
-				 ("gfx", {'layout': 'floating'})]
+groups = [
+	Group("web", layout="max"),
+	Group("dev", layout="monadtall"),
+	Group("sys", layout="bsp"),
+	Group("doc", layout="bsp"),
+	Group("chat", layout="monadtall"),
+	Group("game", layout="max"),
+	Group("media", layout="max"),
+	Group("gfx", layout="floating")
+]
 
-groups = [Group(name, **kwargs) for name, kwargs in group_names]
-
-for i, (name, kwargs) in enumerate(group_names, 1):
-	keys.append(Key([mod], str(i), lazy.group[name].toscreen()))		# Switch to another group
-	keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))	# Send current window to another group
+for k, group in zip(["1", "2", "3", "4", "5", "6", "7", "8"], groups):
+	keys.append(Key([mod], k, lazy.group[group.name].toscreen()))			# Send current window to another group
+	keys.append(Key([mod, "shift"], k, lazy.window.togroup(group.name)))	# Send current window to another group
 #+END_SRC
 
 * LAYOUTS
