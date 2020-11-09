@@ -113,7 +113,8 @@ colours = [["#141414", "#141414"], # Background
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
-widget_defaults = dict(background= colours[0],
+widget_defaults = dict(
+	background= colours[0],
 	foreground=colours[1],
 	font="SF Pro Text Regular",
 	fontsize=12,
@@ -121,174 +122,180 @@ widget_defaults = dict(background= colours[0],
 	)
 extension_defaults = widget_defaults.copy()
 
-screens = [
-	Screen(
-		top=bar.Bar(
-			[
-			widget.Sep(
-				foreground=colours[0],
-				linewidth=4
-				),
-			widget.Image(
-				scale=True,
-				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn("rofi -show drun")},
-				filename="~/.config/qtile/py.png"
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.GroupBox(
-				padding=0,
-				active=colours[4],
-				inactive=colours[6],
-				margin=2,
-				highlight_method='text',
-				this_current_screen_border=colours[7],
-				urgent_alert_method='text',
-				urgent_border=colours[3],
-				urgent_text=colours[3],
-				disable_drag=True,
-				invert_mouse_wheel=True
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.CurrentLayout(
-				font="SF Pro Text Semibold",
-				foreground=colours[7]
-				),
-			widget.Systray(
-				icon_size=14,
-				padding=4
-				),
-			widget.Cmus(
-				play_color=colours[1],
-				noplay_color=colours[2]
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.WindowName(
-				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				foreground=colours[3],
-				fontsize=14,
-				padding=0,
-				text='﬙ '
-				),
-			widget.CPU(
-				foreground=colours[3],
-				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
-				format='{load_percent}%',
-				update_interval=1.0
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				foreground=colours[4],
-				fontsize=14,
-				padding=0,
-				text=' '
-				),
-			widget.Memory(
-				foreground=colours[4],
-				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
-				format='{MemUsed} MB'
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				foreground=colours[5],
-				fontsize=14,
-				padding=0,
-				text=' '
-				),
-			widget.ThermalSensor(
-				foreground=colours[5],
-				threshold=80,
-				foreground_alert=colours[3],
-				tag_sensor="Tctl"
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				foreground=colours[6],
-				fontsize=14,
-				padding=0,
-				text='墳 '
-				),
-			widget.Volume(
-				foreground=colours[6],
-				step=5
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			#widget.Net(
-			#	background=colours[7],
-			#	interface='enp1s0',
-			#	format='NET {down} ↓↑ {up}'
-			#	),
-			#widget.StockTicker(
-			#	apikey='AESKWL5CJVHHJKR5',
-			#	url='https://www.alphavantage.co/query?'
-			#	),
-			widget.Battery(
-				font="JetBrainsMono Nerd Font Regular",
-				fontsize=14,
-				padding=0,
-				foreground=colours[7],
-				charge_char=' ',
-				discharge_char=' ',
-				empty_char=' ',
-				full_char=' ',
-				unknown_char=' ',
-				format='{char}',
-				low_foreground=colours[3],
-				show_short_text=False
-				),
-			widget.Battery(
-				foreground=colours[7],
-				format='{percent:2.0%}',
-				low_foreground=colours[3],
-				notify_below=20,
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.Clock(
-				foreground=colours[8],
-				format='%a %b %d  %I:%M %P    ',
-				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e cal')}
-				)
-			],
-			18,
-		),
-	)
+widgets = [
+	widget.Sep(
+		foreground=colours[0],
+		linewidth=4
+	),
+	widget.Image(
+		scale=True,
+		mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn("rofi -show drun")},
+		filename="~/.config/qtile/py.png"
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.GroupBox(
+		padding=0,
+		active=colours[4],
+		inactive=colours[6],
+		margin=2,
+		highlight_method='text',
+		this_current_screen_border=colours[7],
+		urgent_alert_method='text',
+		urgent_border=colours[3],
+		urgent_text=colours[3],
+		disable_drag=True,
+		invert_mouse_wheel=True
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.CurrentLayout(
+		font="SF Pro Text Semibold",
+		foreground=colours[7]
+	),
+	widget.Systray(
+		icon_size=14,
+		padding=4
+	),
+	widget.Cmus(
+		play_color=colours[1],
+		noplay_color=colours[2]
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.WindowName(
+	),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[3],
+		fontsize=14,
+		padding=0,
+		text='﬙ '
+	),
+	widget.CPU(
+		foreground=colours[3],
+		mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
+		format='{load_percent}%',
+		update_interval=1.0
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[4],
+		fontsize=14,
+		padding=0,
+		text=' '
+	),
+	widget.Memory(
+		foreground=colours[4],
+		mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
+		format='{MemUsed} MB'
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[5],
+		fontsize=14,
+		padding=0,
+		text=' '
+	),
+	widget.ThermalSensor(
+		foreground=colours[5],
+		threshold=80,
+		foreground_alert=colours[3],
+		tag_sensor="Tctl"
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[6],
+		fontsize=14,
+		padding=0,
+		text='墳 '
+	),
+	widget.Volume(
+		foreground=colours[6],
+		step=5
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	#widget.Net(
+	#	background=colours[7],
+	#	interface='enp1s0',
+	#	format='NET {down} ↓↑ {up}'
+	#	),
+	#widget.StockTicker(
+	#	apikey='AESKWL5CJVHHJKR5',
+	#	url='https://www.alphavantage.co/query?'
+	#	),
+	widget.Battery(
+		font="JetBrainsMono Nerd Font Regular",
+		fontsize=14,
+		padding=0,
+		foreground=colours[7],
+		charge_char=' ',
+		discharge_char=' ',
+		empty_char=' ',
+		full_char=' ',
+		unknown_char=' ',
+		format='{char}',
+		low_foreground=colours[3],
+		show_short_text=False
+	),
+	widget.Battery(
+		foreground=colours[7],
+		format='{percent:2.0%}',
+		low_foreground=colours[3],
+		notify_below=20,
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.Clock(
+		foreground=colours[8],
+		format='%a %b %d  %I:%M %P    '
+	),
 ]
+
+status_bar = lambda widgets: bar.Bar(widgets, 18, opacity=1.0)
+
+screens = [Screen(top=status_bar(widgets))]
+
+connected_monitors = subprocess.run(
+	"xrandr | grep 'connected' | cut -d ' ' -f 2",
+	shell=True,
+	stdout=subprocess.PIPE
+).stdout.decode("UTF-8").split("\n")[:-1].count("connected")
+
+if connected_monitors > 1:
+	for i in range(1, connected_monitors):
+		screens.append(Screen(top=status_bar(widgets)))
 
 mouse = [
 	Drag([mod], "Button1", lazy.window.set_position_floating(),

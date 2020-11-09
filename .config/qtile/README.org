@@ -13,7 +13,8 @@
 - [[#layouts][LAYOUTS]]
 - [[#colours][COLOURS]]
 - [[#prompt][PROMPT]]
-- [[#widgets--screens][WIDGETS & SCREENS]]
+- [[#widgets][WIDGETS]]
+- [[#bar--screens][BAR & SCREENS]]
 - [[#drag-floating-windows][DRAG FLOATING WINDOWS]]
 - [[#floating-windows-rules][FLOATING WINDOWS RULES]]
 - [[#startup-applications][STARTUP APPLICATIONS]]
@@ -24,7 +25,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on November 6, 2020 at 12:55 pm.
+This config file was modified by David Salomón on November 9, 2020 at 1:32 pm.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -242,13 +243,12 @@ These are the settings for the Qtile prompt, I prefer to use rofi instead.
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 #+END_SRC
 
-* WIDGETS & SCREENS
-This section configures what you actually see on the screen, the "widget_defaults" section has set to... well... the defaults for all the widgets that you will set. On the "screens" section you set the bar with the widgets that are going to appear on it, you can change the "top" to "bottom" if you want your bar sitting at the bottom of the screen. The widget list that I have defined is mostly oriented to a laptop user. Feel free to add, remove or modify all the widgets that you want, make this config suitable to your needs and liking :)
-
-PD: At the end of this section there's a number 18 floating there all alone and sad, that's the height of the bar in pixels.
+* WIDGETS
+This section configures what you'll see on the bar, the "widget_defaults" section has set to... well... the defaults for all the widgets that you will set. Next to it you'll find an array called "widgets", those are the widgets that are going to appear on the bar (or panel if you like to call it like that). The widget list that I have defined is mostly oriented to a laptop user. Feel free to add, remove or modify all the widgets that you want, make this config suitable to your needs and liking :). One thing really important, these widgets are going to appear on every screen connected to your computer, if you want a secondary list based on the one showed here, change it's name to something different (eg. secondary_widgets) to avoid conflicts and remove or edit the wigets you want.
 
 #+BEGIN_SRC python
-widget_defaults = dict(background= colours[0],
+widget_defaults = dict(
+	background= colours[0],
 	foreground=colours[1],
 	font="SF Pro Text Regular",
 	fontsize=12,
@@ -256,177 +256,188 @@ widget_defaults = dict(background= colours[0],
 	)
 extension_defaults = widget_defaults.copy()
 
-screens = [
-	Screen(
-		top=bar.Bar(
-			[
-			widget.Sep(
-				foreground=colours[0],
-				linewidth=4
-				),
-			widget.Image(
-				scale=True,
-				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn("rofi -show drun")},
-				filename="~/.config/qtile/py.png"
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.GroupBox(
-				padding=0,
-				active=colours[4],
-				inactive=colours[6],
-				margin=2,
-				highlight_method='text',
-				this_current_screen_border=colours[7],
-				urgent_alert_method='text',
-				urgent_border=colours[3],
-				urgent_text=colours[3],
-				disable_drag=True,
-				invert_mouse_wheel=True
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.CurrentLayout(
-				font="SF Pro Text Semibold",
-				foreground=colours[7]
-				),
-			widget.Systray(
-				icon_size=14,
-				padding=4
-				),
-			widget.Cmus(
-				play_color=colours[1],
-				noplay_color=colours[2]
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.WindowName(
-				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				foreground=colours[3],
-				fontsize=14,
-				padding=0,
-				text='﬙ '
-				),
-			widget.CPU(
-				foreground=colours[3],
-				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
-				format='{load_percent}%',
-				update_interval=1.0
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				foreground=colours[4],
-				fontsize=14,
-				padding=0,
-				text=' '
-				),
-			widget.Memory(
-				foreground=colours[4],
-				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
-				format='{MemUsed} MB'
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				foreground=colours[5],
-				fontsize=14,
-				padding=0,
-				text=' '
-				),
-			widget.ThermalSensor(
-				foreground=colours[5],
-				threshold=80,
-				foreground_alert=colours[3],
-				tag_sensor="Tctl"
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.TextBox(
-				font="JetBrainsMono Nerd Font Regular",
-				foreground=colours[6],
-				fontsize=14,
-				padding=0,
-				text='墳 '
-				),
-			widget.Volume(
-				foreground=colours[6],
-				step=5
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			#widget.Net(
-			#	background=colours[7],
-			#	interface='enp1s0',
-			#	format='NET {down} ↓↑ {up}'
-			#	),
-			#widget.StockTicker(
-			#	apikey='AESKWL5CJVHHJKR5',
-			#	url='https://www.alphavantage.co/query?'
-			#	),
-			widget.Battery(
-				font="JetBrainsMono Nerd Font Regular",
-				fontsize=14,
-				padding=0,
-				foreground=colours[7],
-				charge_char=' ',
-				discharge_char=' ',
-				empty_char=' ',
-				full_char=' ',
-				unknown_char=' ',
-				format='{char}',
-				low_foreground=colours[3],
-				show_short_text=False
-				),
-			widget.Battery(
-				foreground=colours[7],
-				format='{percent:2.0%}',
-				low_foreground=colours[3],
-				notify_below=20,
-				),
-			widget.Sep(
-				foreground=colours[2],
-				linewidth=1,
-				padding=10
-				),
-			widget.Clock(
-				foreground=colours[8],
-				format='%a %b %d  %I:%M %P    ',
-				mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e cal')}
-				)
-			],
-			18,
-		),
-	)
+widgets = [
+	widget.Sep(
+		foreground=colours[0],
+		linewidth=4
+	),
+	widget.Image(
+		scale=True,
+		mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn("rofi -show drun")},
+		filename="~/.config/qtile/py.png"
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.GroupBox(
+		padding=0,
+		active=colours[4],
+		inactive=colours[6],
+		margin=2,
+		highlight_method='text',
+		this_current_screen_border=colours[7],
+		urgent_alert_method='text',
+		urgent_border=colours[3],
+		urgent_text=colours[3],
+		disable_drag=True,
+		invert_mouse_wheel=True
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.CurrentLayout(
+		font="SF Pro Text Semibold",
+		foreground=colours[7]
+	),
+	widget.Systray(
+		icon_size=14,
+		padding=4
+	),
+	widget.Cmus(
+		play_color=colours[1],
+		noplay_color=colours[2]
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.WindowName(
+	),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[3],
+		fontsize=14,
+		padding=0,
+		text='﬙ '
+	),
+	widget.CPU(
+		foreground=colours[3],
+		mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
+		format='{load_percent}%',
+		update_interval=1.0
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[4],
+		fontsize=14,
+		padding=0,
+		text=' '
+	),
+	widget.Memory(
+		foreground=colours[4],
+		mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
+		format='{MemUsed} MB'
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[5],
+		fontsize=14,
+		padding=0,
+		text=' '
+	),
+	widget.ThermalSensor(
+		foreground=colours[5],
+		threshold=80,
+		foreground_alert=colours[3],
+		tag_sensor="Tctl"
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[6],
+		fontsize=14,
+		padding=0,
+		text='墳 '
+	),
+	widget.Volume(
+		foreground=colours[6],
+		step=5
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	#widget.Net(
+	#	background=colours[7],
+	#	interface='enp1s0',
+	#	format='NET {down} ↓↑ {up}'
+	#	),
+	#widget.StockTicker(
+	#	apikey='AESKWL5CJVHHJKR5',
+	#	url='https://www.alphavantage.co/query?'
+	#	),
+	widget.Battery(
+		font="JetBrainsMono Nerd Font Regular",
+		fontsize=14,
+		padding=0,
+		foreground=colours[7],
+		charge_char=' ',
+		discharge_char=' ',
+		empty_char=' ',
+		full_char=' ',
+		unknown_char=' ',
+		format='{char}',
+		low_foreground=colours[3],
+		show_short_text=False
+	),
+	widget.Battery(
+		foreground=colours[7],
+		format='{percent:2.0%}',
+		low_foreground=colours[3],
+		notify_below=20,
+	),
+	widget.Sep(
+		foreground=colours[2],
+		linewidth=1,
+		padding=10
+	),
+	widget.Clock(
+		foreground=colours[8],
+		format='%a %b %d  %I:%M %P    '
+	),
 ]
 #+END_SRC
 
-#+RESULTS:
+* BAR & SCREENS
+Despite not having too much lines of code, this section is severely important. In the first code line you'll find "status_bar", this creates the bar (or panel) based on the widget list on the previous section of this config, the number 18 that you see inside the parenthesis is the height of the bar in pixels and the opacity value is the transparency that the bar will have. The opacity is a number between 0 and 1, being 0 completely transparent (invisible) and 1 without transparency at all. For example if you want a bar with 90% transparency, change the value to 0.90. Now to the "screens" section, in this line you probably just want to change the word "top" (it'll put the bar on the top of the screen), change it for "bottom" and see what happens (remember to restart Qtile when you do changes to the config file!).
+
+The code that follows "screens" detect if other monitors are connected to your computer, and if that's the case, the next block of code (the one that starts with the "if" statement) will start the rest of the screens automatically (quite cool ehh!). Remember that I told you that if you wanted to create a secondary list of widgets you could do that without problem? here's were you'll use it, in the line "screens.append(Screen(top=status_bar(widgets)))" change the "widgets" word to the name of your secondary list of widgets, if you named it "secondary_widgets" then this line will be "screens.append(Screen(top=status_bar(secondary_widgets)))", now your main screen will have all the widgets that you set on the "widgets" array and the secondary widgets (if you created them) will appear on the secondary screens connected to your computer (eg. A TV when you want to watch Netflix).
+
+#+BEGIN_SRC python
+status_bar = lambda widgets: bar.Bar(widgets, 18, opacity=1.0)
+
+screens = [Screen(top=status_bar(widgets))]
+
+connected_monitors = subprocess.run(
+	"xrandr | grep 'connected' | cut -d ' ' -f 2",
+	shell=True,
+	stdout=subprocess.PIPE
+).stdout.decode("UTF-8").split("\n")[:-1].count("connected")
+
+if connected_monitors > 1:
+	for i in range(1, connected_monitors):
+		screens.append(Screen(top=status_bar(widgets)))
+#+END_SRC
 
 * DRAG FLOATING WINDOWS
 Very descriptive title, if you want to change your current window to floating, press the mod key you've set and then the left click on the mouse. If you want to resize a window press the mod key followed by the right click on the mouse and drag the mouse to the direction you want to resize the window, hope that make sense, if not, sorry for my bad English. And lastly, if one of your floating windows is sitting on top of another one, place the cursor on the window that is below, press the mod key and the key of the scrolling wheel on your mouse in order to bring that window on top.
