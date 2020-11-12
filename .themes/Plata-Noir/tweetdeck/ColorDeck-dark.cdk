@@ -1,0 +1,24 @@
+{
+  "data":{
+    "colors":{
+      "c_principal":"#1D1D1D",
+      "c_background":"#1D1D1D",
+      "c_ct_background":"#080808",
+      "c_ct_background2":"#080808",
+      "c_ct_text":"#F5F5F5",
+      "c_cw_background":"#5294e2",
+      "c_cw_text":"#FFFFFF",
+      "c_links":"#52B2FF",
+      "c_ml_background":"#1D1D1D",
+      "c_ml_icons":"#D9D9D9",
+      "c_ntfBubble_color":"#84beea",
+      "c_ntf_background":"#4fa2e1",
+      "c_ntf_text":"#FFFFFF",
+      "c_scrollbar":"#828282",
+      "c_tw_background":"#111111",
+      "c_tw_text":"#F5F5F5",
+      "ct_backgroundType":"solid",
+      "mode":"advanced"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Plata-Compact
+Comment=A Gtk theme based on Material Design 2 with compact elements
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+Type=X-GNOME-Metatheme
+GtkTheme=Plata-Compact
+MetacityTheme=Plata-Compact
+IconTheme=Adwaita
+CursorTheme=Adwaita
