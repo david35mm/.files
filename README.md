@@ -30,8 +30,6 @@ I also have uploaded some dotfiles not related to window managers.
 
 ## Who is David Salomón?
 
-![Profile Picture](https://avatars3.githubusercontent.com/u/66393355?s=400&u=9665c6b3d9a0f726d98e22120dd03c1c85e53e12&v=4)
-
 I am an Electronic Engineering student, passionate about computers and everything related to it. I was born in Bogotá, the capital city of the South American country Colombia. My nickname in almost all of the social media I am registered on is david.35mm. Why? In the last few years, one of my main hobbies has been photography, I even started a small [YouTube channel](https://www.youtube.com/channel/UC-8MDD0AHj0-ZUPolunq6MQ). There I shared some tips and explain some concepts about photography, you are free to check out my videos but... as a native Spanish speaker all of my videos are going to be in that language. The 35mm on my nickname is because of the measurement of the photographic film used in the past. As a photography enthusiast I also have my own [portfolio](https://spark.adobe.com/page/yADDtrHvBow4p/), as you can see I love portraits and thus I base almost all of my work on this type of art.
 
 ### Here is a quick access to my active social media
@@ -50,4 +48,4 @@ I have a [PayPal link](https://paypal.me/david35mm) where you can send me your d
 
 ## A one last thing
 
-If you are wondering what GNU/Linux distribution I use, it is Fedora. Want to talk with me (or even practice your Spanish)? DM me over on [Instagram](https://www.instagram.com/david.35mm).
+If you are wondering what GNU/Linux distribution I use, it is Fedora. Want to talk with me (or even practise your Spanish)? DM me over on [Instagram](https://www.instagram.com/david.35mm).
