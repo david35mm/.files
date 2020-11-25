@@ -1,5 +1,10 @@
 # .bashrc
 
+export EDITOR="nvim"
+export TERMINAL="alacritty"
+export BROWSER="brave-browser"
+export MANPAGER="nvim -c 'set ft=man' -"
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -153,6 +158,9 @@ alias ccommit='config commit -m'
 alias cpush='config push'
 alias cpull='config pull'
 alias cstatus='config status'
+
+#Xephyr
+alias Xephyr='Xephyr :5 & sleep 1 ; DISPLAY=:5'
 
 #gpg
 #verify signature for isos
