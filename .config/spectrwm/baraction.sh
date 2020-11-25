@@ -34,9 +34,9 @@ vol() {
 
 	if [[ "$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4}' | grep -c "off")" -eq 1 ]]
 	then
-		echo "+@fn=2; 婢 +@fn=0;OFF"
+		echo "+@fn=2;婢 +@fn=0;OFF"
 	else
-		echo -e "+@fn=2; 墳 +@fn=0;$vol"
+		echo -e "+@fn=2;墳 +@fn=0;$vol"
 	fi
 }
 
@@ -62,12 +62,12 @@ stat() {
 
 	if [[ "$(acpi -b|grep -c "Full")" -eq 1 ]]
 	then
-		echo "  +@fn=0;Full"
+		echo " +@fn=0;Full"
 	elif [ $ac_power -eq 1 ]
 		then
-			echo " "
+			echo " "
 		else
-			echo " "
+			echo " "
 	fi
 }
 
@@ -75,7 +75,7 @@ stat() {
 #	    CPU TEMP
 ##############################
 cputmp() {
-	temp="$(sensors | awk '/edge/ {printf $2}' | cut -d "+" -f2)"
+	temp="$(sensors | awk '/Tctl/ {printf $2}' | cut -d "+" -f2)"
 	echo "$temp"
 }
 
@@ -85,6 +85,6 @@ cputmp() {
 SLEEP_SEC=0.3
 #loops forever outputting a line every SLEEP_SEC secs
 while :; do
-	echo "+@fn=2;+@fg=4; +@fg=0;+@bg=3; ﬙ +@fn=0;$(cpu) +@fn=2;+@fg=5; +@fg=0;+@bg=4;  +@fn=0;$(mem) +@fn=2;+@fg=6; +@fg=0;+@bg=5;  +@fn=0;$(cputmp) +@fn=2;+@fg=7; +@fg=0;+@bg=6;$(vol) +@fn=2;+@fg=8; +@fg=0;+@bg=7;$(stat)+@fn=0; $(bat) +@fn=2;+@fg=9; +@fg=0;+@fn=0;+@bg=8;"
+	echo "+@fn=2;+@fg=2;﬙ +@fn=0;$(cpu) +@fg=1;| +@fn=2;+@fg=3; +@fn=0;$(mem) +@fg=1;| +@fn=2;+@fg=4; +@fn=0;$(cputmp) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fn=2;+@fg=6;$(stat)+@fn=0;$(bat) +@fg=1;|+@fg=7;"
 	sleep $SLEEP_SEC
 done
