@@ -1,28 +1,15 @@
 ############### COLOURS ###############
 
 [colours]
-background		= #1A1211
-background-alt	= #101010
-foreground		= #EDEFF2
-foreground-alt	= #A8BAB3
-greycolour		= #75827D
-1colour			= #324F6B
-2colour			= #205E74
-3colour			= #494956
-4colour			= #49546A
-5colour			= #606970
-6colour			= #897B75
-
-background-simple = #BF141414
-foreground-simple = #FFFFFF
-greycolour-simple = #848484
-1colour-simple	  = #E35374
-2colour-simple	  = #98C379
-3colour-simple	  = #F0C674
-4colour-simple	  = #61AFEF
-5colour-simple	  = #C678DD
-6colour-simple	  = #56B6BC
-
+background = #141414
+foreground = #FFFFFF
+greycolour = #848484
+1colour	   = #E35374
+2colour	   = #98C379
+3colour	   = #F0C674
+4colour	   = #61AFEF
+5colour	   = #C678DD
+6colour	   = #56B6BC
 
 ############### GLOBAL WM SETTINGS ###############
 [global/wm]
@@ -252,55 +239,75 @@ enable-ipc = false
 
 ############################################
 
-[bar/powerline]
-inherit = bar/defaults
-background = ${colours.background}
-foreground = ${colours.foreground}
-battery-background = ${colours.5colour}
-cpu-background = ${colours.1colour}
-date-background = ${colours.6colour}
-memory-background = ${colours.2colour}
-volume-background = ${colours.4colour}
-temperature-background = ${colours.3colour}
-wname-background = ${colours.background}
-modules-left = startmenu 8sep ewmh 7sep xwindow
-modules-center =
-modules-right = 6sep cpu 5sep memory 4sep temperature 3sep pulseaudio 2sep battery 1sep date
-
 [bar/simple]
+background = ${colours.background}
 inherit = bar/defaults
-module-margin = 2
-background = ${colours.background-simple}
-foreground = ${colours.foreground-simple}
-tray-background = ${colours.background-simple}
-battery-background = ${colours.background-simple}
-cpu-background = ${colours.background-simple}
-date-background = ${colours.background-simple}
-memory-background = ${colours.background-simple}
-volume-background = ${colours.background-simple}
-temperature-background = ${colours.background-simple}
-wname-background = ${colours.background-simple}
-
-;tray-foreground = ${colours.background-simple}
-battery-foreground = ${colours.5colour-simple}
-cpu-foreground = ${colours.1colour-simple}
-date-foreground = ${colours.6colour-simple}
-memory-foreground = ${colours.2colour-simple}
-volume-foreground = ${colours.4colour-simple}
-temperature-foreground = ${colours.3colour-simple}
-ewmh-background = ${colours.background-simple}
-ewmh-active-background = ${colours.greycolour-simple}
+module-margin = 1
 separator = |
 modules-left = startmenu ewmh xwindow
 ;modules-center =  
-modules-right = cpu memory temperature pulseaudio battery date
+modules-right = cpu memory backlight pulseaudio battery date
 
 [bar/spectrwm]
 inherit = bar/simple
 override-redirect = true
 
 ############### BUILT-IN MODULES ###############
-	#### BATTERY ####
+
+#	    ____             __   ___       __    __
+#	   / __ )____ ______/ /__/ (_)___ _/ /_  / /_
+#	  / __  / __ `/ ___/ //_/ / / __ `/ __ \/ __/
+#	 / /_/ / /_/ / /__/ ,< / / / /_/ / / / / /_
+#	/_____/\__,_/\___/_/|_/_/_/\__, /_/ /_/\__/
+#	                          /____/
+
+[module/backlight]
+type = internal/backlight
+
+; Use the following command to list available cards:
+; $ ls /sys/class/backlight/
+card = amdgpu_bl0
+
+; Enable changing the backlight with the scroll wheel
+; NOTE: This may require additional configuration on some systems. Polybar will
+; write to `/sys/class/backlight/${self.card}/brightness` which requires polybar
+; to have write access to that file.
+; DO NOT RUN POLYBAR AS ROOT. 
+; The recommended way is to add the user to the
+; `video` group and give that group write-privileges for the `brightness` file.
+; See the ArchWiki for more information:
+; https://wiki.archlinux.org/index.php/Backlight#ACPI
+; Default: false
+enable-scroll = true
+
+; Available tags:
+;   <label> (default)
+;   <ramp>
+;   <bar>
+format = %{T3}<ramp>%{T-}<label>
+format-background = ${colours.background}
+format-foreground = ${colours.3colour}
+
+; Available tokens:
+;   %percentage% (default)
+label = %percentage%%
+
+; Only applies if <ramp> is used
+ramp-6 = " "
+ramp-5 = " "
+ramp-4 = " "
+ramp-3 = " "
+ramp-2 = " "
+ramp-1 = " "
+ramp-0 = " "
+
+#	    ____        __  __
+#	   / __ )____ _/ /_/ /____  _______  __
+#	  / __  / __ `/ __/ __/ _ \/ ___/ / / /
+#	 / /_/ / /_/ / /_/ /_/  __/ /  / /_/ /
+#	/_____/\__,_/\__/\__/\___/_/   \__, /
+#	                              /____/
+
 [module/battery]
 type = internal/battery
 
@@ -326,8 +333,8 @@ poll-interval = 5
 ;   <ramp-capacity>
 ;   <animation-charging>
 format-charging = %{T3}<animation-charging>%{T-}<label-charging>
-format-charging-background = ${root.battery-background}
-format-charging-foreground = ${root.battery-foreground}
+format-charging-background = ${colours.background}
+format-charging-foreground = ${colours.5colour}
 
 ; Available tags:
 ;   <label-discharging> (default)
@@ -335,16 +342,16 @@ format-charging-foreground = ${root.battery-foreground}
 ;   <ramp-capacity>
 ;   <animation-discharging>
 format-discharging = %{T3}<ramp-capacity>%{T-}<label-discharging>
-format-discharging-background = ${root.battery-background}
-format-discharging-foreground = ${root.battery-foreground}
+format-discharging-background = ${colours.background}
+format-discharging-foreground = ${colours.5colour}
 
 ; Available tags
 ;   <label-full> (default)
 ;   <bar-capacity>
 ;   <ramp-capacity>
 ;format-full = <ramp-capacity> <label-full>
-format-full-background = ${root.battery-background}
-format-full-foreground = ${root.battery-foreground}
+format-full-background = ${colours.background}
+format-full-foreground = ${colours.5colour}
 
 ; Available tokens:
 ;   %percentage% (default) - is set to 100 if full-at is reached
@@ -387,7 +394,12 @@ animation-charging-4 = " "
 ; Framerate in milliseconds
 animation-charging-framerate = 750
 
-	#### CPU ####
+#	   __________  __  __
+#	  / ____/ __ \/ / / /
+#	 / /   / /_/ / / / /
+#	/ /___/ ____/ /_/ /
+#	\____/_/    \____/
+
 [module/cpu]
 type = internal/cpu
 
@@ -397,8 +409,8 @@ type = internal/cpu
 ;   <ramp-load>
 ;   <ramp-coreload>
 format = %{T3}﬙ %{T-}<label>
-format-background = ${root.cpu-background}
-format-foreground = ${root.cpu-foreground}
+format-background = ${colours.background}
+format-foreground = ${colours.1colour}
 
 ; Available tokens:
 ;   %percentage% (default) - total cpu load averaged over all cores
@@ -411,7 +423,12 @@ label = %percentage%%
 ; Default: 1
 interval = 1
 
-	#### DATE & TIME ####
+#	    ____        __                   _______
+#	   / __ \____ _/ /____              /_  __(_)___ ___  ___
+#	  / / / / __ `/ __/ _ \   ______     / / / / __ `__ \/ _ \
+#	 / /_/ / /_/ / /_/  __/  /_____/    / / / / / / / / /  __/
+#	/_____/\__,_/\__/\___/             /_/ /_/_/ /_/ /_/\___/
+
 [module/date]
 type = internal/date
 
@@ -426,10 +443,21 @@ time-alt = %T
 ;label = "%date% %time%  "
 label = "%date%  %time%    "
 label-font = 0
-label-background = ${root.date-background}
-label-foreground = ${root.date-foreground}
+label-background = ${colours.background}
+label-foreground = ${colours.6colour}
 
-	#### WORKSPACE NAME ####
+#	 _       __           __
+#	| |     / /___  _____/ /___________  ____ _________
+#	| | /| / / __ \/ ___/ //_/ ___/ __ \/ __ `/ ___/ _ \
+#	| |/ |/ / /_/ / /  / ,< (__  ) /_/ / /_/ / /__/  __/
+#	|__/|__/\____/_/  /_/|_/____/ .___/\__,_/\___/\___/
+#	                           /_/
+#	    _   __
+#	   / | / /___ _____ ___  ___
+#	  /  |/ / __ `/ __ `__ \/ _ \
+#	 / /|  / /_/ / / / / / /  __/
+#	/_/ |_/\__,_/_/ /_/ /_/\___/
+
 [module/ewmh]
 type = internal/xworkspaces
 
@@ -481,8 +509,8 @@ label-monitor = %name%
 ;   %index%
 ; Default: %icon%  %name%
 label-active = %icon%%name%
-label-active-foreground = ${root.foreground}
-label-active-background = ${root.ewmh-active-background}
+label-active-foreground = ${colours.5colour}
+label-active-background = ${colours.background}
 label-active-padding = 1
 
 ; (unreleased)
@@ -492,8 +520,9 @@ label-active-padding = 1
 ;   %index%
 ; Default: %icon%  %name%
 label-occupied = %icon%
-label-occupied-foreground = ${root.ewmh-background}
-label-occupied-underline = #9b0a20
+label-occupied-background = ${colours.background}
+label-occupied-foreground = ${colours.2colour}
+label-occupied-underline = ${colours.2colour}
 
 ; Available tokens:
 ;   %name%
@@ -501,9 +530,9 @@ label-occupied-underline = #9b0a20
 ;   %index%
 ; Default: %icon%  %name%
 label-urgent = %icon%
-label-urgent-foreground = #000000
-label-urgent-background = #bd2c40
-label-urgent-underline = #9b0a20
+label-urgent-foreground = ${colours.1colour}
+label-urgent-background = ${colours.background}
+label-urgent-underline = ${colours.1colour}
 label-urgent-padding = 4
 
 ; Available tokens:
@@ -512,11 +541,17 @@ label-urgent-padding = 4
 ;   %index%
 ; Default: %icon%  %name%
 label-empty = %icon%
-label-empty-foreground = ${root.foreground}
-label-empty-background = ${root.ewmh-background}
+label-empty-foreground = ${colours.4colour}
+label-empty-background = ${colours.background}
 label-empty-padding = 1
 
-	#### MEMORY ####
+#	    __  ___
+#	   /  |/  /__  ____ ___  ____  _______  __
+#	  / /|_/ / _ \/ __ `__ \/ __ \/ ___/ / / /
+#	 / /  / /  __/ / / / / / /_/ / /  / /_/ /
+#	/_/  /_/\___/_/ /_/ /_/\____/_/   \__, /
+#	                                 /____/
+
 [module/memory]
 type = internal/memory
 
@@ -535,8 +570,8 @@ interval = 3
 ;   <ramp-swap-used>
 ;   <ramp-swap-free>
 format = %{T3} %{T-}<label>
-format-background = ${root.memory-background}
-format-foreground = ${root.memory-foreground}
+format-background = ${colours.background}
+format-foreground = ${colours.2colour}
 
 ; Available tokens:
 ;   %percentage_used% (default)
@@ -558,7 +593,12 @@ format-foreground = ${root.memory-foreground}
 
 label = %mb_used%
 
-	#### VOLUME ####
+#	 _    __      __
+#	| |  / /___  / /_  ______ ___  ___
+#	| | / / __ \/ / / / / __ `__ \/ _ \
+#	| |/ / /_/ / / /_/ / / / / / /  __/
+#	|___/\____/_/\__,_/_/ /_/ /_/\___/
+
 [module/pulseaudio]
 type = internal/pulseaudio
 
@@ -579,16 +619,16 @@ interval = 5
 ;   <ramp-volume>
 ;   <bar-volume>
 format-volume = %{T3}<ramp-volume>%{T-}<label-volume>
-format-volume-background = ${root.volume-background}
-format-volume-foreground = ${root.volume-foreground}
+format-volume-background = ${colours.background}
+format-volume-foreground = ${colours.4colour}
 
 ; Available tags:
 ;   <label-muted> (default)
 ;   <ramp-volume>
 ;   <bar-volume>
 ;format-muted = <label-muted>
-format-muted-background = ${root.volume-background}
-format-muted-foreground = ${root.volume-foreground}
+format-muted-background = ${colours.background}
+format-muted-foreground = ${colours.4colour}
 
 ; Available tokens:
 ;   %percentage% (default)
@@ -605,7 +645,13 @@ ramp-volume-0 = "奄 "
 ramp-volume-1 = "奔 "
 ramp-volume-2 = "墳 "
 
-#### TEMPERATURE ####
+#	  ______                                     __
+#	 /_  __/__  ____ ___  ____  ___  _________ _/ /___  __________
+#	  / / / _ \/ __ `__ \/ __ \/ _ \/ ___/ __ `/ __/ / / / ___/ _ \
+#	 / / /  __/ / / / / / /_/ /  __/ /  / /_/ / /_/ /_/ / /  /  __/
+#	/_/  \___/_/ /_/ /_/ .___/\___/_/   \__,_/\__/\__,_/_/   \___/
+#	                  /_/
+
 [module/temperature]
 type = internal/temperature
 
@@ -642,14 +688,14 @@ units = true
 ;   <label> (default)
 ;   <ramp>
 format = %{T3}<ramp>%{T-}<label>
-format-background = ${root.temperature-background}
-format-foreground = ${root.temperature-foreground}
+format-background = ${colours.background}
+format-foreground = ${colours.3colour}
 
 ; Available tags:
 ;   <label-warn> (default)
 ;   <ramp>
 format-warn = %{T3}<ramp>%{T-}<label-warn>
-format-warn-background = ${root.temperature-background}
+format-warn-background = ${colours.background}
 
 ; Available tokens:
 ;   %temperature% (deprecated)
@@ -662,7 +708,7 @@ label = %temperature-c%
 ;   %temperature-c%   (default, temperature in °C)
 ;   %temperature-f%   (temperature in °F)
 label-warn = %temperature-c%
-label-warn-foreground = #DB2D20
+label-warn-foreground = ${colours.1colour}
 
 ; Requires the <ramp> tag
 ; The icon selection will range from `base-temperature` to `warn-temperature`,
@@ -672,13 +718,18 @@ ramp-0 = " "
 ramp-1 = " "
 ramp-2 = " "
 
-	#### WINDOW NAME ####
+#	 _       ___           __                 _   __
+#	| |     / (_)___  ____/ /___ _      __   / | / /___ _____ ___  ___
+#	| | /| / / / __ \/ __  / __ \ | /| / /  /  |/ / __ `/ __ `__ \/ _ \
+#	| |/ |/ / / / / / /_/ / /_/ / |/ |/ /  / /|  / /_/ / / / / / /  __/
+#	|__/|__/_/_/ /_/\__,_/\____/|__/|__/  /_/ |_/\__,_/_/ /_/ /_/\___/
+
 [module/xwindow]
 type = internal/xwindow
 ; Available tags:
 ;   <label> (default)
 format = <label>
-format-background = ${root.wname-background}
+format-background = ${colours.background}
 format-foreground = ${colours.foreground}
 format-padding = 0
 
@@ -736,9 +787,8 @@ content-background = ${colours.background}
 type = custom/text
 content = "  "
 
-content-background = ${root.wname-background}
-content-foreground = ${colours.6colour-simple}
-;content-foreground = #DB2D20
+content-background = ${colours.background}
+content-foreground = ${colours.6colour}
 content-font = 3
 
 ; "click-(left|middle|right)" will be executed using "/bin/sh -c $COMMAND"
