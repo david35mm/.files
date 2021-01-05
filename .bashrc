@@ -3,7 +3,7 @@
 export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="brave-browser"
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER="nvim +Man!"
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -72,14 +72,14 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 #some flags
-alias vi='nvim'
+alias vi='vim'
 alias vim='nvim'
 alias wget='wget -c'
 alias cp='cp -i'
 alias df='df -h'
 alias free='free -mt'
 alias lynx='lynx -accept_all_cookies'
-alias librespot='librespot -n "yourDevice" -b 320 -u yourUsername -p yourPassword -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
+alias librespot='librespot -n "A315-41" -b 320 -u yourUsername -p yourPassword -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
 
 #userlist
 alias userlist='cut -d: -f1 /etc/passwd'
@@ -88,8 +88,8 @@ alias userlist='cut -d: -f1 /etc/passwd'
 alias merge='xrdb -merge ~/.Xresources'
 
 # Aliases for software managment
-alias dnf='sudo dnf'
-alias update='sudo dnf -y update'
+#alias dnf='sudo dnf'
+#alias update='sudo dnf -y update'
 alias autorm='sudo dnf -y autoremove'
 alias rmcache='sudo dnf clean all'
 alias mkcache='sudo dnf makecache'
@@ -138,14 +138,14 @@ alias ytv-best="youtube-dl -f bestvideo+bestaudio "
 alias jctl='journalctl -p 3 -xb'
 
 #vim for important configuration files
-alias vqtile='vi ~/.config/qtile/config.py'
-alias vdnf='sudo nvim /etc/dnf/dnf.conf'
-alias vpicom='vi ~/.config/picom/picom.conf'
-alias valacritty='vi ~/.config/alacritty/alacritty.yml'
-alias vbashrc='vi ~/.bashrc'
-alias vvim='vi ~/.vimrc'
-alias vspectrwm='vi ~/.config/spectrwm/spectrwm.conf'
-alias vherbstluftwm='vi ~/.config/herbstluftwm/autostart'
+alias vqtile='vim ~/.config/qtile/config.py'
+alias vdnf='sudo vim /etc/dnf/dnf.conf'
+alias vpicom='vim ~/.config/picom/picom.conf'
+alias valacritty='vim ~/.config/alacritty/alacritty.yml'
+alias vbashrc='vim ~/.bashrc'
+alias vvim='vim ~/.vimrc'
+alias vspectrwm='vim ~/.config/spectrwm/spectrwm.conf'
+alias vherbstluftwm='vim ~/.config/herbstluftwm/autostart'
 
 #git
 alias addot='git add .'
@@ -171,6 +171,10 @@ alias gpg-retrieve='gpg2 --keyserver-options auto-key-retrieve --receive-keys'
 #shutdown or reboot
 alias pwroff='systemctl poweroff'
 alias pwrbt='systemctl reboot'
+
+#miscellaneous
+alias chogg='find . -type f -name "*.opus" -exec rename .opus .ogg \{\} \;'
+alias chopus='find . -type f -name "*.ogg" -exec rename .ogg .opus \{\} \;'
 
 #bluetooth control
 alias blt='bluetoothctl power on & bluetoothctl connect 5C:EB:68:7E:12:7B'
