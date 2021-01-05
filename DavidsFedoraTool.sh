@@ -12,7 +12,7 @@ welcome () {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 1.3                                 ="
+	echo "=     Version 1.4                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -55,8 +55,8 @@ clonebare () {
 	sleep 1
 	sudo rm -rf .config/ .bashrc
 	alias config='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
-	config checkout
-	config config --local status.showUntrackedFiles no
+	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME checkout
+	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME config --local status.showUntrackedFiles no
 	echo -e "\n"
 	echo "You have cloned David's repo successfully"
 	sleep 2
