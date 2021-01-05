@@ -48,13 +48,12 @@ clone () {
 #
 clonebare () {
 	clear
-	echo "These script will rename your .config/ folder and your .bashrc"
+	echo "These script will remove your .config/ folder and your .bashrc"
 	echo "You have 5 seconds to press Ctrl+C on your keyboard to cancel"
 	sleep 5
 	git clone --bare git@github.com:david35mm/.files.git $HOME/.files
 	sleep 1
-	mv .config/ .oldconfig/
-	mv .bashrc .oldbashrc
+	sudo rm -rf .config/ .bashrc
 	alias config='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
 	config checkout
 	config config --local status.showUntrackedFiles no
@@ -351,7 +350,7 @@ ROOTUSER () {
 }
 #
 #
-ROOTUSER
+# ROOTUSER
 handlerr
 welcome
 main_menu
