@@ -209,18 +209,32 @@ widgets = [
 		linewidth=1,
 		padding=10
 	),
+	#widget.TextBox(
+	#	font="JetBrainsMono Nerd Font Regular",
+	#	foreground=colours[5],
+	#	fontsize=14,
+	#	padding=0,
+	#	text=' '
+	#),
+	#widget.ThermalSensor(
+	#	foreground=colours[5],
+	#	threshold=80,
+	#	foreground_alert=colours[3],
+	#	tag_sensor="Tctl"
+	#),
 	widget.TextBox(
 		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[5],
-		fontsize=14,
+		fontsize=12,
 		padding=0,
-		text=' '
+		text=' '
 	),
-	widget.ThermalSensor(
+	widget.Backlight(
 		foreground=colours[5],
-		threshold=80,
 		foreground_alert=colours[3],
-		tag_sensor="Tctl"
+		backlight_name='amdgpu_bl0',
+		change_command='brightnessctl set {0}',
+		step=5
 	),
 	widget.Sep(
 		foreground=colours[2],
@@ -264,12 +278,14 @@ widgets = [
 		unknown_char=' ',
 		format='{char}',
 		low_foreground=colours[3],
+		low_percentage=0.2,
 		show_short_text=False
 	),
 	widget.Battery(
 		foreground=colours[7],
 		format='{percent:2.0%}',
 		low_foreground=colours[3],
+		low_percentage=0.2,
 		notify_below=20,
 	),
 	widget.Sep(
@@ -324,6 +340,7 @@ floating_layout = layout.Floating(float_rules=[
 	{'wmclass': 'confirmreset'},  # gitk
 	{'wmclass': 'makebranch'},  # gitk
 	{'wmclass': 'maketag'},  # gitk
+	{'wname': 'Authentication'},  # Polkit agent
 	{'wname': 'branchdialog'},  # gitk
 	{'wname': 'pinentry'},  # GPG key password entry
 	{'wmclass': 'ssh-askpass'},  # ssh-askpass

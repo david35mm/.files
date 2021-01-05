@@ -25,7 +25,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on November 9, 2020 at 1:32 pm.
+This config file was modified by David Salomón on January 5, 2021 at 12:21 pm.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -343,18 +343,32 @@ widgets = [
 		linewidth=1,
 		padding=10
 	),
+	#widget.TextBox(
+	#	font="JetBrainsMono Nerd Font Regular",
+	#	foreground=colours[5],
+	#	fontsize=14,
+	#	padding=0,
+	#	text=' '
+	#),
+	#widget.ThermalSensor(
+	#	foreground=colours[5],
+	#	threshold=80,
+	#	foreground_alert=colours[3],
+	#	tag_sensor="Tctl"
+	#),
 	widget.TextBox(
 		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[5],
-		fontsize=14,
+		fontsize=12,
 		padding=0,
-		text=' '
+		text=' '
 	),
-	widget.ThermalSensor(
+	widget.Backlight(
 		foreground=colours[5],
-		threshold=80,
 		foreground_alert=colours[3],
-		tag_sensor="Tctl"
+		backlight_name='amdgpu_bl0',
+		change_command='brightnessctl set {0}',
+		step=5
 	),
 	widget.Sep(
 		foreground=colours[2],
@@ -398,12 +412,14 @@ widgets = [
 		unknown_char=' ',
 		format='{char}',
 		low_foreground=colours[3],
+		low_percentage=0.2,
 		show_short_text=False
 	),
 	widget.Battery(
 		foreground=colours[7],
 		format='{percent:2.0%}',
 		low_foreground=colours[3],
+		low_percentage=0.2,
 		notify_below=20,
 	),
 	widget.Sep(
@@ -475,6 +491,7 @@ floating_layout = layout.Floating(float_rules=[
 	{'wmclass': 'confirmreset'},  # gitk
 	{'wmclass': 'makebranch'},  # gitk
 	{'wmclass': 'maketag'},  # gitk
+	{'wname': 'Authentication'},  # Polkit agent
 	{'wname': 'branchdialog'},  # gitk
 	{'wname': 'pinentry'},  # GPG key password entry
 	{'wmclass': 'ssh-askpass'},  # ssh-askpass
@@ -482,6 +499,8 @@ floating_layout = layout.Floating(float_rules=[
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 #+END_SRC
+
+#+RESULTS:
 
 * STARTUP APPLICATIONS
 These little hook runs the autostart.sh file (located on the qtile config folder) only when you log in to Qtile. Inside the autostart file there are two instructions to run nitrogen (to draw a wallpaper) and picom (the compositor). Change the autostart.sh file to your needs and don't forget to make it executable by typing "chmod +x ~/.config/qtile/autostart.sh" on your terminal.
