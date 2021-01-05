@@ -12,7 +12,7 @@ welcome () {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 1.0                                 ="
+	echo "=     Version 1.3                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -36,7 +36,7 @@ gitinst () {
 #
 clone () {
 	clear
-	git clone git@github.com:david35mm/.files.git
+	git clone https://github.com/david35mm/.files.git
 	sleep 1
 	clear
 	echo -e "\n"
@@ -51,7 +51,7 @@ clonebare () {
 	echo "These script will remove your .config/ folder and your .bashrc"
 	echo "You have 5 seconds to press Ctrl+C on your keyboard to cancel"
 	sleep 5
-	git clone --bare git@github.com:david35mm/.files.git $HOME/.files
+	git clone --bare https://github.com/david35mm/.files.git $HOME/.files
 	sleep 1
 	sudo rm -rf .config/ .bashrc
 	alias config='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
