@@ -12,7 +12,7 @@ welcome () {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 1.5                                 ="
+	echo "=     Version 1.6                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -76,7 +76,6 @@ confdnf () {
 	sudo dnf alias add in='install'
 	sudo dnf alias add rm='remove'
 	sudo dnf alias add lu='list updates'
-	sudo dnf alias add purge-kernels='\rm $(dnf repoquery --installonly --latest-limit=-1 -q)'
 	sudo dnf alias add up='upgrade'
 	sudo dnf alias add wp='provides'
 	sudo dnf alias add lr='repolist'
@@ -94,7 +93,7 @@ confdnf () {
 instqtile () {
 	clear
 	echo "Removing old versions of Qtile"
-	sudo dnf rm qtile -y
+	sudo dnf rm qtile -y --noautoremove
 	clear
 	echo "Installing Qtile dependencies"
 	sudo dnf in python3-xcffib python3-cffi python3-cairocffi python3-dbus python3-psutil lm_sensors -y
@@ -239,7 +238,7 @@ do
 	echo ""
 	echo "  1) Install Git"
 	echo "  2) Git clone the repo"
-	echo "  3) Clone the repo with the --bare flag"
+	echo "  3) Clone the repo with the --bare flag (recommended)"
 	echo ""
 	echo "  R) Return to menu"
 	echo -e "\n"
@@ -267,7 +266,7 @@ do
 	echo "  3) Install herbstluftwm"
 	echo "  4) Install utils (picom, dunst, nitrogen, etc)"
 	echo "  5) Install themes, icons & wallpapers"
-	echo "  6) Install fonts (For David only!)"
+	echo "  6) Install fonts (for David only!)"
 	echo ""
 	echo "  R) Return to menu"
 	echo -e "\n"
@@ -294,8 +293,8 @@ do
 	echo "--------------------------------"
 	echo ""
 	echo " This Section will install the following software:"
-	echo " Browser (Brave), file Manager (nemo), multimedia (VLC, Geeqie & cmus)"
-	echo " PDF reader (Zathura), OfficeSuite (OnlyOffice), Text editor (Sublime Text)"
+	echo " Browser (Brave), file manager (nemo), multimedia (VLC, Geeqie & cmus)"
+	echo " PDF reader (Zathura), office suite (OnlyOffice), text editor (Sublime Text)"
 	echo ""
 	echo " Install all at once? (y/N)"
 	echo ""
