@@ -62,8 +62,8 @@ alias l='ls'
 #fix obvious typo's
 alias cd..='cd ..'
 alias pdw='pwd'
-alias udpate='sudo dnf -y update'
-alias upate='sudo dnf -y update'
+alias udpate='sudo dnf up -y'
+alias upate='sudo dnf up -y'
 
 
 ## Colorize the grep command output for ease of use (good for log files)##
@@ -89,11 +89,18 @@ alias merge='xrdb -merge ~/.Xresources'
 
 # Aliases for software managment
 #alias dnf='sudo dnf'
-#alias update='sudo dnf -y update'
-alias autorm='sudo dnf -y autoremove'
-alias rmcache='sudo dnf clean all'
-alias mkcache='sudo dnf makecache'
-alias rmkernel='dnf rm $(dnf repoquery --installonly --latest-limit=-1 -q)'
+alias dif='dnf info'
+alias din='sudo dnf in'
+alias drm='sudo dnf rm'
+alias dlu='dnf lu'
+alias drmk='sudo dnf purge-kernels -y'
+alias dup='sudo dnf up -y'
+alias dwp='dnf provides'
+alias dlr='dnf repolist'
+alias dref='dnf ref'
+alias dcln='dnf clean'
+alias darm='sudo dnf autoremove -y'
+alias dref='dnf ref'
 
 #ps
 alias psa='ps auxf'
@@ -152,7 +159,7 @@ alias addot='git add .'
 alias commit='git commit -m'
 alias push='git push'
 alias pull='git pull'
-alias config='/usr/bin/git --git-dir=/home/david35mm/.files/ --work-tree=/home/david35mm'
+alias config='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
 alias cadd='config add'
 alias ccommit='config commit -m'
 alias cpush='config push'
