@@ -12,7 +12,7 @@ welcome () {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 1.4                                 ="
+	echo "=     Version 1.5                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -25,7 +25,6 @@ welcome () {
 gitinst () {
 	clear
 	sudo dnf in git -y
-	sleep 1
 	clear
 	echo -e "\n"
 	echo "Git was installed successfully"
@@ -37,7 +36,7 @@ gitinst () {
 clone () {
 	clear
 	git clone https://github.com/david35mm/.files.git
-	sleep 1
+	sleep 2
 	clear
 	echo -e "\n"
 	echo "You have cloned David's repo successfully"
@@ -48,12 +47,12 @@ clone () {
 #
 clonebare () {
 	clear
-	echo "These script will remove your .config/ folder and your .bashrc"
+	echo "These script will remove your .config/ folder, your .bashrc .vimrc and .Xresources"
 	echo "You have 5 seconds to press Ctrl+C on your keyboard to cancel"
 	sleep 5
+	sudo rm -rf .config/ .bashrc .Xresources .vimrc
 	git clone --bare https://github.com/david35mm/.files.git $HOME/.files
-	sleep 1
-	sudo rm -rf .config/ .bashrc
+	sleep 2
 	alias config='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
 	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME checkout
 	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME config --local status.showUntrackedFiles no
@@ -71,7 +70,6 @@ confdnf () {
 	clear
 	echo "Copying dnf.conf to /etc/dnf/"
 	sudo cp dnf.conf /etc/dnf/
-	sleep 2
 	clear
 	echo "Creating common aliases for DNF"
 	sudo dnf alias add if='info'
@@ -85,6 +83,7 @@ confdnf () {
 	sudo dnf alias add ref='makecache'
 	sudo dnf alias add clean='\clean all'
 	sleep 2
+	clear
 	echo -e "\n"
 	echo "You have made DNF more usable"
 	sleep 2
@@ -98,10 +97,14 @@ instqtile () {
 	sudo dnf rm qtile -y
 	clear
 	echo "Installing Qtile dependencies"
-	sudo dnf in python3-xcffib python3-cffi python3-cairocffi python3-dbus python3-psutil lm_sensors
+	sudo dnf in python3-xcffib python3-cffi python3-cairocffi python3-dbus python3-psutil lm_sensors -y
 	sleep 2
 	echo "Qtile dependencies installed successfully"
 	sudo pip install qtile
+	sleep 2
+	clear
+	echo "Writing .desktop file at /usr/share/xsessions/qtile.desktop"
+	su -c 'echo -e "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile\nType=Application" > /usr/share/xsessions/qtile.desktop'
 	sleep 2
 	clear
 	echo -e "\n"
@@ -138,7 +141,7 @@ instherbst () {
 #
 instutils () {
 	clear
-	sudo dnf in brightnessctl lm_sensors ytop alacritty picom nitrogen rofi lxappearance flameshot dunst polybar lxpolkit xfce4-power-manager neovim switchboard -y
+	sudo dnf in brightnessctl udiskie ntfs-3g gvfs gvfs-fuse gvfs-mtp libnotify libmtp lm_sensors ytop alacritty picom nitrogen rofi lxappearance flameshot dunst polybar lxpolkit xfce4-power-manager neovim switchboard -y
 	sleep 2
 	clear
 	echo -e "\n"
@@ -164,7 +167,7 @@ instthemesicons () {
 #
 instfonts () {
 	clear
-	git clone git@github.com:david35mm/fonts.git
+	git clone https://github.com/david35mm/fonts.git
 	sudo cp -R fonts /usr/share/fonts/
 	sudo rm -rf fonts/
 	sleep 2
@@ -178,11 +181,9 @@ instfonts () {
 #
 instaao () {
 	clear
-	sudo dnf install dnf-plugins-core -y
 	sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 	sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-	sudo dnf in https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
-	sudo dnf in https://download.onlyoffice.com/repo/centos/main/noarch/onlyoffice-repo.noarch.rpm -y
+	sudo dnf in https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm https://download.onlyoffice.com/repo/centos/main/noarch/onlyoffice-repo.noarch.rpm -y
 	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 	sudo dnf in brave-browser nemo nemo-terminal vlc cmus geeqie zathura-pdf-mupdf onlyoffice-desktopeditors sublime-text -y
@@ -197,7 +198,8 @@ instaao () {
 #
 durf () {
 	clear
-	sudo rm -rf .themes/ .icons/ dnf.conf lightdm-gtk-greeter.conf README.md .gitignore
+	echo "Deleting .themes/ .icons/ dnf.conf lightdm-gtk-greeter.conf README.md .gitignore from your home folder"
+	sudo rm -rf .themes/ .icons/ .screenshots/ dnf.conf lightdm-gtk-greeter.conf README.md .gitignore
 	sleep 2
 	clear
 	echo -e "\n"
@@ -209,6 +211,7 @@ durf () {
 #
 beauty () {
 	clear
+	echo "Making your lightdm look good and installing starship shell prompt"
 	sudo cp lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk-greeter.conf
 	sudo curl -fsSL https://starship.rs/install.sh | bash
 	sleep 2
@@ -319,8 +322,8 @@ do
 	echo "  2) Configure DNF with better settings"
 	echo "  3) Install window managers and some utilities"
 	echo "  4) Install Software Categories"
-	echo "  5) Delete unnecessary remaining files"
 	echo "  5) Beautify!"
+	echo "  6) Delete unnecessary remaining files (Make sure this is the last you do)"
 	echo ""
 	echo "  X) Exit"
 	echo -e "\n"
@@ -330,8 +333,8 @@ do
 		2 ) confdnf ;;
 		3 ) wminst ;;
 		4 ) inst_soft ;;
-		5 ) durf ;;
-		6 ) beauty ;;
+		5 ) beauty ;;
+		6 ) durf ;;
 		x|X ) exit;;
 		* ) invalid ;;
 	esac
