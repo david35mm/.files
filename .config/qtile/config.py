@@ -209,33 +209,32 @@ widgets = [
 		linewidth=1,
 		padding=10
 	),
-	#widget.TextBox(
-	#	font="JetBrainsMono Nerd Font Regular",
-	#	foreground=colours[5],
-	#	fontsize=14,
-	#	padding=0,
-	#	text=' '
-	#),
-	#widget.ThermalSensor(
-	#	foreground=colours[5],
-	#	threshold=80,
-	#	foreground_alert=colours[3],
-	#	tag_sensor="Tctl"
-	#),
 	widget.TextBox(
 		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[5],
-		fontsize=12,
+		fontsize=14,
 		padding=0,
-		text=' '
+		text=' '
 	),
-	widget.Backlight(
+	widget.ThermalSensor(
 		foreground=colours[5],
-		foreground_alert=colours[3],
-		backlight_name='amdgpu_bl0',
-		change_command='brightnessctl set {0}',
-		step=5
+		threshold=80,
+		foreground_alert=colours[3]
 	),
+	#widget.TextBox(
+	#	font="JetBrainsMono Nerd Font Regular",
+	#	foreground=colours[5],
+	#	fontsize=12,
+	#	padding=0,
+	#	text=' '
+	#),
+	#widget.Backlight(
+	#	foreground=colours[5],
+	#	foreground_alert=colours[3],
+	#	backlight_name='amdgpu_bl0',
+	#	change_command='brightnessctl set {0}',
+	#	step=5
+	#),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
