@@ -12,7 +12,7 @@ welcome () {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 1.7                                 ="
+	echo "=     Version 1.8                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -138,8 +138,12 @@ instutils () {
 #
 instthemesicons () {
 	clear
-	sudo cp -r .themes/ /usr/share/themes/
-	sudo cp -r .icons/ /usr/share/icons/
+	echo "Copying themes and icons to the /usr/share/ folder"
+	sudo cp -r .themes/* /usr/share/themes/
+	sudo cp -r .icons/* /usr/share/icons/
+	sleep 2
+	clear
+	echo "Installing ElementaryOS wallpapers"
 	sudo dnf in elementary-wallpapers -y
 	sleep 2
 	clear
@@ -152,7 +156,7 @@ instthemesicons () {
 instfonts () {
 	clear
 	git clone https://github.com/david35mm/fonts.git
-	sudo cp -r fonts /usr/share/fonts/
+	sudo cp -r fonts/* /usr/share/fonts/
 	sudo rm -rf fonts/
 	sleep 2
 	clear
