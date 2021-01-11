@@ -28,6 +28,12 @@ I also have uploaded some dotfiles not related to window managers.
 
 - [rofi](https://github.com/david35mm/.files/tree/main/.config/rofi)
 
+## How to Install This Repository?
+
+I have an automated script that clones this repo and applies some other changes to the system. Unfortunately it only works for Fedora, some of the changes inclue a better DNF config and aliases, the automatic installation of some window managers and the software selection I use... among other things. If you want to run the script in your system Ctrl+C and Ctrl+Shift+V on your terminal this command:
+
+```bash <(curl -fsSL raw.githubusercontent.com/david35mm/.files/main/DavidsFedoraTool.sh)```
+
 ## Who is David Salomón?
 
 I am an Electronic Engineering student, passionate about computers and everything related to it. I was born in Bogotá, the capital city of the South American country Colombia. My nickname in almost all of the social media I am registered on is david.35mm. Why? In the last few years, one of my main hobbies has been photography, I even started a small [YouTube channel](https://www.youtube.com/channel/UC-8MDD0AHj0-ZUPolunq6MQ). There I shared some tips and explain some concepts about photography, you are free to check out my videos but... as a native Spanish speaker all of my videos are going to be in that language. The 35mm on my nickname is because of the measurement of the photographic film used in the past. As a photography enthusiast I also have my own [portfolio](https://spark.adobe.com/page/yADDtrHvBow4p/), as you can see I love portraits and thus I base almost all of my work on this type of art.
