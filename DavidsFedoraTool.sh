@@ -12,7 +12,7 @@ welcome () {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 1.6                                 ="
+	echo "=     Version 1.7                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -25,9 +25,6 @@ welcome () {
 gitinst () {
 	clear
 	sudo dnf in git -y
-	clear
-	echo -e "\n"
-	echo "Git was installed successfully"
 	sleep 2
 	clear
 }
@@ -36,10 +33,9 @@ gitinst () {
 clone () {
 	clear
 	git clone https://github.com/david35mm/.files.git
-	sleep 2
+	sleep 4
 	clear
-	echo -e "\n"
-	echo "You have cloned David's repo successfully"
+	echo -e "\n\tYou have cloned David's repo successfully"
 	sleep 2
 	clear
 }
@@ -47,17 +43,15 @@ clone () {
 #
 clonebare () {
 	clear
-	echo "These script will remove your .config/ folder, your .bashrc .vimrc and .Xresources"
-	echo "You have 5 seconds to press Ctrl+C on your keyboard to cancel"
+	echo -e 'This script will remove the following files and folders:\n.bashrc\n.config/\n.files/\n.gitignore\n.icons/\n.screenshots/\n.themes/\n.vimrc\n.Xresources\nDavidsFedoraTool.sh\nlightdm-gtk-greeter.conf\nREADME.md\n\n\tYou have 5 seconds to press Ctrl+C on your keyboard to cancel'
 	sleep 5
-	sudo rm -rf .config/ .bashrc .Xresources .vimrc
+	sudo rm -rf .bashrc .config/ .files/ .gitignore .icons/ .screenshots/ .themes/ .vimrc .Xresources DavidsFedoraTool.sh lightdm-gtk-greeter.conf README.md
 	git clone --bare https://github.com/david35mm/.files.git $HOME/.files
-	sleep 2
-	alias config='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
 	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME checkout
 	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME config --local status.showUntrackedFiles no
-	echo -e "\n"
-	echo "You have cloned David's repo successfully"
+	sleep 4
+	clear
+	echo -e "\n\tYou have cloned David's repo successfully"
 	sleep 2
 	clear
 }
@@ -65,26 +59,23 @@ clonebare () {
 #
 confdnf () {
 	clear
-	echo "You need to have copied my repo before for this to work"
-	sleep 2
-	clear
-	echo "Copying dnf.conf to /etc/dnf/"
-	sudo cp dnf.conf /etc/dnf/
+	echo "Writing better settings at /etc/dnf/dnf.conf"
+	su -c 'rm /etc/dnf/dnf.conf; echo -e "[main]\nbest=True\ncheck_config_file_age=False\nclean_requirements_on_remove=True\ncolor=always\ndefaultyes=True\ndeltarpm=True\ndiskspacecheck=False\nfastestmirror=True\ngpgcheck=1\ninstallonly_limit=2\nip_resolve=4\nkeepcache=False\nmax_parallel_downloads=10\nmetadata_expire=never\nmetadata_timer_sync=0\nskip_if_unavailable=True" > /etc/dnf/dnf.conf'
 	clear
 	echo "Creating common aliases for DNF"
+	sudo dnf alias add clean='\clean all'
 	sudo dnf alias add if='info'
 	sudo dnf alias add in='install'
-	sudo dnf alias add rm='remove'
+	sudo dnf alias add lr='repolist'
 	sudo dnf alias add lu='list updates'
+	sudo dnf alias add ref='makecache'
+	sudo dnf alias add rm='remove'
+	sudo dnf alias add se='search'
 	sudo dnf alias add up='upgrade'
 	sudo dnf alias add wp='provides'
-	sudo dnf alias add lr='repolist'
-	sudo dnf alias add ref='makecache'
-	sudo dnf alias add clean='\clean all'
 	sleep 2
 	clear
-	echo -e "\n"
-	echo "You have made DNF more usable"
+	echo -e "\n\tYou have made DNF more usable"
 	sleep 2
 	clear
 }
@@ -100,14 +91,12 @@ instqtile () {
 	sleep 2
 	echo "Qtile dependencies installed successfully"
 	sudo pip install qtile
-	sleep 2
+	sleep 4
 	clear
 	echo "Writing .desktop file at /usr/share/xsessions/qtile.desktop"
 	su -c 'echo -e "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile\nType=Application" > /usr/share/xsessions/qtile.desktop'
-	sleep 2
 	clear
-	echo -e "\n"
-	echo "Qtile was installed successfully"
+	echo -e "\n\tQtile was installed successfully"
 	sleep 2
 	clear
 }
@@ -118,8 +107,7 @@ instspectr () {
 	sudo dnf in spectrwm -y
 	sleep 2
 	clear
-	echo -e "\n"
-	echo "spectrwm was installed successfully"
+	echo -e "\n\tSpectrwm was installed successfully"
 	sleep 2
 	clear
 }
@@ -131,8 +119,7 @@ instherbst () {
 	sudo dnf in herbstluftwm -y
 	sleep 2
 	clear
-	echo -e "\n"
-	echo "herbstluftwm was installed successfully"
+	echo -e "\n\tHerbstluftwm was installed successfully"
 	sleep 2
 	clear
 }
@@ -140,11 +127,10 @@ instherbst () {
 #
 instutils () {
 	clear
-	sudo dnf in brightnessctl udiskie ntfs-3g gvfs gvfs-fuse gvfs-mtp libnotify libmtp lm_sensors ytop alacritty picom nitrogen rofi lxappearance flameshot dunst polybar lxpolkit xfce4-power-manager neovim switchboard -y
+	sudo dnf in brightnessctl udiskie ntfs-3g gvfs gvfs-fuse gvfs-mtp libnotify libmtp lm_sensors ytop alacritty picom nitrogen rofi lxappearance flameshot dunst polybar lxpolkit xfce4-power-manager neovim -y
 	sleep 2
 	clear
-	echo -e "\n"
-	echo "Utils were installed successfully"
+	echo -e "\n\tUtils were installed successfully"
 	sleep 2
 	clear
 }
@@ -152,13 +138,12 @@ instutils () {
 #
 instthemesicons () {
 	clear
-	sudo cp -R .themes/ /usr/share/themes/
-	sudo cp -R .icons/ /usr/share/icons/
+	sudo cp -r .themes/ /usr/share/themes/
+	sudo cp -r .icons/ /usr/share/icons/
 	sudo dnf in elementary-wallpapers -y
 	sleep 2
 	clear
-	echo -e "\n"
-	echo "Themes, icons & wallpapers were installed successfully"
+	echo -e "\n\tThemes, icons & wallpapers were installed successfully"
 	sleep 2
 	clear
 }
@@ -167,12 +152,11 @@ instthemesicons () {
 instfonts () {
 	clear
 	git clone https://github.com/david35mm/fonts.git
-	sudo cp -R fonts /usr/share/fonts/
+	sudo cp -r fonts /usr/share/fonts/
 	sudo rm -rf fonts/
 	sleep 2
 	clear
-	echo -e "\n"
-	echo "Fonts were installed successfully"
+	echo -e "\n\tFonts were installed successfully"
 	sleep 2
 	clear
 }
@@ -188,8 +172,7 @@ instaao () {
 	sudo dnf in brave-browser nemo nemo-terminal vlc cmus geeqie zathura-pdf-mupdf onlyoffice-desktopeditors sublime-text -y
 	sleep 2
 	clear
-	echo -e "\n"
-	echo "Software was installed successfully"
+	echo -e "\n\tSoftware was installed successfully"
 	sleep 2
 	clear
 }
@@ -197,12 +180,10 @@ instaao () {
 #
 durf () {
 	clear
-	echo "Deleting .themes/ .icons/ dnf.conf lightdm-gtk-greeter.conf README.md .gitignore from your home folder"
-	sudo rm -rf .themes/ .icons/ .screenshots/ dnf.conf lightdm-gtk-greeter.conf README.md .gitignore
-	sleep 2
+	echo -e "Deleting the following files from your home folder:\n.gitignore\n.icons/\n.screenshots/\n.themes/\nDavidsFedoraTool.sh\nlightdm-gtk-greeter.conf\nREADME.md"
+	sudo rm -rf .gitignore .icons/ .screenshots/ .themes/ DavidsFedoraTool.sh lightdm-gtk-greeter.conf README.md
 	clear
-	echo -e "\n"
-	echo "The cleanup has been completed"
+	echo -e "\n\tThe cleanup has been completed"
 	sleep 2
 	clear
 }
@@ -215,16 +196,14 @@ beauty () {
 	sudo curl -fsSL https://starship.rs/install.sh | bash
 	sleep 2
 	clear
-	echo -e "\n"
-	echo "Beautification completed"
+	echo -e "\n\tBeautification completed"
 	sleep 2
 	clear
 }
 #
 #
 invalid () {
-	echo -e "\n"
-	echo "Invalid answer, Please try again"
+	echo -e "\n\tInvalid answer, Please try again"
 	sleep 2
 }
 #
@@ -262,8 +241,8 @@ do
 	echo "---------------------------------------------"
 	echo ""
 	echo "  1) Install Qtile"
-	echo "  2) Install spectrwm"
-	echo "  3) Install herbstluftwm"
+	echo "  2) Install Spectrwm"
+	echo "  3) Install Herbstluftwm"
 	echo "  4) Install utils (picom, dunst, nitrogen, etc)"
 	echo "  5) Install themes, icons & wallpapers"
 	echo "  6) Install fonts (for David only!)"
@@ -292,11 +271,7 @@ do
 	echo " Install Software Categories"
 	echo "--------------------------------"
 	echo ""
-	echo " This Section will install the following software:"
-	echo " Browser (Brave), file manager (nemo), multimedia (VLC, Geeqie & cmus)"
-	echo " PDF reader (Zathura), office suite (OnlyOffice), text editor (Sublime Text)"
-	echo ""
-	echo " Install all at once? (y/N)"
+	echo -e "This section will install the following software:\nBrowser (Brave), file manager (nemo), multimedia (VLC, Geeqie & cmus)\nPDF reader (Zathura), office suite (OnlyOffice), text editor (Sublime Text)\n\n\tInstall all at once? (y/N)"
 	echo ""
 	echo "  R) Return to menu"
 	echo -e "\n"
