@@ -1,0 +1,16 @@
+{
+  "selector": "text.html.markdown",
+  "cmd": [
+    "/usr/bin/pandoc",
+    "-f",
+    "markdown+smart",
+    "-t",
+    "docx",
+    "-s",
+    "--filter=/usr/bin/pandoc-citeproc",
+    "--bibliography=/home/david35mm/Documents/References/references.bib",
+    "-o",
+    "/home/david35mm/Documents/$file_base_name.docx",
+    "$file",
+  ]
+}
