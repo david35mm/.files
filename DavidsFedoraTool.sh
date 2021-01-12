@@ -12,7 +12,7 @@ welcome () {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 1.8                                 ="
+	echo "=     Version 1.9                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -127,7 +127,7 @@ instherbst () {
 #
 instutils () {
 	clear
-	sudo dnf in brightnessctl udiskie ntfs-3g gvfs gvfs-fuse gvfs-mtp libnotify libmtp lm_sensors ytop alacritty picom nitrogen rofi lxappearance flameshot dunst polybar lxpolkit xfce4-power-manager neovim -y
+	sudo dnf in alacritty arandr blueman brightnessctl dunst exa flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lm_sensors lxappearance lxpolkit neovim nitrogen ntfs-3g pavucontrol picom polybar rofi udiskie xfce4-power-manager ytop -y
 	sleep 2
 	clear
 	echo -e "\n\tUtils were installed successfully"
