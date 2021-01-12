@@ -265,7 +265,7 @@ widgets = [
 	#),
 	#widget.Net(
 	#	foreground=colours[7],
-	#	interface='wlp2s0',
+	#	interface='enp1s0',
 	#	format='{down} '
 	#	),
 	widget.Battery(

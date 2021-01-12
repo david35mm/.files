@@ -25,7 +25,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on January 11, 2021 at 07:57 pm.
+This config file was modified by David Salomón on January 11, 2021 at 08:02 pm.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -399,7 +399,7 @@ widgets = [
 	#),
 	#widget.Net(
 	#	foreground=colours[7],
-	#	interface='wlp2s0',
+	#	interface='enp1s0',
 	#	format='{down} '
 	#	),
 	widget.Battery(
