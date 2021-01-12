@@ -12,7 +12,7 @@ welcome () {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 1.9                                 ="
+	echo "=     Version 1.9.2                               ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -195,8 +195,10 @@ durf () {
 #
 beauty () {
 	clear
-	echo "Making your lightdm look good and installing starship shell prompt"
+	echo "Writing a new lightdm config"
 	su -c 'echo -e "[greeter]\nbackground=/usr/share/backgrounds/elementary/Ashim DSilva.jpg\nclock-format=%A, %B %d %I:%M %p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf'
+	sleep 2
+	echo "Installing starship shell prompt"
 	sudo curl -fsSL https://starship.rs/install.sh | bash
 	sleep 2
 	clear
