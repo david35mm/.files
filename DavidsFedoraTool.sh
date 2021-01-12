@@ -43,9 +43,9 @@ clone () {
 #
 clonebare () {
 	clear
-	echo -e 'This script will remove the following files and folders:\n.bashrc\n.config/\n.files/\n.gitignore\n.icons/\n.screenshots/\n.themes/\n.vimrc\n.Xresources\nDavidsFedoraTool.sh\nlightdm-gtk-greeter.conf\nREADME.md\n\n\tYou have 5 seconds to press Ctrl+C on your keyboard to cancel'
+	echo -e 'This script will remove the following files and folders:\n.bashrc\n.config/\n.files/\n.gitignore\n.icons/\n.screenshots/\n.themes/\n.vimrc\n.Xresources\nDavidsFedoraTool.sh\nREADME.md\n\n\tYou have 5 seconds to press Ctrl+C on your keyboard to cancel'
 	sleep 5
-	sudo rm -rf .bashrc .config/ .files/ .gitignore .icons/ .screenshots/ .themes/ .vimrc .Xresources DavidsFedoraTool.sh lightdm-gtk-greeter.conf README.md
+	sudo rm -rf .bashrc .config/ .files/ .gitignore .icons/ .screenshots/ .themes/ .vimrc .Xresources DavidsFedoraTool.sh README.md
 	git clone --bare https://github.com/david35mm/.files.git $HOME/.files
 	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME checkout
 	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME config --local status.showUntrackedFiles no
@@ -184,8 +184,8 @@ instaao () {
 #
 durf () {
 	clear
-	echo -e "Deleting the following files from your home folder:\n.gitignore\n.icons/\n.screenshots/\n.themes/\nDavidsFedoraTool.sh\nlightdm-gtk-greeter.conf\nREADME.md"
-	sudo rm -rf .gitignore .icons/ .screenshots/ .themes/ DavidsFedoraTool.sh lightdm-gtk-greeter.conf README.md
+	echo -e "Deleting the following files from your home folder:\n.gitignore\n.icons/\n.screenshots/\n.themes/\nDavidsFedoraTool.sh\nREADME.md"
+	sudo rm -rf .gitignore .icons/ .screenshots/ .themes/ DavidsFedoraTool.sh README.md
 	clear
 	echo -e "\n\tThe cleanup has been completed"
 	sleep 2
@@ -196,7 +196,7 @@ durf () {
 beauty () {
 	clear
 	echo "Making your lightdm look good and installing starship shell prompt"
-	sudo cp lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk-greeter.conf
+	su -c 'echo -e "[greeter]\nbackground=/usr/share/backgrounds/elementary/Ashim DSilva.jpg\nclock-format=%A, %B %d %I:%M %p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf'
 	sudo curl -fsSL https://starship.rs/install.sh | bash
 	sleep 2
 	clear
