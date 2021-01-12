@@ -15,7 +15,7 @@ myFileManager = "nemo"
 myTextEditor = "subl"
 myOfficeSuite = "desktopeditors"
 myLaTeXEditor = "gnome-latex"
-myMusicPlayer = "rhythmbox"
+myMusicPlayer = "alacritty -e cmus"
 myConfig = "~/.config/qtile/config.py"
 
 keys = [
@@ -231,7 +231,7 @@ widgets = [
 	#widget.Backlight(
 	#	foreground=colours[5],
 	#	foreground_alert=colours[3],
-	#	backlight_name='amdgpu_bl0',
+	#	backlight_name='amdgpu_bl0', # ls /sys/class/backlight/
 	#	change_command='brightnessctl set {0}',
 	#	step=5
 	#),
@@ -256,14 +256,17 @@ widgets = [
 		linewidth=1,
 		padding=10
 	),
+	#widget.TextBox(
+	#	font="JetBrainsMono Nerd Font Regular",
+	#	foreground=colours[7],
+	#	fontsize=14,
+	#	padding=0,
+	#	text='爵 '
+	#),
 	#widget.Net(
-	#	background=colours[7],
-	#	interface='enp1s0',
-	#	format='NET {down} ↓↑ {up}'
-	#	),
-	#widget.StockTicker(
-	#	apikey='AESKWL5CJVHHJKR5',
-	#	url='https://www.alphavantage.co/query?'
+	#	foreground=colours[7],
+	#	interface='wlp2s0',
+	#	format='{down} '
 	#	),
 	widget.Battery(
 		font="JetBrainsMono Nerd Font Regular",
@@ -296,6 +299,10 @@ widgets = [
 		foreground=colours[8],
 		format='%a %b %d  %I:%M %P    '
 	),
+	#widget.StockTicker(
+	#	apikey='AESKWL5CJVHHJKR5',
+	#	url='https://www.alphavantage.co/query?'
+	#	),
 ]
 
 status_bar = lambda widgets: bar.Bar(widgets, 18, opacity=1.0)

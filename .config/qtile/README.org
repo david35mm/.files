@@ -25,7 +25,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on January 6, 2021 at 09:55 am.
+This config file was modified by David Salomón on January 11, 2021 at 07:57 pm.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -61,7 +61,7 @@ myFileManager = "nemo"
 myTextEditor = "subl"
 myOfficeSuite = "desktopeditors"
 myLaTeXEditor = "gnome-latex"
-myMusicPlayer = "rhythmbox"
+myMusicPlayer = "alacritty -e cmus"
 myConfig = "~/.config/qtile/config.py"
 #+END_SRC
 
@@ -365,7 +365,7 @@ widgets = [
 	#widget.Backlight(
 	#	foreground=colours[5],
 	#	foreground_alert=colours[3],
-	#	backlight_name='amdgpu_bl0',
+	#	backlight_name='amdgpu_bl0', # ls /sys/class/backlight/
 	#	change_command='brightnessctl set {0}',
 	#	step=5
 	#),
@@ -390,14 +390,17 @@ widgets = [
 		linewidth=1,
 		padding=10
 	),
+	#widget.TextBox(
+	#	font="JetBrainsMono Nerd Font Regular",
+	#	foreground=colours[7],
+	#	fontsize=14,
+	#	padding=0,
+	#	text='爵 '
+	#),
 	#widget.Net(
-	#	background=colours[7],
-	#	interface='enp1s0',
-	#	format='NET {down} ↓↑ {up}'
-	#	),
-	#widget.StockTicker(
-	#	apikey='AESKWL5CJVHHJKR5',
-	#	url='https://www.alphavantage.co/query?'
+	#	foreground=colours[7],
+	#	interface='wlp2s0',
+	#	format='{down} '
 	#	),
 	widget.Battery(
 		font="JetBrainsMono Nerd Font Regular",
@@ -430,6 +433,10 @@ widgets = [
 		foreground=colours[8],
 		format='%a %b %d  %I:%M %P    '
 	),
+	#widget.StockTicker(
+	#	apikey='AESKWL5CJVHHJKR5',
+	#	url='https://www.alphavantage.co/query?'
+	#	),
 ]
 #+END_SRC
 
