@@ -13,8 +13,52 @@ disabled = true
 [line_break]
 disabled = true
 
+[battery]
+full_symbol = ""
+charging_symbol = ""
+discharging_symbol = ""
+unknown_symbol = ""
+empty_symbol = ""
+format = "[$symbol$percentage]($style) "
+
+[cmd_duration]
+min_time = 2_500
+show_milliseconds = false
+show_notifications = true
+min_time_to_notify = 45_000
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = "ﳑ "
+
+[julia]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
 [python]
 symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[swift]
+symbol = " "
 
 [java]
 symbol = " "
