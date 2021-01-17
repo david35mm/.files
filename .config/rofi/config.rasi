@@ -1,0 +1,7 @@
+configuration {
+	modi: "window,run,ssh,drun";
+	font: "SF Pro Text 12";
+	show-icons: true;
+	terminal: "alacritty";
+	theme: "~/.config/rofi/theme.rasi";
+}
