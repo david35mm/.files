@@ -4,6 +4,7 @@ export BROWSER="brave-browser"
 export EDITOR="nvim"
 export MANPAGER="nvim +Man!"
 export TERMINAL="alacritty"
+export VISUAL="subl"
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -67,14 +68,20 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
+# vim and doom emacs
+alias ddoctor='doom doctor'
+alias dpurge='doom purge'
+alias dsync='doom sync'
+alias dupgrade='doom upgrade'
+alias vi='vim'
+alias vim='nvim'
+
 # Add some useful flags
 alias cp='cp -i'
 alias df='df -h'
 alias free='free -mt'
 alias librespot='librespot -n "A315-41" -b 320 -u yourUsername -p yourPassword -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
 alias lynx='lynx -accept_all_cookies'
-alias vi='vim'
-alias vim='nvim'
 alias wget='wget -c'
 
 # List the groups of the user
@@ -98,7 +105,7 @@ alias dup='sudo dnf up -y'
 alias dwp='dnf provides'
 
 # Update the GRUB config
-alias grubup='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias grubup='sudo grub2-mkconfig'
 
 # Refresh the fonts cache
 alias fontup='sudo fc-cache -fv'

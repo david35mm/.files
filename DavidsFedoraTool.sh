@@ -12,7 +12,7 @@ welcome () {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 1.9.2                               ="
+	echo "=     Version 2.0                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -139,8 +139,8 @@ instutils () {
 instthemesicons () {
 	clear
 	echo "Copying themes and icons to the /usr/share/ folder"
-	sudo cp -r .themes/* /usr/share/themes/
-	sudo cp -r .icons/* /usr/share/icons/
+	sudo cp -vr .themes/* /usr/share/themes/
+	sudo cp -vr .icons/* /usr/share/icons/
 	sleep 2
 	clear
 	echo "Installing ElementaryOS wallpapers"
@@ -156,7 +156,7 @@ instthemesicons () {
 instfonts () {
 	clear
 	git clone https://github.com/david35mm/fonts.git
-	sudo cp -r fonts/* /usr/share/fonts/
+	sudo cp -vr fonts/* /usr/share/fonts/
 	sudo rm -rf fonts/
 	sleep 2
 	clear
@@ -298,8 +298,8 @@ do
 	echo "-------------------------------------"
 	echo " David Salomon's Fedora Tool"
 	echo "-------------------------------------"
-	echo "  1) Clone David's GitHub repository"
-	echo "  2) Configure DNF with better settings"
+	echo "  1) Configure DNF with better settings"
+	echo "  2) Clone David's GitHub repository"
 	echo "  3) Install window managers and some utilities"
 	echo "  4) Install Software Categories"
 	echo "  5) Beautify!"
@@ -309,8 +309,8 @@ do
 	echo -e "\n"
 	read -p "Enter your choice: " choice1
 	case $choice1 in
-		1 ) gitbareclone ;;
-		2 ) confdnf ;;
+		1 ) confdnf ;;
+		2 ) gitbareclone ;;
 		3 ) wminst ;;
 		4 ) inst_soft ;;
 		5 ) beauty ;;
