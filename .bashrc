@@ -74,6 +74,7 @@ alias ddoctor='doom doctor'
 alias dpurge='doom purge'
 alias dsync='doom sync'
 alias dupgrade='doom upgrade'
+alias find='fd'
 alias vi='vim'
 alias vim='nvim'
 
