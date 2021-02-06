@@ -6,6 +6,8 @@
 	"installed_packages":
 	[
 		"Color Highlight",
-		"Language - Spanish"
+		"Language - Spanish",
+		"Package Control",
+		"Theme - Cyanide"
 	]
 }
