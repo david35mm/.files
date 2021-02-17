@@ -246,7 +246,7 @@ getUtils() {
 	clear
 	echo -e "Installing utilities"
 	sudo dnf copr enable atim/alacritty -y && sudo dnf copr enable david35mm/bat -y && sudo dnf copr enable david35mm/fd -y && sudo dnf copr enable david35mm/macho -y
-	sudo dnf in alacritty arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lm_sensors lxappearance lxpolkit macho neovim nitrogen ntfs-3g pavucontrol picom polybar rofi udiskie xfce4-power-manager ytop -y
+	sudo dnf in alacritty arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lm_sensors lxappearance lxpolkit macho neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom polybar rofi udiskie xfce4-power-manager ytop -y
 	sleep 2
 	clear
 	echo -e "\n\tUtilities were installed successfully"
