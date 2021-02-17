@@ -6,7 +6,7 @@ showWelcome() {
 	echo -e "=                                                 ="
 	echo -e "=     Welcome to David Salomon's Fedora tool      ="
 	echo -e "=                                                 ="
-	echo -e "=     Version 3.0                                 ="
+	echo -e "=     Version 4.0                                 ="
 	echo -e "=                                                 ="
 	echo -e "=     Brought to you by david35mm                 ="
 	echo -e "=     https://github.com/david35mm/.files         ="
@@ -23,22 +23,24 @@ do
 	echo -e " David Salomon's Fedora Tool"
 	echo -e "-------------------------------------\n"
 	echo -e "  1) Configure DNF with better settings"
-	echo -e "  2) Clone David's GitHub repository"
-	echo -e "  3) Install window managers and some utilities"
-	echo -e "  4) Install software collection"
-	echo -e "  5) Install programming languages"
-	echo -e "  6) Beautify!"
-	echo -e "  7) Delete unnecessary remaining files (Make sure this is the last you do)\n"
+	echo -e "  2) Install the X11 Display Server"
+	echo -e "  3) Clone David's GitHub repository"
+	echo -e "  4) Install window managers and some utilities"
+	echo -e "  5) Install software collection"
+	echo -e "  6) Install programming languages"
+	echo -e "  7) Beautify!"
+	echo -e "  8) Delete unnecessary remaining files (Make sure this is the last you do)\n"
 	echo -e "  X) Exit\n"
 	read -p "Enter your choice: " choice
 	case $choice in
 		1 ) confDNF ;;
-		2 ) showGitMenu ;;
-		3 ) showWMInstMenu ;;
-		4 ) showSoftInstMenu ;;
-		5 ) showProgramLangMenu ;;
-		6 ) getPretty ;;
-		7 ) purgeLeftOvers ;;
+		2 ) getXorg ;;
+		3 ) showGitMenu ;;
+		4 ) showWMInstMenu ;;
+		5 ) showSoftInstMenu ;;
+		6 ) showProgramLangMenu ;;
+		7 ) getPretty ;;
+		8 ) purgeLeftOvers ;;
 		x|X ) exit;;
 		* ) invalid ;;
 	esac
@@ -131,6 +133,18 @@ do
 		* ) invalid ;;
 	esac
 done
+}
+#
+#
+getXorg(){
+	clear
+	echo -e "Downloading the X11 Display Server and lightdm"
+	sudo dnf in xorg-x11-server-Xorg lightdm-gtk -y
+	sleep 2
+	clear
+	echo -e "Changing the default systemd target to 'graphical'"
+	sudo systemctl set-default graphical.target
+	sleep 2
 }
 #
 #
@@ -232,7 +246,7 @@ getUtils() {
 	clear
 	echo -e "Installing utilities"
 	sudo dnf copr enable atim/alacritty -y && sudo dnf copr enable david35mm/bat -y && sudo dnf copr enable david35mm/fd -y && sudo dnf copr enable david35mm/macho -y
-	sudo dnf in alacritty arandr bat blueman brightnessctl dunst exa fd flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lm_sensors lxappearance lxpolkit macho neovim nitrogen ntfs-3g pavucontrol picom polybar rofi udiskie xfce4-power-manager ytop -y
+	sudo dnf in alacritty arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lm_sensors lxappearance lxpolkit macho neovim nitrogen ntfs-3g pavucontrol picom polybar rofi udiskie xfce4-power-manager ytop -y
 	sleep 2
 	clear
 	echo -e "\n\tUtilities were installed successfully"
@@ -243,8 +257,8 @@ getUtils() {
 getThemesIcons() {
 	clear
 	echo -e "Copying themes and icons to the /usr/share/ folder"
-	sudo cp -vr .themes/* /usr/share/themes/
-	sudo cp -vr .icons/* /usr/share/icons/
+	sudo cp -r .themes/* /usr/share/themes/
+	sudo cp -r .icons/* /usr/share/icons/
 	clear
 	echo -e "Themes and icons successfully copied to the /usr/share folder"
 	sleep 2
@@ -265,7 +279,7 @@ getFonts() {
 	sleep 2
 	clear
 	echo -e "Copying fonts to the /usr/share/ folder"
-	sudo cp -vr fonts/* /usr/share/fonts/
+	sudo cp -r fonts/* /usr/share/fonts/
 	sudo rm -rf fonts/
 	clear
 	echo -e "\n\tFonts were installed successfully"
@@ -326,6 +340,7 @@ getPretty() {
 	sleep 2
 	clear
 	echo "Installing starship shell prompt"
+	sudo dnf in tar -y
 	sudo curl -fsSL https://starship.rs/install.sh | bash
 	sleep 2
 	clear
