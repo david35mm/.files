@@ -6,7 +6,7 @@ showWelcome() {
 	echo -e "=                                                 ="
 	echo -e "=     Welcome to David Salomon's Fedora tool      ="
 	echo -e "=                                                 ="
-	echo -e "=     Version 4.0                                 ="
+	echo -e "=     Version 4.1                                 ="
 	echo -e "=                                                 ="
 	echo -e "=     Brought to you by david35mm                 ="
 	echo -e "=     https://github.com/david35mm/.files         ="
@@ -263,8 +263,8 @@ getThemesIcons() {
 	echo -e "Themes and icons successfully copied to the /usr/share folder"
 	sleep 2
 	clear
-	echo "Installing ElementaryOS wallpapers"
-	sudo dnf in elementary-wallpapers -y
+	echo "Installing Deepin DE wallpapers"
+	sudo dnf in deepin-wallpapers -y
 	sleep 2
 	clear
 	echo -e "\n\tThemes, icons & wallpapers were installed successfully"
@@ -335,7 +335,7 @@ purgeLeftOvers() {
 getPretty() {
 	clear
 	echo -e "Type your password to write a new lightdm config"
-	su -c 'echo -e "[greeter]\nbackground=/usr/share/backgrounds/elementary/Ashim DSilva.jpg\nclock-format=%A, %B %d %I:%M %p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf'
+	su -c 'echo -e "[greeter]\nbackground=/usr/share/wallpapers/deepin/Sunset_of_the_Lake_Nam_by_Wang_Jinyu.jpg\nclock-format=%A, %B %d %I:%M %p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf'
 	echo -e "Lightdm config was written successfully"
 	sleep 2
 	clear
