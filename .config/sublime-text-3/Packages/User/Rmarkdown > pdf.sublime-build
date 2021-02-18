@@ -1,0 +1,4 @@
+{
+    "cmd": ["R", "-e", "library(rmarkdown);render(input = '$file',output_file = '$file_base_name.pdf')"],
+    "file_patterns": ["*.Rmd"],
+}

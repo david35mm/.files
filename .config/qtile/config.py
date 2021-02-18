@@ -89,7 +89,23 @@ layouts = [
 	layout.MonadTall(**layout_theme),
 	#layout.Tile(shift_windows=True, **layout_theme),
 	layout.Bsp(**layout_theme),
-	layout.Floating(**layout_theme)
+	layout.Floating(**layout_theme, float_rules=[
+		{'wmclass': 'confirm'},
+		{'wmclass': 'dialog'},
+		{'wmclass': 'download'},
+		{'wmclass': 'error'},
+		{'wmclass': 'file_progress'},
+		{'wmclass': 'notification'},
+		{'wmclass': 'splash'},
+		{'wmclass': 'toolbar'},
+		{'wmclass': 'confirmreset'},  # gitk
+		{'wmclass': 'makebranch'},  # gitk
+		{'wmclass': 'maketag'},  # gitk
+		{'wname': 'Authentication'},  # Polkit agent
+		{'wname': 'branchdialog'},  # gitk
+		{'wname': 'pinentry'},  # GPG key password entry
+		{'wmclass': 'ssh-askpass'},  # ssh-askpass
+	])
 	#layout.MonadWide(**layout_theme),
 	#layout.Stack(stacks=2, **layout_theme),
 	#layout.Columns(**layout_theme),
@@ -333,24 +349,6 @@ main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-
-floating_layout = layout.Floating(float_rules=[
-	{'wmclass': 'confirm'},
-	{'wmclass': 'dialog'},
-	{'wmclass': 'download'},
-	{'wmclass': 'error'},
-	{'wmclass': 'file_progress'},
-	{'wmclass': 'notification'},
-	{'wmclass': 'splash'},
-	{'wmclass': 'toolbar'},
-	{'wmclass': 'confirmreset'},  # gitk
-	{'wmclass': 'makebranch'},  # gitk
-	{'wmclass': 'maketag'},  # gitk
-	{'wname': 'Authentication'},  # Polkit agent
-	{'wname': 'branchdialog'},  # gitk
-	{'wname': 'pinentry'},  # GPG key password entry
-	{'wmclass': 'ssh-askpass'},  # ssh-askpass
-])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 

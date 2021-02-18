@@ -3,7 +3,8 @@
 set fish_greeting
 set -gx BROWSER "brave-browser"
 set -gx EDITOR "nvim"
-set -gx PAGER "nvim +Man!"
+set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx MANROFFOPT "-c"
 set -gx TERMINAL "alacritty"
 set -gx VISUAL "subl"
 

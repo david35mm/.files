@@ -1,0 +1,34 @@
+modkey = "Mod4"
+
+tags = ["web", "dev", "sys", "doc", "chat", "game", "media", "gfx"]
+
+workspaces = []
+
+[[keybind]]
+command = "Execute"
+value = "rofi -show drun"
+modifier = ["modkey"]
+key = "r"
+
+[[keybind]]
+command = "Execute"
+value = "alacritty"
+modifier = ["modkey"]
+key = "Return"
+
+[[keybind]]
+command = "CloseWindow"
+modifier = ["modkey"]
+key = "w"
+
+
+[[keybind]]
+command = "SoftReload"
+modifier = ["modkey", "Control"]
+key = "r"
+
+[[keybind]]
+command = "Execute"
+value = "pkill leftwm"
+modifier = ["modkey", "Control"]
+key = "q"

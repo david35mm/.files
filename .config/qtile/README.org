@@ -16,7 +16,6 @@
 - [[#widgets][WIDGETS]]
 - [[#bar--screens][BAR & SCREENS]]
 - [[#drag-floating-windows][DRAG FLOATING WINDOWS]]
-- [[#floating-windows-rules][FLOATING WINDOWS RULES]]
 - [[#startup-applications][STARTUP APPLICATIONS]]
 - [[#wmname][WMNAME]]
 
@@ -25,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on January 11, 2021 at 08:02 pm.
+This config file was modified by David Salomón on February 17, 2021 at 06:45 pm.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -208,7 +207,23 @@ layouts = [
 	layout.MonadTall(**layout_theme),
 	#layout.Tile(shift_windows=True, **layout_theme),
 	layout.Bsp(**layout_theme),
-	layout.Floating(**layout_theme)
+	layout.Floating(**layout_theme, float_rules=[
+		{'wmclass': 'confirm'},
+		{'wmclass': 'dialog'},
+		{'wmclass': 'download'},
+		{'wmclass': 'error'},
+		{'wmclass': 'file_progress'},
+		{'wmclass': 'notification'},
+		{'wmclass': 'splash'},
+		{'wmclass': 'toolbar'},
+		{'wmclass': 'confirmreset'},  # gitk
+		{'wmclass': 'makebranch'},  # gitk
+		{'wmclass': 'maketag'},  # gitk
+		{'wname': 'Authentication'},  # Polkit agent
+		{'wname': 'branchdialog'},  # gitk
+		{'wname': 'pinentry'},  # GPG key password entry
+		{'wmclass': 'ssh-askpass'},  # ssh-askpass
+	])
 	#layout.MonadWide(**layout_theme),
 	#layout.Stack(stacks=2, **layout_theme),
 	#layout.Columns(**layout_theme),
@@ -479,34 +494,9 @@ main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-#+END_SRC
-
-* FLOATING WINDOWS RULES
-These are some rules set to a particular kind of windows that you might want to be always floating such as confirmation dialogs, downloads folder dialogs, and so on.
-
-#+BEGIN_SRC python
-floating_layout = layout.Floating(float_rules=[
-	{'wmclass': 'confirm'},
-	{'wmclass': 'dialog'},
-	{'wmclass': 'download'},
-	{'wmclass': 'error'},
-	{'wmclass': 'file_progress'},
-	{'wmclass': 'notification'},
-	{'wmclass': 'splash'},
-	{'wmclass': 'toolbar'},
-	{'wmclass': 'confirmreset'},  # gitk
-	{'wmclass': 'makebranch'},  # gitk
-	{'wmclass': 'maketag'},  # gitk
-	{'wname': 'Authentication'},  # Polkit agent
-	{'wname': 'branchdialog'},  # gitk
-	{'wname': 'pinentry'},  # GPG key password entry
-	{'wmclass': 'ssh-askpass'},  # ssh-askpass
-])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 #+END_SRC
-
-#+RESULTS:
 
 * STARTUP APPLICATIONS
 These little hook runs the autostart.sh file (located on the qtile config folder) only when you log in to Qtile. Inside the autostart file there are two instructions to run nitrogen (to draw a wallpaper) and picom (the compositor). Change the autostart.sh file to your needs and don't forget to make it executable by typing "chmod +x ~/.config/qtile/autostart.sh" on your terminal.

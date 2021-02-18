@@ -145,7 +145,7 @@ startup_notification = false
 dmenu = /usr/bin/dmenu -p dunst:
 
 # Browser for opening urls in context menu.
-browser = /usr/bin/firefox -new-tab
+browser = /usr/bin/brave-browser
 
 # Align icons left/right/off
 icon_position = off
@@ -195,8 +195,8 @@ background = "#141414"
 timeout = 6
 
 [urgency_critical]
-frame_color = "#E06C75"
-foreground = "#E06C75"
+frame_color = "#E35374"
+foreground = "#E35374"
 background = "#141414"
 #background = "#2B313C"
 timeout = 8
