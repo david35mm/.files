@@ -61,3 +61,6 @@ cursor:
 
 mouse:
   hide_when_typing: true
+
+shell:
+  program: /bin/fish
