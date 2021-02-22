@@ -5,13 +5,14 @@ set -gx BROWSER "brave-browser"
 set -gx EDITOR "nvim"
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx MANROFFOPT "-c"
+set -gx READER "zathura"
 set -gx TERMINAL "alacritty"
 set -gx VISUAL "subl"
 
 starship init fish | source
 
 # User specific environment
-set PATH $PATH /usr/local/go/bin:$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/XiaomiADBFastbootTools/platform-tools
+set PATH $PATH /usr/local/go/bin:$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/XiaomiADBFastbootTools/platform-tools:$HOME/.local/bin/jdk-15.0.2/bin
 
 
 # Start of user functions
@@ -119,7 +120,7 @@ alias vim='nvim'
 alias cp='cp -i'
 alias df='df -h'
 alias free='free -mt'
-alias librespot='librespot -n "A315-41" -b 320 -u d.geek -p j3RR6#yJq8Es -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
+alias librespot='librespot -n "A315-41" -b 320 -u yourUsername -p yourPassword -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
 alias lynx='lynx -accept_all_cookies'
 alias wget='wget -c'
 

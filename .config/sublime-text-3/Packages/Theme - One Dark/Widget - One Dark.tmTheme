@@ -1375,6 +1375,17 @@
 				<string>#BCBCBCFF</string>
 			</dict>
 		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_D2B48CFF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#D2B48CFF</string>
+				<key>foreground</key>
+				<string>#383838FF</string>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>
