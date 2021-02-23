@@ -308,16 +308,16 @@ getAllSoft() {
 getGo() {
 	clear
 	echo -e "Downloading Go tarball\n"
-	wget https://golang.org/dl/go1.15.8.linux-amd64.tar.gz
+	wget https://golang.org/dl/go1.16.linux-amd64.tar.gz
 	sleep 2
 	clear
 	echo -e "Extracting Go at /usr/local/"
-	sudo tar -C /usr/local -xzf go1.15.8.linux-amd64.tar.gz
+	sudo tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
 	echo -e "Extraction completed successfully"
 	sleep 2
 	clear
 	/usr/local/go/bin/go version
-	echo -e "\n\tIf you see 'go version go1.15.8 linux/amd64' above this line then Go was installed successfully"
+	echo -e "\n\tIf you see 'go version go1.16 linux/amd64' above this line then Go was installed successfully"
 	sleep 7
 }
 #
