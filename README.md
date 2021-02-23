@@ -30,7 +30,7 @@ I also have uploaded some dotfiles not related to window managers.
 
 ## How to Install This Repository?
 
-I have an automated script that clones this repo and applies some other changes to the system. Unfortunately it only works for Fedora, some of the changes inclue a better DNF config and aliases, the automatic installation of some window managers and the software selection I use... among other things. If you want to run the script in your system Ctrl+C and Ctrl+Shift+V on your terminal this command:
+I have an automated script that clones this repo and applies some other changes to the system. Unfortunately it only works for Fedora, some of the changes include a better DNF config and aliases, the automatic installation of some window managers and the software selection I use... among other things. If you want to run the script in your system Ctrl+C and Ctrl+Shift+V on your terminal this command:
 
 ```sh
 bash <(curl -fsSL raw.githubusercontent.com/david35mm/.files/main/DavidsFedoraTool.sh)
