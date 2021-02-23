@@ -2,7 +2,7 @@
 
 ## The Repository
 
-This repository is were I store the dotfiles that I use on my GNU/Linux system. What are dotfiles? you may ask, these are the files that start with a period (a dot). The GNU/Linux filesystem treats them as hidden files and/or folders. Most of the time this hidden files correspond to configurations of certain programs installed on you computer, that's the main reason many people store their dotfiles, because it serves as a backup to a configuration that you have set in a program. The content of this repository is freely available for everyone to view, download and modify.
+This repository is where I store the dotfiles that I use on my GNU/Linux system. What are dotfiles? you may ask, these are the files that start with a period (a dot). The GNU/Linux filesystem treats them as hidden files and/or folders. Most of the time this hidden files correspond to configurations of certain programs installed on you computer, that's the main reason many people store their dotfiles, because it serves as a backup to a configuration that you have set in a program. The content of this repository is freely available for everyone to view, download and modify.
 
 ## The Dotfiles Stored in Here
 
