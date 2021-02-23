@@ -313,6 +313,7 @@ getGo() {
 	clear
 	echo -e "Extracting Go at /usr/local/"
 	sudo tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
+	rm -rf go1.16.linux-amd64.tar.gz
 	echo -e "Extraction completed successfully"
 	sleep 2
 	clear
