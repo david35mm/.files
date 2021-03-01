@@ -2,15 +2,15 @@
 
 showWelcome() {
 	clear
-	echo -e "==================================================="
-	echo -e "=                                                 ="
-	echo -e "=     Welcome to David Salomon's Fedora tool      ="
-	echo -e "=                                                 ="
-	echo -e "=     Version 4.1                                 ="
-	echo -e "=                                                 ="
-	echo -e "=     Brought to you by david35mm                 ="
-	echo -e "=     https://github.com/david35mm/.files         ="
-	echo -e "=                                                 ="
+	echo "==================================================="
+	echo "=                                                 ="
+	echo "=     Welcome to David Salomon's Fedora tool      ="
+	echo "=                                                 ="
+	echo "=     Version 4.2                                 ="
+	echo "=                                                 ="
+	echo "=     Brought to you by david35mm                 ="
+	echo "=     https://github.com/david35mm/.files         ="
+	echo "=                                                 ="
 	echo -e "===================================================\n"
 	sleep 4
 }
@@ -19,16 +19,16 @@ showWelcome() {
 showMainMenu() { while true
 do
 	clear
-	echo -e "-------------------------------------"
-	echo -e " David Salomon's Fedora Tool"
+	echo "-------------------------------------"
+	echo " David Salomon's Fedora Tool"
 	echo -e "-------------------------------------\n"
-	echo -e "  1) Configure DNF with better settings"
-	echo -e "  2) Install the X11 Display Server"
-	echo -e "  3) Clone David's GitHub repository"
-	echo -e "  4) Install window managers and some utilities"
-	echo -e "  5) Install software collection"
-	echo -e "  6) Install programming languages"
-	echo -e "  7) Beautify!"
+	echo "  1) Configure DNF with better settings"
+	echo "  2) Install the X11 Display Server"
+	echo "  3) Clone David's GitHub repository"
+	echo "  4) Install window managers and some utilities"
+	echo "  5) Install software collection"
+	echo "  6) Install programming languages"
+	echo "  7) Beautify!"
 	echo -e "  8) Delete unnecessary remaining files (Make sure this is the last you do)\n"
 	echo -e "  X) Exit\n"
 	read -p "Enter your choice: " choice
@@ -51,10 +51,10 @@ done
 showGitMenu() { while true
 do
 	clear
-	echo -e "----------------------------------"
-	echo -e " Clone David's GitHub repository"
+	echo "----------------------------------"
+	echo " Clone David's GitHub repository"
 	echo -e "----------------------------------\n"
-	echo -e "  1) Install Git"
+	echo "  1) Install Git"
 	echo -e "  2) Clone the repo (with the --bare flag)\n"
 	echo -e "  R) Return to menu\n"
 	echo -e "  DISCLAIMER: Be aware that by cloning the repo some important files in your home folder are going to be erased\n"
@@ -72,15 +72,14 @@ done
 showWMInstMenu() { while true
 do
 	clear
-	echo -e "---------------------------------------------"
-	echo -e " Install window managers and some utilities"
+	echo "---------------------------------------------"
+	echo " Install window managers and some utilities"
 	echo -e "---------------------------------------------\n"
-	echo -e "  1) Install Qtile"
-	echo -e "  2) Install Spectrwm"
-	echo -e "  3) Install Herbstluftwm"
-	echo -e "  4) Install utils (picom, dunst, nitrogen, etc)"
-	echo -e "  5) Install themes, icons & wallpapers"
-	echo -e "  6) Install fonts (for David only!)\n"
+	echo "  1) Install Qtile"
+	echo "  2) Install Spectrwm"
+	echo "  3) Install Herbstluftwm"
+	echo "  4) Install utils (picom, dunst, nitrogen, etc)"
+	echo "  5) Install fonts, themes, icons & wallpapers"
 	echo -e "  R) Return to menu\n"
 	read -p "Please enter your choice: " choice
 	case $choice in
@@ -89,7 +88,6 @@ do
 		3 ) getHerbstluft ;;
 		4 ) getUtils ;;
 		5 ) getThemesIcons ;;
-		6 ) getFonts ;;
 		r|R ) showMainMenu ;;
 		* ) invalid ;;
 	esac
@@ -100,8 +98,8 @@ done
 showSoftInstMenu() { while true
 do
 	clear
-	echo -e "--------------------------------"
-	echo -e " Install software collection"
+	echo "--------------------------------"
+	echo " Install software collection"
 	echo -e "--------------------------------\n"
 	echo -e "This section will install the following software:\nBrowser (Brave), file manager (nemo), multimedia (VLC, Geeqie & cmus)\nPDF reader (Zathura), office suite (OnlyOffice), text editor (Sublime Text)\n\nInstall all at once? (y/N)\n"
 	echo -e "  R) Return to menu\n"
@@ -120,8 +118,8 @@ showProgramLangMenu() {
 	while true
 do
 	clear
-	echo -e "--------------------------------"
-	echo -e " Install programming languages"
+	echo "--------------------------------"
+	echo " Install programming languages"
 	echo -e "--------------------------------\n"
 	echo -e "  Note: I know it's kind of dissapointing just to see one language on the list.\n  I'll be adding more in the future\n"
 	echo -e "  1) Install Go\n"
@@ -138,11 +136,11 @@ done
 #
 getXorg(){
 	clear
-	echo -e "Downloading the X11 Display Server and lightdm"
+	echo "Downloading the X11 Display Server and lightdm"
 	sudo dnf in xorg-x11-server-Xorg lightdm-gtk -y
 	sleep 2
 	clear
-	echo -e "Changing the default systemd target to 'graphical'"
+	echo "Changing the default systemd target to 'graphical'"
 	sudo systemctl set-default graphical.target
 	sleep 2
 }
@@ -150,7 +148,7 @@ getXorg(){
 #
 getGit() {
 	clear
-	echo -e "Installing Git"
+	echo "Installing Git"
 	sudo dnf in git -y
 	sleep 2
 }
@@ -158,7 +156,7 @@ getGit() {
 #
 getRepo() {
 	clear
-	echo -e 'This script will remove the following files and folders:\n.bashrc\n.config/\n.files/\n.gitignore\n.icons/\n.screenshots/\n.themes/\n.vimrc\n.Xresources\nDavidsFedoraTool.sh\nREADME.md\n\n\tYou have 5 seconds to press Ctrl+C on your keyboard to cancel'
+	echo -e "This script will remove the following files and folders:\n.bashrc\n.config/\n.files/\n.gitignore\n.icons/\n.screenshots/\n.themes/\n.vimrc\n.Xresources\nDavidsFedoraTool.sh\nREADME.md\n\n\tYou have 5 seconds to press Ctrl+C on your keyboard to cancel"
 	sleep 5
 	sudo rm -rf .bashrc .config/ .files/ .gitignore .icons/ .screenshots/ .themes/ .vimrc .Xresources DavidsFedoraTool.sh README.md
 	git clone --bare https://github.com/david35mm/.files.git $HOME/.files
@@ -173,13 +171,13 @@ getRepo() {
 #
 confDNF() {
 	clear
-	echo -e "Type your password to write better settings at /etc/dnf/dnf.conf"
-	su -c 'echo -e "[main]\nbest=True\ncheck_config_file_age=False\nclean_requirements_on_remove=True\ncolor=always\ndefaultyes=True\ndeltarpm=True\ndiskspacecheck=False\nfastestmirror=True\ngpgcheck=1\ninstallonly_limit=2\nip_resolve=4\nkeepcache=False\nmax_parallel_downloads=10\nmetadata_expire=never\nmetadata_timer_sync=0\nskip_if_unavailable=True" > /etc/dnf/dnf.conf'
+	echo "Type your password to write better settings at /etc/dnf/dnf.conf"
+	su -c 'printf "[main]\nbest=True\ncheck_config_file_age=False\nclean_requirements_on_remove=True\ncolor=always\ndefaultyes=True\ndeltarpm=True\ndiskspacecheck=False\nfastestmirror=True\ngpgcheck=1\ninstallonly_limit=2\nip_resolve=4\nkeepcache=False\nmax_parallel_downloads=10\nmetadata_expire=never\nmetadata_timer_sync=0\nskip_if_unavailable=True" > /etc/dnf/dnf.conf'
 	clear
-	echo -e "Settings written at /etc/dnf/dnf.conf"
+	echo "Settings written at /etc/dnf/dnf.conf"
 	sleep 2
 	clear
-	echo -e "Creating common aliases for DNF"
+	echo "Creating common aliases for DNF"
 	sudo dnf alias add clean='\clean all'
 	sudo dnf alias add if='info'
 	sudo dnf alias add in='install'
@@ -199,20 +197,21 @@ confDNF() {
 #
 getQtile() {
 	clear
-	echo -e "Removing old versions of Qtile"
-	sudo dnf rm qtile -y --noautoremove
+	echo "Removing old versions of Qtile"
+	sudo dnf rm qtile -y
 	sleep 2
 	clear
-	echo -e "Installing Qtile dependencies"
-	sudo dnf in python3-xcffib python3-cffi python3-cairocffi python3-dbus python3-psutil lm_sensors -y
+	echo "Installing Qtile dependencies"
+	sudo dnf in lm_sensors -y
+	sudo pip install xcffib cairocffi dbus-next psutil
 	sleep 2
 	clear
-	echo -e "Installing Qtile trough python-pip"
+	echo "Installing Qtile trough python-pip"
 	sudo pip install qtile
 	sleep 4
 	clear
 	echo "Type your password to write .desktop file at /usr/share/xsessions/qtile.desktop"
-	su -c 'echo -e "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile\nType=Application" > /usr/share/xsessions/qtile.desktop'
+	su -c 'printf "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile\nType=Application" > /usr/share/xsessions/qtile.desktop'
 	clear
 	echo -e "\n\tQtile was installed successfully"
 	sleep 2
@@ -221,7 +220,7 @@ getQtile() {
 #
 getSpectrwm() {
 	clear
-	echo -e "Installing Spectrwm"
+	echo "Installing Spectrwm"
 	sudo dnf in spectrwm -y
 	sleep 2
 	clear
@@ -232,7 +231,7 @@ getSpectrwm() {
 #
 getHerbstluft() {
 	clear
-	echo -e "Installing Herbstluftwm"
+	echo "Installing Herbstluftwm"
 	sudo dnf copr enable david35mm/herbstluftwm -y
 	sudo dnf in herbstluftwm -y
 	sleep 2
@@ -244,8 +243,8 @@ getHerbstluft() {
 #
 getUtils() {
 	clear
-	echo -e "Installing utilities"
-	sudo dnf copr enable atim/alacritty -y && sudo dnf copr enable david35mm/bat -y && sudo dnf copr enable david35mm/fd -y && sudo dnf copr enable david35mm/macho -y
+	echo "Installing utilities"
+	sudo dnf copr enable david35mm/bat -y && sudo dnf copr enable david35mm/fd -y && sudo dnf copr enable david35mm/macho -y
 	sudo dnf in alacritty arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lm_sensors lxappearance lxpolkit macho neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom polybar rofi udiskie xfce4-power-manager ytop -y
 	sleep 2
 	clear
@@ -256,11 +255,16 @@ getUtils() {
 #
 getThemesIcons() {
 	clear
-	echo -e "Copying themes and icons to the /usr/share/ folder"
-	sudo cp -r .themes/* /usr/share/themes/
-	sudo cp -r .icons/* /usr/share/icons/
+	sudo rm -rf fonts-themes/
+	git clone https://github.com/david35mm/fonts-themes.git
+	sudo dnf in tar -y
+	echo "Extracting fonts, themes and icons to the /usr/share/ folder"
+	sudo tar -C /usr/share/fonts -xf fonts-themes/fonts.tar.xz
+	sudo tar -C /usr/share/icons -xf fonts-themes/icons.tar.xz
+	sudo tar -C /usr/share/themes -xf fonts-themes/themes.tar.xz
+	sudo rm -rf fonts-themes/
 	clear
-	echo -e "Themes and icons successfully copied to the /usr/share folder"
+	echo "Fonts, themes and icons successfully extracted to the /usr/share folder"
 	sleep 2
 	clear
 	echo "Installing Deepin DE wallpapers"
@@ -272,31 +276,16 @@ getThemesIcons() {
 }
 #
 #
-getFonts() {
-	clear
-	echo -e "Cloning fonts repository"
-	git clone https://github.com/david35mm/fonts.git
-	sleep 2
-	clear
-	echo -e "Copying fonts to the /usr/share/ folder"
-	sudo cp -r fonts/* /usr/share/fonts/
-	sudo rm -rf fonts/
-	clear
-	echo -e "\n\tFonts were installed successfully"
-	sleep 2
-}
-#
-#
 getAllSoft() {
 	clear
-	echo -e "Adding additional software repositories"
+	echo "Adding additional software repositories"
 	sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 	sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 	sudo dnf in https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm https://download.onlyoffice.com/repo/centos/main/noarch/onlyoffice-repo.noarch.rpm -y
 	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 	clear
-	echo -e "Installing software collection"
+	echo "Installing software collection"
 	sudo dnf in brave-browser nemo nemo-terminal vlc cmus geeqie zathura-pdf-mupdf onlyoffice-desktopeditors sublime-text -y
 	sleep 2
 	clear
@@ -311,10 +300,9 @@ getGo() {
 	wget https://golang.org/dl/go1.16.linux-amd64.tar.gz
 	sleep 2
 	clear
-	echo -e "Extracting Go at /usr/local/"
+	echo "Extracting Go at /usr/local/"
 	sudo tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
-	rm -rf go1.16.linux-amd64.tar.gz
-	echo -e "Extraction completed successfully"
+	echo "Extraction completed successfully"
 	sleep 2
 	clear
 	/usr/local/go/bin/go version
@@ -335,9 +323,9 @@ purgeLeftOvers() {
 #
 getPretty() {
 	clear
-	echo -e "Type your password to write a new lightdm config"
-	su -c 'echo -e "[greeter]\nbackground=/usr/share/wallpapers/deepin/Sunset_of_the_Lake_Nam_by_Wang_Jinyu.jpg\nclock-format=%A, %B %d %I:%M %p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf'
-	echo -e "Lightdm config was written successfully"
+	echo "Type your password to write a new lightdm config"
+	su -c 'printf "[greeter]\nbackground=/usr/share/wallpapers/deepin/Sunset_of_the_Lake_Nam_by_Wang_Jinyu.jpg\nclock-format=%A, %B %d %I:%M %p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf'
+	echo "Lightdm config was written successfully"
 	sleep 2
 	clear
 	echo "Installing starship shell prompt"
