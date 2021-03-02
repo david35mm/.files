@@ -3,7 +3,7 @@ import re
 import socket
 import subprocess
 from libqtile import bar, hook, layout, widget
-from libqtile.config import Click, Drag, EzKey, Group, Key, Match, Screen
+from libqtile.config import EzClick, EzDrag, EzKey, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from typing import List
 
@@ -330,11 +330,11 @@ if connected_monitors > 1:
 		screens.append(Screen(top=status_bar(widgets)))
 
 mouse = [
-	Drag([mod], "Button1", lazy.window.set_position_floating(),
+	EzDrag("M-1", lazy.window.set_position_floating(),
 		start=lazy.window.get_position()),
-	Drag([mod], "Button3", lazy.window.set_size_floating(),
+	EzDrag("M-3", lazy.window.set_size_floating(),
 		start=lazy.window.get_size()),
-	Click([mod], "Button2", lazy.window.bring_to_front())
+	EzClick("M-2", lazy.window.bring_to_front())
 ]
 
 auto_fullscreen = True

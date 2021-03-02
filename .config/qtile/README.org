@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on March 2, 2021 at 05:44 pm.
+This config file was modified by David Salomón on March 2, 2021 at 06:35 pm.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -44,7 +44,7 @@ import re
 import socket
 import subprocess
 from libqtile import bar, hook, layout, widget
-from libqtile.config import Click, Drag, EzKey, Group, Key, Match, Screen
+from libqtile.config import EzClick, EzDrag, EzKey, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from typing import List
 #+END_SRC
@@ -475,11 +475,11 @@ Very descriptive title, if you want to change your current window to floating, p
 
 #+BEGIN_SRC python
 mouse = [
-	Drag([mod], "Button1", lazy.window.set_position_floating(),
+	EzDrag("M-1", lazy.window.set_position_floating(),
 		start=lazy.window.get_position()),
-	Drag([mod], "Button3", lazy.window.set_size_floating(),
+	EzDrag("M-3", lazy.window.set_size_floating(),
 		start=lazy.window.get_size()),
-	Click([mod], "Button2", lazy.window.bring_to_front())
+	EzClick("M-2", lazy.window.bring_to_front())
 ]
 
 auto_fullscreen = True
