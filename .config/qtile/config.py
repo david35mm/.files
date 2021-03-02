@@ -3,7 +3,7 @@ import re
 import socket
 import subprocess
 from libqtile import bar, hook, layout, widget
-from libqtile.config import EzClick, EzDrag, EzKey, Group, Key, Match, Screen
+from libqtile.config import EzClick as Click, EzDrag as Drag, EzKey as Key, Group, Match, Screen
 from libqtile.lazy import lazy
 from typing import List
 
@@ -19,47 +19,47 @@ myConfig = "~/.config/qtile/config.py"
 
 keys = [
 	# Qtile Controls
-	EzKey("M-C-r", lazy.restart()),
-	EzKey("M-C-q", lazy.shutdown()),
+	Key("M-C-r", lazy.restart()),
+	Key("M-C-q", lazy.shutdown()),
 
 	# Window and Layout Controls
-	EzKey("M-k", lazy.layout.down()),
-	EzKey("M-j", lazy.layout.up()),
-	EzKey("M-C-k", lazy.layout.shuffle_down()),
-	EzKey("M-C-j", lazy.layout.shuffle_up()),
-	EzKey("M-<space>", lazy.layout.next()),
-	EzKey("M-<Tab>", lazy.next_layout()),
-	EzKey("M-l", lazy.layout.grow()),
-	EzKey("M-h",lazy.layout.shrink()),
-	EzKey("M-f", lazy.window.toggle_floating()),
-	EzKey("M-s", lazy.window.toggle_fullscreen()),
-	EzKey("M-w", lazy.window.kill()),
-	EzKey("M-<period>", lazy.next_screen()),
-	EzKey("M-<comma>", lazy.prev_screen()),
+	Key("M-k", lazy.layout.down()),
+	Key("M-j", lazy.layout.up()),
+	Key("M-C-k", lazy.layout.shuffle_down()),
+	Key("M-C-j", lazy.layout.shuffle_up()),
+	Key("M-<space>", lazy.layout.next()),
+	Key("M-<Tab>", lazy.next_layout()),
+	Key("M-l", lazy.layout.grow()),
+	Key("M-h",lazy.layout.shrink()),
+	Key("M-f", lazy.window.toggle_floating()),
+	Key("M-s", lazy.window.toggle_fullscreen()),
+	Key("M-w", lazy.window.kill()),
+	Key("M-<period>", lazy.next_screen()),
+	Key("M-<comma>", lazy.prev_screen()),
 
 	# System Controls
-	EzKey("<XF86AudioLowerVolume>", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
-	EzKey("<XF86AudioRaiseVolume>", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
-	EzKey("<XF86AudioMute>", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
-	EzKey("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set +10%")),
-	EzKey("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-")),
-	#EzKey("A-k", lazy.spawn("brightnessctl set +10%")),
-	#EzKey("A-j", lazy.spawn("brightnessctl set 10%-")),
+	Key("<XF86AudioLowerVolume>", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
+	Key("<XF86AudioRaiseVolume>", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
+	Key("<XF86AudioMute>", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+	Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set +10%")),
+	Key("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-")),
+	#Key("A-k", lazy.spawn("brightnessctl set +10%")),
+	#Key("A-j", lazy.spawn("brightnessctl set 10%-")),
 
 	# Applications launcher
-	EzKey("A-<Tab>", lazy.spawn("rofi -show window")),
-	EzKey("M-A-r", lazy.spawn("rofi -show run")),
-	EzKey("M-r", lazy.spawn("rofi -show drun")),
-	EzKey("M-<Return>", lazy.spawn(myTerm)),
-	EzKey("M-A-s", lazy.spawn("spotify")),
-	EzKey("M-A-v", lazy.spawn("vlc")),
-	EzKey("M-A-g", lazy.spawn("steam")),
-	EzKey("M-A-t", lazy.spawn(myTextEditor)),
-	EzKey("M-A-o", lazy.spawn(myOfficeSuite)),
-	EzKey("M-A-l", lazy.spawn(myLaTeXEditor)),
-	EzKey("M-e", lazy.spawn(myFileManager)),
-	EzKey("M-A-i", lazy.spawn(myBrowser)),
-	EzKey("M-A-m", lazy.spawn(myMusicPlayer)),
+	Key("A-<Tab>", lazy.spawn("rofi -show window")),
+	Key("M-A-r", lazy.spawn("rofi -show run")),
+	Key("M-r", lazy.spawn("rofi -show drun")),
+	Key("M-<Return>", lazy.spawn(myTerm)),
+	Key("M-A-s", lazy.spawn("spotify")),
+	Key("M-A-v", lazy.spawn("vlc")),
+	Key("M-A-g", lazy.spawn("steam")),
+	Key("M-A-t", lazy.spawn(myTextEditor)),
+	Key("M-A-o", lazy.spawn(myOfficeSuite)),
+	Key("M-A-l", lazy.spawn(myLaTeXEditor)),
+	Key("M-e", lazy.spawn(myFileManager)),
+	Key("M-A-i", lazy.spawn(myBrowser)),
+	Key("M-A-m", lazy.spawn(myMusicPlayer)),
 ]
 
 groups = [
@@ -74,8 +74,8 @@ groups = [
 ]
 
 for k, group in zip(["1", "2", "3", "4", "5", "6", "7", "8"], groups):
-	keys.append(Key([mod], k, lazy.group[group.name].toscreen()))			# Send current window to another group
-	keys.append(Key([mod, "shift"], k, lazy.window.togroup(group.name)))	# Send current window to another group
+	keys.append(Key("M-"+(k), lazy.group[group.name].toscreen()))			# Send current window to another group
+	keys.append(Key("M-S-"+(k), lazy.window.togroup(group.name)))	# Send current window to another group
 
 layout_theme = {"border_focus": "61AFEF", #colours[6]
 				"border_normal": "848484", #colours[2]
@@ -330,11 +330,11 @@ if connected_monitors > 1:
 		screens.append(Screen(top=status_bar(widgets)))
 
 mouse = [
-	EzDrag("M-1", lazy.window.set_position_floating(),
+	Drag("M-1", lazy.window.set_position_floating(),
 		start=lazy.window.get_position()),
-	EzDrag("M-3", lazy.window.set_size_floating(),
+	Drag("M-3", lazy.window.set_size_floating(),
 		start=lazy.window.get_size()),
-	EzClick("M-2", lazy.window.bring_to_front())
+	Click("M-2", lazy.window.bring_to_front())
 ]
 
 auto_fullscreen = True
