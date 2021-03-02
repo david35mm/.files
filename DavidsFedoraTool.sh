@@ -178,7 +178,7 @@ confDNF() {
 	sleep 2
 	clear
 	echo "Creating common aliases for DNF"
-	sudo dnf alias add clean='\clean all'
+	sudo dnf alias add cc='\clean all'
 	sudo dnf alias add if='info'
 	sudo dnf alias add in='install'
 	sudo dnf alias add lr='repolist'
@@ -211,7 +211,7 @@ getQtile() {
 	sleep 4
 	clear
 	echo "Type your password to write .desktop file at /usr/share/xsessions/qtile.desktop"
-	su -c 'printf "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile\nType=Application" > /usr/share/xsessions/qtile.desktop'
+	su -c 'printf "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile start\nType=Application\nKeywords=wm;tiling" > /usr/share/xsessions/qtile.desktop'
 	clear
 	echo -e "\n\tQtile was installed successfully"
 	sleep 2

@@ -2,7 +2,96 @@ modkey = "Mod4"
 
 tags = ["web", "dev", "sys", "doc", "chat", "game", "media", "gfx"]
 
-workspaces = []
+[[keybind]]
+command = "HardReload"
+modifier = ["modkey", "Control"]
+key = "r"
+
+[[keybind]]
+command = "Execute"
+value = "pkill leftwm"
+modifier = ["modkey", "Control"]
+key = "q"
+
+[[keybind]]
+command = "FocusWindowUp"
+modifier = ["modkey"]
+key = "j"
+
+[[keybind]]
+command = "FocusWindowDown"
+modifier = ["modkey"]
+key = "k"
+
+[[keybind]]
+command = "MoveWindowUp"
+modifier = ["modkey", "Control"]
+key = "j"
+
+[[keybind]]
+command = "MoveWindowDown"
+modifier = ["modkey", "Control"]
+key = "k"
+
+[[keybind]]
+command = "NextLayout"
+modifier = ["modkey"]
+key = "Tab"
+
+[[keybind]]
+command = "IncreaseMainWidth"
+modifier = ["modkey"]
+key = "l"
+
+[[keybind]]
+command = "DecreaseMainWidth"
+modifier = ["modkey"]
+key = "h"
+
+[[keybind]]
+command = "CloseWindow"
+modifier = ["modkey"]
+key = "w"
+
+[[keybind]]
+command = "FocusWorkspaceNext"
+modifier = ["modkey"]
+key = "period"
+
+[[keybind]]
+command = "FocusWorkspacePrevious"
+modifier = ["modkey"]
+key = "comma"
+
+[[keybind]]
+command = "Execute"
+value = "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+modifier = ["None"]
+key = "XF86AudioLowerVolume"
+
+[[keybind]]
+command = "Execute"
+value = "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+modifier = ["None"]
+key = "XF86AudioRaiseVolume"
+
+[[keybind]]
+command = "Execute"
+value = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+modifier = ["None"]
+key = "XF86AudioMute"
+
+[[keybind]]
+command = "Execute"
+value = "rofi -show window"
+modifier = ["Mod1"]
+key = "Tab"
+
+[[keybind]]
+command = "Execute"
+value = "rofi -show run"
+modifier = ["modkey", "Mod1"]
+key = "r"
 
 [[keybind]]
 command = "Execute"
@@ -17,18 +106,151 @@ modifier = ["modkey"]
 key = "Return"
 
 [[keybind]]
-command = "CloseWindow"
-modifier = ["modkey"]
-key = "w"
-
-
-[[keybind]]
-command = "SoftReload"
-modifier = ["modkey", "Control"]
-key = "r"
+command = "Execute"
+value = "spotify"
+modifier = ["modkey", "Mod1"]
+key = "s"
 
 [[keybind]]
 command = "Execute"
-value = "pkill leftwm"
-modifier = ["modkey", "Control"]
-key = "q"
+value = "vlc"
+modifier = ["modkey", "Mod1"]
+key = "v"
+
+[[keybind]]
+command = "Execute"
+value = "steam"
+modifier = ["modkey", "Mod1"]
+key = "g"
+
+[[keybind]]
+command = "Execute"
+value = "subl"
+modifier = ["modkey", "Mod1"]
+key = "t"
+
+[[keybind]]
+command = "Execute"
+value = "desktopeditors"
+modifier = ["modkey", "Mod1"]
+key = "g"
+
+[[keybind]]
+command = "Execute"
+value = "gnome-latex"
+modifier = ["modkey", "Mod1"]
+key = "l"
+
+[[keybind]]
+command = "Execute"
+value = "nemo"
+modifier = ["modkey"]
+key = "e"
+
+[[keybind]]
+command = "Execute"
+value = "brave-browser"
+modifier = ["modkey", "Mod1"]
+key = "i"
+
+[[keybind]]
+command = "Execute"
+value = "alacritty -e cmus"
+modifier = ["modkey", "Mod1"]
+key = "m"
+
+[[keybind]]
+command = "GotoTag"
+value = "1"
+modifier = ["modkey"]
+key = "1"
+
+[[keybind]]
+command = "GotoTag"
+value = "2"
+modifier = ["modkey"]
+key = "2"
+
+[[keybind]]
+command = "GotoTag"
+value = "3"
+modifier = ["modkey"]
+key = "3"
+
+[[keybind]]
+command = "GotoTag"
+value = "4"
+modifier = ["modkey"]
+key = "4"
+
+[[keybind]]
+command = "GotoTag"
+value = "5"
+modifier = ["modkey"]
+key = "5"
+
+[[keybind]]
+command = "GotoTag"
+value = "6"
+modifier = ["modkey"]
+key = "6"
+
+[[keybind]]
+command = "GotoTag"
+value = "7"
+modifier = ["modkey"]
+key = "7"
+
+[[keybind]]
+command = "GotoTag"
+value = "8"
+modifier = ["modkey"]
+key = "8"
+
+[[keybind]]
+command = "MoveToTag"
+value = "1"
+modifier = ["modkey", "Shift"]
+key = "1"
+
+[[keybind]]
+command = "MoveToTag"
+value = "2"
+modifier = ["modkey", "Shift"]
+key = "2"
+
+[[keybind]]
+command = "MoveToTag"
+value = "3"
+modifier = ["modkey", "Shift"]
+key = "3"
+
+[[keybind]]
+command = "MoveToTag"
+value = "4"
+modifier = ["modkey", "Shift"]
+key = "4"
+
+[[keybind]]
+command = "MoveToTag"
+value = "5"
+modifier = ["modkey", "Shift"]
+key = "5"
+
+[[keybind]]
+command = "MoveToTag"
+value = "6"
+modifier = ["modkey", "Shift"]
+key = "6"
+
+[[keybind]]
+command = "MoveToTag"
+value = "7"
+modifier = ["modkey", "Shift"]
+key = "7"
+
+[[keybind]]
+command = "MoveToTag"
+value = "8"
+modifier = ["modkey", "Shift"]
+key = "8"

@@ -30,20 +30,20 @@ ex ()
 {
 	if [ -f $1 ] ; then
 		case $1 in
-			*.tar.bz2)		tar xjf $1   ;;
-			*.tar.gz) 		tar xzf $1   ;;
-			*.bz2)    		bunzip2 $1   ;;
-			*.rar)    		unrar x $1   ;;
-			*.gz)     		gunzip $1    ;;
-			*.tar)    		tar xf $1    ;;
-			*.tbz2)   		tar xjf $1   ;;
-			*.tgz)    		tar xzf $1   ;;
-			*.zip)    		unzip $1     ;;
-			*.Z)      		uncompress $1;;
-			*.7z)     		7z x $1      ;;
-			*.deb)    		ar x $1      ;;
-			*.tar.xz) 		tar xf $1    ;;
-			*.tar.zst)		unzstd $1    ;;
+			*.7z)     		7z x $1        ;;
+			*.bz2)    		tar xjf $1     ;;
+			*.deb)    		ar x $1        ;;
+			*.gz)     		tar xzf  $1      ;;
+			*.rar)    		unrar x $1     ;;
+			*.tar)    		tar xf $1      ;;
+			*.tar.bz2)		tar xjf $1     ;;
+			*.tar.gz) 		tar xzf $1     ;;
+			*.tar.xz) 		tar xJf $1      ;;
+			*.tar.zst)		unzstd $1      ;;
+			*.tbz2)   		tar xjf $1     ;;
+			*.tgz)    		tar xzf $1     ;;
+			*.Z)      		uncompress $1  ;;
+			*.zip)    		unzip $1       ;;
 			*)        		echo "'$1' cannot be extracted via ex()" ;;
 		esac
 		else
@@ -96,7 +96,7 @@ alias merge='xrdb -merge ~/.Xresources'
 
 # Aliases for software managment
 alias darm='sudo dnf autoremove -y'
-alias dcln='dnf clean'
+alias dcc='dnf cc'
 alias dif='dnf info'
 alias din='sudo dnf in'
 alias dlr='dnf lr'
@@ -106,7 +106,7 @@ alias drm='sudo dnf rm'
 alias drmk='sudo dnf rm $(dnf repoquery --installonly --latest-limit=-1 -q) -y'
 alias dse='dnf se'
 alias dup='sudo dnf up -y'
-alias dwp='dnf provides'
+alias dwp='dnf wp'
 
 # Update the GRUB config
 alias grubup='sudo grub2-mkconfig'
@@ -140,6 +140,7 @@ alias ytv-best='youtube-dl -f bestvideo+bestaudio'
 alias valacritty='vim ~/.config/alacritty/alacritty.yml'
 alias vbashrc='vim ~/.bashrc'
 alias vdnf='sudo vim /etc/dnf/dnf.conf'
+alias vfish='vim ~/.config/fish/config.fish'
 alias vherbstluftwm='vim ~/.config/herbstluftwm/autostart'
 alias vnvim='vim ~/.config/nvim/init.vim'
 alias vpicom='vim ~/.config/picom/picom.conf'
@@ -149,15 +150,16 @@ alias vvim='vim ~/.vimrc'
 
 # Git
 alias addot='git add .'
+alias clone='git clone'
 alias commit='git commit -m'
 alias pull='git pull'
-alias push='git push'
+alias push='git push origin main'
 
 alias config='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
 alias cadd='config add'
 alias ccommit='config commit -m'
 alias cpull='config pull'
-alias cpush='config push'
+alias cpush='config push origin main'
 alias cstatus='config status'
 
 # Xephyr

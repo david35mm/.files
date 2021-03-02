@@ -12,8 +12,7 @@ set -gx VISUAL "subl"
 starship init fish | source
 
 # User specific environment
-set PATH $PATH /usr/local/go/bin:$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/XiaomiADBFastbootTools/platform-tools:$HOME/.local/bin/jdk-15.0.2/bin
-
+set PATH $PATH /usr/local/go/bin:$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/XiaomiADBFastbootTools/platform-tools
 
 # Start of user functions
 
@@ -43,48 +42,46 @@ bind '$' __history_previous_command_arguments
 
 # Function for extracting archives
 function ex
-	set ext zip rar bz2 gz tar tbz2 tgz Z 7z xz exe tar.bz2 tar.gz tar.xz lzma
+	set ext 7z bz2 deb gz rar tar tar.bz2 tar.gz tar.xz tar.zst tbz2 tgz Z zip
 	if test -z "$argv"
     	# display usage if no parameters given
-    	echo "Usage: ex <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz|lzma>"
+    	echo "Usage: ex <path/file_name>.<|7z|bz2|deb|gz|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zst|tbz2|tgz|Z|zip>"
 	else
 		if test -f "$argv"
 			switch $argv
-				case "*.$ext[1]"		
-					unzip ./$argv
-				case "*.$ext[2]"		
-					unrar x -ad ./$argv
-				case "*.$ext[5]"		
-					tar xvf ./$argv
-				case "*.$ext[6]"		
-					tar xvjf ./$argv
-				case "*.$ext[7]"		
-					tar xvzf ./$argv
-				case "*.$ext[8]"		
-					uncompress ./$argv
-				case "*.$ext[9]"		
+				case "*.$ext[1]"
 					7z x ./$argv
-				case "*.$ext[11]"		
-					cabextract ./$argv
-				case "*.$ext[12]"		
-					tar xvjf ./$argv
-				case "*.$ext[3]"		
-					bunzip2 ./$argv
-				case "*.$ext[13]"		
-					tar xvzf ./$argv
-				case "*.$ext[4]"		
-					gunzip ./$argv
-				case "*.$ext[14]"		
-					tar xvJf ./$argv
-				case "*.$ext[10]"		
-					unxz ./$argv
-				case "*.$ext[15]"		
-					unlzma ./$argv
-				case '*'				
-					echo "extract: $argv - unknown archive method"
+				case "*.$ext[2]"
+					tar xjf ./$argv
+				case "*.$ext[3]"
+					ar x ./$argv
+				case "*.$ext[4]"
+					tar xzf ./$argv
+				case "*.$ext[5]"
+					unrar x ./$argv
+				case "*.$ext[6]"
+					tar xf ./$argv
+				case "*.$ext[7]"
+					tar xjf ./$argv
+				case "*.$ext[8]"
+					tar xzf ./$argv
+				case "*.$ext[9]"
+					tar xJf ./$argv
+				case "*.$ext[10]"
+					unzstd ./$argv
+				case "*.$ext[11]"
+					tar xjf ./$argv
+				case "*.$ext[12]"
+					tar xzf ./$argv
+				case "*.$ext[13]"
+					uncompress ./$argv
+				case "*.$ext[14]"
+					unzip ./$argv
+				case '*'
+					echo "$argv cannot be extracted via ex()"
 			end
 		else
-			echo $argv "- file does not exist"
+			echo $argv "$argv is not a valid file"
 		end
 	end
 end
@@ -132,17 +129,17 @@ alias merge='xrdb -merge ~/.Xresources'
 
 # Aliases for software managment
 alias darm='sudo dnf autoremove -y'
-alias dcln='dnf clean'
+alias dcc='dnf cc'
 alias dif='dnf info'
 alias din='sudo dnf in'
 alias dlr='dnf lr'
 alias dlu='dnf lu'
 alias dref='dnf ref'
 alias drm='sudo dnf rm'
-alias drmk='sudo dnf rm (dnf repoquery --installonly --latest-limit=-1 -q) -y'
+alias drmk='sudo dnf rm \$(dnf repoquery --installonly --latest-limit=-1 -q) -y'
 alias dse='dnf se'
 alias dup='sudo dnf up -y'
-alias dwp='dnf provides'
+alias dwp='dnf wp'
 
 # Update the GRUB config
 alias grubup='sudo grub2-mkconfig'
@@ -168,6 +165,7 @@ alias ytv-best='youtube-dl -f bestvideo+bestaudio'
 alias valacritty='vim ~/.config/alacritty/alacritty.yml'
 alias vbashrc='vim ~/.bashrc'
 alias vdnf='sudo vim /etc/dnf/dnf.conf'
+alias vfish='vim ~/.config/fish/config.fish'
 alias vherbstluftwm='vim ~/.config/herbstluftwm/autostart'
 alias vnvim='vim ~/.config/nvim/init.vim'
 alias vpicom='vim ~/.config/picom/picom.conf'
@@ -177,15 +175,16 @@ alias vvim='vim ~/.vimrc'
 
 # Git
 alias addot='git add .'
+alias clone='git clone'
 alias commit='git commit -m'
 alias pull='git pull'
-alias push='git push'
+alias push='git push origin main'
 
 alias config='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
 alias cadd='config add'
 alias ccommit='config commit -m'
 alias cpull='config pull'
-alias cpush='config push'
+alias cpush='config push origin main'
 alias cstatus='config status'
 
 # Xephyr

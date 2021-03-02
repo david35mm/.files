@@ -2,11 +2,10 @@ import os
 import re
 import socket
 import subprocess
-from libqtile.config import Key, Screen, Group, Drag, Click
-from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook
+from libqtile import bar, hook, layout, widget
+from libqtile.config import Click, Drag, EzKey, Group, Key, Match, Screen
+from libqtile.lazy import lazy
 from typing import List
-from libqtile import hook
 
 mod = "mod4"
 myTerm = "alacritty"
@@ -20,47 +19,47 @@ myConfig = "~/.config/qtile/config.py"
 
 keys = [
 	# Qtile Controls
-	Key([mod, "control"], "r", lazy.restart()),
-	Key([mod, "control"], "q", lazy.shutdown()),
+	EzKey("M-C-r", lazy.restart()),
+	EzKey("M-C-q", lazy.shutdown()),
 
 	# Window and Layout Controls
-	Key([mod], "k", lazy.layout.down()),
-	Key([mod], "j", lazy.layout.up()),
-	Key([mod, "control"], "k", lazy.layout.shuffle_down()),
-	Key([mod, "control"], "j", lazy.layout.shuffle_up()),
-	Key([mod], "space", lazy.layout.next()),
-	Key([mod], "Tab", lazy.next_layout()),
-	Key([mod], "l", lazy.layout.grow()),
-	Key([mod], "h",lazy.layout.shrink()),
-	Key([mod], "f", lazy.window.toggle_floating()),
-	Key([mod], "s", lazy.window.toggle_fullscreen()),
-	Key([mod], "w", lazy.window.kill()),
-	Key([mod], "period", lazy.next_screen()),
-	Key([mod], "comma", lazy.prev_screen()),
+	EzKey("M-k", lazy.layout.down()),
+	EzKey("M-j", lazy.layout.up()),
+	EzKey("M-C-k", lazy.layout.shuffle_down()),
+	EzKey("M-C-j", lazy.layout.shuffle_up()),
+	EzKey("M-<space>", lazy.layout.next()),
+	EzKey("M-<Tab>", lazy.next_layout()),
+	EzKey("M-l", lazy.layout.grow()),
+	EzKey("M-h",lazy.layout.shrink()),
+	EzKey("M-f", lazy.window.toggle_floating()),
+	EzKey("M-s", lazy.window.toggle_fullscreen()),
+	EzKey("M-w", lazy.window.kill()),
+	EzKey("M-<period>", lazy.next_screen()),
+	EzKey("M-<comma>", lazy.prev_screen()),
 
 	# System Controls
-	Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
-	Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
-	Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
-	Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10%")),
-	Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
-	#Key(["mod1"], "k", lazy.spawn("brightnessctl set +10%")),
-	#Key(["mod1"], "j", lazy.spawn("brightnessctl set 10%-")),
+	EzKey("<XF86AudioLowerVolume>", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
+	EzKey("<XF86AudioRaiseVolume>", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
+	EzKey("<XF86AudioMute>", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+	EzKey("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set +10%")),
+	EzKey("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-")),
+	#EzKey("A-k", lazy.spawn("brightnessctl set +10%")),
+	#EzKey("A-j", lazy.spawn("brightnessctl set 10%-")),
 
 	# Applications launcher
-	Key(["mod1"], "Tab", lazy.spawn("rofi -show window")),
-	Key([mod, "mod1"], "r", lazy.spawn("rofi -show run")),
-	Key([mod], "r", lazy.spawn("rofi -show drun")),
-	Key([mod], "Return", lazy.spawn(myTerm)),
-	Key([mod, "mod1"], "s", lazy.spawn("spotify")),
-	Key([mod, "mod1"], "v", lazy.spawn("vlc")),
-	Key([mod, "mod1"], "g", lazy.spawn("steam")),
-	Key([mod, "mod1"], "t", lazy.spawn(myTextEditor)),
-	Key([mod, "mod1"], "o", lazy.spawn(myOfficeSuite)),
-	Key([mod, "mod1"], "l", lazy.spawn(myLaTeXEditor)),
-	Key([mod], "e", lazy.spawn(myFileManager)),
-	Key([mod, "mod1"], "i", lazy.spawn(myBrowser)),
-	Key([mod, "mod1"], "m", lazy.spawn(myMusicPlayer)),
+	EzKey("A-<Tab>", lazy.spawn("rofi -show window")),
+	EzKey("M-A-r", lazy.spawn("rofi -show run")),
+	EzKey("M-r", lazy.spawn("rofi -show drun")),
+	EzKey("M-<Return>", lazy.spawn(myTerm)),
+	EzKey("M-A-s", lazy.spawn("spotify")),
+	EzKey("M-A-v", lazy.spawn("vlc")),
+	EzKey("M-A-g", lazy.spawn("steam")),
+	EzKey("M-A-t", lazy.spawn(myTextEditor)),
+	EzKey("M-A-o", lazy.spawn(myOfficeSuite)),
+	EzKey("M-A-l", lazy.spawn(myLaTeXEditor)),
+	EzKey("M-e", lazy.spawn(myFileManager)),
+	EzKey("M-A-i", lazy.spawn(myBrowser)),
+	EzKey("M-A-m", lazy.spawn(myMusicPlayer)),
 ]
 
 groups = [
@@ -78,43 +77,27 @@ for k, group in zip(["1", "2", "3", "4", "5", "6", "7", "8"], groups):
 	keys.append(Key([mod], k, lazy.group[group.name].toscreen()))			# Send current window to another group
 	keys.append(Key([mod, "shift"], k, lazy.window.togroup(group.name)))	# Send current window to another group
 
-layout_theme = {"border_width": 2,
+layout_theme = {"border_focus": "61AFEF", #colours[6]
+				"border_normal": "848484", #colours[2]
 				"margin": 4,
-				"border_focus": "61AFEF", #colours[6]
-				"border_normal": "848484" #colours[2]
+				"border_width": 2
 				}
 
 layouts = [
-	layout.Max(**layout_theme),
-	layout.MonadTall(**layout_theme),
-	#layout.Tile(shift_windows=True, **layout_theme),
-	layout.Bsp(**layout_theme),
-	layout.Floating(**layout_theme, float_rules=[
-		{'wmclass': 'confirm'},
-		{'wmclass': 'dialog'},
-		{'wmclass': 'download'},
-		{'wmclass': 'error'},
-		{'wmclass': 'file_progress'},
-		{'wmclass': 'notification'},
-		{'wmclass': 'splash'},
-		{'wmclass': 'toolbar'},
-		{'wmclass': 'confirmreset'},  # gitk
-		{'wmclass': 'makebranch'},  # gitk
-		{'wmclass': 'maketag'},  # gitk
-		{'wname': 'Authentication'},  # Polkit agent
-		{'wname': 'branchdialog'},  # gitk
-		{'wname': 'pinentry'},  # GPG key password entry
-		{'wmclass': 'ssh-askpass'},  # ssh-askpass
-	])
-	#layout.MonadWide(**layout_theme),
-	#layout.Stack(stacks=2, **layout_theme),
 	#layout.Columns(**layout_theme),
-	#layout.RatioTile(**layout_theme),
-	#layout.VerticalTile(**layout_theme),
 	#layout.Matrix(**layout_theme),
-	#layout.Zoomy(**layout_theme),
+	#layout.MonadWide(**layout_theme),
+	#layout.RatioTile(**layout_theme),
 	#layout.Slice(**layout_theme),
 	#layout.Stack(num_stacks=2),
+	#layout.Stack(stacks=2, **layout_theme),
+	#layout.Tile(shift_windows=True, **layout_theme),
+	#layout.VerticalTile(**layout_theme),
+	#layout.Zoomy(**layout_theme),
+	layout.Bsp(**layout_theme),
+	layout.Floating(**layout_theme),
+	layout.Max(**layout_theme),
+	layout.MonadTall(**layout_theme)
 ]
 
 colours = [["#141414", "#141414"], # Background
@@ -195,7 +178,7 @@ widgets = [
 		foreground=colours[3],
 		fontsize=14,
 		padding=0,
-		text='﬙ '
+		text=' '
 	),
 	widget.CPU(
 		foreground=colours[3],
@@ -213,7 +196,7 @@ widgets = [
 		foreground=colours[4],
 		fontsize=14,
 		padding=0,
-		text=' '
+		text='﬙ '
 	),
 	widget.Memory(
 		foreground=colours[4],
@@ -224,18 +207,6 @@ widgets = [
 		foreground=colours[2],
 		linewidth=1,
 		padding=10
-	),
-	widget.TextBox(
-		font="JetBrainsMono Nerd Font Regular",
-		foreground=colours[5],
-		fontsize=14,
-		padding=0,
-		text=' '
-	),
-	widget.ThermalSensor(
-		foreground=colours[5],
-		threshold=80,
-		foreground_alert=colours[3]
 	),
 	#widget.TextBox(
 	#	font="JetBrainsMono Nerd Font Regular",
@@ -251,6 +222,22 @@ widgets = [
 	#	change_command='brightnessctl set {0}',
 	#	step=5
 	#),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[5],
+		fontsize=14,
+		padding=0,
+		text=' '
+	),
+	widget.CheckUpdates(
+		colour_have_updates=colours[5],
+		colour_no_updates=colours[5],
+		distro='Fedora',
+		custom_command='dnf updateinfo -q --list',
+		display_format='{updates} Updates',
+		no_update_string='Up to date!',
+		update_interval=900
+	),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
@@ -311,6 +298,13 @@ widgets = [
 		linewidth=1,
 		padding=10
 	),
+	widget.TextBox(
+		font="JetBrainsMono Nerd Font Regular",
+		foreground=colours[8],
+		fontsize=14,
+		padding=0,
+		text=' '
+	),
 	widget.Clock(
 		foreground=colours[8],
 		format='%a %b %d  %I:%M %P    '
@@ -343,14 +337,23 @@ mouse = [
 	Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
-dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
-main = None
-follow_mouse_focus = True
+auto_fullscreen = True
 bring_front_click = False
 cursor_warp = False
-auto_fullscreen = True
+dgroups_app_rules = []  # type: List
+dgroups_key_binder = None
+floating_layout = layout.Floating(float_rules=[
+		*layout.Floating.default_float_rules,
+		Match(title='Authentication'),
+		Match(title='branchdialog'),
+		Match(title='pinentry'),
+		Match(wm_class='confirmreset'),
+		Match(wm_class='makebranch'),
+		Match(wm_class='maketag'),
+		Match(wm_class='ssh-askpass'),
+])
 focus_on_window_activation = "smart"
+follow_mouse_focus = True
 
 @hook.subscribe.startup_once
 def autostart():
