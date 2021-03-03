@@ -2,7 +2,7 @@ import os
 import re
 import socket
 import subprocess
-from libqtile import bar, hook, layout, widget
+from libqtile import bar, hook, layout, qtile, widget
 from libqtile.config import EzClick as Click, EzDrag as Drag, EzKey as Key, Group, Match, Screen
 from libqtile.lazy import lazy
 from typing import List
@@ -128,7 +128,7 @@ widgets = [
 	),
 	widget.Image(
 		scale=True,
-		mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn("rofi -show drun")},
+		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("rofi -show drun")},
 		filename="~/.config/qtile/py.png"
 	),
 	widget.Sep(
@@ -176,13 +176,14 @@ widgets = [
 	widget.TextBox(
 		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[3],
+		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
 		fontsize=14,
 		padding=0,
 		text=' '
 	),
 	widget.CPU(
 		foreground=colours[3],
-		mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
+		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
 		format='{load_percent}%',
 		update_interval=1.0
 	),
@@ -194,13 +195,14 @@ widgets = [
 	widget.TextBox(
 		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[4],
+		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
 		fontsize=14,
 		padding=0,
 		text='﬙ '
 	),
 	widget.Memory(
 		foreground=colours[4],
-		mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e ytop')},
+		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
 		format='{MemUsed} MB'
 	),
 	widget.Sep(
@@ -246,6 +248,12 @@ widgets = [
 	widget.TextBox(
 		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[6],
+		mouse_callbacks = ({
+			"Button1": lambda: qtile.cmd_spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+			"Button3": lambda: qtile.cmd_spawn("pavucontrol"),
+			"Button4": lambda: qtile.cmd_spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+			"Button5": lambda: qtile.cmd_spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+        }),
 		fontsize=14,
 		padding=0,
 		text='墳 '
