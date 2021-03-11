@@ -245,7 +245,7 @@ getUtils() {
 	clear
 	echo "Installing utilities"
 	sudo dnf copr enable david35mm/bat -y && sudo dnf copr enable david35mm/fd -y && sudo dnf copr enable david35mm/macho -y
-	sudo dnf in alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lxappearance lxpolkit macho neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-jack-audio-connection-kit pipewire-plugin-jack pipewire-pulseaudio polybar pulseaudio-utils rofi udiskie xfce4-power-manager ytop --allowerasing -y
+	sudo dnf in alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lxappearance lxpolkit macho neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-plugin-jack pipewire-pulseaudio polybar pulseaudio-utils rofi udiskie xfce4-power-manager ytop -y
 	sleep 2
 	clear
 	echo -e "\n\tUtilities were installed successfully"
