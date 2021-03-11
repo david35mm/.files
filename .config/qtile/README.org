@@ -56,7 +56,7 @@ Here I have set some variables so that you can set your default programs. If som
 mod = "mod4"
 myTerm = guess_terminal()
 myBrowser = "brave-browser"
-myFileManager = "nemo"
+myFileManager = "pcmanfm"
 myTextEditor = "subl"
 myOfficeSuite = "desktopeditors"
 myLaTeXEditor = "gnome-latex"

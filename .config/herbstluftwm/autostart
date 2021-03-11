@@ -10,8 +10,13 @@ hc emit_hook reload
 
 xsetroot -solid '#5A8E3A'
 
-picom &
+dunst &
+emacs --daemon
+lxpolkit &
 nitrogen --restore &
+pcmanfm -d &
+picom &
+xfce4-power-manager &
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -20,7 +25,7 @@ hc keyunbind --all
 # if you have a super key you will be much happier with Mod set to Mod4
 Mod=Mod4   # Use the super key as the main modifier
 myBrowser=brave-browser
-myFileManager=nemo
+myFileManager=pcmanfm
 myTextEditor=subl
 myOfficeSuite=desktopeditors
 myLaTeXEditor=gnome-latex

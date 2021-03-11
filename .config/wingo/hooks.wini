@@ -75,8 +75,10 @@ match := True
 # You can add startup programs here if you like.
 startup := Shell "./.config/herbstluftwm/panel.sh"
 startup := Shell "dunst"
+startup := Shell "emacs --daemon"
 startup := Shell "lxpolkit"
 startup := Shell "nitrogen --restore"
+startup := Shell "pcmanfm -d"
 startup := Shell "picom"
 startup := Shell "xfce4-power-manager"
 

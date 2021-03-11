@@ -22,10 +22,11 @@ echo "LoadTheme $SCRIPTPATH/theme.toml" > $XDG_RUNTIME_DIR/leftwm/commands.pipe
 
 
 #startup apps
-nitrogen --restore &
-picom &
 dunst &
+emacs --daemon
 lxpolkit &
+nitrogen --restore &
+pcmanfm -d &
 xfce4-power-manager &
 
 # Terminate already running bar instances

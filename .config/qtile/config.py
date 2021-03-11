@@ -11,7 +11,7 @@ from typing import List
 mod = "mod4"
 myTerm = guess_terminal()
 myBrowser = "brave-browser"
-myFileManager = "nemo"
+myFileManager = "pcmanfm"
 myTextEditor = "subl"
 myOfficeSuite = "desktopeditors"
 myLaTeXEditor = "gnome-latex"

@@ -63,4 +63,4 @@ mouse:
   hide_when_typing: true
 
 shell:
-  program: /bin/fish
+  program: /usr/bin/fish

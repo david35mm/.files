@@ -6,7 +6,7 @@ showWelcome() {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 4.2                                 ="
+	echo "=     Version 4.3                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -156,9 +156,9 @@ getGit() {
 #
 getRepo() {
 	clear
-	echo -e "This script will remove the following files and folders:\n.bashrc\n.config/\n.files/\n.gitignore\n.icons/\n.screenshots/\n.themes/\n.vimrc\n.Xresources\nDavidsFedoraTool.sh\nREADME.md\n\n\tYou have 5 seconds to press Ctrl+C on your keyboard to cancel"
+	echo -e "This script will remove the following files and folders:\n.bashrc\n.config/\n.files/\n.gitignore\n.screenshots/\n.vimrc\n.Xresources\nDavidsFedoraTool.sh\nREADME.md\n\n\tYou have 5 seconds to press Ctrl+C on your keyboard to cancel"
 	sleep 5
-	sudo rm -rf .bashrc .config/ .files/ .gitignore .icons/ .screenshots/ .themes/ .vimrc .Xresources DavidsFedoraTool.sh README.md
+	sudo rm -rf .bashrc .config/ .files/ .gitignore .screenshots/ .vimrc .Xresources DavidsFedoraTool.sh README.md
 	git clone --bare https://github.com/david35mm/.files.git $HOME/.files
 	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME checkout
 	/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME config --local status.showUntrackedFiles no
@@ -172,7 +172,7 @@ getRepo() {
 confDNF() {
 	clear
 	echo "Type your password to write better settings at /etc/dnf/dnf.conf"
-	su -c 'printf "[main]\nbest=True\ncheck_config_file_age=False\nclean_requirements_on_remove=True\ncolor=always\ndefaultyes=True\ndeltarpm=True\ndiskspacecheck=False\nfastestmirror=True\ngpgcheck=1\ninstallonly_limit=2\nip_resolve=4\nkeepcache=False\nmax_parallel_downloads=10\nmetadata_expire=never\nmetadata_timer_sync=0\nskip_if_unavailable=True" > /etc/dnf/dnf.conf'
+	su -c 'echo -e "[main]\nbest=True\ncheck_config_file_age=False\nclean_requirements_on_remove=True\ncolor=always\ndefaultyes=True\ndeltarpm=True\ndiskspacecheck=False\nfastestmirror=True\ngpgcheck=1\ninstallonly_limit=2\nip_resolve=4\nkeepcache=False\nmax_parallel_downloads=10\nmetadata_expire=never\nmetadata_timer_sync=0\nskip_if_unavailable=True" > /etc/dnf/dnf.conf'
 	clear
 	echo "Settings written at /etc/dnf/dnf.conf"
 	sleep 2
@@ -202,7 +202,6 @@ getQtile() {
 	sleep 2
 	clear
 	echo "Installing Qtile dependencies"
-	sudo dnf in lm_sensors -y
 	sudo pip install xcffib cairocffi dbus-next psutil
 	sleep 2
 	clear
@@ -211,7 +210,8 @@ getQtile() {
 	sleep 4
 	clear
 	echo "Type your password to write .desktop file at /usr/share/xsessions/qtile.desktop"
-	su -c 'printf "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile start\nType=Application\nKeywords=wm;tiling" > /usr/share/xsessions/qtile.desktop'
+	sudo mkdir /usr/share/xsessions
+	su -c 'echo -e "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile start\nType=Application\nKeywords=wm;tiling" > /usr/share/xsessions/qtile.desktop'
 	clear
 	echo -e "\n\tQtile was installed successfully"
 	sleep 2
@@ -245,7 +245,7 @@ getUtils() {
 	clear
 	echo "Installing utilities"
 	sudo dnf copr enable david35mm/bat -y && sudo dnf copr enable david35mm/fd -y && sudo dnf copr enable david35mm/macho -y
-	sudo dnf in alacritty arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lm_sensors lxappearance lxpolkit macho neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom polybar rofi udiskie xfce4-power-manager ytop -y
+	sudo dnf in alacritty arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lxappearance lxpolkit macho neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom polybar rofi udiskie xfce4-power-manager ytop -y
 	sleep 2
 	clear
 	echo -e "\n\tUtilities were installed successfully"
@@ -259,6 +259,7 @@ getThemesIcons() {
 	git clone https://github.com/david35mm/fonts-themes.git
 	sudo dnf in tar -y
 	echo "Extracting fonts, themes and icons to the /usr/share/ folder"
+	sudo mkdir /usr/share/fonts /usr/share/icons /usr/share/themes
 	sudo tar -C /usr/share/fonts -xf fonts-themes/fonts.tar.xz
 	sudo tar -C /usr/share/icons -xf fonts-themes/icons.tar.xz
 	sudo tar -C /usr/share/themes -xf fonts-themes/themes.tar.xz
@@ -286,7 +287,7 @@ getAllSoft() {
 	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 	clear
 	echo "Installing software collection"
-	sudo dnf in brave-browser nemo nemo-terminal vlc cmus geeqie zathura-pdf-mupdf onlyoffice-desktopeditors sublime-text -y
+	sudo dnf in brave-browser pcmanfm vlc cmus geeqie zathura-pdf-mupdf onlyoffice-desktopeditors sublime-text -y
 	sleep 2
 	clear
 	echo -e "\n\tSoftware was installed successfully"
@@ -314,7 +315,7 @@ getGo() {
 purgeLeftOvers() {
 	clear
 	echo -e "Deleting the following files from your home folder:\n.gitignore\n.icons/\n.screenshots/\n.themes/\nDavidsFedoraTool.sh\nREADME.md"
-	sudo rm -rf .gitignore .icons/ .screenshots/ .themes/ DavidsFedoraTool.sh README.md
+	sudo rm -rf .gitignore .screenshots/ DavidsFedoraTool.sh README.md
 	clear
 	echo -e "\n\tThe cleanup has been completed"
 	sleep 2
