@@ -5,16 +5,17 @@ import subprocess
 from libqtile import bar, hook, layout, qtile, widget
 from libqtile.config import EzClick as Click, EzDrag as Drag, EzKey as Key, Group, Match, Screen
 from libqtile.lazy import lazy
+from libqtile.utils import guess_terminal
 from typing import List
 
 mod = "mod4"
-myTerm = "alacritty"
+myTerm = guess_terminal()
 myBrowser = "brave-browser"
 myFileManager = "nemo"
 myTextEditor = "subl"
 myOfficeSuite = "desktopeditors"
 myLaTeXEditor = "gnome-latex"
-myMusicPlayer = "alacritty -e cmus"
+myMusicPlayer = myTerm+" -e cmus"
 myConfig = "~/.config/qtile/config.py"
 
 keys = [
@@ -234,7 +235,7 @@ widgets = [
 	widget.CheckUpdates(
 		colour_have_updates=colours[5],
 		colour_no_updates=colours[5],
-		distro='Fedora',
+	#	distro='Arch',
 		custom_command='dnf updateinfo -q --list',
 		display_format='{updates} Updates',
 		no_update_string='Up to date!',
@@ -277,7 +278,7 @@ widgets = [
 	#widget.Net(
 	#	foreground=colours[7],
 	#	interface='enp1s0',
-	#	format='{down} '
+	#	format='{down}  '
 	#	),
 	widget.Battery(
 		font="JetBrainsMono Nerd Font Regular",
