@@ -6,7 +6,7 @@ showWelcome() {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Arch tool        ="
 	echo "=                                                 ="
-	echo "=     Version 1.1                                 ="
+	echo "=     Version 2.0                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -199,7 +199,7 @@ confPacman() {
 #
 getQtile() {
 	echo "Installing Qtile"
-	sudo pacman -Sy --noconfirm qtile
+	sudo pacman -Sy --noconfirm qtile python-psutil python-iwlib
 	sleep 2
 	clear
 	echo -e "\n\tQtile was installed successfully"
@@ -310,7 +310,7 @@ purgeLeftOvers() {
 getPretty() {
 	clear
 	echo "Type your password to write a new lightdm config"
-	su -c 'echo -e "[greeter]\nbackground=/usr/share/wallpapers/deepin/Sunset_of_the_Lake_Nam_by_Wang_Jinyu.jpg\nclock-format=%A, %B %d %I:%M %p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf'
+	su -c 'echo -e "[greeter]\nbackground=/usr/share/wallpapers/deepin/Scenery_in_Plateau_by_Arto_Marttinen.jpg\nclock-format=%A, %B %d %I:%M %p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf'
 	echo "Lightdm config was written successfully"
 	sleep 2
 	clear
