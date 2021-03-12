@@ -6,7 +6,7 @@ showWelcome() {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Arch tool        ="
 	echo "=                                                 ="
-	echo "=     Version 1.0                                 ="
+	echo "=     Version 1.1                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -22,7 +22,7 @@ do
 	echo "-------------------------------------"
 	echo " David Salomon's Fedora Tool"
 	echo -e "-------------------------------------\n"
-	echo "  1) Configure DNF with better settings"
+	echo "  1) Install paru and configure pacman"
 	echo "  2) Install the X11 Display Server"
 	echo "  3) Clone David's GitHub repository"
 	echo "  4) Install window managers and some utilities"
@@ -199,7 +199,7 @@ confPacman() {
 #
 getQtile() {
 	echo "Installing Qtile"
-	sudo pacman -Sy --noconfirm install qtile
+	sudo pacman -Sy --noconfirm qtile
 	sleep 2
 	clear
 	echo -e "\n\tQtile was installed successfully"
