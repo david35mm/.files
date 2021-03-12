@@ -20,7 +20,7 @@ showMainMenu() { while true
 do
 	clear
 	echo "-------------------------------------"
-	echo " David Salomon's Fedora Tool"
+	echo " David Salomon's Arch Tool"
 	echo -e "-------------------------------------\n"
 	echo "  1) Install paru and configure pacman"
 	echo "  2) Install the X11 Display Server"
