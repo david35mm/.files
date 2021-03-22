@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on March 10, 2021 at 01:44 pm.
+This config file was modified by David Salomón on March 22, 2021 at 01:48 am.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -142,12 +142,12 @@ keys = [
 	Key("M-<comma>", lazy.prev_screen()),
 
 	# System Controls
-	Key("<XF86AudioLowerVolume>", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
-	Key("<XF86AudioRaiseVolume>", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
-	Key("<XF86AudioMute>", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+	Key("<XF86AudioLowerVolume>", lazy.spawn("amixer -M set Master 5%-")),
+	Key("<XF86AudioRaiseVolume>", lazy.spawn("amixer -M set Master 5%+")),
+	Key("<XF86AudioMute>", lazy.spawn("amixer -M set Master toggle")),
 	Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set +10%")),
 	Key("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-")),
-	#Key("A-k", lazy.spawn("brightnessctl set +10%")),
+	#Key("A-k", lazy.spawn("brightnessctl set 10%+")),
 	#Key("A-j", lazy.spawn("brightnessctl set 10%-")),
 
 	# Applications launcher
@@ -380,10 +380,10 @@ widgets = [
 		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[6],
 		mouse_callbacks = ({
-			"Button1": lambda: qtile.cmd_spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+			"Button1": lambda: qtile.cmd_spawn("amixer -M set Master toggle"),
 			"Button3": lambda: qtile.cmd_spawn("pavucontrol"),
-			"Button4": lambda: qtile.cmd_spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
-			"Button5": lambda: qtile.cmd_spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+			"Button4": lambda: qtile.cmd_spawn("amixer -M set Master 5%+"),
+			"Button5": lambda: qtile.cmd_spawn("amixer -M set Master 5%-"),
         }),
 		fontsize=14,
 		padding=0,

@@ -45,10 +45,10 @@ hc keybind Mod1-Tab spawn rofi -show window
 hc keybind $Mod-r spawn rofi -show drun
 hc keybind $Mod-Mod1-r spawn rofi -show run
 
-hc keybind XF86AudioRaiseVolume spawn pactl set-sink-volume @DEFAULT_SINK@ +5%
-hc keybind XF86AudioLowerVolume spawn pactl set-sink-volume @DEFAULT_SINK@ -5%
-hc keybind XF86AudioMute spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
-hc keybind XF86MonBrightnessUp spawn brightnessctl set +10%
+hc keybind XF86AudioRaiseVolume amixer -M set Master 5%+
+hc keybind XF86AudioLowerVolume amixer -M set Master 5%-
+hc keybind XF86AudioMute spawn amixer -M set Master toggle
+hc keybind XF86MonBrightnessUp spawn brightnessctl set 10%+
 hc keybind XF86MonBrightnessDown spawn brightnessctl set 10%-
 
 # basic movement in tiling and floating mode

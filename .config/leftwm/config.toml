@@ -65,19 +65,19 @@ key = "comma"
 
 [[keybind]]
 command = "Execute"
-value = "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+value = "amixer -M set Master 5%-"
 modifier = ["None"]
 key = "XF86AudioLowerVolume"
 
 [[keybind]]
 command = "Execute"
-value = "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+value = "amixer -M set Master 5%+"
 modifier = ["None"]
 key = "XF86AudioRaiseVolume"
 
 [[keybind]]
 command = "Execute"
-value = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+value = "amixer -M set Master toggle"
 modifier = ["None"]
 key = "XF86AudioMute"
 

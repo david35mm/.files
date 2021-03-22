@@ -30,9 +30,9 @@ cpu() {
 ##############################
 
 vol() {
-	vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $2}')"
+	vol="$(amixer -D pipewire get Master | awk -F'[][]' 'END{print $2}')"
 
-	if [[ "$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4}' | grep -c "off")" -eq 1 ]]
+	if [[ "$(amixer -D pipewire get Master | awk -F'[][]' 'END{print $4}' | grep -c "off")" -eq 1 ]]
 	then
 		echo "+@fn=2;婢 +@fn=0;OFF"
 	else
