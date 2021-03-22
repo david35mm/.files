@@ -12,7 +12,7 @@ set -gx VISUAL "subl"
 starship init fish | source
 
 # User specific environment
-set PATH $PATH /usr/local/go/bin:$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/XiaomiADBFastbootTools/platform-tools
+set PATH $PATH $HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/XiaomiADBFastbootTools/platform-tools:/usr/local/go/bin:
 
 # Start of user functions
 
@@ -88,20 +88,18 @@ end
 # End of functions
 
 # ls command beautified
-alias l.='exa -a | egrep "^\."'
+alias l.='exa -a | rg "^\."'
 alias la='exa -a --color=always --group-directories-first'
 alias ll='exa -l --color=always --group-directories-first'
 alias ls='exa -al --color=always --group-directories-first'
 alias lt='exa -aT --color=always --group-directories-first'
 
 # Fix obvious typo's
-alias cd..='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
 alias pdw='pwd'
-
-# Colorize the grep command output for ease of use (good for log files)##
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
 
 # vim, doom emacs and bat
 alias cat='bat'
@@ -109,13 +107,14 @@ alias ddoctor='doom doctor'
 alias dpurge='doom purge'
 alias dsync='doom sync'
 alias dupgrade='doom upgrade'
-alias find='fd'
 alias vi='vim'
 alias vim='nvim'
 
 # Add some useful flags
 alias cp='cp -i'
 alias df='df -h'
+alias efd='fd -F'
+alias fd='fd -Hi'
 alias free='free -mt'
 alias librespot='librespot -n "A315-41" -b 320 -u yourUsername -p yourPassword -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
 alias lynx='lynx -accept_all_cookies'
@@ -136,10 +135,22 @@ alias dlr='dnf lr'
 alias dlu='dnf lu'
 alias dref='dnf ref'
 alias drm='sudo dnf rm'
-alias drmk='sudo dnf rm \$(dnf repoquery --installonly --latest-limit=-1 -q) -y'
+alias drmk='sudo dnf rm (dnf repoquery --installonly --latest-limit=-1 -q) -y'
 alias dse='dnf se'
 alias dup='sudo dnf up -y'
 alias dwp='dnf wp'
+
+alias parm='pacman -Qtdq | sudo pacman -Rns --noconfirm -'
+alias pcc='paru -Scc --noconfirm'
+alias pif='paru -Si'
+alias pin='paru -S --needed'
+alias plu='pacman -Qqu'
+alias pref='sudo pacman -Fy'
+alias prm='paru -Rns'
+alias pse='paru -Ss'
+alias pup='sudo pacman -Syu --noconfirm --needed'
+alias paup='paru -Sua --noconfirm --needed'
+alias pwp='pacman -F'
 
 # Update the GRUB config
 alias grubup='sudo grub2-mkconfig'
@@ -161,7 +172,7 @@ alias yta-vorbis='youtube-dl --extract-audio --audio-format vorbis'
 alias yta-wav='youtube-dl --extract-audio --audio-format wav'
 alias ytv-best='youtube-dl -f bestvideo+bestaudio'
 
-# Vim for important configuration files
+# Vim/Sublime for important configuration files
 alias valacritty='vim ~/.config/alacritty/alacritty.yml'
 alias vbashrc='vim ~/.bashrc'
 alias vdnf='sudo vim /etc/dnf/dnf.conf'
@@ -172,6 +183,17 @@ alias vpicom='vim ~/.config/picom/picom.conf'
 alias vqtile='vim ~/.config/qtile/config.py'
 alias vspectrwm='vim ~/.config/spectrwm/spectrwm.conf'
 alias vvim='vim ~/.vimrc'
+
+alias salacritty='subl ~/.config/alacritty/alacritty.yml'
+alias sbashrc='subl ~/.bashrc'
+alias sdnf='sudo subl /etc/dnf/dnf.conf'
+alias sfish='subl ~/.config/fish/config.fish'
+alias sherbstluftwm='subl ~/.config/herbstluftwm/autostart'
+alias snvim='subl ~/.config/nvim/init.vim'
+alias spicom='subl ~/.config/picom/picom.conf'
+alias sqtile='subl ~/.config/qtile/config.py'
+alias sspectrwm='subl ~/.config/spectrwm/spectrwm.conf'
+alias svim='subl ~/.vimrc'
 
 # Git
 alias addot='git add .'

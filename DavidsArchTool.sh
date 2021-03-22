@@ -137,7 +137,7 @@ done
 getXorg(){
 	clear
 	echo "Downloading the X11 Display Server and lightdm"
-	sudo pacman -Sy --noconfirm xorg lightdm-gtk-greeter
+	sudo pacman -S --noconfirm --needed lightdm-gtk-greeter xorg
 	sleep 2
 	clear
 	echo "Initializing lightdm service and changing the default systemd target to 'graphical'"
@@ -150,7 +150,7 @@ getXorg(){
 getGit() {
 	clear
 	echo "Installing Git"
-	sudo pacman -Sy --noconfirm git
+	sudo pacman -S --noconfirm --needed git
 	sleep 2
 }
 #
@@ -173,7 +173,7 @@ getRepo() {
 confPacman() {
 	clear
 	echo "Installing paru build dependencies"
-	sudo pacman -Sy --noconfirm git base-devel
+	sudo pacman -S --noconfirm --needed base-devel git pacman-contrib reflector
 	sleep 2
 	clear
 	"Cloning paru Git repository"
@@ -189,8 +189,6 @@ confPacman() {
 	clear
 	echo "Type your password to write better settings at /etc/pacman.conf"
 	sudo nvim /etc/pacman.conf
-	less /etc/pacman.conf
-	sleep 2
 	clear
 	echo -e "\n\tYou have made pacman a little prettier"
 	sleep 2
@@ -199,7 +197,8 @@ confPacman() {
 #
 getQtile() {
 	echo "Installing Qtile"
-	sudo pacman -Sy --noconfirm qtile python-psutil python-iwlib
+	sudo pacman -S --noconfirm --needed qtile
+	sudo pacman -S --noconfirm --needed --asdeps python-psutil python-iwlib
 	sleep 2
 	clear
 	echo -e "\n\tQtile was installed successfully"
@@ -210,7 +209,7 @@ getQtile() {
 getSpectrwm() {
 	clear
 	echo "Installing Spectrwm"
-	sudo pacman -Sy --noconfirm spectrwm
+	sudo pacman -S --noconfirm --needed spectrwm
 	sleep 2
 	clear
 	echo -e "\n\tSpectrwm was installed successfully"
@@ -221,7 +220,7 @@ getSpectrwm() {
 getHerbstluft() {
 	clear
 	echo "Installing Herbstluftwm"
-	sudo pacman -Sy --noconfirm herbstluftwm
+	sudo pacman -S --noconfirm --needed herbstluftwm
 	sleep 2
 	clear
 	echo -e "\n\tHerbstluftwm was installed successfully"
@@ -232,8 +231,8 @@ getHerbstluft() {
 getUtils() {
 	clear
 	echo "Installing utilities"
-	sudo pacman -Sy --noconfirm alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-mtp libmtp libnotify lxappearance lxsession neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-jack pipewire-pulse rofi udiskie
-	paru -Sy macho ytop-bin
+	sudo pacman -S --noconfirm --needed alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-mtp libmtp libnotify lxappearance lxsession neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-jack pipewire-pulse rofi udiskie
+	paru -S --cleanafter --needed --noconfirm --removemake --skipreview macho ytop-bin
 	sleep 2
 	clear
 	echo -e "\n\tUtilities were installed successfully"
@@ -256,7 +255,7 @@ getThemesIcons() {
 	sleep 2
 	clear
 	echo "Installing Deepin DE wallpapers"
-	sudo pacman -Sy --noconfirm deepin-wallpapers
+	sudo pacman -S --noconfirm --needed deepin-wallpapers
 	sleep 2
 	clear
 	echo -e "\n\tThemes, icons & wallpapers were installed successfully"
@@ -271,8 +270,8 @@ getAllSoft() {
 	echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
 	clear
 	echo "Installing software collection"
-	sudo pacman -Sy --noconfirm pcmanfm vlc cmus geeqie zathura-pdf-mupdf sublime-text
-	paru -Sy brave-bin onlyoffice-bin
+	sudo pacman -S --noconfirm --needed pcmanfm vlc cmus geeqie zathura-pdf-mupdf sublime-text
+	paru -S --cleanafter --needed --noconfirm --removemake --skipreview brave-bin onlyoffice-bin
 	sleep 2
 	clear
 	echo -e "\n\tSoftware was installed successfully"
