@@ -44,7 +44,7 @@ Most of my dotfiles correspond to configuration files for various window manager
 I have an automated script that clones this repo and applies some other changes to the system. Unfortunately most of it only works for Fedora (just the software installation scripts, some other options are *kind of* distro agnostic), some of the changes include a better DNF config and aliases, the automatic installation of some window managers and the software selection I use... among other things. If you want to run the script in your system Ctrl+C and Ctrl+Shift+V on your terminal this command:
 
 ```sh
-bash <(curl -fsSL raw.githubusercontent.com/david35mm/.files/main/DavidsFedoraTool.sh)
+curl -fsSL https://raw.githubusercontent.com/david35mm/.files/main/DavidsFedoraTool.sh | sh
 ```
 
 ## Who is David Salomón?
