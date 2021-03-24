@@ -25,7 +25,7 @@ mem() {
 ntwrk() {
 	case "$(nmcli general | awk '(NR > 1) {print $1}')" in
 		"connected") echo "+@fn=2; +@fn=0;$(nmcli connection | awk '(NR==2) {print $1}')" ;;
-		"disconnected") echo "+@fn=2; +@fn=0;You are offline" ;;
+		*) echo "+@fn=2; +@fn=0;You are offline" ;;
 	esac
 }
 
@@ -34,10 +34,9 @@ ntwrk() {
 ##############################
 
 vol() {
-	status="$(amixer get Master | awk -F'[][]' 'END{print $4}')"
 	vol="$(amixer get Master | sed 's/%//g' | awk -F'[][]' 'END{print $2}')"
 
-	case "$status" in
+	case "$(amixer get Master | awk -F'[][]' 'END{print $4}')" in
 		"on")
 			case "$vol" in
 				100|9[0-9]|8[0-9]|7[0-9]|6[6-9]) echo "+@fn=2;墳 +@fn=0;$vol%" ;;
@@ -53,10 +52,9 @@ vol() {
 #	    BATTERY
 ##############################
 bat() {
-	status=$(cat /sys/class/power_supply/BAT1/status)
 	bat=$(cat /sys/class/power_supply/BAT1/capacity)
 
-	case "$status" in
+	case "$(cat /sys/class/power_supply/BAT1/status)" in
 		"Full") echo "+@fn=2; +@fn=0;Full" ;;
 		"Discharging") 
 			case "$bat" in
