@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Example Bar Action Script for Linux.
 # Requires: acpi and lm_sensors.
 
@@ -7,8 +7,7 @@
 ##############################
 
 mem() {
-	mem="$(free | awk '/Mem/ {printf "%d\n", $3 / 1024.0}')"
-	echo -e "$mem MB"
+	echo "$(free --mebi | awk '/Mem/ {printf $3}') MB"
 }
 
 ##############################
@@ -16,13 +15,7 @@ mem() {
 ##############################
 
 cpu() {
-	read cpu a b c previdle rest < /proc/stat
-	prevtotal=$((a+b+c+previdle))
-	sleep 1
-	read cpu a b c idle rest < /proc/stat
-	total=$((a+b+c+idle))
-	cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-	echo -e "$cpu%"
+	top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
 }
 
 ##############################
@@ -30,82 +23,95 @@ cpu() {
 ##############################
 
 vol() {
-	vol="$(amixer -D pipewire get Master | awk -F'[][]' 'END{print $2}')"
+	status="$(amixer get Master | awk -F'[][]' 'END{print $4}')"
+	vol="$(amixer get Master | sed 's/%//g' | awk -F'[][]' 'END{print $2}')"
 
-	if [[ "$(amixer -D pipewire get Master | awk -F'[][]' 'END{print $4}' | grep -c "off")" -eq 1 ]]
-	then
-		echo "+@fn=2;婢 +@fn=0;OFF"
-	else
-		echo -e "+@fn=2;墳 +@fn=0;$vol"
-	fi
+	case "$status" in
+		"on")
+			case "$vol" in
+				100|9[0-9]|8[0-9]|7[0-9]|6[6-9]) echo "+@fn=2;墳 +@fn=0;$vol%" ;;
+				6[0-5]|5[0-9]|4[0-9]|3[3-9]) echo "+@fn=2;奔 +@fn=0;$vol%" ;;
+				*) echo "+@fn=2;奄 +@fn=0;$vol%" ;;
+			esac
+		;;
+		"off") echo "+@fn=2;婢 +@fn=0;OFF"
+	esac
 }
 
 ##############################
 #	    BATTERY
 ##############################
 bat() {
-	bat="$(acpi -b | awk '{printf $4}' | cut -d "," -f1)"
+	status=$(cat /sys/class/power_supply/BAT1/status)
+	bat=$(cat /sys/class/power_supply/BAT1/capacity)
 
-	if [[ "$(acpi -b|grep -c "Full")" -eq 1 ]]
-	then
-		echo ""
-	else
-		echo "$bat"
-	fi
-}
-
-##############################
-#	    BATTERY STATUS
-##############################
-stat() {
-	ac_power="$(acpi -b|grep -c "Charging")"
-
-	if [[ "$(acpi -b|grep -c "Full")" -eq 1 ]]
-	then
-		echo " +@fn=0;Full"
-	elif [ $ac_power -eq 1 ]
-		then
-			echo " "
-		else
-			echo " "
-	fi
+	case "$status" in
+		"Full") echo "+@fn=2; +@fn=0;Full" ;;
+		"Discharging") 
+			case "$bat" in
+				100|9[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				90|8[2-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				8[0-1]|7[3-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				7[0-2]|6[4-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				6[0-3]|5[5-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				5[0-4]|4[5-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				4[0-4]|3[6-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				3[0-5]|2[7-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				2[0-6]|1[8-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				1[0-7]|9) echo "+@fn=2; +@fn=0;$bat%" ;;
+				*) echo "+@fn=2; +@fn=0;$bat%" ;;
+			esac
+		;;
+		"Charging")
+			case "$bat" in
+				100|9[0-9]|8[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				80|7[0-9]|6[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				60|5[0-9]|4[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				40|3[0-9]|2[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
+				*) echo "+@fn=2; +@fn=0;$bat%" ;;
+			esac
+		;;
+		"Unknown") echo "+@fn=2; +@fn=0;$bat%" ;;
+	esac
 }
 
 ##############################
 #	    CPU TEMP
 ##############################
-cputmp() {
-	temp="$(sensors | awk '/Tctl/ {printf $2}' | cut -d "+" -f2)"
-	echo "$temp"
-}
+#cputmp() {
+#	sensors | sed 's\+\\g' | awk '/Tdie/ {print $2}'
+#}
 
 ##############################
-#       UPDATES
+#       BRIGHTNESS
 ##############################
-updts() {
-	up="$(dnf updateinfo -q --list | wc -l)"
-	if [[ $up -le 0 ]]
-	then
-		echo "Up to date!"
-	else
-		echo "$up Updates"
-	fi
+brghtnss() {
+	bri="$(brightnessctl -m | sed 's/,/ /g;s/%//g' | awk '{print $4}')"
+
+	case "$bri" in
+		100|9[0-9]|8[6-9]) echo "+@fn=2; +@fn=0;$bri%" ;;
+		8[0-5]|7[1-9]) echo "+@fn=2; +@fn=0;$bri%" ;;
+		70|6[0-9]|5[7-9]) echo "+@fn=2; +@fn=0;$bri%" ;;
+		5[0-6]|4[3-9]) echo "+@fn=2; +@fn=0;$bri%" ;;
+		4[0-2]|3[0-9]|29) echo "+@fn=2; +@fn=0;$bri%" ;;
+		2[0-8]|1[4-9]) echo "+@fn=2; +@fn=0;$bri%" ;;
+		*) echo "+@fn=2; +@fn=0;$bri%" ;;
+	esac
 }
 
 ##############################
 #       CRYPTO TICKER
 ##############################
-crypt(){
-	coin="$(curl rate.sx/1doge)"
-	echo ""
-}
+#crypt(){
+#	curl rate.sx/1doge
+#}
 
 ##############################
 #	    BAR OUTPUT
 ##############################
-SLEEP_SEC=0.3
 #loops forever outputting a line every SLEEP_SEC secs
 while :; do
-	echo "+@fn=2;+@fg=2; +@fn=0;$(cpu) +@fg=1;| +@fn=2;+@fg=3;﬙ +@fn=0;$(mem) +@fg=1;| +@fn=2;+@fg=4; +@fn=0;$(updtes) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fn=2;+@fg=6;$(stat)+@fn=0;$(bat) +@fg=1;| +@fn=2;+@fg=7; +@fn=0;"
-	sleep $SLEEP_SEC
+	echo "+@fn=2;+@fg=2; +@fn=0;$(cpu) +@fg=1;| +@fn=2;+@fg=3;﬙ +@fn=0;$(mem) +@fg=1;| +@fg=4;$(brghtnss) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fg=6;$(bat) +@fg=1;| +@fn=2;+@fg=7; +@fn=0;"
+	#echo "+@fn=2;+@fg=3;﬙ +@fn=0;$(mem) +@fg=1;| +@fg=4;$(brghtnss) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fg=6;$(bat) +@fg=1;| +@fn=2;+@fg=7; +@fn=0;"
+	sleep 2
 done

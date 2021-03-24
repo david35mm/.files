@@ -1,0 +1,3 @@
+#!/bin/sh
+
+amixer -M sset Master 5%+ ; "$HOME"/.config/spectrwm/refbar.sh

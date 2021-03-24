@@ -1,0 +1,3 @@
+#!/bin/sh
+
+amixer -M set Master toggle ; "$HOME"/.config/spectrwm/refbar.sh

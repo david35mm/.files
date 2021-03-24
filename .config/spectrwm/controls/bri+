@@ -1,0 +1,3 @@
+#!/bin/sh
+
+brightnessctl set 10%+ ; "$HOME"/.config/spectrwm/refbar.sh
