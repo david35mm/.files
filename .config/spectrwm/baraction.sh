@@ -7,15 +7,26 @@
 ##############################
 
 mem() {
-	echo "$(free --mebi | awk '/Mem/ {printf $3}') MB"
+	free --mebi | awk '/Mem/ {printf $3}'
 }
 
 ##############################
 #	    CPU
 ##############################
 
-cpu() {
-	top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
+#cpu() {
+#	top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
+#}
+
+##############################
+#	    NETWORK
+##############################
+
+ntwrk() {
+	case "$(nmcli general | awk '(NR > 1) {print $1}')" in
+		"connected") echo "+@fn=2; +@fn=0;$(nmcli connection | awk '(NR==2) {print $1}')" ;;
+		"disconnected") echo "+@fn=2; +@fn=0;You are offline" ;;
+	esac
 }
 
 ##############################
@@ -109,9 +120,7 @@ brghtnss() {
 ##############################
 #	    BAR OUTPUT
 ##############################
-#loops forever outputting a line every SLEEP_SEC secs
 while :; do
-	echo "+@fn=2;+@fg=2; +@fn=0;$(cpu) +@fg=1;| +@fn=2;+@fg=3;﬙ +@fn=0;$(mem) +@fg=1;| +@fg=4;$(brghtnss) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fg=6;$(bat) +@fg=1;| +@fn=2;+@fg=7; +@fn=0;"
-	#echo "+@fn=2;+@fg=3;﬙ +@fn=0;$(mem) +@fg=1;| +@fg=4;$(brghtnss) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fg=6;$(bat) +@fg=1;| +@fn=2;+@fg=7; +@fn=0;"
-	sleep 2
+	echo "+@fg=2;$(ntwrk) +@fg=1;| +@fn=2;+@fg=3;﬙ +@fn=0;$(mem) MB +@fg=1;| +@fg=4;$(brghtnss) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fg=6;$(bat) +@fg=1;| +@fn=2;+@fg=7; +@fn=0;"
+	sleep 4
 done
