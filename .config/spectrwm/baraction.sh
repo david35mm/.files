@@ -67,8 +67,8 @@ bat() {
 				4[0-4]|3[6-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
 				3[0-5]|2[7-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
 				2[0-6]|1[8-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				1[0-7]|9) echo "+@fn=2; +@fn=0;$bat%" ;;
-				*) echo "+@fn=2; +@fn=0;$bat%" ;;
+				1[0-7]|9) echo "+@fg=2;+@fn=2; +@fn=0;$bat%" ;;
+				*) echo "+@fg=2;+@fn=2; +@fn=0;$bat%" ;;
 			esac
 		;;
 		"Charging")
@@ -77,7 +77,7 @@ bat() {
 				80|7[0-9]|6[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
 				60|5[0-9]|4[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
 				40|3[0-9]|2[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				*) echo "+@fn=2; +@fn=0;$bat%" ;;
+				*) echo "+@fg=2;+@fn=2; +@fn=0;$bat%" ;;
 			esac
 		;;
 		"Unknown") echo "+@fn=2; +@fn=0;$bat%" ;;
