@@ -39,8 +39,8 @@ keys = [
 	Key("M-<comma>", lazy.prev_screen()),
 
 	# System Controls
-	Key("<XF86AudioLowerVolume>", lazy.spawn("amixer -M set Master 5%-")),
-	Key("<XF86AudioRaiseVolume>", lazy.spawn("amixer -M set Master 5%+")),
+	Key("<XF86AudioLowerVolume>", lazy.spawn("amixer -M set Master 5%- unmute")),
+	Key("<XF86AudioRaiseVolume>", lazy.spawn("amixer -M set Master 5%+ unmute")),
 	Key("<XF86AudioMute>", lazy.spawn("amixer -M set Master toggle")),
 	Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set 10%+")),
 	Key("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-")),
@@ -64,13 +64,13 @@ keys = [
 ]
 
 groups = [
-	Group("web", layout="max"),
-	Group("dev", layout="monadtall"),
+	Group("web", layout="max", matches=[Match(wm_class=["Brave-browser"])]),
+	Group("dev", layout="monadtall", matches=[Match(wm_class=["Emacs", "Sublime_text"])]),
 	Group("sys", layout="bsp"),
-	Group("doc", layout="bsp"),
+	Group("doc", layout="bsp", matches=[Match(wm_class=["DesktopEditors", "marktext", "Zathura"])]),
 	Group("chat", layout="monadtall"),
 	Group("game", layout="max"),
-	Group("media", layout="max"),
+	Group("media", layout="max", matches=[Match(wm_class=["Geeqie", "vlc"])]),
 	Group("gfx", layout="floating")
 ]
 
@@ -235,7 +235,7 @@ widgets = [
 	widget.CheckUpdates(
 		colour_have_updates=colours[5],
 		colour_no_updates=colours[5],
-	#	distro='Arch',
+	#	custom_command='checkupdates',
 		custom_command='dnf updateinfo -q --list',
 		display_format='{updates} Updates',
 		no_update_string='Up to date!',
@@ -252,8 +252,8 @@ widgets = [
 		mouse_callbacks = ({
 			"Button1": lambda: qtile.cmd_spawn("amixer -M set Master toggle"),
 			"Button3": lambda: qtile.cmd_spawn("pavucontrol"),
-			"Button4": lambda: qtile.cmd_spawn("amixer -M set Master 5%+"),
-			"Button5": lambda: qtile.cmd_spawn("amixer -M set Master 5%-"),
+			"Button4": lambda: qtile.cmd_spawn("amixer -M set Master 5%+ unmute"),
+			"Button5": lambda: qtile.cmd_spawn("amixer -M set Master 5%- unmute"),
         }),
 		fontsize=14,
 		padding=0,

@@ -7,7 +7,7 @@
 ##############################
 
 mem() {
-	free --mebi | awk '/Mem/ {printf $3}'
+	free --mebi | sed '1d;3d;s/ \+/ /g' | cut -d' ' -f3
 }
 
 ##############################
@@ -95,7 +95,7 @@ bat() {
 #       BRIGHTNESS
 ##############################
 brghtnss() {
-	bri="$(brightnessctl -m | sed 's/,/ /g;s/%//g' | awk '{print $4}')"
+	bri="$(brightnessctl -m | sed 's/,/ /g;s/%//g' | cut -d' ' -f4)"
 
 	case "$bri" in
 		100|9[0-9]|8[6-9]) echo "+@fn=2; +@fn=0;$bri%" ;;
@@ -120,5 +120,5 @@ brghtnss() {
 ##############################
 while :; do
 	echo "+@fg=2;$(ntwrk) +@fg=1;| +@fn=2;+@fg=3;﬙ +@fn=0;$(mem) MB +@fg=1;| +@fg=4;$(brghtnss) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fg=6;$(bat) +@fg=1;| +@fn=2;+@fg=7; +@fn=0;"
-	sleep 4
+	sleep 10
 done

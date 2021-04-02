@@ -1,5 +1,8 @@
+#!/bin/sh
+
 up="$(dnf updateinfo -q --list | wc -l)"
-if [[ $up -le 0 ]]
+
+if [ "$up" -le 0 ]
 then
 	echo "Up to date!"
 else

@@ -65,13 +65,13 @@ key = "comma"
 
 [[keybind]]
 command = "Execute"
-value = "amixer -M set Master 5%-"
+value = "amixer -M set Master 5%- unmute"
 modifier = ["None"]
 key = "XF86AudioLowerVolume"
 
 [[keybind]]
 command = "Execute"
-value = "amixer -M set Master 5%+"
+value = "amixer -M set Master 5%+ unmute"
 modifier = ["None"]
 key = "XF86AudioRaiseVolume"
 

@@ -82,8 +82,8 @@ $myMusicPlayer := "alacritty -e cmus"
 #
 # N.B. The shell used can be changed in `options.wini`.
 Mod4-return := Shell "alacritty"
-XF86AudioLowerVolume := Shell "amixer -M set Master 5%-"
-XF86AudioRaiseVolume := Shell "amixer -M set Master 5%+"
+XF86AudioLowerVolume := Shell "amixer -M set Master 5%- unmute"
+XF86AudioRaiseVolume := Shell "amixer -M set Master 5%+ unmute"
 XF86AudioMute := Shell "amixer -M set Master toggle"
 XF86MonBrightnessUp := Shell "brightnessctl set 10%+"
 XF86MonBrightnessDown := Shell "brightnessctl set 10%-"

@@ -45,8 +45,8 @@ hc keybind Mod1-Tab spawn rofi -show window
 hc keybind $Mod-r spawn rofi -show drun
 hc keybind $Mod-Mod1-r spawn rofi -show run
 
-hc keybind XF86AudioRaiseVolume amixer -M set Master 5%+
-hc keybind XF86AudioLowerVolume amixer -M set Master 5%-
+hc keybind XF86AudioRaiseVolume amixer -M set Master 5%+ unmute
+hc keybind XF86AudioLowerVolume amixer -M set Master 5%- unmute
 hc keybind XF86AudioMute spawn amixer -M set Master toggle
 hc keybind XF86MonBrightnessUp spawn brightnessctl set 10%+
 hc keybind XF86MonBrightnessDown spawn brightnessctl set 10%-
@@ -90,7 +90,7 @@ hc rename default "${tag_names[0]}" || true
 for i in "${!tag_names[@]}" ; do
     hc add "${tag_names[$i]}"
     key="${tag_keys[$i]}"
-    if ! [ -z "$key" ] ; then
+    if [ -n "$key" ] ; then
         hc keybind "$Mod-$key" use_index "$i"
         hc keybind "$Mod-Shift-$key" move_index "$i"
     fi
