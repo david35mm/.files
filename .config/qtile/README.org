@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on April 01, 2021 at 10:54 pm.
+This config file was modified by David Salomón on April 08, 2021 at 12:38 pm.
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -175,8 +175,8 @@ Feel free to change the names and default layouts on the "groups" section.
 groups = [
 	Group("web", layout="max", matches=[Match(wm_class=["Brave-browser"])]),
 	Group("dev", layout="monadtall", matches=[Match(wm_class=["Emacs", "Sublime_text"])]),
-	Group("sys", layout="bsp"),
-	Group("doc", layout="bsp", matches=[Match(wm_class=["DesktopEditors", "marktext", "Zathura"])]),
+	Group("sys", layout="monadtall"),
+	Group("doc", layout="monadtall", matches=[Match(wm_class=["DesktopEditors", "marktext", "Zathura"])]),
 	Group("chat", layout="monadtall"),
 	Group("game", layout="max"),
 	Group("media", layout="max", matches=[Match(wm_class=["Geeqie", "vlc"])]),
@@ -197,9 +197,10 @@ layout_theme = {"border_focus": "61AFEF", #colours[6]
 				"border_normal": "848484", #colours[2]
 				"margin": 4,
 				"border_width": 2
-				}
+}
 
 layouts = [
+	#layout.Bsp(**layout_theme),
 	#layout.Columns(**layout_theme),
 	#layout.Matrix(**layout_theme),
 	#layout.MonadWide(**layout_theme),
@@ -210,7 +211,6 @@ layouts = [
 	#layout.Tile(shift_windows=True, **layout_theme),
 	#layout.VerticalTile(**layout_theme),
 	#layout.Zoomy(**layout_theme),
-	layout.Bsp(**layout_theme),
 	layout.Floating(**layout_theme),
 	layout.Max(**layout_theme),
 	layout.MonadTall(**layout_theme)
@@ -223,13 +223,13 @@ A set of 9 colours to use in our panel, if you have your own set of colours, thi
 #+BEGIN_SRC python
 colours = [["#141414", "#141414"], # Background
 		   ["#FFFFFF", "#FFFFFF"], # Foreground
-		   ["#848484", "#848484"], # Grey Colour
+		   ["#ABB2BF", "#ABB2BF"], # Grey Colour
 		   ["#E35374", "#E35374"],
-		   ["#98C379", "#98C379"],
+		   ["#89CA78", "#89CA78"],
 		   ["#F0C674", "#F0C674"],
 		   ["#61AFEF", "#61AFEF"],
-		   ["#C678DD", "#C678DD"],
-		   ["#56B6BC", "#56B6BC"]]
+		   ["#D55FDE", "#D55FDE"],
+		   ["#2BBAC5", "#2BBAC5"]]
 #+END_SRC
 
 * PROMPT
@@ -249,118 +249,118 @@ widget_defaults = dict(
 	font="SF Pro Text Regular",
 	fontsize=12,
 	padding=1
-	)
+)
 extension_defaults = widget_defaults.copy()
 
 widgets = [
 	widget.Sep(
 		foreground=colours[0],
-		linewidth=4
+		linewidth=4,
 	),
 	widget.Image(
-		scale=True,
+		filename="~/.config/qtile/py.png",
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("rofi -show drun")},
-		filename="~/.config/qtile/py.png"
+		scale=True,
 	),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
-		padding=10
+		padding=10,
 	),
 	widget.GroupBox(
-		padding=0,
 		active=colours[4],
 		inactive=colours[6],
-		margin=2,
-		highlight_method='text',
 		this_current_screen_border=colours[7],
-		urgent_alert_method='text',
 		urgent_border=colours[3],
 		urgent_text=colours[3],
 		disable_drag=True,
-		invert_mouse_wheel=True
+		highlight_method='text',
+		invert_mouse_wheel=True,
+		margin=2,
+		padding=0,
+		urgent_alert_method='text',
 	),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
-		padding=10
+		padding=10,
 	),
 	widget.CurrentLayout(
+		foreground=colours[7],
 		font="SF Pro Text Semibold",
-		foreground=colours[7]
 	),
 	widget.Systray(
 		icon_size=14,
-		padding=4
+		padding=4,
 	),
 	widget.Cmus(
+		noplay_color=colours[2],
 		play_color=colours[1],
-		noplay_color=colours[2]
 	),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
-		padding=10
+		padding=10,
 	),
 	widget.WindowName(
 	),
 	widget.TextBox(
-		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[3],
-		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
+		font="JetBrainsMono Nerd Font Regular",
 		fontsize=14,
+		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
 		padding=0,
 		text=' '
 	),
 	widget.CPU(
 		foreground=colours[3],
-		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
 		format='{load_percent}%',
-		update_interval=1.0
+		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
+		update_interval=1.0,
 	),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
-		padding=10
+		padding=10,
 	),
 	widget.TextBox(
-		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[4],
-		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
+		font="JetBrainsMono Nerd Font Regular",
 		fontsize=14,
+		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
 		padding=0,
-		text='﬙ '
+		text='﬙ ',
 	),
 	widget.Memory(
 		foreground=colours[4],
+		format='{MemUsed} MB',
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
-		format='{MemUsed} MB'
 	),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
-		padding=10
+		padding=10,
 	),
 	#widget.TextBox(
-	#	font="JetBrainsMono Nerd Font Regular",
 	#	foreground=colours[5],
+	#	font="JetBrainsMono Nerd Font Regular",
 	#	fontsize=12,
 	#	padding=0,
-	#	text=' '
+	#	text=' ',
 	#),
 	#widget.Backlight(
 	#	foreground=colours[5],
 	#	foreground_alert=colours[3],
 	#	backlight_name='amdgpu_bl0', # ls /sys/class/backlight/
 	#	change_command='brightnessctl set {0}',
-	#	step=5
+	#	step=5,
 	#),
 	widget.TextBox(
-		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[5],
+		font="JetBrainsMono Nerd Font Regular",
 		fontsize=14,
 		padding=0,
-		text=' '
+		text=' ',
 	),
 	widget.CheckUpdates(
 		colour_have_updates=colours[5],
@@ -369,89 +369,90 @@ widgets = [
 		custom_command='dnf updateinfo -q --list',
 		display_format='{updates} Updates',
 		no_update_string='Up to date!',
-		update_interval=900
+		update_interval=900,
 	),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
-		padding=10
+		padding=10,
 	),
 	widget.TextBox(
-		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[6],
+		font="JetBrainsMono Nerd Font Regular",
+		fontsize=14,
 		mouse_callbacks = ({
 			"Button1": lambda: qtile.cmd_spawn("amixer -M set Master toggle"),
 			"Button3": lambda: qtile.cmd_spawn("pavucontrol"),
 			"Button4": lambda: qtile.cmd_spawn("amixer -M set Master 5%+ unmute"),
 			"Button5": lambda: qtile.cmd_spawn("amixer -M set Master 5%- unmute"),
-        }),
-		fontsize=14,
+		}),
 		padding=0,
-		text='墳 '
+		text='墳 ',
 	),
 	widget.Volume(
 		foreground=colours[6],
-		step=5
+		mouse_callbacks = {"Button3": lambda: qtile.cmd_spawn("pavucontrol")},
+		step=5,
 	),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
-		padding=10
+		padding=10,
 	),
 	#widget.TextBox(
-	#	font="JetBrainsMono Nerd Font Regular",
 	#	foreground=colours[7],
+	#	font="JetBrainsMono Nerd Font Regular",
 	#	fontsize=14,
 	#	padding=0,
-	#	text='爵 '
+	#	text='爵 ',
 	#),
 	#widget.Net(
 	#	foreground=colours[7],
+	#	format='{down}  ',
 	#	interface='enp1s0',
-	#	format='{down}  '
-	#	),
+	#),
 	widget.Battery(
-		font="JetBrainsMono Nerd Font Regular",
-		fontsize=14,
-		padding=0,
 		foreground=colours[7],
+		low_foreground=colours[3],
 		charge_char=' ',
 		discharge_char=' ',
 		empty_char=' ',
 		full_char=' ',
 		unknown_char=' ',
+		font="JetBrainsMono Nerd Font Regular",
+		fontsize=14,
 		format='{char}',
-		low_foreground=colours[3],
 		low_percentage=0.2,
-		show_short_text=False
+		padding=0,
+		show_short_text=False,
 	),
 	widget.Battery(
 		foreground=colours[7],
-		format='{percent:2.0%}',
 		low_foreground=colours[3],
+		format='{percent:2.0%}',
 		low_percentage=0.2,
 		notify_below=20,
 	),
 	widget.Sep(
 		foreground=colours[2],
 		linewidth=1,
-		padding=10
+		padding=10,
 	),
 	widget.TextBox(
-		font="JetBrainsMono Nerd Font Regular",
 		foreground=colours[8],
+		font="JetBrainsMono Nerd Font Regular",
 		fontsize=14,
 		padding=0,
-		text=' '
+		text=' ',
 	),
 	widget.Clock(
 		foreground=colours[8],
-		format='%a %b %d  %I:%M %P    '
+		format='%a %b %d  %I:%M %P    ',
 	),
 	#widget.StockTicker(
 	#	apikey='AESKWL5CJVHHJKR5',
 	#	url='https://www.alphavantage.co/query?'
-	#	),
+	#),
 ]
 #+END_SRC
 
