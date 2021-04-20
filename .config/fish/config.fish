@@ -100,7 +100,7 @@ alias .5='cd ../../../../..'
 alias pdw='pwd'
 
 # vim, doom emacs and bat
-alias cat='bat'
+alias cat='bat --theme OneHalfDark'
 alias ddoctor='doom doctor'
 alias dpurge='doom purge'
 alias dsync='doom sync'

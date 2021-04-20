@@ -1,4 +1,4 @@
-# .bashrc
+#!/usr/bin/env bash
 
 export BROWSER="brave-browser"
 export EDITOR="nvim"
@@ -17,6 +17,7 @@ fi
 # User specific environment
 PATH="$HOME/.emacs.d/bin${PATH:+:${PATH}}"
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
+PATH="$HOME/bin${PATH:+:${PATH}}"
 PATH="$HOME/XiaomiADBFastbootTools/platform-tools${PATH:+:${PATH}}"
 PATH="/usr/local/go/bin${PATH:+:${PATH}}"
 export PATH
@@ -28,22 +29,22 @@ export PATH
 
 ex ()
 {
-	if [ -f $1 ] ; then
-		case $1 in
-			*.7z)     		7z x $1        ;;
-			*.bz2)    		tar xjf $1     ;;
-			*.deb)    		ar x $1        ;;
-			*.gz)     		tar xzf  $1      ;;
-			*.rar)    		unrar x $1     ;;
-			*.tar)    		tar xf $1      ;;
-			*.tar.bz2)		tar xjf $1     ;;
-			*.tar.gz) 		tar xzf $1     ;;
-			*.tar.xz) 		tar xJf $1      ;;
-			*.tar.zst)		unzstd $1      ;;
-			*.tbz2)   		tar xjf $1     ;;
-			*.tgz)    		tar xzf $1     ;;
-			*.Z)      		uncompress $1  ;;
-			*.zip)    		unzip $1       ;;
+	if [ -f "$1" ] ; then
+		case "$1" in
+			*.7z)     		7z x "$1"        ;;
+			*.bz2)    		tar xjf "$1"     ;;
+			*.deb)    		ar x "$1"        ;;
+			*.gz)     		tar xzf  "$1"      ;;
+			*.rar)    		unrar x "$1"     ;;
+			*.tar)    		tar xf "$1"      ;;
+			*.tar.bz2)		tar xjf "$1"     ;;
+			*.tar.gz) 		tar xzf "$1"     ;;
+			*.tar.xz) 		tar xJf "$1"      ;;
+			*.tar.zst)		unzstd "$1"      ;;
+			*.tbz2)   		tar xjf "$1"     ;;
+			*.tgz)    		tar xzf "$1"     ;;
+			*.Z)      		uncompress "$1"  ;;
+			*.zip)    		unzip "$1"       ;;
 			*)        		echo "'$1' cannot be extracted via ex()" ;;
 		esac
 		else
@@ -69,7 +70,7 @@ alias .5='cd ../../../../..'
 alias pdw='pwd'
 
 # vim, doom emacs and bat
-alias cat='bat'
+alias cat='bat --theme OneHalfDark'
 alias ddoctor='doom doctor'
 alias dpurge='doom purge'
 alias dsync='doom sync'
@@ -111,7 +112,7 @@ alias parm='pacman -Qtdq | sudo pacman -Rns --noconfirm -'
 alias pcc='paru -Scc --noconfirm'
 alias pif='paru -Si'
 alias pin='paru -S --needed'
-alias plu='pacman -Qqu'
+alias plu='checkupdates'
 alias pref='sudo pacman -Fy'
 alias prm='paru -Rns'
 alias pse='paru -Ss'
