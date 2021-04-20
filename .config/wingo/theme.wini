@@ -75,13 +75,13 @@
 
 $BLCK := 0x141414
 $WHTE := 0xFFFFFF
-$GREY := 0x848484
+$GREY := 0xABB2BF
 $REDD := 0xE35374
-$GREN := 0x98C379
+$GREN := 0x89CA78
 $YLLW := 0xF0C674
 $BLUE := 0x61AFEF
-$PRPL := 0xC678DD
-$CYAN := 0x56B6BC
+$PRPL := 0xD55FDE
+$CYAN := 0x2BBAC5
 
 [Full]
 font := /usr/share/fonts/SFMonoFonts/SF-Mono-Bold.otf

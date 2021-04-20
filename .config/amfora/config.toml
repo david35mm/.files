@@ -33,10 +33,10 @@ auto_redirect = false
 # Using just a string will also work, but it is deprecated, and will degrade if
 # you use paths with spaces.
 
-http = 'default'
+http = 'brave'
 
 # Any URL that will accept a query string can be put here
-search = "gemini://gus.guru/search"
+search = "gemini://geminispace.info/search"
 
 # Whether colors will be used in the terminal
 color = true
@@ -67,8 +67,9 @@ page_max_size = 2097152  # 2 MiB
 # Max time it takes to load a page in seconds - after that a download window pops up
 page_max_time = 10
 
-# Whether to replace tab numbers with emoji favicons, which are cached.
-emoji_favicons = false
+# When a scrollbar appears. "never", "auto", and "always" are the only valid values.
+# "auto" means the scrollbar only appears when the page is longer than the window.
+scrollbar = "auto"
 
 
 [auth]
@@ -87,12 +88,73 @@ emoji_favicons = false
 
 
 [keybindings]
-# In the future there will be more settings here.
+# If you have a non-US keyboard, use bind_tab1 through bind_tab0 to
+# setup the shift-number bindings: Eg, for US keyboards (the default):
+# bind_tab1 = "!"
+# bind_tab2 = "@"
+# bind_tab3 = "#"
+# bind_tab4 = "$"
+# bind_tab5 = "%"
+# bind_tab6 = "^"
+# bind_tab7 = "&"
+# bind_tab8 = "*"
+# bind_tab9 = "("
+# bind_tab0 = ")"
 
-# Hold down shift and press the numbers on your keyboard (1,2,3,4,5,6,7,8,9,0) to set this up.
-# It is default set to be accurate for US keyboards.
-shift_numbers = "!@#$%^&*()"
+# Whitespace is not allowed in any of the keybindings! Use 'Space' and 'Tab' to bind to those keys.
+# Multiple keys can be bound to one command, just use a TOML array.
+# To add the Alt modifier, the binding must start with Alt-, should be reasonably universal
+# Ctrl- won't work on all keys, see this for a list:
+# https://github.com/gdamore/tcell/blob/cb1e5d6fa606/key.go#L83
 
+# An example of a TOML array for multiple keys being bound to one command is the default
+# binding for reload:
+# bind_reload = ["R","Ctrl-R"]
+# One thing to note here is that "R" is capitalization sensitive, so it means shift-r.
+# "Ctrl-R" means both ctrl-r and ctrl-shift-R (this is a quirk of what ctrl-r means on
+# an ANSI terminal)
+
+# The default binding for opening the bottom bar for entering a URL or link number is:
+# bind_bottom = "Space"
+# This is how to get the Spacebar as a keybinding, if you try to use " ", it won't work.
+# And, finally, an example of a simple, unmodified character is:
+# bind_edit = "e"
+# This binds the "e" key to the command to edit the current URL.
+
+# The bind_link[1-90] options are for the commands to go to the first 10 links on a page,
+# typically these are bound to the number keys:
+# bind_link1 = "1"
+# bind_link2 = "2"
+# bind_link3 = "3"
+# bind_link4 = "4"
+# bind_link5 = "5"
+# bind_link6 = "6"
+# bind_link7 = "7"
+# bind_link8 = "8"
+# bind_link9 = "9"
+# bind_link0 = "0"
+
+# All keybindings:
+#
+# bind_bottom
+# bind_edit
+# bind_home
+# bind_bookmarks
+# bind_add_bookmark
+# bind_save
+# bind_reload
+# bind_back
+# bind_forward
+# bind_pgup
+# bind_pgdn
+# bind_new_tab
+# bind_close_tab
+# bind_next_tab
+# bind_prev_tab
+# bind_quit
+# bind_help
+# bind_sub: for viewing the subscriptions page
+# bind_add_sub
 
 [url-handlers]
 # Allows setting the commands to run for various URL schemes.
@@ -110,6 +172,75 @@ shift_numbers = "!@#$%^&*()"
 # This is a special key that defines the handler for all URL schemes for which
 # no handler is defined.
 other = 'off'
+
+
+# [[mediatype-handlers]] section
+# ---------------------------------
+#
+# Specify what applications will open certain media types.
+# By default your default application will be used to open the file when you select "Open".
+# You only need to configure this section if you want to override your default application,
+# or do special things like streaming.
+#
+# Note the use of single quotes for commands, so that backslashes will not be escaped.
+#
+#
+# To open jpeg files with the feh command:
+#
+# [[mediatype-handlers]]
+# cmd = ['feh']
+# types = ["image/jpeg"]
+#
+# Each command that you specify must come under its own [[mediatype-handlers]]. You may
+# specify as many [[mediatype-handlers]] as you want to setup multiple commands.
+#
+# If the subtype is omitted then the specified command will be used for the
+# entire type:
+#
+# [[mediatype-handlers]]
+# command = ['vlc', '--flag']
+# types = ["audio", "video"]
+#
+# A catch-all handler can by specified with "*".
+# Note that there are already catch-all handlers in place for all OSes,
+# that open the file using your default application. This is only if you
+# want to override that.
+#
+# [[mediatype-handlers]]
+# cmd = ['some-command']
+# types = [
+#         "application/pdf",
+#         "*",
+# ]
+#
+# You can also choose to stream the data instead of downloading it all before
+# opening it. This is especially useful for large video or audio files, as
+# well as radio streams, which will never complete. You can do this like so:
+#
+# [[mediatype-handlers]]
+# cmd = ['vlc', '-']
+# types = ["audio", "video"]
+# stream = true
+#
+# This uses vlc to stream all video and audio content.
+# By default stream is set to off for all handlers
+#
+#
+# If you want to always open a type in its viewer without the download or open
+# prompt appearing, you can add no_prompt = true
+#
+# [[mediatype-handlers]]
+# cmd = ['feh']
+# types = ["image"]
+# no_prompt = true
+#
+# Note: Multiple handlers cannot be defined for the same full media type, but
+# still there needs to be an order for which handlers are used. The following
+# order applies regardless of the order written in the config:
+#
+# 1. Full media type: "image/jpeg"
+# 2. Just type: "image"
+# 3. Catch-all: "*"
 
 
 [cache]
@@ -190,6 +321,28 @@ entries_per_page = 20
 # bottombar_label: The color of the prompt that appears when you press space
 # bottombar_text: The color of the text you type
 # bottombar_bg
+# scrollbar: The scrollbar that appears on the right for long pages
+
+bg = "#141414"
+fg = "#FFFFFF"
+tab_num = "#2BBAC5"
+tab_divider = "#ABB2BF"
+bottombar_label = "#5C6370"
+bottombar_text = "#5C6370"
+bottombar_bg = "#ABB2BF"
+scrollbar = "#ABB2BF"
+hdg_1 = "#E35374"
+hdg_2 = "#89CA78"
+hdg_3 = "#D770AF"
+amfora_link = "#61AFEF"
+foreign_link = "#D55FDE"
+link_number = "#ABB2BF"
+regular_text = "#FFFFFF"
+quote_text = "#969896"
+preformatted_text = "#F0C674"
+list_text = "#C5C8C6"
+btn_bg = "#5C6370"
+btn_text = "#FFFFFF"
 
 # hdg_1
 # hdg_2

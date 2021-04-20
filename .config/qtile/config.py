@@ -44,8 +44,8 @@ keys = [
 	Key("<XF86AudioMute>", lazy.spawn("amixer -M set Master toggle")),
 	Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set 10%+")),
 	Key("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-")),
-	#Key("A-k", lazy.spawn("brightnessctl set 10%+")),
-	#Key("A-j", lazy.spawn("brightnessctl set 10%-")),
+	Key("A-k", lazy.spawn("brightnessctl set 10%+")),
+	Key("A-j", lazy.spawn("brightnessctl set 10%-")),
 
 	# Applications launcher
 	Key("A-<Tab>", lazy.spawn("rofi -show window")),
@@ -59,6 +59,7 @@ keys = [
 	Key("M-A-o", lazy.spawn(myOfficeSuite)),
 	Key("M-A-l", lazy.spawn(myLaTeXEditor)),
 	Key("M-e", lazy.spawn(myFileManager)),
+    Key("M-A-e", lazy.spawn(myTerm + ' -e lf')),
 	Key("M-A-i", lazy.spawn(myBrowser)),
 	Key("M-A-m", lazy.spawn(myMusicPlayer)),
 ]
@@ -140,7 +141,10 @@ widgets = [
 	widget.GroupBox(
 		active=colours[4],
 		inactive=colours[6],
+		other_current_screen_border=colours[5],
+		other_screen_border=colours[2],
 		this_current_screen_border=colours[7],
+		this_screen_border=colours[2],
 		urgent_border=colours[3],
 		urgent_text=colours[3],
 		disable_drag=True,
@@ -148,6 +152,7 @@ widgets = [
 		invert_mouse_wheel=True,
 		margin=2,
 		padding=0,
+		rounded=True,
 		urgent_alert_method='text',
 	),
 	widget.Sep(
@@ -173,6 +178,7 @@ widgets = [
 		padding=10,
 	),
 	widget.WindowName(
+		max_chars=75,
 	),
 	widget.TextBox(
 		foreground=colours[3],
@@ -235,9 +241,11 @@ widgets = [
 	widget.CheckUpdates(
 		colour_have_updates=colours[5],
 		colour_no_updates=colours[5],
-	#	custom_command='checkupdates',
-		custom_command='dnf updateinfo -q --list',
+		custom_command='checkupdates',
+	#	custom_command='dnf updateinfo -q --list',
 		display_format='{updates} Updates',
+	#	execute="pkexec /usr/bin/dnf up -y",
+		execute="pkexec /usr/bin/pacman -Syu --noconfirm",
 		no_update_string='Up to date!',
 		update_interval=900,
 	),

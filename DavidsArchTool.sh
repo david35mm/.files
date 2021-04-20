@@ -6,7 +6,7 @@ showWelcome() {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Arch tool        ="
 	echo "=                                                 ="
-	echo "=     Version 3.0                                 ="
+	echo "=     Version 4.0                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -22,24 +22,24 @@ do
 	echo "-------------------------------------"
 	echo " David Salomon's Arch Tool"
 	printf -- "-------------------------------------\n\n"
-	echo "  1) Install paru and configure pacman"
-	echo "  2) Install the X11 Display Server"
-	echo "  3) Clone David's GitHub repository"
-	echo "  4) Install window managers and some utilities"
-	echo "  5) Install software collection"
-	echo "  6) Install programming languages"
-	echo "  7) Beautify!"
+	echo "  1) Install NetworkManager and configure DNS"
+	echo "  2) Install paru and configure pacman"
+	echo "  3) Install the X11 Display Server"
+	echo "  4) Clone David's GitHub repository"
+	echo "  5) Install window managers and some utilities"
+	echo "  6) Install software collection"
+	echo "  7) Beautify! (Install starship prompt and configure ligthdm)"
 	printf -- "  8) Delete unnecessary remaining files (Make sure this is the last you do)\n\n"
 	printf -- "  X) Exit\n\n"
 	printf "Enter your choice: "
 	read -r choice </dev/tty 
 	case $choice in
-		1 ) confPacman ;;
-		2 ) getXorg ;;
-		3 ) showGitMenu ;;
-		4 ) showWMInstMenu ;;
-		5 ) showSoftInstMenu ;;
-		6 ) showProgramLangMenu ;;
+		1 ) confNetwork ;;
+		2 ) confPacman ;;
+		3 ) getXorg ;;
+		4 ) showGitMenu ;;
+		5 ) showWMInstMenu ;;
+		6 ) showSoftInstMenu ;;
 		7 ) getPretty ;;
 		8 ) purgeLeftOvers ;;
 		x|X ) exit;;
@@ -119,31 +119,10 @@ done
 }
 #
 #
-showProgramLangMenu() {
-	while true
-do
-	clear
-	echo "--------------------------------"
-	echo " Install programming languages"
-	printf -- "--------------------------------\n\n"
-	printf -- "  Note: I know it's kind of dissapointing just to see one language on the list.\n  I'll be adding more in the future\n\n"
-	printf -- "  1) Install Go\n\n"
-	printf -- "  R) Return to menu\n\n"
-	printf "Please enter your choice: "
-	read -r choice </dev/tty
-	case $choice in
-		1 ) getGo ;;
-		r|R ) showMainMenu ;;
-		* ) invalid ;;
-	esac
-done
-}
-#
-#
 getXorg(){
 	clear
 	echo "Downloading the X11 Display Server and lightdm"
-	sudo pacman -S --noconfirm --needed lightdm-gtk-greeter xorg
+	sudo pacman -S --noconfirm --needed lightdm-gtk-greeter xorg-server
 	sleep 2
 	clear
 	echo "Initializing lightdm service and changing the default systemd target to 'graphical'"
@@ -171,6 +150,18 @@ getRepo() {
 }
 #
 #
+confNetwork() {
+	clear
+	echo "Installling NetworkManager"
+	sudo pacman -S --noconfirm --needed networkmanager
+	sleep 2
+	clear
+	echo "Setting Cloudflare as primary DNS and Quad9 as secondary"
+	printf -- "DNS=1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001\nDNSOverTLS=yes\nDNSSEC=yes\nDomains=~.\nFallbackDNS=9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9" | sudo tee -a /etc/systemd/resolved.conf && sudo systemctl enable NetworkManager systemd-resolved && printf -- "\n\tYou have configured NetworkManager successfully" || printf -- "\n\tThere was an error configuring NetworkManager"
+	sleep 4
+}
+#
+#
 confPacman() {
 	clear
 	echo "Installing paru build dependencies"
@@ -183,9 +174,14 @@ confPacman() {
 	sleep 4
 	clear
 	echo "Type your password to write better settings at /etc/pacman.conf"
-	sudo nvim /etc/pacman.conf
+	sudo $EDITOR /etc/pacman.conf
 	clear
-	printf -- "\n\tYou have made pacman a little prettier"
+	echo "Using reflector to select the fastest mirrors"
+	sudo reflector --latest 10 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+	sleep 2
+	clear
+	printf -- "\n\tYou have made pacman a little prettier and selected the fastest mirrors"
+	clear
 	sleep 2
 }
 #
@@ -226,7 +222,7 @@ getHerbstluft() {
 getUtils() {
 	clear
 	echo "Installing utilities"
-	sudo pacman -S --noconfirm --needed alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-mtp libmtp libnotify lxappearance lxsession neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-jack pipewire-pulse rofi udiskie
+	sudo pacman -S --noconfirm --needed alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-mtp libmtp libnotify lxappearance lxsession-gtk3 neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-jack pipewire-pulse rofi starship udiskie
 	paru -S --cleanafter --needed --noconfirm --removemake --skipreview dashbinsh ytop-bin
 	sleep 2
 	clear
@@ -261,33 +257,15 @@ getThemesIcons() {
 getAllSoft() {
 	clear
 	echo "Adding additional software repositories"
-	curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
-	printf -- "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
+	curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg && printf -- "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
 	clear
 	echo "Installing software collection"
-	sudo pacman -S --noconfirm --needed pcmanfm vlc cmus geeqie zathura-pdf-mupdf sublime-text
+	sudo pacman -Syyu --noconfirm --needed pcmanfm vlc cmus geeqie zathura-pdf-mupdf sublime-text xarchiver
 	paru -S --cleanafter --needed --noconfirm --removemake --skipreview brave-bin onlyoffice-bin
 	sleep 2
 	clear
 	printf -- "\n\tSoftware was installed successfully"
 	sleep 2
-}
-#
-#
-getGo() {
-	clear
-	printf -- "Downloading Go tarball\n"
-	wget https://golang.org/dl/go1.16.linux-amd64.tar.gz
-	sleep 2
-	clear
-	echo "Extracting Go at /usr/local/"
-	sudo tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
-	echo "Extraction completed successfully"
-	sleep 2
-	clear
-	/usr/local/go/bin/go version
-	printf -- "\n\tIf you see 'go version go1.16 linux/amd64' above this line then Go was installed successfully"
-	sleep 7
 }
 #
 #
@@ -304,11 +282,11 @@ purgeLeftOvers() {
 getPretty() {
 	clear
 	echo "Type your password to write a new lightdm config"
-	su -c 'printf -- "[greeter]\nbackground=/usr/share/wallpapers/deepin/Scenery_in_Plateau_by_Arto_Marttinen.jpg\nclock-format=%%A, %%B %%d %%I:%%M %%p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf' && printf -- "\n\tLightdm config was written successfully" || printf -- "\n\tThere was an error writing the Lightdm config"
+	printf -- "background=/usr/share/wallpapers/deepin/Scenery_in_Plateau_by_Arto_Marttinen.jpg\nclock-format=%%A, %%B %%d %%I:%%M %%p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Plata-Noir-Compact" | sudo tee -a /etc/lightdm/lightdm-gtk-greeter.conf && printf -- "\n\n\tLightdm config was written successfully" || printf -- "\n\tThere was an error writing the Lightdm config"
 	sleep 2
 	clear
 	echo "Installing starship shell prompt"
-	sudo curl -fsSL https://starship.rs/install.sh | bash
+	sudo pacman -S --noconfirm --needed starship
 	sleep 2
 	clear
 	printf -- "\n\tBeautification completed"

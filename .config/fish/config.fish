@@ -1,5 +1,3 @@
-# config.fish
-
 set fish_greeting
 set -gx BROWSER "brave-browser"
 set -gx EDITOR "nvim"
@@ -12,7 +10,7 @@ set -gx VISUAL "subl"
 starship init fish | source
 
 # User specific environment
-set PATH $PATH $HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/XiaomiADBFastbootTools/platform-tools:/usr/local/go/bin:
+set PATH $PATH $HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:/usr/local/go/bin:
 
 # Start of user functions
 
@@ -144,7 +142,7 @@ alias parm='pacman -Qtdq | sudo pacman -Rns --noconfirm -'
 alias pcc='paru -Scc --noconfirm'
 alias pif='paru -Si'
 alias pin='paru -S --needed'
-alias plu='pacman -Qqu'
+alias plu='checkupdates'
 alias pref='sudo pacman -Fy'
 alias prm='paru -Rns'
 alias pse='paru -Ss'

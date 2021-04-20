@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on April 08, 2021 at 12:38 pm.
+This config file was modified by David Salomón on April 19, 2021 at 07:00 pm (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -66,8 +66,8 @@ myConfig = "~/.config/qtile/config.py"
 
 * KEYBINDINGS
 Here's a detailed table with my keybindings.
-Important: I like to use the Windows key as the Super key (which in the config file is known as "mod4").
-If for some weird reason you are one of those persons who likes to use the Alt key instead of the Super key, change the mod variable in the config file to "mod1".
+Important: I like to use the Windows key as the Super key (which in the config file is known as ~mod4~).
+If for some weird reason you are one of those persons who likes to use the Alt key instead of the Super key, change the mod variable in the config file to ~mod1~.
 
 ** Qtile Controls
 | Keybinding           | Action                                                     |
@@ -97,7 +97,7 @@ If for some weird reason you are one of those persons who likes to use the Alt k
 | XF86MonBrightnessUp   | Increase the brightness of the screen |
 | XF86MonBrightnessDown | Decrease the brightness of the screen |
 
-*Advice*: If for some reason your keyboard doesn't have the brightness control keys, don't worry, I got you. I've set two alternative keybindings to control the brightness through your keyboard, you just have to uncomment those lines.
+*Advice*: If for some reason your keyboard doesn't have the brightness control keys, don't worry, I got you. I've set two alternative keybindings to control the brightness through your keyboard:
 
 | Keybinding | Action                                |
 |------------+---------------------------------------|
@@ -147,8 +147,8 @@ keys = [
 	Key("<XF86AudioMute>", lazy.spawn("amixer -M set Master toggle")),
 	Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set 10%+")),
 	Key("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-")),
-	#Key("A-k", lazy.spawn("brightnessctl set 10%+")),
-	#Key("A-j", lazy.spawn("brightnessctl set 10%-")),
+	Key("A-k", lazy.spawn("brightnessctl set 10%+")),
+	Key("A-j", lazy.spawn("brightnessctl set 10%-")),
 
 	# Applications launcher
 	Key("A-<Tab>", lazy.spawn("rofi -show window")),
@@ -162,6 +162,7 @@ keys = [
 	Key("M-A-o", lazy.spawn(myOfficeSuite)),
 	Key("M-A-l", lazy.spawn(myLaTeXEditor)),
 	Key("M-e", lazy.spawn(myFileManager)),
+    Key("M-A-e", lazy.spawn(myTerm + ' -e lf')),
 	Key("M-A-i", lazy.spawn(myBrowser)),
 	Key("M-A-m", lazy.spawn(myMusicPlayer)),
 ]
@@ -169,7 +170,7 @@ keys = [
 
 * GROUPS
 For some reason Qtile decided to call them groups, but basically they are workspaces.
-Feel free to change the names and default layouts on the "groups" section.
+Feel free to change the names and default layouts on the ~groups~ section. As another thing that I recently discovered in the last Qtile update, I have set some rules for certain windows to open in a specific groups. eg: Brave-browser will always open in the ~web~ workspace, vlc will open in the ~media~ workspace... You get the idea. If you want to add more rules I strongly advice you to run: ~xprop WM_CLASS~. 
 
 #+BEGIN_SRC python
 groups = [
@@ -189,8 +190,8 @@ for k, group in zip(["1", "2", "3", "4", "5", "6", "7", "8"], groups):
 #+END_SRC
 
 * LAYOUTS
-The layouts are how the windows are going to be positioned on the screen, on "layout_theme" you can set your own defaults.
-Also, on the "layouts" section you can uncomment the layouts you want to use and comment the ones you dont want to.
+The layouts are how the windows are going to be positioned on the screen, on ~layout_theme~ you can set your own defaults.
+Also, on the ~layouts~ section you can uncomment the layouts you want to use and comment the ones you dont want to, as a bonus, I have noticed that the order they are written is the same order they will cycle when you are changing them on the go (by pressing the keybinding).
 
 #+BEGIN_SRC python
 layout_theme = {"border_focus": "61AFEF", #colours[6]
@@ -240,7 +241,7 @@ prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 #+END_SRC
 
 * WIDGETS
-This section configures what you'll see on the bar, the "widget_defaults" section has set to... well... the defaults for all the widgets that you will set. Next to it you'll find an array called "widgets", those are the widgets that are going to appear on the bar (or panel if you like to call it like that). The widget list that I have defined is mostly oriented to a laptop user. Feel free to add, remove or modify all the widgets that you want, make this config suitable to your needs and liking :). One thing really important, these widgets are going to appear on every screen connected to your computer, if you want a secondary list based on the one showed here, change it's name to something different (eg. secondary_widgets) to avoid conflicts and remove or edit the wigets you want.
+This section configures what you'll see on the bar, the ~widget_defaults~ section has set to... well... the defaults for all the widgets that you will set. Next to it you'll find an array called ~widgets~, those are the widgets that are going to appear on the bar (or panel if you like to call it like that). The widget list that I have defined is mostly oriented to a laptop user. Feel free to add, remove or modify all the widgets that you want, make this config suitable to your needs and liking :). One thing really important, these widgets are going to appear on every screen connected to your computer, if you want a secondary list based on the one showed here, change it's name to something different (eg. ~secondary_widgets~) to avoid conflicts and remove or edit the wigets you want.
 
 #+BEGIN_SRC python
 widget_defaults = dict(
@@ -270,7 +271,10 @@ widgets = [
 	widget.GroupBox(
 		active=colours[4],
 		inactive=colours[6],
+		other_current_screen_border=colours[5],
+		other_screen_border=colours[2],
 		this_current_screen_border=colours[7],
+		this_screen_border=colours[2],
 		urgent_border=colours[3],
 		urgent_text=colours[3],
 		disable_drag=True,
@@ -278,6 +282,7 @@ widgets = [
 		invert_mouse_wheel=True,
 		margin=2,
 		padding=0,
+		rounded=True,
 		urgent_alert_method='text',
 	),
 	widget.Sep(
@@ -303,6 +308,7 @@ widgets = [
 		padding=10,
 	),
 	widget.WindowName(
+		max_chars=75,
 	),
 	widget.TextBox(
 		foreground=colours[3],
@@ -365,9 +371,11 @@ widgets = [
 	widget.CheckUpdates(
 		colour_have_updates=colours[5],
 		colour_no_updates=colours[5],
-	#	custom_command='checkupdates',
-		custom_command='dnf updateinfo -q --list',
+		custom_command='checkupdates',
+	#	custom_command='dnf updateinfo -q --list',
 		display_format='{updates} Updates',
+	#	execute="pkexec /usr/bin/dnf up -y",
+		execute="pkexec /usr/bin/pacman -Syu --noconfirm",
 		no_update_string='Up to date!',
 		update_interval=900,
 	),
@@ -457,9 +465,9 @@ widgets = [
 #+END_SRC
 
 * BAR & SCREENS
-Despite not having too much lines of code, this section is severely important. In the first code line you'll find "status_bar", this creates the bar (or panel) based on the widget list on the previous section of this config, the number 18 that you see inside the parenthesis is the height of the bar in pixels and the opacity value is the transparency that the bar will have. The opacity is a number between 0 and 1, being 0 completely transparent (invisible) and 1 without transparency at all. For example if you want a bar with 90% transparency, change the value to 0.90. Now to the "screens" section, in this line you probably just want to change the word "top" (it'll put the bar on the top of the screen), change it for "bottom" and see what happens (remember to restart Qtile when you do changes to the config file!).
+Despite not having too much lines of code, this section is severely important. In the first code line you'll find ~status_bar~, this creates the bar (or panel) based on the widget list on the previous section of this config, the number 18 that you see inside the parenthesis is the height of the bar in pixels and the opacity value is the transparency that the bar will have. The opacity is a number between 0 and 1, being 0 completely transparent (invisible) and 1 without transparency at all. For example if you want a bar with 90% transparency, change the value to 0.90. Now to the ~screens~ section, in this line you probably just want to change the word ~top~ (it'll put the bar on the top of the screen), change it to "bottom" and see what happens (remember to restart Qtile when you do changes to the config file!).
 
-The code that follows "screens" detect if other monitors are connected to your computer, and if that's the case, the next block of code (the one that starts with the "if" statement) will start the rest of the screens automatically (quite cool ehh!). Remember that I told you that if you wanted to create a secondary list of widgets you could do that without problem? here's were you'll use it, in the line "screens.append(Screen(top=status_bar(widgets)))" change the "widgets" word to the name of your secondary list of widgets, if you named it "secondary_widgets" then this line will be "screens.append(Screen(top=status_bar(secondary_widgets)))", now your main screen will have all the widgets that you set on the "widgets" array and the secondary widgets (if you created them) will appear on the secondary screens connected to your computer (eg. A TV when you want to watch Netflix).
+The code that follows ~screens~ detect if other monitors are connected to your computer, and if that's the case, the next block of code (the one that starts with the ~if~ statement) will start the rest of the screens automatically (quite cool ehh!). Remember I told you that if you wanted to create a secondary list of widgets you could do that without problem? here's were you'll use it, in the line ~screens.append(Screen(top=status_bar(widgets)))~ change the ~widgets~ word to the name of your secondary list of widgets, if you named it ~secondary_widgets~ then this line will be ~screens.append(Screen(top=status_bar(secondary_widgets)))~, now your main screen will have all the widgets that you set on the ~widgets~ array and the secondary widgets (if you created them) will appear on the secondary screens connected to your computer (eg. A TV when you want to watch Netflix).
 
 #+BEGIN_SRC python
 status_bar = lambda widgets: bar.Bar(widgets, 18, opacity=1.0)
@@ -479,6 +487,8 @@ if connected_monitors > 1:
 
 * DRAG FLOATING WINDOWS
 Very descriptive title, if you want to change your current window to floating, press the mod key you've set and then the left click on the mouse. If you want to resize a window press the mod key followed by the right click on the mouse and drag the mouse to the direction you want to resize the window, hope that make sense, if not, sorry for my bad English. And lastly, if one of your floating windows is sitting on top of another one, place the cursor on the window that is below, press the mod key and the key of the scrolling wheel on your mouse in order to bring that window on top.
+
+After those mouse-key-bindings you will see something called ~floating_layout~, those are certain rules for windows that will always be floating. For example, when you click on a download button on your web browser you want that download dialog (the one that ask where to save the file) to be floating, or when you are moving files you want that little pop-up window that shows you the progress of the operation to be little and not be all weird and take all your screen. To add more rules run ~xprop WM_CLASS~ and click on the window you are interested on knowing its properties.
 
 #+BEGIN_SRC python
 mouse = [
@@ -509,7 +519,7 @@ follow_mouse_focus = True
 #+END_SRC
 
 * STARTUP APPLICATIONS
-These little hook runs the autostart.sh file (located on the qtile config folder) only when you log in to Qtile. Inside the autostart file there are two instructions to run nitrogen (to draw a wallpaper) and picom (the compositor). Change the autostart.sh file to your needs and don't forget to make it executable by typing "chmod +x ~/.config/qtile/autostart.sh" on your terminal.
+These little hook runs the autostart.sh file (located on the qtile config folder) only when you log in to Qtile. Inside the autostart file there are a few programs that I want to always launch, like my wallpaper setter, the compositor, the notifications daemon, etc. Change the autostart.sh file to your needs, if you see that you log into Qtile and the things you have set are not starting, run ~chmod +x "$XDG_CONFIG_HOME"/qtile/autostart.sh~.
 
 #+BEGIN_SRC python
 @hook.subscribe.startup_once
