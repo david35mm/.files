@@ -260,7 +260,7 @@ getAllSoft() {
 	curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg && printf -- "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
 	clear
 	echo "Installing software collection"
-	sudo pacman -Syyu --noconfirm --needed pcmanfm vlc cmus geeqie zathura-pdf-mupdf sublime-text xarchiver
+	sudo pacman -Syyu --noconfirm --needed pcmanfm vlc cmus geeqie zathura-pdf-poppler sublime-text xarchiver
 	paru -S --cleanafter --needed --noconfirm --removemake --skipreview brave-bin onlyoffice-bin
 	sleep 2
 	clear
