@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on April 19, 2021 at 07:00 pm (Bogota DC, Colombia UTC-5).
+This config file was modified by David Salomón on April 23, 2021 at 10:13 am (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -56,12 +56,13 @@ Here I have set some variables so that you can set your default programs. If som
 mod = "mod4"
 myTerm = guess_terminal()
 myBrowser = "brave-browser"
-myFileManager = "pcmanfm"
-myTextEditor = "subl"
-myOfficeSuite = "desktopeditors"
-myLaTeXEditor = "gnome-latex"
-myMusicPlayer = myTerm+" -e cmus"
 myConfig = "~/.config/qtile/config.py"
+myFileManager = "pcmanfm"
+myMarkdown = "marktext"
+myMusicPlayer = myTerm+" -e cmus"
+myOfficeSuite = "desktopeditors"
+myPDFReader = "zathura"
+myTextEditor = "subl"
 #+END_SRC
 
 * KEYBINDINGS
@@ -74,17 +75,21 @@ If for some weird reason you are one of those persons who likes to use the Alt k
 |----------------------+------------------------------------------------------------|
 | MODKEY + CONTROL + r | Restarts Qtile                                             |
 | MODKEY + CONTROL + q | Close Qtile                                                |
-| MODKEY + j           | Switch focus between windows (up)                          |
 | MODKEY + k           | Switch focus between windows (down)                        |
-| MODKEY + w           | Closes the window with focus                               |
-| MODKEY + l           | Expand size of window (Only available in MonadTall layout) |
-| MODKEY + h           | Shrink size of window (Only available in MonadTall layout) |
-| MODKEY + CONTROL + k | Changes window position in the current layout (up)         |
-| MODKEY + CONTROL + j | Changes window position in the current layout (down)       |
-| MODKEY + f           | Put the focused window to/from floating mode               |
-| MODKEY + s           | Put the focused window to/from fullscreen mode             |
+| MODKEY + j           | Switch focus between windows (up)                          |
+| MODKEY + SHIFT + k   | Changes window position in the current layout (down)       |
+| MODKEY + SHIFT + j   | Changes window position in the current layout (up)         |
 | MODKEY + SPACE       | Switch focus between windows (clockwise)                   |
+| MODKEY + SHIFT + f   | Changes the side of the master and slave stack             |
+| MODKEY + l           | Expand size of window                                      |
+| MODKEY + h           | Shrink size of window                                      |
+| MODKEY + n           | Normalizes the size of the window with focus               |
 | MODKEY + TAB         | Rotates through the available layouts                      |
+| MODKEY + w           | Closes the window with focus                               |
+| MODKEY + f           | Put the focused window on floating mode.                   |
+| MODKEY + s           | Put the focused window on fullscreen mode                  |
+| MODKEY + PERIOD      | Focus the next screen (usually the one at the right)       |
+| MODKEY + COMMA       | Focus the previous screen (usually the one at the left)    |
 | MODKEY + 1-9         | Switch focus to workspace (1-9)                            |
 | MODKEY + SHIFT + 1-9 | send focused window to workspace (1-9)                     |
 
@@ -94,8 +99,8 @@ If for some weird reason you are one of those persons who likes to use the Alt k
 | XF86AudioLowerVolume  | Decrease the volume                   |
 | XF86AudioRaiseVolume  | Increase the volume                   |
 | XF86AudioMute         | Turn the volume off                   |
-| XF86MonBrightnessUp   | Increase the brightness of the screen |
 | XF86MonBrightnessDown | Decrease the brightness of the screen |
+| XF86MonBrightnessUp   | Increase the brightness of the screen |
 
 *Advice*: If for some reason your keyboard doesn't have the brightness control keys, don't worry, I got you. I've set two alternative keybindings to control the brightness through your keyboard:
 
@@ -105,20 +110,22 @@ If for some weird reason you are one of those persons who likes to use the Alt k
 | ALT + j    | Decrease the brightness of the screen |
 
 ** Applications launcher
-| Keybinding                       | Action                                                                                   |
-| MODKEY + RETURN (RETURN = ENTER) | Opens the Terminal Emulator ([[https://github.com/alacritty/alacritty#installation][Alacritty]])                                                  |
-| MODKEY + ALT + s                 | Opens [[https://www.spotify.com/co/download/linux][Spotify]]                                                                            |
+| Keybinding                       | Action                                                                                                                               |
+| MODKEY + r                       | Opens the Desktop File Application Launcher ([[https://github.com/davatorium/rofi/blob/next/INSTALL.md#install-distribution][rofi]]) |
+| MODKEY + ALT + r                 | Opens the Application Launcher (with rofi as well)                                                                                   |
+| ALT + Tab                        | Opens the Window Switcher, like the one on Windows but better (it's rofi one more time.)                                             |
+| MODKEY + ALT + i                 | Opens the Web Browser ([[https://brave.com/gek146][Brave Browser]])                                                                  |
+| MODKEY + e                       | Opens the File Manager ([[https://wiki.lxde.org/en/PCManFM][PCManFM]])                                                               |
+| MODKEY + ALT + d                 | Opens the Markdown Editor ([[https://marktext.app/][Mark Text]])                                                                     |
+| MODKEY + ALT + m                 | Opens the Music Player ([[https://cmus.github.io/][cmus]])                                                                           |
+| MODKEY + ALT + o                 | Opens the Office Suite ([[https://www.onlyoffice.com/download-desktop.aspx][OnlyOffice]])                                            |
+| MODKEY + ALT + p                 | Opens the PDF Reader ([[https://pwmt.org/projects/zathura/][Zathura]])                                                               |
+| MODKEY + RETURN (RETURN = ENTER) | Opens the Terminal Emulator (I automatically detects your installed terminal)                                                        |
+| MODKEY + ALT + t                 | Opens the Text Editor ([[https://www.sublimetext.com/docs/3/linux_repositories.html][Sublime Text]])                                 |
+| MODKEY + ALT + e                 | Opens the Terminal-Based File Manager ([[https://github.com/gokcehan/lf/wiki/Packages][lf]])                                         |
+| MODKEY + ALT + s                 | Opens [[https://www.spotify.com/co/download/linux][Spotify]]                                                                         |
+| MODKEY + ALT + g                 | Opens [[https://store.steampowered.com/about][Steam]]                                                                                |
 | MODKEY + ALT + v                 | Opens [[https://www.videolan.org/vlc/#download][VLC]]                                                                                |
-| MODKEY + ALT + g                 | Opens [[https://store.steampowered.com/about][Steam]]                                                                              |
-| MODKEY + ALT + t                 | Opens the Text Editor ([[https://www.sublimetext.com/docs/3/linux_repositories.html][Sublime Text]])                                                     |
-| MODKEY + ALT + o                 | Opens the Office Suite ([[https://www.onlyoffice.com/download-desktop.aspx][OnlyOffice]])                                                      |
-| MODKEY + ALT + l                 | Opens the LaTeX Editor ([[https://wiki.gnome.org/Apps/GNOME-LaTeX#Installation][Gnome-LaTeX]])                                                     |
-| MODKEY + e                       | Opens the File Manager ([[https://github.com/linuxmint/nemo][nemo]])                                                            |
-| MODKEY + ALT + i                 | Opens the Web Browser ([[https://brave.com/gek146][Brave Browser]])                                                    |
-| MODKEY + ALT + m                 | Opens the Music Player ([[https://cmus.github.io/][cmus]])                                                            |
-| MODKEY + r                       | Opens the Desktop File Application Launcher ([[https://github.com/davatorium/rofi/blob/next/INSTALL.md#install-distribution][rofi]])                                       |
-| MODKEY + ALT + r                 | Opens the Application Launcher (rofi again)                                              |
-| ALT + Tab                        | Opens the Window Switcher, like the one on Windows but better (it's rofi one more time.) |
 
 #+BEGIN_SRC python
 keys = [
@@ -129,15 +136,19 @@ keys = [
 	# Window and Layout Controls
 	Key("M-k", lazy.layout.down()),
 	Key("M-j", lazy.layout.up()),
-	Key("M-C-k", lazy.layout.shuffle_down()),
-	Key("M-C-j", lazy.layout.shuffle_up()),
+	Key("M-S-k", lazy.layout.shuffle_down()),
+	Key("M-S-j", lazy.layout.shuffle_up()),
 	Key("M-<space>", lazy.layout.next()),
+	Key("M-S-f", lazy.layout.flip()),
+	Key("M-S-l", lazy.layout.grow()),
+	#Key("M-l", lazy.layout.grow_main()),
+	Key("M-S-h", lazy.layout.shrink()),
+	#Key("M-h", lazy.layout.shrink_main()),
+	Key("M-n", lazy.layout.normalize()),
 	Key("M-<Tab>", lazy.next_layout()),
-	Key("M-l", lazy.layout.grow()),
-	Key("M-h",lazy.layout.shrink()),
+	Key("M-w", lazy.window.kill()),
 	Key("M-f", lazy.window.toggle_floating()),
 	Key("M-s", lazy.window.toggle_fullscreen()),
-	Key("M-w", lazy.window.kill()),
 	Key("M-<period>", lazy.next_screen()),
 	Key("M-<comma>", lazy.prev_screen()),
 
@@ -145,26 +156,27 @@ keys = [
 	Key("<XF86AudioLowerVolume>", lazy.spawn("amixer -M set Master 5%- unmute")),
 	Key("<XF86AudioRaiseVolume>", lazy.spawn("amixer -M set Master 5%+ unmute")),
 	Key("<XF86AudioMute>", lazy.spawn("amixer -M set Master toggle")),
-	Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set 10%+")),
 	Key("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-")),
-	Key("A-k", lazy.spawn("brightnessctl set 10%+")),
+	Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set 10%+")),
 	Key("A-j", lazy.spawn("brightnessctl set 10%-")),
+	Key("A-k", lazy.spawn("brightnessctl set 10%+")),
 
 	# Applications launcher
-	Key("A-<Tab>", lazy.spawn("rofi -show window")),
-	Key("M-A-r", lazy.spawn("rofi -show run")),
 	Key("M-r", lazy.spawn("rofi -show drun")),
-	Key("M-<Return>", lazy.spawn(myTerm)),
-	Key("M-A-s", lazy.spawn("spotify")),
-	Key("M-A-v", lazy.spawn("vlc")),
-	Key("M-A-g", lazy.spawn("steam")),
-	Key("M-A-t", lazy.spawn(myTextEditor)),
-	Key("M-A-o", lazy.spawn(myOfficeSuite)),
-	Key("M-A-l", lazy.spawn(myLaTeXEditor)),
-	Key("M-e", lazy.spawn(myFileManager)),
-    Key("M-A-e", lazy.spawn(myTerm + ' -e lf')),
+	Key("M-A-r", lazy.spawn("rofi -show run")),
+	Key("A-<Tab>", lazy.spawn("rofi -show window")),
 	Key("M-A-i", lazy.spawn(myBrowser)),
+	Key("M-e", lazy.spawn(myFileManager)),
+	Key("M-A-d", lazy.spawn(myMarkdown)),
 	Key("M-A-m", lazy.spawn(myMusicPlayer)),
+	Key("M-A-o", lazy.spawn(myOfficeSuite)),
+	Key("M-A-p", lazy.spawn(myPDFReader)),
+	Key("M-<Return>", lazy.spawn(myTerm)),
+	Key("M-A-t", lazy.spawn(myTextEditor)),
+	Key("M-A-e", lazy.spawn(myTerm + ' -e lf')),
+	Key("M-A-s", lazy.spawn("spotify")),
+	Key("M-A-g", lazy.spawn("steam")),
+	Key("M-A-v", lazy.spawn("vlc")),
 ]
 #+END_SRC
 
@@ -174,12 +186,12 @@ Feel free to change the names and default layouts on the ~groups~ section. As an
 
 #+BEGIN_SRC python
 groups = [
-	Group("web", layout="max", matches=[Match(wm_class=["Brave-browser"])]),
-	Group("dev", layout="monadtall", matches=[Match(wm_class=["Emacs", "Sublime_text"])]),
-	Group("sys", layout="monadtall"),
+	Group("web", layout="max", matches=[Match(wm_class=["Brave-browser", "Min"])]),
+	Group("dev", layout="monadtall", matches=[Match(wm_class=["Emacs", "jetbrains-idea", "Sublime_text"])]),
+	Group("sys", layout="monadtall", matches=[Match(wm_class=["Lxappearance", "Nitrogen"])]),
 	Group("doc", layout="monadtall", matches=[Match(wm_class=["DesktopEditors", "marktext", "Zathura"])]),
-	Group("chat", layout="monadtall"),
-	Group("game", layout="max"),
+	Group("chat", layout="max", matches=[Match(wm_class=["TelegramDesktop"])]),
+	Group("game", layout="floating"),
 	Group("media", layout="max", matches=[Match(wm_class=["Geeqie", "vlc"])]),
 	Group("gfx", layout="floating")
 ]
@@ -194,8 +206,8 @@ The layouts are how the windows are going to be positioned on the screen, on ~la
 Also, on the ~layouts~ section you can uncomment the layouts you want to use and comment the ones you dont want to, as a bonus, I have noticed that the order they are written is the same order they will cycle when you are changing them on the go (by pressing the keybinding).
 
 #+BEGIN_SRC python
-layout_theme = {"border_focus": "61AFEF", #colours[6]
-				"border_normal": "848484", #colours[2]
+layout_theme = {"border_focus": "#61AFEF",
+				"border_normal": "#848484",
 				"margin": 4,
 				"border_width": 2
 }
@@ -245,221 +257,221 @@ This section configures what you'll see on the bar, the ~widget_defaults~ sectio
 
 #+BEGIN_SRC python
 widget_defaults = dict(
-	background= colours[0],
-	foreground=colours[1],
-	font="SF Pro Text Regular",
-	fontsize=12,
-	padding=1
+	background = colours[0],
+	foreground = colours[1],
+	font = "SF Pro Text Regular",
+	fontsize = 12,
+	padding = 1
 )
 extension_defaults = widget_defaults.copy()
 
 widgets = [
 	widget.Sep(
-		foreground=colours[0],
-		linewidth=4,
+		foreground = colours[0],
+		linewidth = 4,
 	),
 	widget.Image(
-		filename="~/.config/qtile/py.png",
+		filename = "~/.config/qtile/py.png",
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("rofi -show drun")},
-		scale=True,
+		scale = True,
 	),
 	widget.Sep(
-		foreground=colours[2],
-		linewidth=1,
-		padding=10,
+		foreground = colours[2],
+		linewidth = 1,
+		padding = 10,
 	),
 	widget.GroupBox(
-		active=colours[4],
-		inactive=colours[6],
-		other_current_screen_border=colours[5],
-		other_screen_border=colours[2],
-		this_current_screen_border=colours[7],
-		this_screen_border=colours[2],
-		urgent_border=colours[3],
-		urgent_text=colours[3],
-		disable_drag=True,
-		highlight_method='text',
-		invert_mouse_wheel=True,
-		margin=2,
-		padding=0,
-		rounded=True,
-		urgent_alert_method='text',
+		active = colours[4],
+		inactive = colours[6],
+		other_current_screen_border = colours[5],
+		other_screen_border = colours[2],
+		this_current_screen_border = colours[7],
+		this_screen_border = colours[2],
+		urgent_border = colours[3],
+		urgent_text = colours[3],
+		disable_drag = True,
+		highlight_method = 'text',
+		invert_mouse_wheel = True,
+		margin = 2,
+		padding = 0,
+		rounded = True,
+		urgent_alert_method = 'text',
 	),
 	widget.Sep(
-		foreground=colours[2],
-		linewidth=1,
-		padding=10,
+		foreground = colours[2],
+		linewidth = 1,
+		padding = 10,
 	),
 	widget.CurrentLayout(
-		foreground=colours[7],
-		font="SF Pro Text Semibold",
+		foreground = colours[7],
+		font = "SF Pro Text Semibold",
 	),
 	widget.Systray(
-		icon_size=14,
-		padding=4,
+		icon_size = 14,
+		padding = 4,
 	),
 	widget.Cmus(
-		noplay_color=colours[2],
-		play_color=colours[1],
+		noplay_color = colours[2],
+		play_color = colours[1],
 	),
 	widget.Sep(
-		foreground=colours[2],
-		linewidth=1,
-		padding=10,
+		foreground = colours[2],
+		linewidth = 1,
+		padding = 10,
 	),
 	widget.WindowName(
-		max_chars=75,
+		max_chars = 75,
 	),
 	widget.TextBox(
-		foreground=colours[3],
-		font="JetBrainsMono Nerd Font Regular",
-		fontsize=14,
+		foreground = colours[3],
+		font = "JetBrainsMono Nerd Font Regular",
+		fontsize = 14,
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
-		padding=0,
-		text=' '
+		padding = 0,
+		text = ' '
 	),
 	widget.CPU(
-		foreground=colours[3],
-		format='{load_percent}%',
+		foreground = colours[3],
+		format = '{load_percent}%',
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
-		update_interval=1.0,
+		update_interval = 1.0,
 	),
 	widget.Sep(
-		foreground=colours[2],
-		linewidth=1,
-		padding=10,
+		foreground = colours[2],
+		linewidth = 1,
+		padding = 10,
 	),
 	widget.TextBox(
-		foreground=colours[4],
-		font="JetBrainsMono Nerd Font Regular",
-		fontsize=14,
+		foreground = colours[4],
+		font = "JetBrainsMono Nerd Font Regular",
+		fontsize = 14,
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
-		padding=0,
-		text='﬙ ',
+		padding = 0,
+		text = '﬙ ',
 	),
 	widget.Memory(
-		foreground=colours[4],
-		format='{MemUsed} MB',
+		foreground = colours[4],
+		format = '{MemUsed} MB',
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + ' -e ytop')},
 	),
 	widget.Sep(
-		foreground=colours[2],
-		linewidth=1,
-		padding=10,
+		foreground = colours[2],
+		linewidth = 1,
+		padding = 10,
 	),
 	#widget.TextBox(
-	#	foreground=colours[5],
-	#	font="JetBrainsMono Nerd Font Regular",
-	#	fontsize=12,
-	#	padding=0,
-	#	text=' ',
+	#	foreground = colours[5],
+	#	font = "JetBrainsMono Nerd Font Regular",
+	#	fontsize = 12,
+	#	padding = 0,
+	#	text = ' ',
 	#),
 	#widget.Backlight(
-	#	foreground=colours[5],
-	#	foreground_alert=colours[3],
-	#	backlight_name='amdgpu_bl0', # ls /sys/class/backlight/
-	#	change_command='brightnessctl set {0}',
-	#	step=5,
+	#	foreground = colours[5],
+	#	foreground_alert = colours[3],
+	#	backlight_name = 'amdgpu_bl0', # ls /sys/class/backlight/
+	#	change_command = 'brightnessctl set {0}',
+	#	step = 5,
 	#),
 	widget.TextBox(
-		foreground=colours[5],
-		font="JetBrainsMono Nerd Font Regular",
-		fontsize=14,
-		padding=0,
-		text=' ',
+		foreground = colours[5],
+		font = "JetBrainsMono Nerd Font Regular",
+		fontsize = 14,
+		padding = 0,
+		text = ' ',
 	),
 	widget.CheckUpdates(
-		colour_have_updates=colours[5],
-		colour_no_updates=colours[5],
-		custom_command='checkupdates',
-	#	custom_command='dnf updateinfo -q --list',
-		display_format='{updates} Updates',
-	#	execute="pkexec /usr/bin/dnf up -y",
-		execute="pkexec /usr/bin/pacman -Syu --noconfirm",
-		no_update_string='Up to date!',
-		update_interval=900,
+		colour_have_updates = colours[5],
+		colour_no_updates = colours[5],
+		custom_command = 'checkupdates',
+	#	custom_command = 'dnf updateinfo -q --list',
+		display_format = '{updates} Updates',
+	#	execute = "pkexec /usr/bin/dnf up -y",
+		execute = "pkexec /usr/bin/pacman -Syu --noconfirm",
+		no_update_string = 'Up to date!',
+		update_interval = 900,
 	),
 	widget.Sep(
-		foreground=colours[2],
-		linewidth=1,
-		padding=10,
+		foreground = colours[2],
+		linewidth = 1,
+		padding = 10,
 	),
 	widget.TextBox(
-		foreground=colours[6],
-		font="JetBrainsMono Nerd Font Regular",
-		fontsize=14,
+		foreground = colours[6],
+		font = "JetBrainsMono Nerd Font Regular",
+		fontsize = 14,
 		mouse_callbacks = ({
 			"Button1": lambda: qtile.cmd_spawn("amixer -M set Master toggle"),
 			"Button3": lambda: qtile.cmd_spawn("pavucontrol"),
 			"Button4": lambda: qtile.cmd_spawn("amixer -M set Master 5%+ unmute"),
 			"Button5": lambda: qtile.cmd_spawn("amixer -M set Master 5%- unmute"),
 		}),
-		padding=0,
-		text='墳 ',
+		padding = 0,
+		text = '墳 ',
 	),
 	widget.Volume(
-		foreground=colours[6],
+		foreground = colours[6],
 		mouse_callbacks = {"Button3": lambda: qtile.cmd_spawn("pavucontrol")},
-		step=5,
+		step = 5,
 	),
 	widget.Sep(
-		foreground=colours[2],
-		linewidth=1,
-		padding=10,
+		foreground = colours[2],
+		linewidth = 1,
+		padding = 10,
 	),
 	#widget.TextBox(
-	#	foreground=colours[7],
-	#	font="JetBrainsMono Nerd Font Regular",
-	#	fontsize=14,
-	#	padding=0,
-	#	text='爵 ',
+	#	foreground = colours[7],
+	#	font = "JetBrainsMono Nerd Font Regular",
+	#	fontsize = 14,
+	#	padding = 0,
+	#	text = '爵 ',
 	#),
 	#widget.Net(
-	#	foreground=colours[7],
-	#	format='{down}  ',
-	#	interface='enp1s0',
+	#	foreground = colours[7],
+	#	format = '{down}  ',
+	#	interface = 'enp1s0',
 	#),
 	widget.Battery(
-		foreground=colours[7],
-		low_foreground=colours[3],
-		charge_char=' ',
-		discharge_char=' ',
-		empty_char=' ',
-		full_char=' ',
-		unknown_char=' ',
-		font="JetBrainsMono Nerd Font Regular",
-		fontsize=14,
-		format='{char}',
-		low_percentage=0.2,
-		padding=0,
-		show_short_text=False,
+		foreground = colours[7],
+		low_foreground = colours[3],
+		charge_char = ' ',
+		discharge_char = ' ',
+		empty_char = ' ',
+		full_char = ' ',
+		unknown_char = ' ',
+		font = "JetBrainsMono Nerd Font Regular",
+		fontsize = 14,
+		format = '{char}',
+		low_percentage = 0.2,
+		padding = 0,
+		show_short_text = False,
 	),
 	widget.Battery(
-		foreground=colours[7],
-		low_foreground=colours[3],
-		format='{percent:2.0%}',
-		low_percentage=0.2,
-		notify_below=20,
+		foreground = colours[7],
+		low_foreground = colours[3],
+		format = '{percent:2.0%}',
+		low_percentage = 0.2,
+		notify_below = 20,
 	),
 	widget.Sep(
-		foreground=colours[2],
-		linewidth=1,
-		padding=10,
+		foreground = colours[2],
+		linewidth = 1,
+		padding = 10,
 	),
 	widget.TextBox(
-		foreground=colours[8],
-		font="JetBrainsMono Nerd Font Regular",
-		fontsize=14,
-		padding=0,
-		text=' ',
+		foreground = colours[8],
+		font = "JetBrainsMono Nerd Font Regular",
+		fontsize = 14,
+		padding = 0,
+		text = ' ',
 	),
 	widget.Clock(
-		foreground=colours[8],
-		format='%a %b %d  %I:%M %P    ',
+		foreground = colours[8],
+		format = '%a %b %d  %I:%M %P    ',
 	),
 	#widget.StockTicker(
-	#	apikey='AESKWL5CJVHHJKR5',
-	#	url='https://www.alphavantage.co/query?'
+	#	apikey = 'AESKWL5CJVHHJKR5',
+	#	url = 'https://www.alphavantage.co/query?'
 	#),
 ]
 #+END_SRC
@@ -476,8 +488,8 @@ screens = [Screen(top=status_bar(widgets))]
 
 connected_monitors = subprocess.run(
 	"xrandr | grep 'connected' | cut -d ' ' -f 2",
-	shell=True,
-	stdout=subprocess.PIPE
+	shell = True,
+	stdout = subprocess.PIPE
 ).stdout.decode("UTF-8").split("\n")[:-1].count("connected")
 
 if connected_monitors > 1:
@@ -493,18 +505,20 @@ After those mouse-key-bindings you will see something called ~floating_layout~, 
 #+BEGIN_SRC python
 mouse = [
 	Drag("M-1", lazy.window.set_position_floating(),
-		start=lazy.window.get_position()),
+		start = lazy.window.get_position()),
 	Drag("M-3", lazy.window.set_size_floating(),
-		start=lazy.window.get_size()),
+		start  = lazy.window.get_size()),
 	Click("M-2", lazy.window.bring_to_front())
 ]
 
 auto_fullscreen = True
+auto_minimize = True
 bring_front_click = False
 cursor_warp = False
 dgroups_app_rules = []  # type: List
 dgroups_key_binder = None
-floating_layout = layout.Floating(float_rules=[
+floating_layout = layout.Floating(**layout_theme,
+	float_rules=[
 		*layout.Floating.default_float_rules,
 		Match(title='Authentication'),
 		Match(title='branchdialog'),
@@ -516,6 +530,7 @@ floating_layout = layout.Floating(float_rules=[
 ])
 focus_on_window_activation = "smart"
 follow_mouse_focus = True
+reconfigure_screens = True
 #+END_SRC
 
 * STARTUP APPLICATIONS
