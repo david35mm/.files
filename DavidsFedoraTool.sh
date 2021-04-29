@@ -6,7 +6,7 @@ showWelcome() {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 5.0                                 ="
+	echo "=     Version 5.1                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -156,7 +156,7 @@ getXorg(){
 getGit() {
 	clear
 	echo "Installing Git"
-	sudo dnf in git -y
+	sudo dnf in git-core -y
 	sleep 2
 }
 #
@@ -174,7 +174,7 @@ getRepo() {
 confDNF() {
 	clear
 	echo "Type your password to write better settings at /etc/dnf/dnf.conf"
-	su -c 'printf -- "[main]\nbest=True\ncheck_config_file_age=False\nclean_requirements_on_remove=True\ncolor=always\ndefaultyes=True\ndeltarpm=True\ndiskspacecheck=False\nfastestmirror=True\ngpgcheck=1\ninstallonly_limit=2\nip_resolve=4\nkeepcache=False\nmax_parallel_downloads=10\nmetadata_expire=never\nmetadata_timer_sync=0\nskip_if_unavailable=True" > /etc/dnf/dnf.conf' && clear && printf -- "\n\tSettings written at /etc/dnf/dnf.conf" || printf -- "\n\tThere was an error writing the settings at /etc/dnf/dnf.conf"
+	printf -- "[main]\nbest=True\ncheck_config_file_age=False\nclean_requirements_on_remove=True\ncolor=always\ndefaultyes=True\ndeltarpm=True\ndiskspacecheck=False\nfastestmirror=True\ngpgcheck=1\ninstallonly_limit=2\nip_resolve=4\nkeepcache=False\nmax_parallel_downloads=10\nmetadata_expire=never\nmetadata_timer_sync=0\nskip_if_unavailable=True" | sudo tee /etc/dnf/dnf.conf && clear && printf -- "\n\tSettings written at /etc/dnf/dnf.conf" || printf -- "\n\tThere was an error writing the settings at /etc/dnf/dnf.conf"
 	sleep 2
 	clear
 	echo "Creating common aliases for DNF"
@@ -211,7 +211,7 @@ getQtile() {
 	clear
 	echo "Type your password to write .desktop file at /usr/share/xsessions/qtile.desktop"
 	sudo mkdir /usr/share/xsessions
-	su -c 'printf -- "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile start\nType=Application\nKeywords=wm;tiling" > /usr/share/xsessions/qtile.desktop' && clear && printf -- "\n\tQtile was installed successfully" || printf -- "\n\tThere was an error writing /usr/share/xsessions/qtile.desktop file"
+	printf -- "[Desktop Entry]\nName=Qtile\nComment=Qtile Session\nExec=qtile start\nType=Application\nKeywords=wm;tiling" | sudo tee /usr/share/xsessions/qtile.desktop && clear && printf -- "\n\tQtile was installed successfully" || printf -- "\n\tThere was an error writing /usr/share/xsessions/qtile.desktop file"
 	sleep 2
 }
 #
@@ -242,8 +242,8 @@ getHerbstluft() {
 getUtils() {
 	clear
 	echo "Installing utilities"
-	sudo dnf copr enable david35mm/bat -y && sudo dnf copr enable david35mm/fd -y && sudo dnf copr enable david35mm/macho -y
-	sudo dnf in alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lxappearance lxpolkit macho neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-plugin-jack pipewire-pulseaudio polybar pulseaudio-utils rofi udiskie xfce4-power-manager ytop -y
+	sudo dnf copr enable david35mm/bat -y && sudo dnf copr enable david35mm/fd -y
+	sudo dnf in alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-fuse gvfs-mtp libmtp libnotify lxappearance lxpolkit neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-plugin-jack pipewire-pulseaudio polybar pulseaudio-utils rofi udiskie ytop -y
 	sleep 2
 	clear
 	printf -- "\n\tUtilities were installed successfully"
@@ -285,7 +285,7 @@ getAllSoft() {
 	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 	clear
 	echo "Installing software collection"
-	sudo dnf in brave-browser pcmanfm vlc cmus geeqie zathura-pdf-mupdf onlyoffice-desktopeditors sublime-text -y
+	sudo dnf in brave-browser pcmanfm vlc cmus geeqie zathura-pdf-poppler onlyoffice-desktopeditors sublime-text -y
 	sleep 2
 	clear
 	printf -- "\n\tSoftware was installed successfully"
@@ -322,13 +322,12 @@ purgeLeftOvers() {
 #
 getPretty() {
 	clear
-	sudo dnf in tar -y
 	echo "Type your password to write a new lightdm config"
-	su -c 'printf -- "[greeter]\nbackground=/usr/share/wallpapers/deepin/Scenery_in_Plateau_by_Arto_Marttinen.jpg\nclock-format=%%A, %%B %%d %%I:%%M %%p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" > /etc/lightdm/lightdm-gtk-greeter.conf' && printf -- "\n\tLightdm config was written successfully" || printf -- "\n\tThere was an error writing the Lightdm config"
+	printf -- "[greeter]\nbackground=/usr/share/wallpapers/deepin/Scenery_in_Plateau_by_Arto_Marttinen.jpg\nclock-format=%%A, %%B %%d %%I:%%M %%p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" | sudo tee -a /etc/lightdm/lightdm-gtk-greeter.conf && printf -- "\n\tLightdm config was written successfully" || printf -- "\n\tThere was an error writing the Lightdm config"
 	sleep 2
 	clear
 	echo "Installing starship shell prompt"
-	sudo curl -fsSL https://starship.rs/install.sh | bash
+	sudo dnf copr enable atim/starship -y && sudo dnf in starship -y
 	sleep 2
 	clear
 	printf -- "\n\tBeautification completed"
