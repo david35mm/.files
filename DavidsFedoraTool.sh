@@ -6,7 +6,7 @@ showWelcome() {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 5.1                                 ="
+	echo "=     Version 5.2                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -202,7 +202,7 @@ getQtile() {
 	sleep 2
 	clear
 	echo "Installing Qtile dependencies"
-	sudo pip install xcffib cairocffi dbus-next psutil
+	sudo dnf in python3-xcffib python3-cairocffi python3-dbus-next python3-psutil -y
 	sleep 2
 	clear
 	echo "Installing Qtile trough python-pip"
@@ -278,14 +278,12 @@ getThemesIcons() {
 getAllSoft() {
 	clear
 	echo "Adding additional software repositories"
-	sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
-	sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+	sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/ && sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 	sudo dnf in https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm https://download.onlyoffice.com/repo/centos/main/noarch/onlyoffice-repo.noarch.rpm -y
-	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-	sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+	sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg && sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 	clear
 	echo "Installing software collection"
-	sudo dnf in brave-browser pcmanfm vlc cmus geeqie zathura-pdf-poppler onlyoffice-desktopeditors sublime-text -y
+	sudo dnf in brave-browser pcmanfm vlc-core cmus geeqie zathura-pdf-poppler onlyoffice-desktopeditors sublime-text -y
 	sleep 2
 	clear
 	printf -- "\n\tSoftware was installed successfully"
@@ -323,7 +321,7 @@ purgeLeftOvers() {
 getPretty() {
 	clear
 	echo "Type your password to write a new lightdm config"
-	printf -- "[greeter]\nbackground=/usr/share/wallpapers/deepin/Scenery_in_Plateau_by_Arto_Marttinen.jpg\nclock-format=%%A, %%B %%d %%I:%%M %%p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Orchis-dark-compact" | sudo tee -a /etc/lightdm/lightdm-gtk-greeter.conf && printf -- "\n\tLightdm config was written successfully" || printf -- "\n\tThere was an error writing the Lightdm config"
+	printf -- "[greeter]\nbackground=/usr/share/wallpapers/deepin/Scenery_in_Plateau_by_Arto_Marttinen.jpg\nclock-format=%%A, %%B %%d %%I:%%M %%p\ncursor-theme-name=Vimix-cursors\nfont-name=SF Pro Text\nicon-theme-name=Tela-circle-grey-dark\ntheme-name=Plata-Noir-Compact" | sudo tee -a /etc/lightdm/lightdm-gtk-greeter.conf && printf -- "\n\tLightdm config was written successfully" || printf -- "\n\tThere was an error writing the Lightdm config"
 	sleep 2
 	clear
 	echo "Installing starship shell prompt"
