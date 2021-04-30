@@ -2,14 +2,14 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-family: SF Pro Text;
+    font-size: 12px;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0.5);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    background-color: #141414;
+    border-bottom: 0;
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -78,9 +78,8 @@ window#waybar.chromium {
 #mode,
 #idle_inhibitor,
 #mpd {
-    padding: 0 10px;
-    margin: 0 4px;
-    color: #ffffff;
+    padding: 0 1px;
+    margin: 1px 1px;
 }
 
 #window,
@@ -99,12 +98,11 @@ window#waybar.chromium {
 }
 
 #clock {
-    background-color: #64727D;
+    color: #2BBAC5;
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
+    color: #D55FDE;
 }
 
 #battery.charging {
@@ -134,16 +132,15 @@ label:focus {
 }
 
 #cpu {
-    background-color: #2ecc71;
-    color: #000000;
+    color: #E35374;
 }
 
 #memory {
-    background-color: #9b59b6;
+    color: #89CA78;
 }
 
 #backlight {
-    background-color: #90b1b1;
+    color: #F0C674;
 }
 
 #network {
@@ -155,8 +152,7 @@ label:focus {
 }
 
 #pulseaudio {
-    background-color: #f1c40f;
-    color: #000000;
+    color: #61AFEF;
 }
 
 #pulseaudio.muted {

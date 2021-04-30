@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
 
-This config file was modified by David Salomón on April 23, 2021 at 10:13 am (Bogota DC, Colombia UTC-5).
+This config file was modified by David Salomón on April 29, 2021 at 06:49 pm (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -81,8 +81,10 @@ If for some weird reason you are one of those persons who likes to use the Alt k
 | MODKEY + SHIFT + j   | Changes window position in the current layout (up)         |
 | MODKEY + SPACE       | Switch focus between windows (clockwise)                   |
 | MODKEY + SHIFT + f   | Changes the side of the master and slave stack             |
-| MODKEY + l           | Expand size of window                                      |
-| MODKEY + h           | Shrink size of window                                      |
+| MODKEY + SHIFT + l   | Expand size of window                                      |
+| MODKEY + l           | Expand size of master window (only on MonadTall layout)    |
+| MODKEY + SHIFT + h   | Shrink size of window                                      |
+| MODKEY + h           | Shrink size of master window (only on MonadTall layout)    |
 | MODKEY + n           | Normalizes the size of the window with focus               |
 | MODKEY + TAB         | Rotates through the available layouts                      |
 | MODKEY + w           | Closes the window with focus                               |
@@ -141,9 +143,9 @@ keys = [
 	Key("M-<space>", lazy.layout.next()),
 	Key("M-S-f", lazy.layout.flip()),
 	Key("M-S-l", lazy.layout.grow()),
-	#Key("M-l", lazy.layout.grow_main()),
+	Key("M-l", lazy.layout.grow_main()),
 	Key("M-S-h", lazy.layout.shrink()),
-	#Key("M-h", lazy.layout.shrink_main()),
+	Key("M-h", lazy.layout.shrink_main()),
 	Key("M-n", lazy.layout.normalize()),
 	Key("M-<Tab>", lazy.next_layout()),
 	Key("M-w", lazy.window.kill()),

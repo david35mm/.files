@@ -112,7 +112,8 @@ brghtnss() {
 #       CRYPTO TICKER
 ##############################
 #crypt(){
-#	curl rate.sx/1doge
+#	crypto="$(curl rate.sx/1grt)"
+#	echo ${crypto:0:6}
 #}
 
 ##############################
