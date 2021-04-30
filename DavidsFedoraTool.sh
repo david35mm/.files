@@ -6,7 +6,7 @@ showWelcome() {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Fedora tool      ="
 	echo "=                                                 ="
-	echo "=     Version 5.2                                 ="
+	echo "=     Version 5.3                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -257,7 +257,7 @@ getThemesIcons() {
 	sudo rm -rf fonts-themes/
 	git clone https://github.com/david35mm/fonts-themes.git
 	echo "Extracting fonts, themes and icons to the /usr/share/ folder"
-	sudo mkdir /usr/share/fonts /usr/share/icons /usr/share/themes
+	sudo mkdir /usr/share/fonts /usr/share/icons /usr/share/themes && sudo rm -rf /usr/share/themes/Plata* /usr/share/icons/Tela* /usr/share/icons/Vimix-cursors/
 	sudo tar -C /usr/share/fonts -xf fonts-themes/fonts.tar.xz
 	sudo tar -C /usr/share/icons -xf fonts-themes/icons.tar.xz
 	sudo tar -C /usr/share/themes -xf fonts-themes/themes.tar.xz

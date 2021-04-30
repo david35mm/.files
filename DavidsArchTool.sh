@@ -6,7 +6,7 @@ showWelcome() {
 	echo "=                                                 ="
 	echo "=     Welcome to David Salomon's Arch tool        ="
 	echo "=                                                 ="
-	echo "=     Version 4.0                                 ="
+	echo "=     Version 4.1                                 ="
 	echo "=                                                 ="
 	echo "=     Brought to you by david35mm                 ="
 	echo "=     https://github.com/david35mm/.files         ="
@@ -170,11 +170,12 @@ confPacman() {
 	clear
 	"Cloning paru Git repository"
 	rm -rf paru-bin
-	git clone https://aur.archlinux.org/paru-bin.git && cd paru-bin && clear && echo "Installing paru" && makepkg -si && sleep 2 && cd "$HOME" && printf -- "\n\tparu has been installed successfully" || printf -- "\n\tThere was an error installing paru"
+	git clone https://aur.archlinux.org/paru-bin.git && cd paru-bin && clear && echo "Installing paru" && makepkg -si && sleep 2 && printf -- "\n\tparu has been installed successfully" || printf -- "\n\tThere was an error installing paru"
+	cd "$HOME" || exit
 	sleep 4
 	clear
 	echo "Type your password to write better settings at /etc/pacman.conf"
-	sudo $EDITOR /etc/pacman.conf
+	sudo "$EDITOR" /etc/pacman.conf
 	clear
 	echo "Using reflector to select the fastest mirrors"
 	sudo reflector --latest 10 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
@@ -222,7 +223,7 @@ getHerbstluft() {
 getUtils() {
 	clear
 	echo "Installing utilities"
-	sudo pacman -S --noconfirm --needed alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-mtp libmtp libnotify lxappearance lxsession-gtk3 neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-jack pipewire-pulse rofi starship udiskie
+	sudo pacman -S --noconfirm --needed alacritty alsa-utils arandr bat blueman brightnessctl dunst exa fd fish flameshot gvfs gvfs-mtp libmtp libnotify lxappearance-gtk3 lxsession-gtk3 neovim nitrogen nm-connection-editor ntfs-3g pavucontrol picom pipewire-alsa pipewire-jack pipewire-pulse rofi starship udiskie
 	paru -S --cleanafter --needed --noconfirm --removemake --skipreview dashbinsh ytop-bin
 	sleep 2
 	clear
@@ -236,7 +237,7 @@ getThemesIcons() {
 	sudo rm -rf fonts-themes/
 	git clone https://github.com/david35mm/fonts-themes.git
 	echo "Extracting fonts, themes and icons to the /usr/share/ folder"
-	sudo mkdir /usr/share/fonts /usr/share/icons /usr/share/themes
+	sudo mkdir /usr/share/fonts /usr/share/icons /usr/share/themes && sudo rm -rf /usr/share/themes/Plata* /usr/share/icons/Tela* /usr/share/icons/Vimix-cursors/
 	sudo tar -C /usr/share/fonts -xf fonts-themes/fonts.tar.xz
 	sudo tar -C /usr/share/icons -xf fonts-themes/icons.tar.xz
 	sudo tar -C /usr/share/themes -xf fonts-themes/themes.tar.xz
@@ -260,7 +261,7 @@ getAllSoft() {
 	curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg && printf -- "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
 	clear
 	echo "Installing software collection"
-	sudo pacman -Syyu --noconfirm --needed pcmanfm vlc cmus geeqie zathura-pdf-poppler sublime-text xarchiver && xdg-mime default sublime_text.desktop text/plain && xdg-mime default org.pwmt.zathura.desktop application/pdf
+	sudo pacman -Syyu --noconfirm --needed pcmanfm-gtk3 vlc cmus geeqie zathura-pdf-poppler sublime-text xarchiver && xdg-mime default sublime_text.desktop text/plain && xdg-mime default org.pwmt.zathura.desktop application/pdf
 	paru -S --cleanafter --needed --noconfirm --removemake --skipreview brave-bin onlyoffice-bin
 	sleep 2
 	clear
