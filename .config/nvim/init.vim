@@ -1,51 +1,37 @@
-set nocompatible
+"   __  __          ___ ____     __   _ __    _____     __
+"  / / / /__ ___   |_  / / /____/ /  (_) /_  / ___/__  / /__  __ ______
+" / /_/ (_-</ -_) / __/_  _/___/ _ \/ / __/ / /__/ _ \/ / _ \/ // / __/
+" \____/___/\__/ /____//_/    /_.__/_/\__/  \___/\___/_/\___/\_,_/_/
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" AutoInstall Plug-vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"if empty(glob('~/.vim/autoload/plug.vim'))
-"  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-"    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-"endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use 24-bit (true-color)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
+	if (has("nvim"))
+		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+	endif
+	if (has("termguicolors"))
+		set termguicolors
+	endif
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"    ___  __          _
+"   / _ \/ /_ _____ _(_)__  ___
+"  / ___/ / // / _ `/ / _ \(_-<
+" /_/  /_/\_,_/\_, /_/_//_/___/
+"             /___/
 
 call plug#begin('~/.vim/plugged')
-    Plug 'itchyny/lightline.vim'                       " Lightline statusbar
-    Plug 'scrooloose/nerdtree'                         " Nerdtree
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'     " Highlighting Nerdtree
-    Plug 'ryanoasis/vim-devicons'                      " Icons for Nerdtree
-    Plug 'ap/vim-css-color'                            " Color previews for CSS
-    Plug 'joshdick/onedark.vim'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'junegunn/vim-emoji'                          " Vim needs emojis!
+	Plug 'ap/vim-css-color'
+	Plug 'itchyny/lightline.vim'
+	Plug 'jiangmiao/auto-pairs'
+	Plug 'joshdick/onedark.vim'
+	"Plug 'mg979/vim-visual-multi'
+	Plug 'preservim/nerdtree'
+	Plug 'sheerun/vim-polyglot'
+	Plug 'tpope/vim-surround'
+	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+	Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
-filetype plugin indent on    " required
+filetype plugin indent on
 " To ignore plugin indent changes, instead use:
 " filetype plugin on
 
@@ -58,83 +44,179 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General Settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set path+=**                    " Searches current directory recursively.
-set wildmenu                    " Display all matches when tab complete.
-set incsearch                   " Incremental search
-set hidden                      " Needed to keep multiple buffers open
-set nobackup                    " No auto backups
-set noswapfile                  " No swap
-set number relativenumber       " Display line numbers
-set cursorline                  " Highligt the cursor line
-set clipboard=unnamedplus       " Copy/paste between vim and other programs.
+"   _____                      __  ____    __  __  _
+"  / ___/__ ___  ___ _______ _/ / / __/__ / /_/ /_(_)__  ___ ____
+" / (_ / -_) _ \/ -_) __/ _ `/ / _\ \/ -_) __/ __/ / _ \/ _ `(_-<
+" \___/\__/_//_/\__/_/  \_,_/_/ /___/\__/\__/\__/_/_//_/\_, /___/
+"                                                      /___/
+
+filetype off
+set clipboard+=unnamedplus
+set cmdheight=1
+set cursorline
+set encoding=UTF-8
+set hidden
+set incsearch
+set list lcs=tab:\|\ 
+set mouse=niv
+set nobackup
+set nocompatible
+set noet ci pi sts=0 sw=4 ts=4
+set noruler
+set noshowcmd
+set noshowmode
+set noswapfile
+set nowritebackup
+set number relativenumber
+set path+=**
+set smartcase
+set title
+set updatetime=300
+set wildmenu
+set wildmode=longest,list,full
+
+" Disables automatic commenting on newline:
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Automatically deletes all trailing whitespace and newlines at end of file on save.
+autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritePre * %s/\n\+\%$//e
+autocmd BufWritePre *.[ch] %s/\%$/\r/e
+
+"    ___  __          _        _____          ____
+"   / _ \/ /_ _____ _(_)__    / ___/__  ___  / _(_)__ ____
+"  / ___/ / // / _ `/ / _ \  / /__/ _ \/ _ \/ _/ / _ `(_-<
+" /_/  /_/\_,_/\_, /_/_//_/  \___/\___/_//_/_//_/\_, /___/
+"             /___/                             /___/
+
+" itchyny/lightline.vim
+let lightline={
+		\ 'colorscheme': 'onedark',
+		\ }
+set laststatus=2
+
+" joshdick/onedark.vim
+let onedark_terminal_italics=1
 syntax on
-let g:onedark_terminal_italics=1
 colorscheme onedark
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap Keys
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap ESC to ii
-:imap ii <Esc>
+" mg979/vim-visual-multi
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Status Line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:lightline = {
-      \ 'colorscheme': 'onedark',
-      \ }
+" preservim/nerdtree
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+	\ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+	\ quit | endif
 
-set laststatus=2
-set noshowmode
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set smarttab                    " Be smart using tabs ;)
-set shiftwidth=4                " One tab == four spaces.
-set tabstop=4                   " One tab == four spaces.
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Uncomment to autostart the NERDTree
-" autocmd vimenter * NERDTree
-map <C-n> :NERDTreeToggle<CR>
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
-let NERDTreeShowLineNumbers=0
-let NERDTreeShowHidden=1
+"let NERDTreeDirArrowCollapsible=''
+"let NERDTreeDirArrowExpandable=''
+let NERDTreeDirArrowCollapsible=''
+let NERDTreeDirArrowExpandable=''
+let NERDTreeMinimalMenu=1
 let NERDTreeMinimalUI=1
-let g:NERDTreeWinSize=32
+let NERDTreeMouseMode=2
+let NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden=1
+let NERDTreeSortHiddenFirst=1
+let NERDTreeWinSize=32
+let plug_window='noautocmd vertical topleft new'
+nnoremap <C-t> :NERDTreeToggle<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mouse Scrolling
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set mouse=nicr
+" tiagofumo/vim-nerdtree-syntax-highlight
+let NERDTreeExactMatchHighlightFullName=1
+let NERDTreeFileExtensionHighlightFullName=1
+let NERDTreeLimitedSyntax=1
+let NERDTreePatternMatchHighlightFullName=1
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Splits and Tabbed Files
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ryanoasis/vim-devicons
+let WebDevIconsNerdTreeAfterGlyphPadding=' '
+let WebDevIconsNerdTreeGitPluginForceVAlign=0
+let WebDevIconsUnicodeDecorateFolderNodes=1
+let DevIconsEnableFoldersOpenClose=1
+let WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
+let DevIconsDefaultFolderOpenSymbol=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols={}
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['go']='ﳑ'
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['class']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['clj']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['cljc']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['gradle']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['jar']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['java']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['cjs']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['mjs']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['ts']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['jl']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['lua']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['xls']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['xlsx']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['ppt']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['pptx']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['doc']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['docx']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['pdf']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['pl']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['pm']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['pod']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['php']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['py']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['rmd']='ﳒ'
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['rb']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['rs']=''
+let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['swift']=''
+
+"    ___                        __ __
+"   / _ \___ __ _  ___ ____    / //_/__ __ _____
+"  / , _/ -_)  ' \/ _ `/ _ \  / ,< / -_) // (_-<
+" /_/|_|\__/_/_/_/\_,_/ .__/ /_/|_|\__/\_, /___/
+"                    /_/              /___/
+
+imap ii <Esc>
+nmap <silent> <C-a> gg v G $
+nmap <silent> <C-s> :w<CR>
+nmap <silent> <F6> :setlocal spell spelllang=en_gb,es_mx<CR>
+nmap <silent> Q gqap
+nmap S :%s///g<Left><Left><Left>
+vmap <silent> <F9> :sort<CR>
+vmap <silent> Q gq
+
+"    ___       _ __   __  ____         __
+"   / _ )__ __(_) /__/ / / __/_ _____ / /____ __ _
+"  / _  / // / / / _  / _\ \/ // (_-</ __/ -_)  ' \
+" /____/\_,_/_/_/\_,_/ /___/\_, /___/\__/\__/_/_/_/
+"                          /___/
+
+autocmd Filetype rmd,Rmd nmap <C-b> :!Rscript -e "rmarkdown::render('%', clean=TRUE)"<CR>
+
+"    ____     ___ __        ____      ______     __   __          __
+"   / __/__  / (_) /____   / __/___  /_  __/__ _/ /  / /  ___ ___/ /
+"  _\ \/ _ \/ / / __(_-<   > _/_ _/   / / / _ `/ _ \/ _ \/ -_) _  /
+" /___/ .__/_/_/\__/___/  |_____/    /_/  \_,_/_.__/_.__/\__/\_,_/
+"    /_/
+"    _____ __
+"   / __(_) /__ ___
+"  / _// / / -_|_-<
+" /_/ /_/_/\__/___/
+
 set splitbelow splitright
 
-" Remap splits navigation to just CTRL + hjkl
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+nmap <Leader>th <C-w>t<C-w>H
+nmap <Leader>tk <C-w>t<C-w>K
 
-" Make adjusing split sizes a bit more friendly
-noremap <silent> <C-Left> :vertical resize +3<CR>
-noremap <silent> <C-Right> :vertical resize -3<CR>
-noremap <silent> <C-Up> :resize +3<CR>
-noremap <silent> <C-Down> :resize -3<CR>
+nmap <silent> <C-Left> :vertical resize +4<CR>
+nmap <silent> <C-Right> :vertical resize -4<CR>
+nmap <silent> <C-Up> :resize +2<CR>
+nmap <silent> <C-Down> :resize -2<CR>
 
-" Change 2 split windows from vert to horiz or horiz to vert
-map <Leader>th <C-w>t<C-w>H
-map <Leader>tk <C-w>t<C-w>K
-
-" Removes pipes | that act as seperators on splits
-set fillchars+=vert:\
+nmap <Leader>th <C-w>t<C-w>H
+nmap <Leader>tk <C-w>t<C-w>K
