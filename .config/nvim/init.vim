@@ -19,16 +19,16 @@ endif
 "             /___/
 
 call plug#begin('~/.vim/plugged')
-	Plug 'ap/vim-css-color'
 	Plug 'itchyny/lightline.vim'
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'joshdick/onedark.vim'
 	"Plug 'mg979/vim-visual-multi'
+	Plug 'norcalli/nvim-colorizer.lua'
 	Plug 'preservim/nerdtree'
-	Plug 'sheerun/vim-polyglot'
-	Plug 'tpope/vim-surround'
-	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 	Plug 'ryanoasis/vim-devicons'
+	Plug 'sheerun/vim-polyglot'
+	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+	Plug 'tpope/vim-surround'
 call plug#end()
 
 filetype plugin indent on
@@ -101,6 +101,9 @@ syntax on
 colorscheme onedark
 
 " mg979/vim-visual-multi
+
+" norcalli/nvim-colorizer.lua
+lua require'colorizer'.setup()
 
 " preservim/nerdtree
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
