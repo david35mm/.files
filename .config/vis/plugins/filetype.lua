@@ -546,4 +546,3 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 
 	win:set_syntax(nil)
 end)
-

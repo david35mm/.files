@@ -147,4 +147,3 @@ cycle_icon_transparency := 30
 [Misc]
 # This is the default icon to use for windows that don't specify an icon.
 default_icon := ./data/wingo.png
-

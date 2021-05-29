@@ -150,7 +150,7 @@ alias vnvim='vim ~/.config/nvim/init.vim'
 alias vpicom='vim ~/.config/picom/picom.conf'
 alias vqtile='vim ~/.config/qtile/config.py'
 alias vspectrwm='vim ~/.config/spectrwm/spectrwm.conf'
-alias vvim='vim ~/.vimrc'
+alias vvim='vim ~/.config/nvim/init.vim'
 
 alias salacritty='subl ~/.config/alacritty/alacritty.yml'
 alias sbashrc='subl ~/.bashrc'

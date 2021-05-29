@@ -1,147 +1,231 @@
 {
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 18, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["cpu", "memory", "backlight", "pulseaudio", "battery", "clock", "tray"],
-    // Modules configuration
-    "sway/workspaces": {
-    //     "disable-scroll": true,
-         "all-outputs": true
-    //     "format": "{name}: {icon}",
-    //     "format-icons": {
-    //         "1": "",
-    //         "2": "",
-    //         "3": "",
-    //         "4": "",
-    //         "5": "",
-    //         "urgent": "",
-    //         "focused": "",
-    //         "default": ""
-    //     }
-    },
+	"layer": "top",
+	"height": 18,
+	"modules-left": ["sway/workspaces", "custom/sep", "sway/window"],
+	"modules-center": [],
+	"modules-right": ["cpu#icon", "cpu", "custom/sep", "custom/memory#icon", "custom/memory", "custom/sep", "custom/pacman#icon", "custom/pacman", "custom/sep", "pulseaudio#icon", "pulseaudio", "custom/sep", "battery#icon", "battery", "custom/sep", "clock#icon", "clock"],
 
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-    },
-    "clock": {
-        // "timezone": "America/Bogota",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%a %b %d  %I:%M %p}",
-        "format-alt": "{:%d/%m/%Y  %T}"
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{used:.4} ﬙"
-    },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": [" ", " ", " ", " ", " ", " ", " "
-        ]
-    },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": " Full",
-        "format-icons": [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "]
-    },
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["奄 ", "奔 ", "墳 "]
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    }
+/////////////// BUILT-IN MODULES ///////////////
+
+	"custom/sep": {
+		"format": "|",
+	},
+
+//       ____             __   ___       __    __
+//      / __ )____ ______/ /__/ (_)___ _/ /_  / /_
+//     / __  / __ `/ ___/ //_/ / / __ `/ __ \/ __/
+//    / /_/ / /_/ / /__/ ,< / / / /_/ / / / / /_
+//   /_____/\__,_/\___/_/|_/_/_/\__, /_/ /_/\__/
+//                             /____/
+
+	"backlight": {
+		"format": "{percent}%",
+		"on-scroll-down": "brightnessctl set 10%-",
+		"on-scroll-up": "brightnessctl set 10%+"
+	},
+
+	"backlight#icon": {
+		"format": "{icon}",
+		"format-icons": [" ", " ", " ", " ", " ", " ", " "],
+		"on-scroll-down": "brightnessctl set 10%-",
+		"on-scroll-up": "brightnessctl set 10%+"
+	},
+
+//       ____        __  __
+//      / __ )____ _/ /_/ /____  _______  __
+//     / __  / __ `/ __/ __/ _ \/ ___/ / / /
+//    / /_/ / /_/ / /_/ /_/  __/ /  / /_/ /
+//   /_____/\__,_/\__/\__/\___/_/   \__, /
+//                                 /____/
+
+	"battery": {
+		"format": "{capacity}%",
+		"format-full": "Full",
+		"states": {
+			"critical": 15,
+			"warning": 30
+		},
+		"tooltip": true,
+		"tooltip-format": "{timeTo}"
+	},
+
+	"battery#icon": {
+		"format": "{icon}",
+		"format-full": " ",
+		"format-icons": [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+		"states": {
+			"critical": 15,
+			"warning": 30
+		},
+		"tooltip": true,
+		"tooltip-format": "{timeTo}"
+	},
+
+//      __________  __  __
+//     / ____/ __ \/ / / /
+//    / /   / /_/ / / / /
+//   / /___/ ____/ /_/ /
+//   \____/_/    \____/
+
+	"cpu": {
+		"format": "{usage}%",
+		"interval": 1,
+		"on-click": "alacritty -e ytop",
+		"tooltip": true,
+		"tooltip-format": "{avg_frequency}"
+	},
+
+	"cpu#icon": {
+		"format": " ",
+		"on-click": "alacritty -e ytop",
+		"tooltip": true,
+		"tooltip-format": "{avg_frequency}"
+	},
+
+//       ____        __                   _______
+//      / __ \____ _/ /____              /_  __(_)___ ___  ___
+//     / / / / __ `/ __/ _ \   ______     / / / / __ `__ \/ _ \
+//    / /_/ / /_/ / /_/  __/  /_____/    / / / / / / / / /  __/
+//   /_____/\__,_/\__/\___/             /_/ /_/_/ /_/ /_/\___/
+
+	"clock": {
+		"format": "{:%a %b %d  %I:%M %p    }",
+		"format-alt": "{:%d/%m/%Y  %T    }",
+		"interval": 1,
+		"tooltip": true,
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+	},
+
+	"clock#icon": {
+		"format": " ",
+		"format-alt": " ",
+		"tooltip": true,
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+	},
+
+//       ____  _   ________   __  __          __      __
+//      / __ \/ | / / ____/  / / / /___  ____/ /___ _/ /____  _____
+//     / / / /  |/ / /_     / / / / __ \/ __  / __ `/ __/ _ \/ ___/
+//    / /_/ / /|  / __/    / /_/ / /_/ / /_/ / /_/ / /_/  __(__  )
+//   /_____/_/ |_/_/       \____/ .___/\__,_/\__,_/\__/\___/____/
+//                             /_/
+
+	"custom/dnf": {
+		"exec": "dnf updateinfo -q --list | wc -l",       // # of updates
+		"exec-if": "exit 0",                  // always run; consider advanced run conditions
+		"format": "{} Updates",
+		"interval": 900,                     // every 15 minutes
+		"on-click": "pkexec /usr/bin/dnf up -y; pkill -SIGRTMIN+8 waybar", // update system
+		"signal": 8
+	},
+
+	"custom/dnf#icon": {
+		"format": "  ",
+		"on-click": "pkexec /usr/bin/dnf up -y; pkill -SIGRTMIN+8 waybar", // update system
+		"signal": 8
+	},
+
+//       ____  ____ __________ ___  ____ _____
+//      / __ \/ __ `/ ___/ __ `__ \/ __ `/ __ \
+//     / /_/ / /_/ / /__/ / / / / / /_/ / / / /
+//    / .___/\__,_/\___/_/ /_/ /_/\__,_/_/ /_/
+//   /_/
+//      __  __          __      __
+//     / / / /___  ____/ /___ _/ /____  _____
+//    / / / / __ \/ __  / __ `/ __/ _ \/ ___/
+//   / /_/ / /_/ / /_/ / /_/ / /_/  __(__  )
+//   \____/ .___/\__,_/\__,_/\__/\___/____/
+//       /_/
+
+	"custom/pacman": {
+		"exec": "checkupdates | wc -l",       // # of updates
+		"exec-if": "exit 0",                  // always run; consider advanced run conditions
+		"format": "{} Updates",
+		"interval": 900,                     // every 15 minutes
+		"on-click": "pkexec /usr/bin/pacman -Syu --noconfirm; pkill -SIGRTMIN+8 waybar", // update system
+		"signal": 8
+	},
+
+	"custom/pacman#icon": {
+		"format": "  ",
+		"on-click": "pkexec /usr/bin/pacman -Syu --noconfirm; pkill -SIGRTMIN+8 waybar", // update system
+		"signal": 8
+	},
+
+//    _       __           __
+//   | |     / /___  _____/ /___________  ____ _________
+//   | | /| / / __ \/ ___/ //_/ ___/ __ \/ __ `/ ___/ _ \
+//   | |/ |/ / /_/ / /  / ,< (__  ) /_/ / /_/ / /__/  __/
+//   |__/|__/\____/_/  /_/|_/____/ .___/\__,_/\___/\___/
+//                              /_/
+//       _   __
+//      / | / /___ _____ ___  ___
+//     /  |/ / __ `/ __ `__ \/ _ \
+//    / /|  / /_/ / / / / / /  __/
+//   /_/ |_/\__,_/_/ /_/ /_/\___/
+
+	"sway/workspaces": {
+		"all-outputs": true,
+		"current-only": false,
+		"disable-click": false,
+		"disable-scroll": false,
+		"disable-scroll-wraparound": true,
+		"enable-bar-scroll": false,
+		"format": "{value}"
+	},
+
+//       __  ___
+//      /  |/  /__  ____ ___  ____  _______  __
+//     / /|_/ / _ \/ __ `__ \/ __ \/ ___/ / / /
+//    / /  / /  __/ / / / / / /_/ / /  / /_/ /
+//   /_/  /_/\___/_/ /_/ /_/\____/_/   \__, /
+//                                    /____/
+
+	"custom/memory": {
+		"exec": "$HOME/.config/waybar/memory.sh",
+		"format": "{} MB",
+		"interval": 3,
+		"on-click": "alacritty -e ytop"
+	},
+
+	"custom/memory#icon": {
+		"format": "﬙ ",
+		"on-click": "alacritty -e ytop"
+	},
+
+//    _    __      __
+//   | |  / /___  / /_  ______ ___  ___
+//   | | / / __ \/ / / / / __ `__ \/ _ \
+//   | |/ / /_/ / / /_/ / / / / / /  __/
+//   |___/\____/_/\__,_/_/ /_/ /_/\___/
+
+	"pulseaudio": {
+		"format": "{volume}%",
+		"format-muted": "OFF",
+		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"on-click-right": "pavucontrol",
+		"scroll-step": 5
+	},
+
+	"pulseaudio#icon": {
+		"format": "{icon}",
+		"format-icons": {
+			"default": ["奄 ", "奔 ", "墳 "]
+		},
+		"format-muted": "婢 ",
+		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"on-click-right": "pavucontrol",
+		"scroll-step": 5
+	},
+
+//    _       ___           __                 _   __
+//   | |     / (_)___  ____/ /___ _      __   / | / /___ _____ ___  ___
+//   | | /| / / / __ \/ __  / __ \ | /| / /  /  |/ / __ `/ __ `__ \/ _ \
+//   | |/ |/ / / / / / /_/ / /_/ / |/ |/ /  / /|  / /_/ / / / / / /  __/
+//   |__/|__/_/_/ /_/\__,_/\____/|__/|__/  /_/ |_/\__,_/_/ /_/ /_/\___/
+
+	"sway/window": {
+		"format": "{}",
+		"max-length": 75
+	}
 }

@@ -25,10 +25,10 @@ call plug#begin('~/.vim/plugged')
 	"Plug 'mg979/vim-visual-multi'
 	Plug 'norcalli/nvim-colorizer.lua'
 	Plug 'preservim/nerdtree'
-	Plug 'ryanoasis/vim-devicons'
 	Plug 'sheerun/vim-polyglot'
-	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 	Plug 'tpope/vim-surround'
+	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+	Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 filetype plugin indent on
@@ -55,9 +55,11 @@ set clipboard+=unnamedplus
 set cmdheight=1
 set cursorline
 set encoding=UTF-8
+set guifont=SF_Mono:h12
+set guioptions=a
 set hidden
 set incsearch
-set list lcs=tab:\|\ 
+set list listchars=tab:\|\ 
 set mouse=niv
 set nobackup
 set nocompatible
@@ -69,11 +71,15 @@ set noswapfile
 set nowritebackup
 set number relativenumber
 set path+=**
+set shortmess+=c
 set smartcase
 set title
 set updatetime=300
 set wildmenu
 set wildmode=longest,list,full
+
+" Fix sizing bug with Alacritty terminal
+autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"
 
 " Disables automatic commenting on newline:
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -188,6 +194,7 @@ nmap <silent> Q gqap
 nmap S :%s///g<Left><Left><Left>
 vmap <silent> <F9> :sort<CR>
 vmap <silent> Q gq
+vmap S :s///g<Left><Left><Left>
 
 "    ___       _ __   __  ____         __
 "   / _ )__ __(_) /__/ / / __/_ _____ / /____ __ _

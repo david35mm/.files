@@ -118,4 +118,3 @@ unfocused := SetOpacity ":client:" 0.85
 match := MatchClientClass ":client:" "ksplashx"
 
 managed := FrameNada ":client:"
-

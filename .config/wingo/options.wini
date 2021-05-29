@@ -73,9 +73,8 @@ cancel := Escape
 # If you need to pass additional arguments to the shell invocation, then
 # you'll need to make a wrapper script.
 # (Make sure it can handle the `-c` flag!)
-shell := bash
+shell := dash
 
 # The program to use to play a wav file. This is only used with the "Dale"
 # command, which is an easter egg.
 audio_play_cmd := aplay
-

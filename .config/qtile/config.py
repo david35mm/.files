@@ -11,7 +11,6 @@ from typing import List
 mod = "mod4"
 myTerm = guess_terminal()
 myBrowser = "brave-browser"
-myConfig = "~/.config/qtile/config.py"
 myFileManager = "pcmanfm"
 myMarkdown = "marktext"
 myMusicPlayer = myTerm+" -e cmus"

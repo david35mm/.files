@@ -18,19 +18,19 @@ set PATH $PATH $HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFast
 function __history_previous_command
 	switch (commandline -t)
 	case "!"
-    	commandline -t $history[1]; commandline -f repaint
+		commandline -t $history[1]; commandline -f repaint
 	case "*"
-    	commandline -i !
+		commandline -i !
 	end
 end
 
 function __history_previous_command_arguments
 	switch (commandline -t)
 	case "!"
-    	commandline -t ""
-    	commandline -f history-token-search-backward
+		commandline -t ""
+		commandline -f history-token-search-backward
 	case "*"
-    	commandline -i '$'
+		commandline -i '$'
 	end
 end
 
@@ -42,8 +42,8 @@ bind '$' __history_previous_command_arguments
 function ex
 	set ext 7z bz2 deb gz rar tar tar.bz2 tar.gz tar.xz tar.zst tbz2 tgz Z zip
 	if test -z "$argv"
-    	# display usage if no parameters given
-    	echo "Usage: ex <path/file_name>.<|7z|bz2|deb|gz|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zst|tbz2|tgz|Z|zip>"
+		# display usage if no parameters given
+		echo "Usage: ex <path/file_name>.<|7z|bz2|deb|gz|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zst|tbz2|tgz|Z|zip>"
 	else
 		if test -f "$argv"
 			switch $argv
@@ -180,7 +180,7 @@ alias vnvim='vim ~/.config/nvim/init.vim'
 alias vpicom='vim ~/.config/picom/picom.conf'
 alias vqtile='vim ~/.config/qtile/config.py'
 alias vspectrwm='vim ~/.config/spectrwm/spectrwm.conf'
-alias vvim='vim ~/.vimrc'
+alias vvim='vim ~/.config/nvim/init.vim'
 
 alias salacritty='subl ~/.config/alacritty/alacritty.yml'
 alias sbashrc='subl ~/.bashrc'

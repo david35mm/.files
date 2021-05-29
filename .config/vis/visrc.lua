@@ -11,7 +11,7 @@ vis.events.subscribe(vis.events.INIT, function()
 	-- Your global configuration options
 	vis:command('set ignorecase on')
 	vis:command('set syntax on')
-	vis:command('set theme base16-onedark-vivid')
+	vis:command('set theme base16-onedark')
 end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)

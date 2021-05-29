@@ -22,9 +22,9 @@
 * About
 #+CAPTION: Qtile Screenshot
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
-[[https://github.com/david35mm/.files/blob/main/.screenshots/qtile.png]]
+[[https://github.com/david35mm/.files/blob/main/.config/qtile/qtile.png]]
 
-This config file was modified by David Salomón on April 29, 2021 at 06:49 pm (Bogota DC, Colombia UTC-5).
+This config file was modified by David Salomón on May 28, 2021 at 05:55 pm (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -56,7 +56,6 @@ Here I have set some variables so that you can set your default programs. If som
 mod = "mod4"
 myTerm = guess_terminal()
 myBrowser = "brave-browser"
-myConfig = "~/.config/qtile/config.py"
 myFileManager = "pcmanfm"
 myMarkdown = "marktext"
 myMusicPlayer = myTerm+" -e cmus"
@@ -113,6 +112,7 @@ If for some weird reason you are one of those persons who likes to use the Alt k
 
 ** Applications launcher
 | Keybinding                       | Action                                                                                                                               |
+|----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------|
 | MODKEY + r                       | Opens the Desktop File Application Launcher ([[https://github.com/davatorium/rofi/blob/next/INSTALL.md#install-distribution][rofi]]) |
 | MODKEY + ALT + r                 | Opens the Application Launcher (with rofi as well)                                                                                   |
 | ALT + Tab                        | Opens the Window Switcher, like the one on Windows but better (it's rofi one more time.)                                             |
@@ -184,7 +184,7 @@ keys = [
 
 * GROUPS
 For some reason Qtile decided to call them groups, but basically they are workspaces.
-Feel free to change the names and default layouts on the ~groups~ section. As another thing that I recently discovered in the last Qtile update, I have set some rules for certain windows to open in a specific groups. eg: Brave-browser will always open in the ~web~ workspace, vlc will open in the ~media~ workspace... You get the idea. If you want to add more rules I strongly advice you to run: ~xprop WM_CLASS~. 
+Feel free to change the names and default layouts on the ~groups~ section. As another thing that I recently discovered in the last Qtile update, I have set some rules for certain windows to open in a specific groups. eg: Brave-browser will always open in the ~web~ workspace, vlc will open in the ~media~ workspace... You get the idea. If you want to add more rules I strongly advice you to run: ~xprop WM_CLASS~.
 
 #+BEGIN_SRC python
 groups = [

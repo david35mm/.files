@@ -169,4 +169,3 @@ Mod4-3 := MouseResize "Infer"
 [BordersBottomRight]
 1 := MouseResize "BottomRight"
 1 := FocusRaise ":mouse:"
-

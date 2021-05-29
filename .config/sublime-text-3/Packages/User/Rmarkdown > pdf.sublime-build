@@ -1,4 +1,4 @@
 {
-    "cmd": ["R", "-e", "rmarkdown::render('$file')"],
+    "cmd": ["Rscript", "-e", "rmarkdown::render('$file', clean=TRUE)"],
     "file_patterns": ["*.Rmd"],
 }

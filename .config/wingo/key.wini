@@ -232,4 +232,3 @@ Mod4-m := AutoMaster (GetWorkspace)
 Mod1-Shift-return := AutoMakeMaster (GetWorkspace)
 Mod1-comma := AutoMastersFewer (GetWorkspace)
 Mod1-period := AutoMastersMore (GetWorkspace)
-
