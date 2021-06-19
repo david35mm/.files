@@ -3564,6 +3564,28 @@
 				<string>#E8E8E8FF</string>
 			</dict>
 		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_800000FF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#800000FF</string>
+				<key>foreground</key>
+				<string>#A6A6A6FF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_000080FF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#000080FF</string>
+				<key>foreground</key>
+				<string>#8E8E8EFF</string>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

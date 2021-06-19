@@ -70,7 +70,7 @@ hide_duplicate_count = yes
 # The width can be negative.  In this case the actual width is the
 # screen width minus the width defined in within the geometry option.
 #geometry = "250x50-40+40"
-geometry = "300x50-15+49"
+geometry = "0x0-8+22"
 
 # Shrink window if it's smaller than the width.  Will be ignored if
 # width is 0.
@@ -148,13 +148,13 @@ dmenu = /usr/bin/dmenu -p dunst:
 browser = /usr/bin/brave-browser
 
 # Align icons left/right/off
-icon_position = off
+icon_position = left
 max_icon_size = 80
 
 # Paths to default icons.
 icon_path = /usr/share/icons/Tela-circle-dark/16/mimetypes/:/usr/share/icons/Tela-circle-dark/16/status/:/usr/share/icons/Tela-circle-dark/16/devices/
 
-frame_width = 3
+frame_width = 2
 frame_color = "#89CA78"
 
 [shortcuts]

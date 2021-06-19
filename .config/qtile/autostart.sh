@@ -1,8 +1,7 @@
 #!/bin/sh
 dunst &
-emacs --daemon
 lxpolkit &
 nitrogen --restore &
 pcmanfm -d &
-picom &
+picom -b
 xfce4-power-manager &

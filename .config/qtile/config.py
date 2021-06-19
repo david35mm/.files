@@ -63,7 +63,7 @@ keys = [
 	Key("M-A-p", lazy.spawn(myPDFReader)),
 	Key("M-<Return>", lazy.spawn(myTerm)),
 	Key("M-A-t", lazy.spawn(myTextEditor)),
-	Key("M-A-e", lazy.spawn(myTerm + ' -e lf')),
+	Key("M-A-e", lazy.spawn(myTerm + ' -e vifm')),
 	Key("M-A-s", lazy.spawn("spotify")),
 	Key("M-A-g", lazy.spawn("steam")),
 	Key("M-A-v", lazy.spawn("vlc")),

@@ -11,11 +11,10 @@ hc emit_hook reload
 xsetroot -solid '#5A8E3A'
 
 dunst &
-emacs --daemon
 lxpolkit &
 nitrogen --restore &
 pcmanfm -d &
-picom &
+picom -b
 xfce4-power-manager &
 
 # remove all existing keybindings

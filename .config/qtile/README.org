@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.config/qtile/qtile.png]]
 
-This config file was modified by David Salomón on May 28, 2021 at 05:55 pm (Bogota DC, Colombia UTC-5).
+This config file was modified by David Salomón on Jun 18, 2021 at 7:29 pm (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -111,22 +111,22 @@ If for some weird reason you are one of those persons who likes to use the Alt k
 | ALT + j    | Decrease the brightness of the screen |
 
 ** Applications launcher
-| Keybinding                       | Action                                                                                                                               |
-|----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------|
-| MODKEY + r                       | Opens the Desktop File Application Launcher ([[https://github.com/davatorium/rofi/blob/next/INSTALL.md#install-distribution][rofi]]) |
-| MODKEY + ALT + r                 | Opens the Application Launcher (with rofi as well)                                                                                   |
-| ALT + Tab                        | Opens the Window Switcher, like the one on Windows but better (it's rofi one more time.)                                             |
-| MODKEY + ALT + i                 | Opens the Web Browser ([[https://brave.com/gek146][Brave Browser]])                                                                  |
-| MODKEY + e                       | Opens the File Manager ([[https://wiki.lxde.org/en/PCManFM][PCManFM]])                                                               |
-| MODKEY + ALT + d                 | Opens the Markdown Editor ([[https://marktext.app/][Mark Text]])                                                                     |
-| MODKEY + ALT + m                 | Opens the Music Player ([[https://cmus.github.io/][cmus]])                                                                           |
-| MODKEY + ALT + o                 | Opens the Office Suite ([[https://www.onlyoffice.com/download-desktop.aspx][OnlyOffice]])                                            |
-| MODKEY + ALT + p                 | Opens the PDF Reader ([[https://pwmt.org/projects/zathura/][Zathura]])                                                               |
-| MODKEY + RETURN (RETURN = ENTER) | Opens the Terminal Emulator (I automatically detects your installed terminal)                                                        |
-| MODKEY + ALT + t                 | Opens the Text Editor ([[https://www.sublimetext.com/docs/3/linux_repositories.html][Sublime Text]])                                 |
-| MODKEY + ALT + e                 | Opens the Terminal-Based File Manager ([[https://github.com/gokcehan/lf/wiki/Packages][lf]])                                         |
-| MODKEY + ALT + s                 | Opens [[https://www.spotify.com/co/download/linux][Spotify]]                                                                         |
-| MODKEY + ALT + g                 | Opens [[https://store.steampowered.com/about][Steam]]                                                                                |
+| Keybinding                       | Action                                                                                   |
+|----------------------------------+------------------------------------------------------------------------------------------|
+| MODKEY + r                       | Opens the Desktop File Application Launcher ([[https://github.com/davatorium/rofi/blob/next/INSTALL.md#install-distribution][rofi]])                                       |
+| MODKEY + ALT + r                 | Opens the Application Launcher (with rofi as well)                                       |
+| ALT + Tab                        | Opens the Window Switcher, like the one on Windows but better (it's rofi one more time.) |
+| MODKEY + ALT + i                 | Opens the Web Browser ([[https://brave.com/gek146][Brave Browser]])                                                    |
+| MODKEY + e                       | Opens the File Manager ([[https://wiki.lxde.org/en/PCManFM][PCManFM]])                                                         |
+| MODKEY + ALT + d                 | Opens the Markdown Editor ([[https://marktext.app/][Mark Text]])                                                    |
+| MODKEY + ALT + m                 | Opens the Music Player ([[https://cmus.github.io/][cmus]])                                                            |
+| MODKEY + ALT + o                 | Opens the Office Suite ([[https://www.onlyoffice.com/download-desktop.aspx][OnlyOffice]])                                                      |
+| MODKEY + ALT + p                 | Opens the PDF Reader ([[https://pwmt.org/projects/zathura/][Zathura]])                                                           |
+| MODKEY + RETURN (RETURN = ENTER) | Opens the Terminal Emulator (It automatically detects your installed terminal)           |
+| MODKEY + ALT + t                 | Opens the Text Editor ([[https://www.sublimetext.com/docs/3/linux_repositories.html][Sublime Text]])                                                     |
+| MODKEY + ALT + e                 | Opens the Terminal-Based File Manager ([[https://github.com/vifm/vifm][vifm]])                                             |
+| MODKEY + ALT + s                 | Opens [[https://www.spotify.com/co/download/linux][Spotify]]                                                                            |
+| MODKEY + ALT + g                 | Opens [[https://store.steampowered.com/about][Steam]]                                                                              |
 | MODKEY + ALT + v                 | Opens [[https://www.videolan.org/vlc/#download][VLC]]                                                                                |
 
 #+BEGIN_SRC python
@@ -175,7 +175,7 @@ keys = [
 	Key("M-A-p", lazy.spawn(myPDFReader)),
 	Key("M-<Return>", lazy.spawn(myTerm)),
 	Key("M-A-t", lazy.spawn(myTextEditor)),
-	Key("M-A-e", lazy.spawn(myTerm + ' -e lf')),
+	Key("M-A-e", lazy.spawn(myTerm + ' -e vifm')),
 	Key("M-A-s", lazy.spawn("spotify")),
 	Key("M-A-g", lazy.spawn("steam")),
 	Key("M-A-v", lazy.spawn("vlc")),

@@ -41,46 +41,41 @@ bind '$' __history_previous_command_arguments
 # Function for extracting archives
 function ex
 	set ext 7z bz2 deb gz rar tar tar.bz2 tar.gz tar.xz tar.zst tbz2 tgz Z zip
-	if test -z "$argv"
-		# display usage if no parameters given
-		echo "Usage: ex <path/file_name>.<|7z|bz2|deb|gz|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zst|tbz2|tgz|Z|zip>"
-	else
-		if test -f "$argv"
-			switch $argv
-				case "*.$ext[1]"
-					7z x ./$argv
-				case "*.$ext[2]"
-					tar xjf ./$argv
-				case "*.$ext[3]"
-					ar x ./$argv
-				case "*.$ext[4]"
-					tar xzf ./$argv
-				case "*.$ext[5]"
-					unrar x ./$argv
-				case "*.$ext[6]"
-					tar xf ./$argv
-				case "*.$ext[7]"
-					tar xjf ./$argv
-				case "*.$ext[8]"
-					tar xzf ./$argv
-				case "*.$ext[9]"
-					tar xJf ./$argv
-				case "*.$ext[10]"
-					unzstd ./$argv
-				case "*.$ext[11]"
-					tar xjf ./$argv
-				case "*.$ext[12]"
-					tar xzf ./$argv
-				case "*.$ext[13]"
-					uncompress ./$argv
-				case "*.$ext[14]"
-					unzip ./$argv
-				case '*'
-					echo "$argv cannot be extracted via ex()"
-			end
-		else
-			echo $argv "$argv is not a valid file"
+	if test -f "$argv"
+		switch $argv
+			case "*.$ext[1]"
+				7z x ./$argv
+			case "*.$ext[2]"
+				tar xjf ./$argv
+			case "*.$ext[3]"
+				ar x ./$argv
+			case "*.$ext[4]"
+				tar xzf ./$argv
+			case "*.$ext[5]"
+				unrar x ./$argv
+			case "*.$ext[6]"
+				tar xf ./$argv
+			case "*.$ext[7]"
+				tar xjf ./$argv
+			case "*.$ext[8]"
+				tar xzf ./$argv
+			case "*.$ext[9]"
+				tar xJf ./$argv
+			case "*.$ext[10]"
+				unzstd ./$argv
+			case "*.$ext[11]"
+				tar xjf ./$argv
+			case "*.$ext[12]"
+				tar xzf ./$argv
+			case "*.$ext[13]"
+				uncompress ./$argv
+			case "*.$ext[14]"
+				unzip ./$argv
+			case '*'
+				printf -- "\033[0;31m[ex error] => \033[0;33m$argv \033[0mis not a valid archive.\n\n\033[0;34mex() \033[0mcan can only extract the following archives:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\nRun \033[0;34mex() \033[0musing one of the archives supported.\n"
 		end
+	else
+		printf -- "\033[0;31m[ex error] => \033[0mFile not given.\n\n\033[0;34mex() \033[0mis an archive extractor. You need to add a \033[0;33m<path_to/filename> \033[0mwith one of the following extensions:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\ne.g. \033[0;34mex \033[0;33m~/Downloads/compressed.tar.xz\n"
 	end
 end
 # End of functions
@@ -92,12 +87,11 @@ alias ll='exa -l --color=always --group-directories-first'
 alias ls='exa -al --color=always --group-directories-first'
 alias lt='exa -aT --color=always --group-directories-first'
 
-# Fix obvious typo's
+# Navigation shortcuts
 alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
-alias pdw='pwd'
 
 # vim, doom emacs and bat
 alias cat='bat --theme OneHalfDark'
@@ -105,11 +99,10 @@ alias ddoctor='doom doctor'
 alias dpurge='doom purge'
 alias dsync='doom sync'
 alias dupgrade='doom upgrade'
-alias vi='vim'
 alias vim='nvim'
 
 # Add some useful flags
-alias cp='cp -i'
+alias cp='cp -iv'
 alias df='df -h'
 alias efd='fd -F'
 alias fd='fd -Hi'
@@ -118,25 +111,22 @@ alias librespot='librespot -n "A315-41" -b 320 -u yourUsername -p yourPassword -
 alias lynx='lynx -accept_all_cookies'
 alias wget='wget -c'
 
-# List the groups of the user
-alias userlist='cut -d: -f1 /etc/passwd'
-
 # Merge .Xresources settings
 alias merge='xrdb -merge ~/.Xresources'
 
 # Aliases for software managment
 alias darm='sudo dnf autoremove -y'
-alias dcc='dnf cc'
-alias dif='dnf info'
+alias dcc='sudo dnf cc'
+alias dif='sudo dnf info'
 alias din='sudo dnf in'
-alias dlr='dnf lr'
-alias dlu='dnf lu'
-alias dref='dnf ref'
+alias dlr='sudo dnf lr'
+alias dlu='sudo dnf lu'
+alias dref='sudo dnf ref'
 alias drm='sudo dnf rm'
 alias drmk='sudo dnf rm (dnf repoquery --installonly --latest-limit=-1 -q) -y'
-alias dse='dnf se'
+alias dse='sudo dnf se'
 alias dup='sudo dnf up -y'
-alias dwp='dnf wp'
+alias dwp='sudo dnf wp'
 
 alias parm='pacman -Qtdq | sudo pacman -Rns --noconfirm -'
 alias pcc='paru -Scc --noconfirm'
@@ -177,10 +167,13 @@ alias vdnf='sudo vim /etc/dnf/dnf.conf'
 alias vfish='vim ~/.config/fish/config.fish'
 alias vherbstluftwm='vim ~/.config/herbstluftwm/autostart'
 alias vnvim='vim ~/.config/nvim/init.vim'
+alias vpacman='sudo vim /etc/pacman.conf'
+alias vparu='vim ~/.config/paru/paru.conf'
 alias vpicom='vim ~/.config/picom/picom.conf'
 alias vqtile='vim ~/.config/qtile/config.py'
 alias vspectrwm='vim ~/.config/spectrwm/spectrwm.conf'
-alias vvim='vim ~/.config/nvim/init.vim'
+alias vsway='vim ~/.config/sway/config'
+alias vvifm='vim ~/.config/vifm/vifmrc'
 
 alias salacritty='subl ~/.config/alacritty/alacritty.yml'
 alias sbashrc='subl ~/.bashrc'
@@ -188,12 +181,16 @@ alias sdnf='sudo subl /etc/dnf/dnf.conf'
 alias sfish='subl ~/.config/fish/config.fish'
 alias sherbstluftwm='subl ~/.config/herbstluftwm/autostart'
 alias snvim='subl ~/.config/nvim/init.vim'
+alias spacman='sudo subl /etc/pacman.conf'
+alias sparu='subl ~/.config/paru/paru.conf'
 alias spicom='subl ~/.config/picom/picom.conf'
 alias sqtile='subl ~/.config/qtile/config.py'
 alias sspectrwm='subl ~/.config/spectrwm/spectrwm.conf'
-alias svim='subl ~/.vimrc'
+alias ssway='subl ~/.config/sway/config'
+alias svifm='subl ~/.config/vifm/vifmrc'
 
 # Git
+alias addnew='git add -u'
 alias addot='git add .'
 alias clone='git clone'
 alias commit='git commit -m'
@@ -202,6 +199,7 @@ alias push='git push origin main'
 
 alias config='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
 alias cadd='config add'
+alias caddnew='config add -uv'
 alias ccommit='config commit -m'
 alias cpull='config pull'
 alias cpush='config push origin main'
@@ -209,12 +207,6 @@ alias cstatus='config status'
 
 # Xephyr
 alias Xephyr='Xephyr :5 & sleep 1 ; DISPLAY=:5'
-
-# GPG
-	# Verify signature for isos
-alias gpg-check='gpg2 --keyserver-options auto-key-retrieve --verify'
-	# Receive the key of a developer
-alias gpg-retrieve='gpg2 --keyserver-options auto-key-retrieve --receive-keys'
 
 # Shutdown or reboot
 alias pwrbt='systemctl reboot'

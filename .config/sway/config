@@ -219,7 +219,6 @@ include /etc/sway/config.d/*
 #xwayland disable
 
 exec dunst &
-exec emacs --daemon
 exec lxpolkit &
 exec pcmanfm -d &
 exec xfce4-power-manager &

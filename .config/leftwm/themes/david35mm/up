@@ -14,7 +14,7 @@ ln -s $SCRIPTPATH/down /tmp/leftwm-theme-down
 if [ -x "$(command -v compton)" ]; then
 	compton &> /dev/null &
 elif [ -x "$(command -v picom)" ]; then
-	picom &> /dev/null &
+	picom -b> /dev/null &
 fi
 
 #set the theme.toml config
@@ -23,7 +23,6 @@ echo "LoadTheme $SCRIPTPATH/theme.toml" > $XDG_RUNTIME_DIR/leftwm/commands.pipe
 
 #startup apps
 dunst &
-emacs --daemon
 lxpolkit &
 nitrogen --restore &
 pcmanfm -d &
