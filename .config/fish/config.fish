@@ -10,7 +10,7 @@ set -gx VISUAL "subl"
 starship init fish | source
 
 # User specific environment
-set PATH $PATH $HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:/usr/local/go/bin:
+set PATH $PATH $HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:
 
 # Start of user functions
 

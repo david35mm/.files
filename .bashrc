@@ -15,11 +15,10 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific environment
-PATH="$HOME/.emacs.d/bin${PATH:+:${PATH}}"
-PATH="$HOME/.local/bin${PATH:+:${PATH}}"
-PATH="$HOME/bin${PATH:+:${PATH}}"
-PATH="$HOME/XiaomiADBFastbootTools/platform-tools${PATH:+:${PATH}}"
-PATH="/usr/local/go/bin${PATH:+:${PATH}}"
+if ! [[ "$PATH" =~ "$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:" ]]
+then
+	PATH="$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools"
+fi
 export PATH
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
