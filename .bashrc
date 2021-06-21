@@ -17,7 +17,7 @@ fi
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:" ]]
 then
-	PATH="$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools"
+	PATH="$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:$PATH"
 fi
 export PATH
 
