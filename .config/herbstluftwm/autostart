@@ -13,9 +13,7 @@ xsetroot -solid '#5A8E3A'
 dunst &
 lxpolkit &
 nitrogen --restore &
-pcmanfm -d &
 picom -b
-xfce4-power-manager &
 
 # remove all existing keybindings
 hc keyunbind --all
