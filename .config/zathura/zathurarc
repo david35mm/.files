@@ -1,0 +1,43 @@
+set window-title-basename "true"
+set selection-clipboard "clipboard"
+
+set notification-error-bg       "#E35374" # Red
+set notification-error-fg       "#FFFFFF" # Foreground
+set notification-warning-bg     "#D19A66" # Orange
+set notification-warning-fg     "#3E4451" # Selection
+set notification-bg             "#080808" # Background
+set notification-fg             "#FFFFFF" # Foreground
+
+set completion-bg               "#080808" # Background
+set completion-fg               "#565C64" # Comment
+set completion-group-bg         "#080808" # Background
+set completion-group-fg         "#565C64" # Comment
+set completion-highlight-bg     "#3E4451" # Selection
+set completion-highlight-fg     "#FFFFFF" # Foreground
+
+set index-bg                    "#080808" # Background
+set index-fg                    "#FFFFFF" # Foreground
+set index-active-bg             "#3E4451" # Current Line
+set index-active-fg             "#FFFFFF" # Foreground
+
+set inputbar-bg                 "#080808" # Background
+set inputbar-fg                 "#FFFFFF" # Foreground
+set statusbar-bg                "#080808" # Background
+set statusbar-fg                "#FFFFFF" # Foreground
+
+set highlight-color             "#D19A66" # Orange
+set highlight-active-color      "#C678DD" # Pink
+
+set default-bg                  "#080808" # Background
+set default-fg                  "#FFFFFF" # Foreground
+
+set render-loading              true
+set render-loading-fg           "#080808" # Background
+set render-loading-bg           "#FFFFFF" # Foreground
+
+
+set recolor-lightcolor          "#080808" # Background
+set recolor-darkcolor           "#FFFFFF" # Foreground
+
+set adjust-open width
+set recolor true

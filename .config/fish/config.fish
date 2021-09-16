@@ -7,6 +7,38 @@ set -gx READER "zathura"
 set -gx TERMINAL "alacritty"
 set -gx VISUAL "subl"
 
+# One Dark Vivid Color Palette
+set -l foreground ABB2BF
+set -l selection 3E4451
+set -l comment 565C64
+set -l red E35374
+set -l orange D19A66
+set -l yellow F0C674
+set -l green 89CA78
+set -l purple D55FDE
+set -l blue 61AFEF
+set -l pink C678DD
+
+set -g fish_color_normal $foreground
+set -g fish_color_command $blue
+set -g fish_color_keyword $pink
+set -g fish_color_quote $yellow
+set -g fish_color_redirection $foreground
+set -g fish_color_end $orange
+set -g fish_color_error $red
+set -g fish_color_param $purple
+set -g fish_color_comment $comment
+set -g fish_color_selection --background=$selection
+set -g fish_color_search_match --background=$selection
+set -g fish_color_operator $green
+set -g fish_color_escape $pink
+set -g fish_color_autosuggestion $comment
+
+set -g fish_pager_color_progress $comment
+set -g fish_pager_color_prefix $blue
+set -g fish_pager_color_completion $foreground
+set -g fish_pager_color_description $comment
+
 starship init fish | source
 
 # User specific environment

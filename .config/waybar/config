@@ -202,7 +202,7 @@
 	"pulseaudio": {
 		"format": "{volume}%",
 		"format-muted": "OFF",
-		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"on-click": "pamixer -t",
 		"on-click-right": "pavucontrol",
 		"scroll-step": 5
 	},
@@ -213,7 +213,7 @@
 			"default": ["奄 ", "奔 ", "墳 "]
 		},
 		"format-muted": "婢 ",
-		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"on-click": "pamixer -t",
 		"on-click-right": "pavucontrol",
 		"scroll-step": 5
 	},

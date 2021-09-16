@@ -1,3 +1,3 @@
 #!/bin/sh
 
-free --mebi | sed '1d;3d;s/ \+/ /g' | cut -d' ' -f3
+free --mebi | awk '(NR == 2) {print $3}'

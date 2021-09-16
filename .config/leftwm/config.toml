@@ -65,19 +65,19 @@ key = "comma"
 
 [[keybind]]
 command = "Execute"
-value = "amixer -M set Master 5%- unmute"
+value = "pamixer -u -d 5"
 modifier = ["None"]
 key = "XF86AudioLowerVolume"
 
 [[keybind]]
 command = "Execute"
-value = "amixer -M set Master 5%+ unmute"
+value = "pamixer -u -i 5"
 modifier = ["None"]
 key = "XF86AudioRaiseVolume"
 
 [[keybind]]
 command = "Execute"
-value = "amixer -M set Master toggle"
+value = "pamixer -t"
 modifier = ["None"]
 key = "XF86AudioMute"
 

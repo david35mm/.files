@@ -1,18 +1,24 @@
-background_opacity: 1.00
 env:
-  TERM: xterm-256color
+  TERM: alacritty
 
 window:
   padding:
     x: 6
     y: 6
-  decorations: full
+  dynamic_padding: true
+  decorations: none
+  opacity: 1.0
+  startup_mode: Windowed
   title: Alacritty
+  dynamic_title: true
   class:
     instance: Alacritty
     general: Alacritty
+  gtk_theme_variant: dark
+
 scrolling:
-  history: 5000
+  history: 10000
+  multiplier: 3
 
 font:
   normal:
@@ -27,42 +33,117 @@ font:
   bold_italic:
     family: SF Mono
     style: Bold Italic
-  size: 12
+  size: 12.0
 
 draw_bold_text_with_bright_colors: false
 
 colors:
   primary:
-    background: '0x141414'
-    foreground: '0xffffff'
+    background: '#080808'
+    foreground: '#ffffff'
+  cursor:
+    text: CellBackground
+    cursor: CellForeground
+  vi_mode_cursor:
+    text: CellBackground
+    cursor: CellForeground
+  search:
+    matches:
+      foreground: '#080808'
+      background: '#ffffff'
+    focused_match:
+      foreground: '#ffffff'
+      background: '#080808'
+    bar:
+      background: '#abb2bf'
+      foreground: '#080808'
+  hints:
+    start:
+      foreground: '#080808'
+      background: '#f0c674'
+    end:
+      foreground: '#f0c674'
+      background: '#080808'
+  line_indicator:
+    foreground: None
+    background: None
+  selection:
+    text: CellBackground
+    background: CellForeground
   normal:
-    black:   '0x5c6370'
-    red:     '0xe35374'
-    green:   '0x89ca78'
-    yellow:  '0xf0c674'
-    blue:    '0x61afef'
-    magenta: '0xd55fde'
-    cyan:    '0x2bbac5'
-    white:   '0xabb2bf'
+    black:   '#5c6370'
+    red:     '#e35374'
+    green:   '#89ca78'
+    yellow:  '#f0c674'
+    blue:    '#61afef'
+    magenta: '#d55fde'
+    cyan:    '#2bbac5'
+    white:   '#abb2bf'
   bright:
-    black:   '0x5c6370'
-    red:     '0xe35374'
-    green:   '0x89ca78'
-    yellow:  '0xf0c674'
-    blue:    '0x61afef'
-    magenta: '0xd55fde'
-    cyan:    '0x2bbac5'
-    white:   '0xffffff'
+    black:   '#5c6370'
+    red:     '#e35374'
+    green:   '#89ca78'
+    yellow:  '#f0c674'
+    blue:    '#61afef'
+    magenta: '#d55fde'
+    cyan:    '#2bbac5'
+    white:   '#ffffff'
+  transparent_background_colors: false
 
 selection:
-  save_to_clipboard: true
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  save_to_clipboard: false
 
 cursor:
-  style: Beam
+  style:
+    shape: Beam
+    blinking: Always
+  blink_interval: 750
   unfocused_hollow: true
+  thickness: 0.15
+
+live_config_reload: true
+
+working_directory: None
 
 mouse:
-  hide_when_typing: true
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+  hide_when_typing: false
 
-shell:
-  program: /usr/bin/fish
+key_bindings:
+  - { key: Paste,                                       action: Paste          }
+  - { key: Copy,                                        action: Copy           }
+  - { key: L,         mods: Control,                    action: ClearLogNotice }
+  - { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
+  - { key: PageUp,    mods: Shift,   mode: ~Alt,        action: ScrollPageUp,  }
+  - { key: PageDown,  mods: Shift,   mode: ~Alt,        action: ScrollPageDown }
+  - { key: Home,      mods: Shift,   mode: ~Alt,        action: ScrollToTop,   }
+  - { key: End,       mods: Shift,   mode: ~Alt,        action: ScrollToBottom }
+
+  # Search Mode
+  - { key: Return,                mode: Search|Vi,  action: SearchConfirm         }
+  - { key: Escape,                mode: Search,     action: SearchCancel          }
+  - { key: C,      mods: Control, mode: Search,     action: SearchCancel          }
+  - { key: U,      mods: Control, mode: Search,     action: SearchClear           }
+  - { key: W,      mods: Control, mode: Search,     action: SearchDeleteWord      }
+  - { key: P,      mods: Control, mode: Search,     action: SearchHistoryPrevious }
+  - { key: N,      mods: Control, mode: Search,     action: SearchHistoryNext     }
+  - { key: Up,                    mode: Search,     action: SearchHistoryPrevious }
+  - { key: Down,                  mode: Search,     action: SearchHistoryNext     }
+  - { key: Return,                mode: Search|~Vi, action: SearchFocusNext       }
+  - { key: Return, mods: Shift,   mode: Search|~Vi, action: SearchFocusPrevious   }
+
+  # (Windows, Linux, and BSD only)
+  - { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
+  - { key: C,              mods: Control|Shift,                   action: Copy             }
+  - { key: F,              mods: Control|Shift, mode: ~Search,    action: SearchForward    }
+  - { key: B,              mods: Control|Shift, mode: ~Search,    action: SearchBackward   }
+  - { key: C,              mods: Control|Shift, mode: Vi|~Search, action: ClearSelection   }
+  - { key: Insert,         mods: Shift,                           action: PasteSelection   }
+  - { key: Key0,           mods: Control,                         action: ResetFontSize    }
+  - { key: Equals,         mods: Control,                         action: IncreaseFontSize }
+  - { key: Plus,           mods: Control,                         action: IncreaseFontSize }
+  - { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
+  - { key: Minus,          mods: Control,                         action: DecreaseFontSize }
+  - { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }

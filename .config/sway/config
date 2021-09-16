@@ -84,9 +84,9 @@ output * bg /usr/share/wallpapers/deepin/Overlooking_by_Lance_Asper.jpg fit
 	#bindsym $mod+Comma lazy.prev_screen
 
 	# System Controls
-	bindsym XF86AudioLowerVolume exec pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ -5%
-	bindsym XF86AudioRaiseVolume exec pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ +5%
-	bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+	bindsym XF86AudioLowerVolume exec pamixer -u -d 5
+	bindsym XF86AudioRaiseVolume exec pamixer -u -i 5
+	bindsym XF86AudioMute exec pamixer -t
 	bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 	bindsym XF86MonBrightnessUp exec brightnessctl set 10%+
 	bindsym Alt+j exec brightnessctl set 10%-

@@ -73,7 +73,7 @@
 # The only option here is a path to the default Wingo icon. This is used for
 # windows that don't specify an icon.
 
-$BLCK := 0x141414
+$BLCK := 0x080808
 $WHTE := 0xFFFFFF
 $GREY := 0xABB2BF
 $REDD := 0xE35374

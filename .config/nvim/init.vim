@@ -12,6 +12,10 @@ if (empty($TMUX))
 	endif
 endif
 
+if &shell =~# 'fish$'
+	set shell=sh
+endif
+
 "    ___  __          _
 "   / _ \/ /_ _____ _(_)__  ___
 "  / ___/ / // / _ `/ / _ \(_-<
@@ -19,30 +23,19 @@ endif
 "             /___/
 
 call plug#begin('~/.vim/plugged')
-	Plug 'itchyny/lightline.vim'
+	Plug 'hoob3rt/lualine.nvim'
 	Plug 'jiangmiao/auto-pairs'
-	Plug 'joshdick/onedark.vim'
-	"Plug 'mg979/vim-visual-multi'
+	"Plug 'lukas-reineke/indent-blankline.nvim'
+	Plug 'navarasu/onedark.nvim'
 	Plug 'norcalli/nvim-colorizer.lua'
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'preservim/nerdtree'
-	Plug 'sheerun/vim-polyglot'
 	Plug 'tpope/vim-surround'
+	"Plug 'kyazdani42/nvim-web-devicons' " for file icons
+	"Plug 'kyazdani42/nvim-tree.lua'
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 	Plug 'ryanoasis/vim-devicons'
 call plug#end()
-
-filetype plugin indent on
-" To ignore plugin indent changes, instead use:
-" filetype plugin on
-
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 "   _____                      __  ____    __  __  _
 "  / ___/__ ___  ___ _______ _/ / / __/__ / /_/ /_(_)__  ___ ____
@@ -50,20 +43,24 @@ filetype plugin indent on
 " \___/\__/_//_/\__/_/  \_,_/_/ /___/\__/\__/\__/_/_//_/\_, /___/
 "                                                      /___/
 
-filetype off
 set clipboard+=unnamedplus
 set cmdheight=1
 set cursorline
-set encoding=UTF-8
-set guifont=SF_Mono:h12
+set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=expr
+set foldnestmax=3
+set guifont=SF\ Mono:h12
 set guioptions=a
 set hidden
-set incsearch
-set list listchars=tab:\|\ 
+set ignorecase
+set iskeyword+=-
+set list listchars=extends:,precedes:,tab:\│\ ,eol:
+"set listchars=extends:,precedes:,tab:\ \ ,eol:
 set mouse=niv
 set nobackup
-set nocompatible
 set noet ci pi sts=0 sw=4 ts=4
+set nofoldenable
+set nomodeline
 set noruler
 set noshowcmd
 set noshowmode
@@ -71,11 +68,17 @@ set noswapfile
 set nowritebackup
 set number relativenumber
 set path+=**
-set shortmess+=c
+set scrolloff=4
+set shortmess+=cA
+set sidescrolloff=8
 set smartcase
 set title
-set updatetime=300
-set wildmenu
+set updatetime=100
+set visualbell
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+set wildignore+=*.swp,*~,._*
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 set wildmode=longest,list,full
 
 " Fix sizing bug with Alacritty terminal
@@ -89,27 +92,48 @@ autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre * %s/\n\+\%$//e
 autocmd BufWritePre *.[ch] %s/\%$/\r/e
 
+" Auto reload if file was changed somewhere else (for autoread)
+autocmd CursorHold * checktime
+
 "    ___  __          _        _____          ____
 "   / _ \/ /_ _____ _(_)__    / ___/__  ___  / _(_)__ ____
 "  / ___/ / // / _ `/ / _ \  / /__/ _ \/ _ \/ _/ / _ `(_-<
 " /_/  /_/\_,_/\_, /_/_//_/  \___/\___/_//_/_//_/\_, /___/
 "             /___/                             /___/
 
-" itchyny/lightline.vim
-let lightline={
-		\ 'colorscheme': 'onedark',
-		\ }
-set laststatus=2
+" hoob3rt/lualine.nvim
+lua <<EOF
+require('lualine').setup {
+	options = {
+		component_separators = '',
+		section_separators = '',
+		theme = 'onedark'
+	}
+}
+EOF
 
-" joshdick/onedark.vim
-let onedark_terminal_italics=1
-syntax on
-colorscheme onedark
+" lukas-reineke/indent-blankline.nvim
+"let g:indent_blankline_use_treesitter=v:true
+"let g:indent_blankline_char='│'
 
-" mg979/vim-visual-multi
+" navarasu/onedark.nvim
+lua <<EOF
+vim.g.onedark_style = 'darker'
+require('onedark').setup()
+EOF
 
 " norcalli/nvim-colorizer.lua
 lua require'colorizer'.setup()
+
+"nvim-treesitter/nvim-treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+	ensure_installed = { "bash", "c_sharp", "css", "fish", "html", "lua", "python", "toml", "yaml" },
+	highlight = { enable = true },
+	indent = { enable = true }
+}
+EOF
+
 
 " preservim/nerdtree
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
@@ -186,12 +210,16 @@ let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['swift']=''
 " /_/|_|\__/_/_/_/\_,_/ .__/ /_/|_|\__/\_, /___/
 "                    /_/              /___/
 
+imap <C-s> <ESC>:w<CR>
 imap ii <Esc>
 nmap <silent> <C-a> gg v G $
 nmap <silent> <C-s> :w<CR>
 nmap <silent> <F6> :setlocal spell spelllang=en_gb,es_mx<CR>
 nmap <silent> Q gqap
+nmap N Nzz
 nmap S :%s///g<Left><Left><Left>
+nmap Y y$
+nmap n nzz
 vmap <silent> <F9> :sort<CR>
 vmap <silent> Q gq
 vmap S :s///g<Left><Left><Left>
@@ -216,6 +244,12 @@ autocmd Filetype rmd,Rmd nmap <C-b> :!Rscript -e "rmarkdown::render('%', clean=T
 
 set splitbelow splitright
 
+let mapleader=' '
+
+nmap <silent> <Leader>nw :set list nowrap<CR>
+nmap <silent> <Leader>w :set list wrap<CR>
+"nmap <silent> <Leader>w :set nolist wrap<CR>
+
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
@@ -227,6 +261,3 @@ nmap <silent> <C-Left> :vertical resize +4<CR>
 nmap <silent> <C-Right> :vertical resize -4<CR>
 nmap <silent> <C-Up> :resize +2<CR>
 nmap <silent> <C-Down> :resize -2<CR>
-
-nmap <Leader>th <C-w>t<C-w>H
-nmap <Leader>tk <C-w>t<C-w>K

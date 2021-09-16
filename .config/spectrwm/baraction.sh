@@ -7,7 +7,7 @@
 ##############################
 
 mem() {
-	free --mebi | sed '1d;3d;s/ \+/ /g' | cut -d' ' -f3
+	free --mebi | awk '(NR == 2) {print $3}'
 }
 
 ##############################
@@ -42,17 +42,13 @@ ntwrk() {
 ##############################
 
 vol() {
-	vol="$(pactl list sinks | grep Volume | awk '(NR == 1) {print $5}')"
+	vol="$(pamixer --get-volume-human)"
 
-	case "$(pactl list sinks | grep Mute | cut -d' ' -f2)" in
-		"no")
-			case "$vol" in
-				6[0-5]%|5[0-9]%|4[0-9]%|3[3-9]%) echo "+@fn=2;奔 +@fn=0;$vol" ;;
-				3[0-2]%|2[0-9]%|1[0-9]%|[0-9]%) echo "+@fn=2;奄 +@fn=0;$vol" ;;
-				*) echo "+@fn=2;墳 +@fn=0;$vol" ;;
-			esac
-		;;
-		"yes") echo "+@fn=2;婢 +@fn=0;OFF"
+	case "$vol" in
+		"muted") echo "+@fn=2;婢 +@fn=0;OFF" ;;
+		6[0-5]%|5[0-9]%|4[0-9]%|3[3-9]%) echo "+@fn=2;奔 +@fn=0;$vol" ;;
+		3[0-2]%|2[0-9]%|1[0-9]%|[0-9]%) echo "+@fn=2;奄 +@fn=0;$vol" ;;
+		*) echo "+@fn=2;墳 +@fn=0;$vol" ;;
 	esac
 }
 
@@ -64,7 +60,7 @@ bat() {
 
 	case "$(cat /sys/class/power_supply/BAT1/status)" in
 		"Full") echo "+@fn=2; +@fn=0;Full" ;;
-		"Discharging") 
+		"Discharging")
 			case "$bat" in
 				100|9[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
 				90|8[2-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
@@ -104,6 +100,7 @@ bat() {
 ##############################
 brghtnss() {
 	bri="$(brightnessctl -m | cut -d',' -f4)"
+	#bri="$(awk '{printf "%0.0f\n",$0 * 100 / 255}' /sys/class/backlight/*/brightness)"
 
 	case "$bri" in
 		100%|9[0-9]%|8[6-9]%) echo "+@fn=2; +@fn=0;$bri" ;;
