@@ -6,7 +6,7 @@ This repository is where I store the dotfiles that I use on my GNU/Linux system.
 
 ## The Dotfiles Stored in Here
 
-<img src="https://raw.githubusercontent.com/david35mm/.files/main/.screenshots/qtile.png" title="" alt="" data-align="center">
+<img src="https://raw.githubusercontent.com/david35mm/.files/main/.config/qtile/qtile.png" title="" alt="" data-align="center">
 
 Most of my dotfiles correspond to configuration files for various window managers. For the past months I have been using Qtile as my daily window manager, and thus, it's the most complete and documented configuration that I have posted on this repository, also is the one that I am currently adding and modifying stuff. Nevertheless, I have tried other window managers such as spectrwm, herbstluftwm, wingo, among others. All of my configs to those window managers are posted here along with the ones of some other utilities.
 
@@ -87,8 +87,8 @@ If you are wondering what GNU/Linux distribution I use, it has been Arch for the
 
 ## License
 
-	"THE BEER-WARE LICENSE" (Revision 42):
-
-	As long as you retain this notice you can do whatever you want with this stuff. If we meet some day, and you think this stuff is worth it, you can buy me a beer in return.
-
-	This project is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> "THE BEER-WARE LICENSE" (Revision 42):
+>
+> As long as you retain this notice you can do whatever you want with this stuff. If we meet some day, and you think this stuff is worth it, you can buy me a beer in return.
+>
+> This project is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
