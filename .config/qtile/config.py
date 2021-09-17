@@ -192,7 +192,7 @@ widgets = [
 	),
 	widget.TextBox(
 		foreground = colours[3],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")},
 		padding = 0,
@@ -211,7 +211,7 @@ widgets = [
 	),
 	widget.TextBox(
 		foreground = colours[4],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")},
 		padding = 0,
@@ -230,7 +230,7 @@ widgets = [
 	),
 	#widget.TextBox(
 	#	foreground = colours[5],
-	#	font = "JetBrainsMono Nerd Font Regular",
+	#	font = "SF Mono Regular",
 	#	fontsize = 12,
 	#	padding = 0,
 	#	text = " ",
@@ -244,7 +244,7 @@ widgets = [
 	#),
 	widget.TextBox(
 		foreground = colours[5],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		padding = 0,
 		text = " ",
@@ -267,7 +267,7 @@ widgets = [
 	),
 	widget.TextBox(
 		foreground = colours[6],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		mouse_callbacks = ({
 			"Button1": lambda: qtile.cmd_spawn("pamixer -t"),
@@ -291,7 +291,7 @@ widgets = [
 	),
 	#widget.TextBox(
 	#	foreground = colours[7],
-	#	font = "JetBrainsMono Nerd Font Regular",
+	#	font = "SF Mono Regular",
 	#	fontsize = 14,
 	#	padding = 0,
 	#	text = "爵 ",
@@ -309,7 +309,7 @@ widgets = [
 		empty_char = " ",
 		full_char = " ",
 		unknown_char = " ",
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		format = "{char}",
 		low_percentage = 0.15,
@@ -330,7 +330,7 @@ widgets = [
 	),
 	widget.TextBox(
 		foreground = colours[8],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		padding = 0,
 		text = " ",

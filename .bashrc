@@ -192,6 +192,7 @@ alias chopus='find . -type f -name "*.ogg" -exec rename .ogg .opus \{\} \;'
 # Options to bash
 shopt -s autocd # change to named directory
 shopt -s cdspell # autocorrects cd misspellings
+shopt -s checkwinsize
 shopt -s cmdhist # save multi-line commands in history as single line
 shopt -s dotglob
 shopt -s expand_aliases # expand aliases

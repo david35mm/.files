@@ -24,8 +24,8 @@ mem() {
 
 ntwrk() {
 	case "$(nmcli general | awk '(NR == 2) {print $1}')" in
-		"connected") echo "+@fn=2; +@fn=0;$(nmcli connection | awk '(NR==2) {print $1}')" ;;
-		*) echo "+@fn=2; +@fn=0;You are offline" ;;
+		"connected") echo "+@fn=1; +@fn=0;$(nmcli connection | awk '(NR==2) {print $1}')" ;;
+		*) echo "+@fn=1; +@fn=0;You are offline" ;;
 	esac
 }
 
@@ -45,10 +45,10 @@ vol() {
 	vol="$(pamixer --get-volume-human)"
 
 	case "$vol" in
-		"muted") echo "+@fn=2;婢 +@fn=0;OFF" ;;
-		6[0-5]%|5[0-9]%|4[0-9]%|3[3-9]%) echo "+@fn=2;奔 +@fn=0;$vol" ;;
-		3[0-2]%|2[0-9]%|1[0-9]%|[0-9]%) echo "+@fn=2;奄 +@fn=0;$vol" ;;
-		*) echo "+@fn=2;墳 +@fn=0;$vol" ;;
+		"muted") echo "+@fn=1;婢 +@fn=0;OFF" ;;
+		6[0-5]%|5[0-9]%|4[0-9]%|3[3-9]%) echo "+@fn=1;奔 +@fn=0;$vol" ;;
+		3[0-2]%|2[0-9]%|1[0-9]%|[0-9]%) echo "+@fn=1;奄 +@fn=0;$vol" ;;
+		*) echo "+@fn=1;墳 +@fn=0;$vol" ;;
 	esac
 }
 
@@ -59,32 +59,32 @@ bat() {
 	bat=$(cat /sys/class/power_supply/BAT1/capacity)
 
 	case "$(cat /sys/class/power_supply/BAT1/status)" in
-		"Full") echo "+@fn=2; +@fn=0;Full" ;;
+		"Full") echo "+@fn=1; +@fn=0;Full" ;;
 		"Discharging")
 			case "$bat" in
-				100|9[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				90|8[2-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				8[0-1]|7[3-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				7[0-2]|6[4-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				6[0-3]|5[5-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				5[0-4]|4[5-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				4[0-4]|3[6-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				3[0-5]|2[7-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				2[0-6]|1[8-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				1[0-7]|9) echo "+@fg=2;+@fn=2; +@fn=0;$bat%" ;;
-				*) echo "+@fg=2;+@fn=2; +@fn=0;$bat%" ;;
+				100|9[1-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				90|8[2-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				8[0-1]|7[3-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				7[0-2]|6[4-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				6[0-3]|5[5-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				5[0-4]|4[5-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				4[0-4]|3[6-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				3[0-5]|2[7-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				2[0-6]|1[8-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				1[0-7]|9) echo "+@fg=2;+@fn=1; +@fn=0;$bat%" ;;
+				*) echo "+@fg=2;+@fn=1; +@fn=0;$bat%" ;;
 			esac
 		;;
 		"Charging")
 			case "$bat" in
-				100|9[0-9]|8[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				80|7[0-9]|6[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				60|5[0-9]|4[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				40|3[0-9]|2[1-9]) echo "+@fn=2; +@fn=0;$bat%" ;;
-				*) echo "+@fg=2;+@fn=2; +@fn=0;$bat%" ;;
+				100|9[0-9]|8[1-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				80|7[0-9]|6[1-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				60|5[0-9]|4[1-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				40|3[0-9]|2[1-9]) echo "+@fn=1; +@fn=0;$bat%" ;;
+				*) echo "+@fg=2;+@fn=1; +@fn=0;$bat%" ;;
 			esac
 		;;
-		"Unknown") echo "+@fn=2; +@fn=0;$bat%" ;;
+		"Unknown") echo "+@fn=1; +@fn=0;$bat%" ;;
 	esac
 }
 
@@ -103,13 +103,13 @@ brghtnss() {
 	#bri="$(awk '{printf "%0.0f\n",$0 * 100 / 255}' /sys/class/backlight/*/brightness)"
 
 	case "$bri" in
-		100%|9[0-9]%|8[6-9]%) echo "+@fn=2; +@fn=0;$bri" ;;
-		8[0-5]%|7[1-9]%) echo "+@fn=2; +@fn=0;$bri" ;;
-		70%|6[0-9]%|5[7-9]%) echo "+@fn=2; +@fn=0;$bri" ;;
-		5[0-6]%|4[3-9]%) echo "+@fn=2; +@fn=0;$bri" ;;
-		4[0-2]%|3[0-9]%|29%) echo "+@fn=2; +@fn=0;$bri" ;;
-		2[0-8]%|1[4-9]%) echo "+@fn=2; +@fn=0;$bri" ;;
-		*) echo "+@fn=2; +@fn=0;$bri" ;;
+		100%|9[0-9]%|8[6-9]%) echo "+@fn=1; +@fn=0;$bri" ;;
+		8[0-5]%|7[1-9]%) echo "+@fn=1; +@fn=0;$bri" ;;
+		70%|6[0-9]%|5[7-9]%) echo "+@fn=1; +@fn=0;$bri" ;;
+		5[0-6]%|4[3-9]%) echo "+@fn=1; +@fn=0;$bri" ;;
+		4[0-2]%|3[0-9]%|29%) echo "+@fn=1; +@fn=0;$bri" ;;
+		2[0-8]%|1[4-9]%) echo "+@fn=1; +@fn=0;$bri" ;;
+		*) echo "+@fn=1; +@fn=0;$bri" ;;
 	esac
 }
 
@@ -125,6 +125,6 @@ brghtnss() {
 #	    BAR OUTPUT
 ##############################
 while :; do
-	echo "+@fg=2;$(ntwrk) +@fg=1;| +@fn=2;+@fg=3;﬙ +@fn=0;$(mem) MB +@fg=1;| +@fg=4;$(brghtnss) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fg=6;$(bat) +@fg=1;| +@fn=2;+@fg=7; +@fn=0;"
+	echo "+@fg=2;$(ntwrk) +@fg=1;| +@fn=1;+@fg=3;﬙ +@fn=0;$(mem) MB +@fg=1;| +@fg=4;$(brghtnss) +@fg=1;| +@fg=5;$(vol) +@fg=1;| +@fg=6;$(bat) +@fg=1;| +@fn=1;+@fg=7; +@fn=0;"
 	sleep 10
 done

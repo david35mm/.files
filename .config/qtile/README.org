@@ -27,7 +27,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.config/qtile/qtile.png]]
 
-This config file was modified by David Salomón on Sep 15, 2021 at 8:08 pm (Bogota DC, Colombia UTC-5).
+This config file was modified by David Salomón on Sep 16, 2021 at 9:21 pm (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -340,7 +340,7 @@ widgets = [
 	),
 	widget.TextBox(
 		foreground = colours[3],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")},
 		padding = 0,
@@ -359,7 +359,7 @@ widgets = [
 	),
 	widget.TextBox(
 		foreground = colours[4],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")},
 		padding = 0,
@@ -378,7 +378,7 @@ widgets = [
 	),
 	#widget.TextBox(
 	#	foreground = colours[5],
-	#	font = "JetBrainsMono Nerd Font Regular",
+	#	font = "SF Mono Regular",
 	#	fontsize = 12,
 	#	padding = 0,
 	#	text = " ",
@@ -392,7 +392,7 @@ widgets = [
 	#),
 	widget.TextBox(
 		foreground = colours[5],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		padding = 0,
 		text = " ",
@@ -415,7 +415,7 @@ widgets = [
 	),
 	widget.TextBox(
 		foreground = colours[6],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		mouse_callbacks = ({
 			"Button1": lambda: qtile.cmd_spawn("pamixer -t"),
@@ -439,7 +439,7 @@ widgets = [
 	),
 	#widget.TextBox(
 	#	foreground = colours[7],
-	#	font = "JetBrainsMono Nerd Font Regular",
+	#	font = "SF Mono Regular",
 	#	fontsize = 14,
 	#	padding = 0,
 	#	text = "爵 ",
@@ -457,7 +457,7 @@ widgets = [
 		empty_char = " ",
 		full_char = " ",
 		unknown_char = " ",
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		format = "{char}",
 		low_percentage = 0.15,
@@ -478,7 +478,7 @@ widgets = [
 	),
 	widget.TextBox(
 		foreground = colours[8],
-		font = "JetBrainsMono Nerd Font Regular",
+		font = "SF Mono Regular",
 		fontsize = 14,
 		padding = 0,
 		text = " ",
