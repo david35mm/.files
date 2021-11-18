@@ -1,8 +1,7 @@
 set fish_greeting
 set -gx BROWSER "brave-browser"
 set -gx EDITOR "nvim"
-set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-set -gx MANROFFOPT "-c"
+set -gx MANPAGER "less -IMRgs --incsearch --use-color -DE+wr -DP+wk -DS+ky -Dd+b -Du+m"
 set -gx READER "zathura"
 set -gx TERMINAL "alacritty"
 set -gx VISUAL "subl"
@@ -125,19 +124,16 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
-# vim, doom emacs and bat
-alias cat='bat --theme OneHalfDark'
+# doom emacs
 alias ddoctor='doom doctor'
 alias dpurge='doom purge'
 alias dsync='doom sync'
 alias dupgrade='doom upgrade'
-alias vim='nvim'
 
 # Add some useful flags
 alias cp='cp -iv'
 alias df='df -h'
-alias efd='fd -F'
-alias fd='fd -Hi'
+alias doas='doas --'
 alias free='free -mt'
 alias librespot='librespot -n "A315-41" -b 320 -u yourUsername -p yourPassword -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
 alias lynx='lynx -accept_all_cookies'
@@ -147,36 +143,35 @@ alias wget='wget -c'
 alias merge='xrdb -merge ~/.Xresources'
 
 # Aliases for software managment
-alias darm='sudo dnf autoremove -y'
-alias dcc='sudo dnf cc'
-alias dif='sudo dnf info'
-alias din='sudo dnf in'
-alias dlr='sudo dnf lr'
-alias dlu='sudo dnf lu'
-alias dref='sudo dnf ref'
-alias drm='sudo dnf rm'
-alias drmk='sudo dnf rm (dnf repoquery --installonly --latest-limit=-1 -q) -y'
-alias dse='sudo dnf se'
-alias dup='sudo dnf up -y'
-alias dwp='sudo dnf wp'
+alias darm='doas dnf autoremove -y'
+alias dcc='doas dnf cc'
+alias dif='doas dnf info'
+alias din='doas dnf in'
+alias dlr='doas dnf lr'
+alias dlu='doas dnf lu'
+alias dref='doas dnf ref'
+alias drm='doas dnf rm'
+alias drmk='doas dnf rm \$(dnf repoquery --installonly --latest-limit=-1 -q) -y'
+alias dse='doas dnf se'
+alias dup='doas dnf up -y'
+alias dwp='doas dnf wp'
 
-alias parm='pacman -Qtdq | sudo pacman -Rns --noconfirm -'
-alias pcc='paru -Scc --noconfirm'
-alias pif='paru -Si'
-alias pin='paru -S --needed'
+alias parm='pacman -Qtdq | doas pacman -Rns --noconfirm -'
+alias pcc='doas pacman -Scc --noconfirm'
+alias pif='doas pacman -Si'
+alias pin='doas pacman -S --needed'
 alias plu='checkupdates'
-alias pref='sudo pacman -Fy'
-alias prm='paru -Rns'
-alias pse='paru -Ss'
-alias pup='sudo pacman -Syu --noconfirm --needed'
-alias paup='paru -Sua --noconfirm --needed'
+alias pref='doas pacman -Fy'
+alias prm='doas pacman -Rns'
+alias pse='doas pacman -Ss'
+alias pup='doas pacman -Syu --noconfirm --needed'
 alias pwp='pacman -F'
 
 # Update the GRUB config
-alias grubup='sudo grub2-mkconfig'
+alias grubup='doas grub2-mkconfig'
 
 # Refresh the fonts cache
-alias fontup='sudo fc-cache -fv'
+alias fontup='doas fc-cache -fv'
 
 # Check vulnerabilities microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
@@ -192,29 +187,27 @@ alias yta-vorbis='youtube-dl --extract-audio --audio-format vorbis'
 alias yta-wav='youtube-dl --extract-audio --audio-format wav'
 alias ytv-best='youtube-dl -f bestvideo+bestaudio'
 
-# Vim/Sublime for important configuration files
-alias valacritty='vim ~/.config/alacritty/alacritty.yml'
-alias vbashrc='vim ~/.bashrc'
-alias vdnf='sudo vim /etc/dnf/dnf.conf'
-alias vfish='vim ~/.config/fish/config.fish'
-alias vherbstluftwm='vim ~/.config/herbstluftwm/autostart'
-alias vnvim='vim ~/.config/nvim/init.vim'
-alias vpacman='sudo vim /etc/pacman.conf'
-alias vparu='vim ~/.config/paru/paru.conf'
-alias vpicom='vim ~/.config/picom/picom.conf'
-alias vqtile='vim ~/.config/qtile/config.py'
-alias vspectrwm='vim ~/.config/spectrwm/spectrwm.conf'
-alias vsway='vim ~/.config/sway/config'
-alias vvifm='vim ~/.config/vifm/vifmrc'
+# nvim/Sublime for important configuration files
+alias valacritty='nvim ~/.config/alacritty/alacritty.yml'
+alias vbashrc='nvim ~/.bashrc'
+alias vdnf='doas nvim /etc/dnf/dnf.conf'
+alias vfish='nvim ~/.config/fish/config.fish'
+alias vherbstluftwm='nvim ~/.config/herbstluftwm/autostart'
+alias vnnvim='nvim ~/.config/nnvim/init.nvim'
+alias vpacman='doas nvim /etc/pacman.conf'
+alias vpicom='nvim ~/.config/picom/picom.conf'
+alias vqtile='nvim ~/.config/qtile/config.py'
+alias vspectrwm='nvim ~/.config/spectrwm/spectrwm.conf'
+alias vsway='nvim ~/.config/sway/config'
+alias vvifm='nvim ~/.config/vifm/vifmrc'
 
 alias salacritty='subl ~/.config/alacritty/alacritty.yml'
 alias sbashrc='subl ~/.bashrc'
-alias sdnf='sudo subl /etc/dnf/dnf.conf'
+alias sdnf='doas subl /etc/dnf/dnf.conf'
 alias sfish='subl ~/.config/fish/config.fish'
 alias sherbstluftwm='subl ~/.config/herbstluftwm/autostart'
-alias snvim='subl ~/.config/nvim/init.vim'
-alias spacman='sudo subl /etc/pacman.conf'
-alias sparu='subl ~/.config/paru/paru.conf'
+alias snnvim='subl ~/.config/nnvim/init.nvim'
+alias spacman='doas subl /etc/pacman.conf'
 alias spicom='subl ~/.config/picom/picom.conf'
 alias sqtile='subl ~/.config/qtile/config.py'
 alias sspectrwm='subl ~/.config/spectrwm/spectrwm.conf'
@@ -240,10 +233,6 @@ alias cstatus='config status'
 # Xephyr
 alias Xephyr='Xephyr :5 & sleep 1 ; DISPLAY=:5'
 
-# Shutdown or reboot
-alias pwrbt='systemctl reboot'
-alias pwroff='systemctl poweroff'
-
 # Miscellaneous
-alias chogg='find . -type f -name "*.opus" -exec rename .opus .ogg \{\} \;'
-alias chopus='find . -type f -name "*.ogg" -exec rename .ogg .opus \{\} \;'
+alias chogg='find . -type f -name "*.opus" -exec rename .opus .ogg {} +'
+alias chopus='find . -type f -name "*.ogg" -exec rename .ogg .opus {} +'
