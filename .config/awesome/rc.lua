@@ -48,7 +48,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 myTerm = "alacritty"
-myBrowser = "brave-browser"
+myBrowser = "brave"
 myFileManager = "pcmanfm"
 myMarkdown = "marktext"
 myMusicPlayer = myTerm .. " --class cmus,cmus -e cmus"
@@ -183,6 +183,77 @@ awful.screen.connect_for_each_screen(function(s)
 		buttons = tasklist_buttons
 	}
 
+	s.start = wibox.widget {
+		markup = "<span foreground='" .. beautiful.colour_blue .. "'>   </span>",
+		widget = wibox.widget.textbox
+	}
+
+	s.start:buttons(gears.table.join(
+		awful.button({}, 1, function() awful.spawn.easy_async("rofi -show drun", function() end) end),
+		awful.button({}, 3, function() awful.spawn.easy_async("rofi -show run", function() end) end)))
+
+	s.weather = awful.widget.watch (
+		gears.filesystem.get_configuration_dir() .. "/widgets/weather.sh Cedro+Salazar", 300,
+		function(widget, stdout) 
+			widget:set_markup_silently("<span foreground='" .. beautiful.colour_red .. "'>" .. stdout .. "</span>")
+		end
+	)
+
+	s.weather:buttons(gears.table.join(
+		awful.button({}, 1, function() awful.spawn.easy_async(myBrowser .. " wttr.in", function() end) end)))
+
+
+	s.memory = awful.widget.watch (
+		gears.filesystem.get_configuration_dir() .. "/widgets/memory.sh", 2,
+		function(widget, stdout) 
+			widget:set_markup_silently("<span foreground='" .. beautiful.colour_green .. "'>﬙  " .. stdout .. "</span>")
+		end
+	)
+
+	s.memory:buttons(gears.table.join(
+		awful.button({}, 1, function() awful.spawn.easy_async(myTerm .. " -e gotop", function() end) end)))
+
+	s.updates = awful.widget.watch (
+		gears.filesystem.get_configuration_dir() .. "/widgets/updates.sh", 900,
+		function(widget, stdout) 
+			widget:set_markup_silently("<span foreground='" .. beautiful.colour_yellow .. "'>  " .. stdout .. "</span>")
+		end
+	)
+
+	s.updates:buttons(gears.table.join(
+		awful.button({}, 1, function() awful.spawn.easy_async("pkexec /usr/bin/pacman -Syu --noconfirm --needed", function() end) end),
+		awful.button({}, 3, function() awful.spawn.easy_async(gears.filesystem.get_configuration_dir() .. "checkupdts.sh", function() end) end)))
+
+	s.volume = awful.widget.watch (
+		gears.filesystem.get_configuration_dir() .. "/widgets/volume.sh", 0.2,
+		function(widget, stdout) 
+			widget:set_markup_silently("<span foreground='" .. beautiful.colour_blue .. "'>" .. stdout .. "</span>")
+		end
+	)
+
+	s.volume:buttons(gears.table.join(
+		awful.button({}, 1, function() awful.spawn.easy_async("pamixer -t", function() end) end),
+		awful.button({}, 3, function() awful.spawn.easy_async("pavucontrol", function() end) end),
+		awful.button({}, 4, function() awful.spawn.easy_async("pamixer -u -i 5", function() end) end),
+		awful.button({}, 5, function() awful.spawn.easy_async("pamixer -u -d 5", function() end) end)))
+
+	s.sep = wibox.widget{
+		markup = "<span foreground='" .. beautiful.colour_grey .. "'> │ </span>",
+		widget = wibox.widget.textbox
+	}
+
+	s.battery = awful.widget.watch (
+		gears.filesystem.get_configuration_dir() .. "/widgets/battery.sh", 30,
+		function(widget, stdout) 
+			widget:set_markup_silently("<span foreground='" .. beautiful.colour_purple .. "'>" .. stdout .. "</span>")
+		end
+	)
+
+	s.clock = wibox.widget {
+    	format = "<span foreground='" .. beautiful.colour_cyan .. "'>" .. '  %a %b %d  %I:%M %P    ' .. "</span>",
+    	widget = wibox.widget.textclock
+	}
+
 	-- Create the wibox
 	s.mywibox = awful.wibar({position = "top", screen = s})
 
@@ -191,14 +262,28 @@ awful.screen.connect_for_each_screen(function(s)
 		layout = wibox.layout.align.horizontal,
 		{ -- Left widgets
 			layout = wibox.layout.fixed.horizontal,
+			s.start,
+			s.sep,
 			s.mytaglist,
+			s.sep,
 			s.mylayoutbox,
+			wibox.widget.systray(),
+			s.sep
 		},
 		s.mytasklist, -- Middle widget
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
-			wibox.widget.systray(),
-			wibox.widget.textclock("%a %b %d  %I:%M %P    "),
+			s.weather,
+			s.sep,
+			s.memory,
+			s.sep,
+			s.updates,
+			s.sep,
+			s.volume,
+			s.sep,
+			s.battery,
+			s.sep,
+			s.clock
 		},
 	}
 end)
@@ -442,8 +527,9 @@ client.connect_signal("property::maximized", border_adjust)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
+awful.spawn.easy_async("pipewire", function() end)
+awful.spawn.easy_async("pipewire-pulse", function() end)
+awful.spawn.easy_async("pipewire-media-session", function() end)
 awful.spawn.easy_async("picom -b", function() end)
 awful.spawn.easy_async("lxpolkit", function() end)
-awful.spawn.easy_async("pcmanfm -d", function() end)
 awful.spawn.easy_async("xfce4-power-manager", function() end)
-awful.spawn.easy_async_with_shell(gears.filesystem.get_configuration_dir() .. "checkupdts.sh", function() end)

@@ -1,18 +1,18 @@
 local theme = {}
 
-colour_black = "#080808" -- Background
-colour_white = "#FFFFFF" -- Foreground
-colour_grey = "#ABB2BF" -- Grey Colour
-colour_red = "#E35374"
-colour_green = "#89CA78"
-colour_yellow = "#F0C674"
-colour_blue = "#61AFEF"
-colour_purple = "#D55FDE"
-colour_cyan = "#2BBAC5"
+theme.colour_black = "#080808" -- Background
+theme.colour_white = "#FFFFFF" -- Foreground
+theme.colour_grey = "#ABB2BF" -- Grey Colour
+theme.colour_red = "#E35374"
+theme.colour_green = "#89CA78"
+theme.colour_yellow = "#F0C674"
+theme.colour_blue = "#61AFEF"
+theme.colour_purple = "#D55FDE"
+theme.colour_cyan = "#2BBAC5"
 
 -- Default variables
-theme.bg_normal = colour_black
-theme.fg_normal = colour_white
+theme.bg_normal = theme.colour_black
+theme.fg_normal = theme.colour_white
 theme.useless_gap = 2
 theme.font = "SF Pro Text 10"
 -- theme.bg_focus = nil
@@ -24,7 +24,7 @@ theme.font = "SF Pro Text 10"
 -- theme.fg_minimize = nil
 theme.border_width = 2
 theme.border_normal = "#848484"
-theme.border_focus  = colour_blue
+theme.border_focus  = theme.colour_blue
 -- theme.border_color = nil
 theme.wallpaper = "/usr/share/wallpapers/deepin/Overlooking_by_Lance_Asper.jpg"
 -- theme.border_color_marked = nil
@@ -118,8 +118,8 @@ theme.wallpaper = "/usr/share/wallpapers/deepin/Overlooking_by_Lance_Asper.jpg"
 -- theme.graph_border_color = nil
 
 -- hotkeys
-theme.hotkeys_bg = colour_black
-theme.hotkeys_fg = colour_white
+theme.hotkeys_bg = theme.colour_black
+theme.hotkeys_fg = theme.colour_white
 theme.hotkeys_border_width = theme.border_width
 theme.hotkeys_border_color = theme.border_focus
 -- theme.hotkeys_shape = nil
@@ -331,14 +331,14 @@ theme.hotkeys_description_font = theme.font
 -- theme.systray_icon_spacing = nil
 
 -- taglist
-theme.taglist_fg_focus = colour_purple
+theme.taglist_fg_focus = theme.colour_purple
 -- theme.taglist_bg_focus = nil
-theme.taglist_fg_urgent = colour_red
+theme.taglist_fg_urgent = theme.colour_red
 -- theme.taglist_bg_urgent = nil
 -- theme.taglist_bg_occupied = nil
-theme.taglist_fg_occupied = colour_green
+theme.taglist_fg_occupied = theme.colour_green
 -- theme.taglist_bg_empty = nil
-theme.taglist_fg_empty = colour_blue
+theme.taglist_fg_empty = theme.colour_blue
 -- theme.taglist_bg_volatile = nil
 -- theme.taglist_fg_volatile = nil
 -- theme.taglist_squares_sel = nil
@@ -510,7 +510,7 @@ theme.taglist_fg_empty = colour_blue
 theme.wibar_height = 18
 -- theme.wibar_bg = nil
 -- theme.wibar_bgimage = nil
--- theme.wibar_fg = nil
+theme.wibar_fg = theme.colour_purple
 -- theme.wibar_shape = nil
 
 return theme
