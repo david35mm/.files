@@ -1,3 +1,43 @@
+#+TITLE: Awesomewm Config
+#+PROPERTY: header-args :tangle rc.lua
+
+* TABLE OF CONTENTS :toc:
+- [[#about][ABOUT]]
+- [[#imports][IMPORTS]]
+- [[#error-handling][ERROR HANDLING]]
+- [[#theme-startup][THEME STARTUP]]
+- [[#variables][VARIABLES]]
+- [[#layouts][LAYOUTS]]
+- [[#right-click-menu][RIGHT-CLICK MENU]]
+- [[#wibox][WIBOX]]
+  - [[#configuration-for-base-widgets][CONFIGURATION FOR BASE WIDGETS]]
+  - [[#tag-names][TAG NAMES]]
+  - [[#layout-box-and-misc-widgets][LAYOUT BOX AND MISC WIDGETS]]
+  - [[#create-the-bar][CREATE THE BAR]]
+- [[#keybindings][KEYBINDINGS]]
+  - [[#mouse-bindings][MOUSE BINDINGS]]
+  - [[#awesomewm-controls][AWESOMEWM CONTROLS]]
+  - [[#system-controls][SYSTEM CONTROLS]]
+  - [[#applications-launcher][APPLICATIONS LAUNCHER]]
+- [[#rules][RULES]]
+- [[#signals][SIGNALS]]
+- [[#autostart][AUTOSTART]]
+
+* ABOUT
+#+CAPTION: Awesomewm Screenshot
+#+ATTR_HTML: :alt Awesomewm Screenshot :title A Brief Look :align left
+[[https://github.com/david35mm/.files/blob/main/.config/awesome/awesome.png]]
+
+This config file was modified by David Salomón on Jan 06, 2022 at 8:38 pm (Bogota DC, Colombia UTC-5).
+- My YouTube Channel: https://9m.no/𑅁텚
+- My Instagram Page: https://www.instagram.com/david35mm.co
+- My GitHub: https://github.com/david35mm
+- My Photography Portfolio: https://adobe.ly/32jk5W6
+
+* IMPORTS
+These are some libraries that awesomewm needs to make the widgets, layouts and all of the rest to work.
+
+#+BEGIN_SRC lua
 pcall(require, "luarocks.loader")
 
 -- Standard awesome library
@@ -13,7 +53,12 @@ local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+#+END_SRC
 
+* ERROR HANDLING
+Awesomewm will automatically fallback to the default configuration if errors are found on this config.
+
+#+BEGIN_SRC lua
 if awesome.startup_errors then
 	naughty.notify({preset = naughty.config.presets.critical,
 	title = "Oops, there were errors during startup!",
@@ -33,9 +78,19 @@ do
 		in_error = false
 	end)
 end
+#+END_SRC
 
+* THEME STARTUP
+Awesomewm pulls your theme preferences from another file called ~theme.lua~, there you can set your fonts, colours, size of the notification window and else everything related to the visual personalization of the window manager.
+
+#+BEGIN_SRC lua
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
+#+END_SRC
 
+* VARIABLES
+Here I have set some variables so that you can set your default programs. If some of you guys want to install the Brave Web Browser, do it with my [[https://brave.com/gek146][referral link]] please.
+
+#+BEGIN_SRC lua
 myTerm = "alacritty"
 myBrowser = "brave"
 myFileManager = "pcmanfm"
@@ -50,7 +105,13 @@ M = "Mod4"
 A = "Mod1"
 S = "Shift"
 C = "Control"
+#+END_SRC
 
+* LAYOUTS
+The layouts are how the windows are going to be positioned on the screen.
+On the ~awful.layout.layouts~ section you can uncomment the layouts you want to use and comment the ones you dont want to, as a bonus, I have noticed that the order they are written is the same order they will cycle when you are changing them on the go (by pressing the keybinding).
+
+#+BEGIN_SRC lua
 awful.layout.layouts = {
 	--awful.layout.suit.corner.ne,
 	--awful.layout.suit.corner.se,
@@ -69,7 +130,13 @@ awful.layout.layouts = {
 	awful.layout.suit.max,
 	awful.layout.suit.tile,
 }
+#+END_SRC
 
+* RIGHT-CLICK MENU
+If you have worked before with openbox you'll remember that nice right-click menu that was available for you to launch applications.
+Awesomewm has a right-click menu as well, and the best part: you don't have to mess around with XML to configure it. I have not configured it extensively since I seldom use it.
+
+#+BEGIN_SRC lua
 myawesomemenu = {
 	{"hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end},
 	{"manual", myTerm .. " -e man awesome"},
@@ -81,7 +148,18 @@ myawesomemenu = {
 mymainmenu = awful.menu({items = {{"awesome", myawesomemenu, beautiful.awesome_icon},
 	{"open terminal", myTerm}}
 })
+#+END_SRC
 
+* WIBOX
+The wibox is the bar that holds various widgets. I have find it extremely configurable to the point that it's almost overwhelming.
+
+** CONFIGURATION FOR BASE WIDGETS
+The base widgets are the taglist (that shows you the workspaces) and the tasklist (which shows you the active windows on the corresponding tag).
+I have left the default setup since I found nothing to modify.
+
+The wallpaper is also set for each connected screen, if you want to change the image, do it in the ~themes.lua~ file.
+
+#+BEGIN_SRC lua
 local taglist_buttons = gears.table.join(
 	awful.button({}, 1, function(t) t:view_only() end),
 	awful.button({M}, 1, function(t)
@@ -126,12 +204,29 @@ screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
+#+END_SRC
 
+** TAG NAMES
+Awesomewm call them tags, but they are (IMO) the same as workspaces. Here you can change their names and set their default layouts. *Make sure to NOT change the indentation as it may cause problems*.
+
+In awesomewm each screen has their on set of workspaces, that means that if you set 8 workspaces and have 2 screens, you will end up having 16 workspaces. This is something that I tend to dislike about awesomewm since I prefer to have shared workspaces among all my screens, which is the Qtile/XMonad/Spectrwm approach.
+
+#+BEGIN_SRC lua
 	local names = {"web", "dev", "sys", "doc", "chat", "game", "media", "gfx"}
 	local l = awful.layout.suit  -- Just to save some typing: use an alias.
 	local layouts = {l.max, l.tile, l.tile, l.tile, l.max, l.floating, l.max, l.floating}
 	awful.tag(names, s, layouts)
+#+END_SRC
 
+** LAYOUT BOX AND MISC WIDGETS
+The layoutbox will tell you which layout is active on the tag you are on.
+
+I wanted to set widgets for information that I tend to be interested about my computer, like the RAM usage, the volume level, the battery level and all that.
+Searching through documentation about the built-in widgets I found none about what I wanted. I saw that there are some projects like [[https://github.com/vicious-widgets/vicious][Vicious]] that do these kind of widgets but it's an extra dependency that I don't want to (and neither I want you to) deal with.
+
+So in my search to build this widgets myself I found the ~watch~ widget. You just have to write a shell script that will output the info you want in your bar, and you can set the refresh time per widget, you can even set mouse callbacks per widget which is quite awesome (not intended haha). All of my scripts are on the ~widgets~ folder, feel free to look at them, modify them, or add new ones.
+
+#+BEGIN_SRC lua
 	s.mylayoutbox = awful.widget.layoutbox(s)
 	s.mylayoutbox:buttons(gears.table.join(
 		awful.button({}, 1, function() awful.layout.inc( 1) end),
@@ -232,7 +327,14 @@ awful.screen.connect_for_each_screen(function(s)
 		format = "<span foreground='" .. beautiful.colour_cyan .. "'>" .. '  %a %b %d  %I:%M %P    ' .. "</span>",
 		widget = wibox.widget.textclock
 	}
+#+END_SRC
 
+** CREATE THE BAR
+Now it's time to put every single widget that we have set up into existing visually in our screen.
+
+First, change the ~position~ variable to bottom if you prefer a bottom bar. You can change the order in which the widgets will appear by reordering their name up or down in their respective sections.
+
+#+BEGIN_SRC lua
 	s.mywibox = awful.wibar({position = "top", screen = s})
 
 	s.mywibox:setup {
@@ -264,13 +366,133 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 	}
 end)
+#+END_SRC
 
+* KEYBINDINGS
+In awesomewm I have implemented all of my [[https://github.com/david35mm/.files/tree/main/.config/qtile#keybindings][Qtile keybindings]], this is to have uniformity on all of the window managers I use.
+You can take a quick look of all the keybindings while in awesomewm by hitting ~Windows + b~
+
+I'll leave some tables here to let you know the active keybindings and what they do.
+*Important:* I like to use the Windows key as the Mod key (which in the config file is known as ~M~).
+If for some weird reason you are one of those persons who likes to use the Alt key instead of the Windows key, change the ~{M}~ for ~{A}~ where you see fit, even though you will have to change a lot of keybindings that already use Alt.
+
+** MOUSE BINDINGS
+These are useful when you have a floating window that you want to resize or move around as you would on a normal floating window manager.
+
+| Keybinding           | Action                 |
+|----------------------+------------------------|
+| RIGHT-CLICK          | Open right-click menu  |
+| SCROLL UP            | Go to next tag         |
+| SCROLL DOWN          | Go to previous tag     |
+| LEFT-CLICK           | Focus selected window  |
+| MODKEY + LEFT-CLICK  | Move selected window   |
+| MODKEY + RIGHT-CLICK | Resize selected window |
+
+#+BEGIN_SRC lua
 root.buttons(gears.table.join(
 	awful.button({}, 3, function() mymainmenu:toggle() end),
 	awful.button({}, 4, awful.tag.viewnext),
 	awful.button({}, 5, awful.tag.viewprev)
 ))
+#+END_SRC
 
+** AWESOMEWM CONTROLS
+These are actions that have to do with tags, layouts, and windows.
+
+*** GLOBAL
+| Keybinding           | Action                      |
+|----------------------+-----------------------------|
+| MODKEY + CONTROL + r | Restart awesomewm           |
+| MODKEY + CONTROL + q | Quit awesomewm              |
+| MODKEY + b           | Open keybindings cheatsheet |
+
+*** WINDOW CONTROLS
+| Keybinding              | Action                           |
+|-------------------------+----------------------------------|
+| MODKEY + SHIFT + j      | Swap with previous window        |
+| MODKEY + SHIFT + k      | Swap with next window            |
+| MODKEY + j              | Focus previous window            |
+| MODKEY + k              | Focus next window                |
+| MODKEY + u              | Focus urgent window              |
+| MODKEY + c              | Minimize window                  |
+| MODKEY + SHIFT + c      | Unminimize window                |
+| MODKEY + s              | Fullscreen toggle                |
+| MODKEY + w              | Close the window                 |
+| MODKEY + f              | Floating toggle                  |
+| MODKEY + SHIFT + Return | Swap with master window          |
+| MODKEY + o              | Move to screen                   |
+| MODKEY + m              | (un)maximize window              |
+| MODKEY + CONTROL + m    | (un)maximize window vertically   |
+| MODKEY + SHIFT + m      | (un)maximize window horizontally |
+
+*** WORKSPACE NAVIGATION
+| Keybinding      | Action                   |
+|-----------------+--------------------------|
+| MODKEY + Left   | Go to previous workspace |
+| MODKEY + Right  | Go to next workspace     |
+| MODKEY + Escape | Go to last workspace     |
+
+*** LAYOUT CONTROLS
+| Keybinding           | Action                             |
+|----------------------+------------------------------------|
+| MODKEY + CONTROL + h | Add window to the master pane      |
+| MODKEY + CONTROL + j | Decrease columns on the slave pane |
+| MODKEY + CONTROL + k | Increase columns on the slave pane |
+| MODKEY + CONTROL + l | Remove window from the master pane |
+| MODKEY + Tab         | Cycle through layouts              |
+| MODKEY + h           | Shrink master pane width           |
+| MODKEY + l           | Grow master pane width             |
+
+*** MULTI-SCREEN FOCUS
+| Keybinding                     | Action                                   |
+|--------------------------------+------------------------------------------|
+| MODKEY + Comma                 | Focus the previous screen                |
+| MODKEY + Period                | Focus the next screen                    |
+| MODKEY + 1-9                   | Focus to workspace (1-9)                 |
+| MODKEY + CONTROL + 1-9         | Toggle workspace (1-9)                   |
+| MODKEY + SHIFT + 1-9           | Send window to workspace (1-9)           |
+| MODKEY + SHIFT + CONTROL + 1-9 | Toggle focused client on workspace (1-9) |
+
+** SYSTEM CONTROLS
+They have to do with the volume and brightness levels.
+
+| Keybinding            | Action                  |
+|-----------------------+-------------------------|
+| XF86AudioLowerVolume  | Decrease the volume     |
+| XF86AudioMute         | Mute toggle             |
+| XF86AudioRaiseVolume  | Increase the volume     |
+| XF86MonBrightnessDown | Decrease the brightness |
+| XF86MonBrightnessUp   | Increase the brightness |
+
+*Advice*: If for some reason your keyboard doesn't have the brightness control keys, don't worry, I got you. I've set two alternative keybindings to control the brightness through your keyboard:
+
+| Keybinding | Action                  |
+|------------+-------------------------|
+| ALT + j    | Decrease the brightness |
+| ALT + k    | Increase the brightness |
+
+** APPLICATIONS LAUNCHER
+I have set some easy to remember keybindings for launching the most used applications I have on my system. Almost all of them begin with ~Windows + Alt~ and then a letter follows it. I selected the letters to be mnemonic (in most cases).
+
+| Keybinding                       | Action                                                       |
+|----------------------------------+--------------------------------------------------------------|
+| MODKEY + r                       | Run the application launcher ([[https://github.com/davatorium/rofi/blob/next/INSTALL.md][rofi]])                          |
+| MODKEY + ALT + r                 | Launch the run prompt                                        |
+| ALT + Tab                        | Open the window switcher, like the one on Windows but better |
+| MODKEY + RETURN (RETURN = ENTER) | Launch Terminal Emulator ([[https://alacritty.org/][Alacritty]])                         |
+| MODKEY + ALT + i                 | Launch Web Browser ([[https://brave.com/gek146][Brave Browser]])                           |
+| MODKEY + e                       | Launch File Manager ([[https://wiki.lxde.org/en/PCManFM][PCManFM]])                                |
+| MODKEY + ALT + d                 | Launch Markdown Editor ([[https://marktext.app/][Mark Text]])                           |
+| MODKEY + ALT + m                 | Launch Music Player ([[https://cmus.github.io/][cmus]])                                   |
+| MODKEY + ALT + o                 | Launch Office Suite ([[https://www.onlyoffice.com/download-desktop.aspx][OnlyOffice]])                             |
+| MODKEY + ALT + p                 | Launch PDF Reader ([[https://pwmt.org/projects/zathura/][Zathura]])                                  |
+| MODKEY + ALT + t                 | Launch Text Editor ([[https://www.sublimetext.com/docs/3/linux_repositories.html][Sublime Text]])                            |
+| MODKEY + ALT + v                 | Launch Video Player ([[https://mpv.io/][mpv]])                                    |
+| MODKEY + ALT + e                 | Launch Terminal-Based File Manager ([[https://github.com/vifm/vifm][vifm]])                    |
+| MODKEY + ALT + s                 | Launch ([[https://www.spotify.com/co/download/linux][Spotify]])                                             |
+| MODKEY + ALT + g                 | Launch ([[https://store.steampowered.com/about][Steam]])                                               |
+
+#+BEGIN_SRC lua
 root.buttons(gears.table.join(
 	awful.button({}, 3, function() mymainmenu:toggle() end),
 	awful.button({}, 4, awful.tag.viewnext),
@@ -416,7 +638,16 @@ clientbuttons = gears.table.join(
 )
 
 root.keys(globalkeys)
+#+END_SRC
 
+* RULES
+There are some windows that you wan to always be floating. For example, when you click on a download button on your web browser you want that download dialog (the one that ask where to save the file) to be floating, or when you are moving files you want that little pop-up window that shows you the progress of the operation to be little and not be all weird and take all your screen.
+
+There are also other rules to open certain windows on a respective workplace. e.g. When you open your web browser you probably want to open it on the ~web~ workspace even if you are not there when you launch the program. I have set some "sane" defaults but as with everything, you are free to change them.
+
+To add more rules run ~xprop WM_CLASS~ and click on the window you are interested on knowing its properties.
+
+#+BEGIN_SRC lua
 awful.rules.rules = {
 	{rule = {},
 		properties = {border_width = beautiful.border_width,
@@ -447,7 +678,12 @@ awful.rules.rules = {
 	{rule_any = {class = {"TelegramDesktop"}}, properties = {tag = "chat"}},
 	{rule_any = {class = {"cmus", "Geeqie", "mpv"}, name = {"Celluloid"}}, properties = {tag = "media"}},
 }
+#+END_SRC
 
+* SIGNALS
+These are some signal functions to execute when a new client appears. I have not played with this settings so they are the same as the awesomewm default config.
+
+#+BEGIN_SRC lua
 client.connect_signal("manage", function(c)
 	-- Set the windows at the slave,
 	-- i.e. put it at the end of others instead of setting it master.
@@ -477,7 +713,14 @@ end
 client.connect_signal("focus", border_adjust)
 client.connect_signal("property::maximized", border_adjust)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+#+END_SRC
 
+* AUTOSTART
+I have programs that I want to always start automatically with awesomewm. You'll see pipewire here but commonly you wouldn't have to start it this way, I do it because systemd is not my init system and that means pipewire is not started at OS boot (which is the normal thing).
+
+I have set the ~easy_async~ option in order to not slow down the whole start process.
+
+#+BEGIN_SRC lua
 awful.spawn.easy_async("pipewire", function() end)
 awful.spawn.easy_async("pipewire-pulse", function() end)
 awful.spawn.easy_async("pipewire-media-session", function() end)
@@ -485,3 +728,4 @@ awful.spawn.easy_async("lxpolkit", function() end)
 awful.spawn.easy_async("picom -b", function() end)
 awful.spawn.easy_async("udiskie -asn -f pcmanfm", function() end)
 awful.spawn.easy_async("xfce4-power-manager", function() end)
+#+END_SRC
