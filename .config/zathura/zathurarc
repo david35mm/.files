@@ -1,43 +1,42 @@
 set window-title-basename "true"
 set selection-clipboard "clipboard"
 
-set notification-error-bg       "#E35374" # Red
-set notification-error-fg       "#FFFFFF" # Foreground
-set notification-warning-bg     "#D19A66" # Orange
-set notification-warning-fg     "#3E4451" # Selection
+set notification-error-bg       "#E55561" # Red
+set notification-error-fg       "#A0A8B7" # Foreground
+set notification-warning-bg     "#CC9057" # Orange
+set notification-warning-fg     "#535965" # Selection
 set notification-bg             "#080808" # Background
-set notification-fg             "#FFFFFF" # Foreground
+set notification-fg             "#A0A8B7" # Foreground
 
 set completion-bg               "#080808" # Background
-set completion-fg               "#565C64" # Comment
+set completion-fg               "#7A818E" # Comment
 set completion-group-bg         "#080808" # Background
-set completion-group-fg         "#565C64" # Comment
-set completion-highlight-bg     "#3E4451" # Selection
-set completion-highlight-fg     "#FFFFFF" # Foreground
+set completion-group-fg         "#7A818E" # Comment
+set completion-highlight-bg     "#535965" # Selection
+set completion-highlight-fg     "#A0A8B7" # Foreground
 
 set index-bg                    "#080808" # Background
-set index-fg                    "#FFFFFF" # Foreground
-set index-active-bg             "#3E4451" # Current Line
-set index-active-fg             "#FFFFFF" # Foreground
+set index-fg                    "#A0A8B7" # Foreground
+set index-active-bg             "#535965" # Current Line
+set index-active-fg             "#A0A8B7" # Foreground
 
 set inputbar-bg                 "#080808" # Background
-set inputbar-fg                 "#FFFFFF" # Foreground
+set inputbar-fg                 "#A0A8B7" # Foreground
 set statusbar-bg                "#080808" # Background
-set statusbar-fg                "#FFFFFF" # Foreground
+set statusbar-fg                "#A0A8B7" # Foreground
 
-set highlight-color             "#D19A66" # Orange
-set highlight-active-color      "#C678DD" # Pink
+set highlight-color             "#CC9057" # Orange
+set highlight-active-color      "#BF68D9" # Pink
 
 set default-bg                  "#080808" # Background
-set default-fg                  "#FFFFFF" # Foreground
+set default-fg                  "#A0A8B7" # Foreground
 
 set render-loading              true
 set render-loading-fg           "#080808" # Background
-set render-loading-bg           "#FFFFFF" # Foreground
-
+set render-loading-bg           "#A0A8B7" # Foreground
 
 set recolor-lightcolor          "#080808" # Background
-set recolor-darkcolor           "#FFFFFF" # Foreground
+set recolor-darkcolor           "#A0A8B7" # Foreground
 
 set adjust-open width
 set recolor true

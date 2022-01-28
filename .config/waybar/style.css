@@ -1,4 +1,4 @@
-* {
+{
 	font-family: SF Pro Text;
 	font-size: 12px;
 	min-height: 0;
@@ -7,7 +7,7 @@
 
 window#waybar {
 	background-color: #080808;
-	color: #FFFFFF;
+	color: #A0A8B7;
 	transition-property: background-color;
 	transition-duration: .5s;
 }
@@ -18,15 +18,15 @@ window#waybar {
 }
 
 #workspaces button {
-	color: #61AFEF;
+	color: #4FA6ED;
 }
 
 #workspaces button:hover {
-	box-shadow: inset 0 -3px #89CA78;
+	box-shadow: inset 0 -3px #8EBD6B;
 }
 
 #workspaces button.focused {
-	color: #89CA78;
+	color: #8EBD6B;
 }
 
 #workspaces button.urgent {
@@ -55,11 +55,11 @@ window#waybar {
 }
 
 #backlight {
-	color: #F0C674;
+	color: #E2B86B;
 }
 
 #custom-memory {
-	color: #89CA78;
+	color: #8EBD6B;
 }
 
 #custom-memory.icon {
@@ -69,7 +69,7 @@ window#waybar {
 }
 
 #custom-pacman, #custom-dnf {
-	color: #F0C674;
+	color: #E2B86B;
 }
 
 #custom-pacman.icon, #custom-dnf.icon {
@@ -79,7 +79,7 @@ window#waybar {
 }
 
 #pulseaudio {
-	color: #61AFEF;
+	color: #4FA6ED;
 }
 
 #pulseaudio.icon {
@@ -89,7 +89,7 @@ window#waybar {
 }
 
 #battery {
-	color: #D55FDE;
+	color: #BF68D9;
 }
 
 #battery.icon {
@@ -99,7 +99,7 @@ window#waybar {
 }
 
 #clock {
-	color: #2BBAC5;
+	color: #48B0BD;
 }
 
 #clock.icon {

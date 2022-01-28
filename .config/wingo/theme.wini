@@ -74,14 +74,14 @@
 # windows that don't specify an icon.
 
 $BLCK := 0x080808
-$WHTE := 0xFFFFFF
-$GREY := 0xABB2BF
-$REDD := 0xE35374
-$GREN := 0x89CA78
-$YLLW := 0xF0C674
-$BLUE := 0x61AFEF
-$PRPL := 0xD55FDE
-$CYAN := 0x2BBAC5
+$WHTE := 0xA0A8B7
+$GREY := 0x535965
+$REDD := 0xE55561
+$GREN := 0x8EBD6B
+$YLLW := 0xE2B86B
+$BLUE := 0x4FA6ED
+$PRPL := 0xBF68D9
+$CYAN := 0x48B0BD
 
 [Full]
 font := /usr/share/fonts/SFMonoFonts/SF-Mono-Bold.otf

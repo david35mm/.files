@@ -1,6 +1,5 @@
 -- vis-filetype-settings
 -- (https://github.com/jocap/vis-filetype-settings)
-
 -- This plugin provides a declarative interface for setting vis
 -- options depending on filetype.
 --
@@ -24,16 +23,16 @@
 --
 -- Be sure not to run commands that open another window with the same
 -- filetype, leading to an infinite loop.
+vis.events.subscribe(
+	vis.events.WIN_OPEN, function(win)
+		if settings == nil then return end
+		local window_settings = settings[win.syntax]
 
-vis.events.subscribe(vis.events.WIN_OPEN, function(win)
-	if settings == nil then return end
-	local window_settings = settings[win.syntax]
-
-	if type(window_settings) == "table" then
-		for _, setting in pairs(window_settings) do
-			vis:command(setting)
+		if type(window_settings) == "table" then
+			for _, setting in pairs(window_settings) do
+				vis:command(setting)
+			end
+		elseif type(window_settings) == "function" then
+			window_settings(win)
 		end
-	elseif type(window_settings) == "function" then
-		window_settings(win)
-	end
-end)
+	end)

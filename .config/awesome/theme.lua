@@ -1,14 +1,14 @@
 local theme = {}
 
 theme.colour_black = "#080808" -- Background
-theme.colour_white = "#FFFFFF" -- Foreground
-theme.colour_grey = "#ABB2BF" -- Grey Colour
-theme.colour_red = "#E35374"
-theme.colour_green = "#89CA78"
-theme.colour_yellow = "#F0C674"
-theme.colour_blue = "#61AFEF"
-theme.colour_purple = "#D55FDE"
-theme.colour_cyan = "#2BBAC5"
+theme.colour_white = "#a0a8b7" -- Foreground
+theme.colour_grey = "#535965" -- Grey Colour
+theme.colour_red = "#E55561"
+theme.colour_green = "#8EBD6B"
+theme.colour_yellow = "#E2B86B"
+theme.colour_blue = "#4FA6ED"
+theme.colour_purple = "#BF68D9"
+theme.colour_cyan = "#48b0bd"
 
 -- Default variables
 theme.bg_normal = theme.colour_black
@@ -23,7 +23,7 @@ theme.font = "SF Pro Text 10"
 -- theme.fg_urgent = nil
 -- theme.fg_minimize = nil
 theme.border_width = 2
-theme.border_normal = "#848484"
+theme.border_normal = theme.colour_grey
 theme.border_focus  = theme.colour_blue
 -- theme.border_color = nil
 theme.wallpaper = "/usr/share/wallpapers/deepin/Overlooking_by_Lance_Asper.jpg"
@@ -123,7 +123,7 @@ theme.hotkeys_fg = theme.colour_white
 theme.hotkeys_border_width = theme.border_width
 theme.hotkeys_border_color = theme.border_focus
 -- theme.hotkeys_shape = nil
-theme.hotkeys_modifiers_fg = "#848484"
+theme.hotkeys_modifiers_fg = theme.colour_grey
 -- theme.hotkeys_label_bg = nil
 -- theme.hotkeys_label_fg = nil
 theme.hotkeys_font = "SF Mono 10"

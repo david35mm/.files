@@ -5,42 +5,41 @@
 ! ------------------------------------------------------------------------------
 
 ! special
-*.foreground:   #ffffff
+*.foreground:   #a0a8b7
 *.background:   #080808
-*.cursorColor:  #ffffff
+*.cursorColor:  #a0a8b7
 
 ! black
-*.color0:       #5c6370
-*.color8:       #5c6370
+*.color0:       #535965
+*.color8:       #535965
 
 ! red
-*.color1:       #e35374
-*.color9:       #e35374
+*.color1:       #e55561
+*.color9:       #e55561
 
 ! green
-*.color2:       #89ca78
-*.color10:      #89ca78
+*.color2:       #8ebd6b
+*.color10:      #8ebd6b
 
 ! yellow
-*.color3:       #f0c674
-*.color11:      #f0c674
+*.color3:       #e2b86b
+*.color11:      #e2b86b
 
 ! blue
-*.color4:       #61afef
-*.color12:      #61afef
+*.color4:       #4fa6ed
+*.color12:      #4fa6ed
 
 ! magenta
-*.color5:       #d55fde
-*.color13:      #d55fde
+*.color5:       #bf68d9
+*.color13:      #bf68d9
 
 ! cyan
-*.color6:       #2bbac5
-*.color14:      #2bbac5
+*.color6:       #48b0bd
+*.color14:      #48b0bd
 
 ! white
-*.color7:       #abb2bf
-*.color15:      #ffffff
-
+*.color7:       #7a818e
+*.color15:      #a0a8b7
 
 ! XTerm Settings
 XTerm*loginShell: true

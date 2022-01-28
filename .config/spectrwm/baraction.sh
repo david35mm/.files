@@ -100,7 +100,7 @@ bat() {
 ##############################
 brghtnss() {
 	bri="$(brightnessctl -m | cut -d',' -f4)"
-	#bri="$(awk '{printf "%0.0f\n",$0 * 100 / 255}' /sys/class/backlight/*/brightness)"
+	#bri="$(awk '{echo "%0.0f\n",$0 * 100 / 255}' /sys/class/backlight/*/brightness)"
 
 	case "$bri" in
 		100% | 9[0-9]% | 8[6-9]%) echo "+@fn=1; +@fn=0;$bri" ;;

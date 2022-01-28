@@ -1,4 +1,4 @@
-set fish_greeting
+set -U fish_greeting
 set -gx BROWSER "brave-browser"
 set -gx EDITOR "nvim"
 set -gx MANPAGER "less -IMRgs --incsearch --use-color -DE+wr -DP+wk -DS+ky -Dd+b -Du+m"
@@ -7,15 +7,15 @@ set -gx TERMINAL "alacritty"
 set -gx VISUAL "subl"
 
 # One Dark Vivid Color Palette
-set -l foreground ABB2BF
-set -l selection 3E4451
-set -l comment 565C64
-set -l red E35374
-set -l orange D19A66
-set -l yellow F0C674
-set -l green 89CA78
-set -l purple D55FDE
-set -l blue 61AFEF
+set -l foreground A0A8B7
+set -l selection 535965
+set -l comment 7A818E
+set -l red E55561
+set -l orange CC9057
+set -l yellow E2B86B
+set -l green 8EBD6B
+set -l purple BF68D9
+set -l blue 4FA6ED
 set -l pink C678DD
 
 set -g fish_color_normal $foreground
@@ -39,6 +39,29 @@ set -g fish_pager_color_completion $foreground
 set -g fish_pager_color_description $comment
 
 starship init fish | source
+
+# Set tty colours
+if [ "$TERM" = "linux" ]
+	printf %b '\e[40m' '\e[8]' # set default background to color 0
+	printf %b '\e[37m' '\e[8]' # set default foreground to color 7
+	printf %b '\e]P0080808'    # redefine 'bg'
+	printf %b '\e]P87a818e'    # redefine 'comment'
+	printf %b '\e]P1e55561'    # redefine 'red'
+	printf %b '\e]P9e55561'    # redefine 'bright-red'
+	printf %b '\e]P28ebd6b'    # redefine 'green'
+	printf %b '\e]PA8ebd6b'    # redefine 'bright-green'
+	printf %b '\e]P3cc9057'    # redefine 'brown'
+	printf %b '\e]PBe2b86b'    # redefine 'yellow'
+	printf %b '\e]P44fa6ed'    # redefine 'blue'
+	printf %b '\e]PC4fa6ed'    # redefine 'bright-blue'
+	printf %b '\e]P5bf68d9'    # redefine 'magenta'
+	printf %b '\e]PDbf68d9'    # redefine 'bright-magenta'
+	printf %b '\e]P648b0bd'    # redefine 'cyan'
+	printf %b '\e]PE48b0bd'    # redefine 'bright-cyan'
+	printf %b '\e]P7a0a8b7'    # redefine 'fg'
+	printf %b '\e]PFa0a8b7'    # redefine 'white'
+	clear
+end
 
 # User specific environment
 set PATH $PATH $HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:
@@ -103,10 +126,21 @@ function ex
 			case "*.$ext[14]"
 				unzip ./$argv
 			case '*'
-				printf -- "\033[0;31m[ex error] => \033[0;33m$argv \033[0mis not a valid archive.\n\n\033[0;34mex() \033[0mcan can only extract the following archives:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\nRun \033[0;34mex() \033[0musing one of the archives supported.\n"
+				echo -e "\033[0;31m[ex error] => \033[0;33m$argv \033[0mis" \
+				"not a valid archive.\n\n\033[0;34mex() \033[0mcan can only" \
+				"extract the following archives:\n\t.7z\n\t.bz2\n\t.deb" \
+				"\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz" \
+				"\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\nRun\033[0;34m" \
+				"ex() \033[0musing one of the archives supported.\n"
 		end
 	else
-		printf -- "\033[0;31m[ex error] => \033[0mFile not given.\n\n\033[0;34mex() \033[0mis an archive extractor. You need to add a \033[0;33m<path_to/filename> \033[0mwith one of the following extensions:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\ne.g. \033[0;34mex \033[0;33m~/Downloads/compressed.tar.xz\n"
+		echo -e "\033[0;31m[ex error] => \033[0mFile not given." \
+			"\n\n\033[0;34mex() \033[0mis an archive extractor. You need to" \
+			"add a \033[0;33m<path_to/filename> \033[0mwith one of the" \
+			"following extensions:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar" \
+			"\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2" \
+			"\n\t.tgz\n\t.Z\n\t.zip\n\ne.g.\033[0;34m ex" \
+			"\033[0;33m~/Downloads/compressed.tar.xz\n"
 	end
 end
 # End of functions
@@ -151,19 +185,19 @@ alias dlr='doas dnf lr'
 alias dlu='doas dnf lu'
 alias dref='doas dnf ref'
 alias drm='doas dnf rm'
-alias drmk='doas dnf rm \$(dnf repoquery --installonly --latest-limit=-1 -q) -y'
+alias drmk='doas dnf rm "(dnf repoquery --installonly --latest-limit=-1 -q)" -y'
 alias dse='doas dnf se'
 alias dup='doas dnf up -y'
 alias dwp='doas dnf wp'
 
 alias parm='pacman -Qtdq | doas pacman -Rns --noconfirm -'
 alias pcc='doas pacman -Scc --noconfirm'
-alias pif='doas pacman -Si'
+alias pif='pacman -Si'
 alias pin='doas pacman -S --needed'
 alias plu='checkupdates'
 alias pref='doas pacman -Fy'
 alias prm='doas pacman -Rns'
-alias pse='doas pacman -Ss'
+alias pse='pacman -Ss'
 alias pup='doas pacman -Syu --noconfirm --needed'
 alias pwp='pacman -F'
 

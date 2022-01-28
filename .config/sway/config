@@ -209,8 +209,8 @@ exec_always {
 	gsettings set $gnome-schema font-name "SF Pro Text 10"
 }
 
-client.focused #61AFEF #61AFEF #848484
-client.unfocused #848484 #848484 #FFFFFF
+client.focused #4FA6ED #4FA6ED #535965
+client.unfocused #535965 #535965 #A0A8B7
 default_border pixel 2
 default_floating_border pixel 2
 font SF Pro Text 10

@@ -2,32 +2,30 @@
 #+PROPERTY: header-args :tangle config.py
 
 * TABLE OF CONTENTS :toc:
-- [[#about][About]]
+- [[#about][ABOUT]]
 - [[#imports][IMPORTS]]
 - [[#variables][VARIABLES]]
 - [[#keybindings][KEYBINDINGS]]
-	- [[#qtile-controls][Qtile Controls]]
-	- [[#window-controls][Window Controls]]
-	- [[#layout-controls][Layout Controls]]
-	- [[#multi-screen-focus][Multi-Screen Focus]]
-	- [[#system-controls][System Controls]]
-	- [[#applications-launcher][Applications Launcher]]
+  - [[#mouse-bindings][MOUSE BINDINGS]]
+  - [[#qtile-controls][Qtile Controls]]
+  - [[#system-controls][SYSTEM CONTROLS]]
+  - [[#applications-launcher][APPLICATIONS LAUNCHER]]
 - [[#groups][GROUPS]]
 - [[#layouts][LAYOUTS]]
 - [[#colours][COLOURS]]
 - [[#prompt][PROMPT]]
 - [[#widgets][WIDGETS]]
 - [[#bar--screens][BAR & SCREENS]]
-- [[#drag-floating-windows][DRAG FLOATING WINDOWS]]
+  - [[#rules][RULES]]
 - [[#hooks][HOOKS]]
 - [[#wmname][WMNAME]]
 
-* About
+* ABOUT
 #+CAPTION: Qtile Screenshot
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.config/qtile/qtile.png]]
 
-This config file was modified by David Salomón on Sep 16, 2021 at 9:21 pm (Bogota DC, Colombia UTC-5).
+This config file was modified by David Salomón on Jan 23, 2022 at 10:27 pm (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -44,7 +42,14 @@ These are some libraries that Qtile needs to make the widgets, layouts and all o
 #+BEGIN_SRC python
 import os, re, shutil, socket, subprocess
 from libqtile import bar, hook, layout, qtile, widget
-from libqtile.config import EzClick as Click, EzDrag as Drag, EzKey as Key, Group, Match, Screen
+from libqtile.config import (
+	EzClick as Click,
+	EzDrag as Drag,
+	EzKey as Key,
+	Group,
+	Match,
+	Screen,
+)
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from typing import List
@@ -55,190 +60,334 @@ Here I have set some variables so that you can set your default programs. If som
 #+BEGIN_SRC python
 mod = "mod4"
 myTerm = guess_terminal()
-myBrowser = "brave-browser"
+myBrowser = "brave"
 myFileManager = "pcmanfm"
 myMarkdown = "marktext"
 myMusicPlayer = myTerm + " --class cmus,cmus -e cmus"
 myOfficeSuite = "desktopeditors"
 myPDFReader = "zathura"
 myTextEditor = "subl"
-myVideoPlayer = "celluloid"
+myVideoPlayer = "mpv --player-operation-mode=pseudo-gui --vo=gpu"
 #+END_SRC
 
 * KEYBINDINGS
-Here's a detailed table with my keybindings.
-Important: I like to use the Windows key as the Super key (which in the config file is known as ~mod4~).
+I'll leave some tables here to let you know the active keybindings and what they do.
+*Important:* I like to use the Windows key as the Mod key (which in the config file is known as ~M~).
 If for some weird reason you are one of those persons who likes to use the Alt key instead of the Super key, change the mod variable in the config file to ~mod1~.
 
+** MOUSE BINDINGS
+These are useful when you have a floating window that you want to resize or move around as you would on a normal floating window manager.
+
+| Keybinding                 | Action                 |
+|----------------------------+------------------------|
+| MODKEY + SCROLLWHEEL CLICK | Focus selected window  |
+| MODKEY + LEFT-CLICK        | Move selected window   |
+| MODKEY + RIGHT-CLICK       | Resize selected window |
+
+#+BEGIN_SRC python
+mouse = [
+	Drag("M-1", lazy.window.set_position_floating(),
+		start = lazy.window.get_position()),
+	Drag("M-3", lazy.window.set_size_floating(),
+		start  = lazy.window.get_size()),
+	Click("M-2", lazy.window.bring_to_front()),
+]
+#+END_SRC
+
 ** Qtile Controls
-| Keybinding           | Action                                                     |
-|----------------------+------------------------------------------------------------|
-| MODKEY + CONTROL + r | Restart Qtile                                              |
-| MODKEY + CONTROL + q | Quit Qtile                                                 |
+These are actions that have to do with tags, layouts, and windows.
 
-** Window Controls
-| MODKEY + SHIFT + j   | Swap with previous window                                  |
-| MODKEY + SHIFT + k   | Swap with next window                                      |
-| MODKEY + j           | Focus previous window                                      |
-| MODKEY + k           | Focus next window                                          |
-| MODKEY + f           | Floating toggle                                            |
-| MODKEY + s           | Fullscreen toogle                                          |
-| MODKEY + w           | Close the window                                           |
+*** GLOBAL
+| Keybinding           | Action        |
+|----------------------+---------------|
+| MODKEY + CONTROL + r | Restart Qtile |
+| MODKEY + CONTROL + q | Quit Qtile    |
 
-** Layout Controls
-| MODKEY + TAB         | Cycle through layouts                                      |
-| MODKEY + SHIFT + h   | Shrink window size                                         |
-| MODKEY + SHIFT + l   | Expand window size                                         |
-| MODKEY + h           | Shrink master pane width                                   |
-| MODKEY + l           | Grow master pane width                                     |
-| MODKEY + SHIFT + f   | Flip master pane side                                      |
-| MODKEY + SHIFT + n   | Normalize all windows size                                 |
-| MODKEY + n           | Normalize all slave windows size                           |
+*** WINDOW CONTROLS
+| Keybinding              | Action                    |
+|-------------------------+---------------------------|
+| MODKEY + SHIFT + j      | Swap with previous window |
+| MODKEY + SHIFT + k      | Swap with next window     |
+| MODKEY + j              | Focus previous window     |
+| MODKEY + k              | Focus next window         |
+| MODKEY + s              | Fullscreen toggle         |
+| MODKEY + w              | Close the window          |
+| MODKEY + f              | Floating toggle           |
 
-** Multi-Screen Focus
-| MODKEY + COMMA       | Focus the previous screen                                  |
-| MODKEY + PERIOD      | Focus the next screen                                      |
-| MODKEY + 1-9         | Focus to workspace (1-9)                                   |
-| MODKEY + SHIFT + 1-9 | Send window to workspace (1-9)                             |
+*** LAYOUT CONTROLS
+| Keybinding           | Action                           |
+|----------------------+----------------------------------|
+| MODKEY + SHIFT + f   | Flip master pane side            |
+| MODKEY + SHIFT + h   | Shrink window size               |
+| MODKEY + SHIFT + l   | Expand window size               |
+| MODKEY + SHIFT + n   | Normalize all windows size       |
+| MODKEY + Tab         | Cycle through layouts            |
+| MODKEY + h           | Shrink master pane width         |
+| MODKEY + l           | Grow master pane width           |
+| MODKEY + n           | Normalize all slave windows size |
 
-** System Controls
-| Keybinding            | Action                                |
-|-----------------------+---------------------------------------|
-| XF86AudioLowerVolume  | Decrease the volume                   |
-| XF86AudioMute         | Mute toggle                           |
-| XF86AudioRaiseVolume  | Increase the volume                   |
-| XF86MonBrightnessDown | Decrease the brightness               |
-| XF86MonBrightnessUp   | Increase the brightness               |
+*** MULTI-SCREEN FOCUS
+| Keybinding                     | Action                         |
+|--------------------------------+--------------------------------|
+| MODKEY + Comma                 | Focus the previous screen      |
+| MODKEY + Period                | Focus the next screen          |
+| MODKEY + 1-9                   | Focus to workspace (1-9)       |
+| MODKEY + SHIFT + 1-9           | Send window to workspace (1-9) |
+
+** SYSTEM CONTROLS
+They have to do with the volume and brightness levels.
+
+| Keybinding            | Action                  |
+|-----------------------+-------------------------|
+| XF86AudioLowerVolume  | Decrease the volume     |
+| XF86AudioMute         | Mute toggle             |
+| XF86AudioRaiseVolume  | Increase the volume     |
+| XF86MonBrightnessDown | Decrease the brightness |
+| XF86MonBrightnessUp   | Increase the brightness |
 
 *Advice*: If for some reason your keyboard doesn't have the brightness control keys, don't worry, I got you. I've set two alternative keybindings to control the brightness through your keyboard:
 
-| Keybinding | Action                                |
-|------------+---------------------------------------|
-| ALT + j    | Decrease the brightness               |
-| ALT + k    | Increase the brightness               |
+| Keybinding | Action                  |
+|------------+-------------------------|
+| ALT + j    | Decrease the brightness |
+| ALT + k    | Increase the brightness |
 
-** Applications Launcher
-| Keybinding                       | Action                                                                                            |
-|----------------------------------+---------------------------------------------------------------------------------------------------|
-| MODKEY + r                       | Run the application launcher ([[https://github.com/davatorium/rofi/blob/next/INSTALL.md][rofi]])  |
-| MODKEY + ALT + r                 | Launch the run prompt                                                                             |
-| ALT + Tab                        | Open the window switcher, like the one on Windows but better                                      |
-| MODKEY + RETURN (RETURN = ENTER) | Launch Terminal Emulator (It automatically detects your installed terminal)                       |
-| MODKEY + ALT + i                 | Launch Web Browser ([[https://brave.com/gek146][Brave Browser]])                                  |
-| MODKEY + e                       | Launch File Manager ([[https://wiki.lxde.org/en/PCManFM][PCManFM]])                               |
-| MODKEY + ALT + d                 | Launch Markdown Editor ([[https://marktext.app/][Mark Text]])                                     |
-| MODKEY + ALT + m                 | Launch Music Player ([[https://cmus.github.io/][cmus]])                                           |
-| MODKEY + ALT + o                 | Launch Office Suite ([[https://www.onlyoffice.com/download-desktop.aspx][OnlyOffice]])            |
-| MODKEY + ALT + p                 | Launch PDF Reader ([[https://pwmt.org/projects/zathura/][Zathura]])                               |
-| MODKEY + ALT + t                 | Launch Text Editor ([[https://www.sublimetext.com/docs/3/linux_repositories.html][Sublime Text]]) |
-| MODKEY + ALT + v                 | Launch Video Player ([[https://celluloid-player.github.io/installation.html][Celluloid]])         |
-| MODKEY + ALT + e                 | Launch Terminal-Based File Manager ([[https://github.com/vifm/vifm][vifm]])                       |
-| MODKEY + ALT + s                 | Launch ([[https://www.spotify.com/co/download/linux][Spotify]])                                   |
-| MODKEY + ALT + g                 | Launch ([[https://store.steampowered.com/about][Steam]])                                          |
+** APPLICATIONS LAUNCHER
+I have set some easy to remember keybindings for launching the most used applications I have on my system. Almost all of them begin with ~Windows + Alt~ and then a letter follows it. I selected the letters to be mnemonic (in most cases).
+
+| Keybinding                       | Action                                                       |
+|----------------------------------+--------------------------------------------------------------|
+| MODKEY + r                       | Run the application launcher ([[https://github.com/davatorium/rofi/blob/next/INSTALL.md][rofi]])                          |
+| MODKEY + ALT + r                 | Launch the run prompt                                        |
+| ALT + Tab                        | Open the window switcher, like the one on Windows but better |
+| MODKEY + RETURN (RETURN = ENTER) | Launch Terminal Emulator ([[https://alacritty.org/][Alacritty]])                         |
+| MODKEY + ALT + i                 | Launch Web Browser ([[https://brave.com/gek146][Brave Browser]])                           |
+| MODKEY + e                       | Launch File Manager ([[https://wiki.lxde.org/en/PCManFM][PCManFM]])                                |
+| MODKEY + ALT + d                 | Launch Markdown Editor ([[https://marktext.app/][Mark Text]])                           |
+| MODKEY + ALT + m                 | Launch Music Player ([[https://cmus.github.io/][cmus]])                                   |
+| MODKEY + ALT + o                 | Launch Office Suite ([[https://www.onlyoffice.com/download-desktop.aspx][OnlyOffice]])                             |
+| MODKEY + ALT + p                 | Launch PDF Reader ([[https://pwmt.org/projects/zathura/][Zathura]])                                  |
+| MODKEY + ALT + t                 | Launch Text Editor ([[https://www.sublimetext.com/docs/3/linux_repositories.html][Sublime Text]])                            |
+| MODKEY + ALT + v                 | Launch Video Player ([[https://mpv.io/][mpv]])                                    |
+| MODKEY + ALT + e                 | Launch Terminal-Based File Manager ([[https://github.com/vifm/vifm][vifm]])                    |
+| MODKEY + ALT + s                 | Launch ([[https://www.spotify.com/co/download/linux][Spotify]])                                             |
+| MODKEY + ALT + g                 | Launch ([[https://store.steampowered.com/about][Steam]])                                               |
 
 #+BEGIN_SRC python
 keys = [
-	# Qtile Controls
-	Key("M-C-r", lazy.restart(), desc="Restart Qtile"),
-	Key("M-C-q", lazy.shutdown(), desc="Quit Qtile"),
+	Key(
+		"M-C-r", lazy.restart(),
+		desc="Restart Qtile"),
+	Key(
+		"M-C-q", lazy.shutdown(),
+		desc="Quit Qtile"),
 
-	# Window Controls
-	Key("M-S-j", lazy.layout.shuffle_up(), desc="Swap with previous window"),
-	Key("M-S-k", lazy.layout.shuffle_down(), desc="Swap with next window"),
-	Key("M-j", lazy.group.prev_window(), desc="Focus previous window"),
-	Key("M-k", lazy.group.next_window(), desc="Focus next window"),
-	Key("M-f", lazy.window.toggle_floating(), desc="Floating toggle"),
-	Key("M-s", lazy.window.toggle_fullscreen(), desc="Fullscreen toogle"),
-	Key("M-w", lazy.window.kill(), desc="Close the window"),
+	Key(
+		"M-S-j", lazy.layout.shuffle_up(),
+		desc="Swap with previous window"),
+	Key(
+		"M-S-k", lazy.layout.shuffle_down(),
+		desc="Swap with next window"),
+	Key(
+		"M-j", lazy.group.prev_window(),
+		desc="Focus previous window"),
+	Key(
+		"M-k", lazy.group.next_window(),
+		desc="Focus next window"),
+	Key(
+		"M-s", lazy.window.toggle_fullscreen(),
+		desc="Fullscreen toogle"),
+	Key(
+		"M-w", lazy.window.kill(),
+		desc="Close the window"),
+	Key(
+		"M-f", lazy.window.toggle_floating(),
+		desc="Floating toggle"),
 
-	# Layout Controls
-	Key("M-<Tab>", lazy.next_layout(), desc="Cycle through layouts"),
-	Key("M-S-h", lazy.layout.shrink(), desc="Shrink window size"),
-	Key("M-S-l", lazy.layout.grow(), desc="Expand window size"),
-	Key("M-h", lazy.layout.shrink_main(), desc="Shrink master pane width"),
-	Key("M-l", lazy.layout.grow_main(), desc="Grow master pane width"),
-	Key("M-S-f", lazy.layout.flip(), desc="Flip master pane side"),
-	Key("M-S-n", lazy.layout.reset(), desc="Normalize all windows size"),
-	Key("M-n", lazy.layout.normalize(), desc="Normalize all slave windows size"),
+	Key(
+		"M-S-f", lazy.layout.flip(),
+		desc="Flip master pane side"),
+	Key(
+		"M-S-h", lazy.layout.shrink(),
+		desc="Shrink window size"),
+	Key(
+		"M-S-l", lazy.layout.grow(),
+		desc="Expand window size"),
+	Key(
+		"M-S-n", lazy.layout.reset(),
+		desc="Normalize all windows size"),
+	Key(
+		"M-<Tab>", lazy.next_layout(),
+		desc="Cycle through layouts"),
+	Key(
+		"M-h", lazy.layout.shrink_main(),
+		desc="Shrink master pane width"),
+	Key(
+		"M-l", lazy.layout.grow_main(),
+		desc="Grow master pane width"),
+	Key(
+		"M-n", lazy.layout.normalize(),
+		desc="Normalize all slave windows size"),
 
+	Key(
+		"M-<comma>", lazy.prev_screen(),
+		desc="Focus the previous screen"),
+	Key(
+		"M-<period>", lazy.next_screen(),
+		desc="Focus the next screen"),
 
-	# Multi-Screen Focus
-	Key("M-<comma>", lazy.prev_screen(), desc="Focus the previous screen"),
-	Key("M-<period>", lazy.next_screen(), desc="Focus the next screen"),
+	Key(
+		"<XF86AudioLowerVolume>", lazy.spawn("pamixer -u -d 5"),
+		desc="Decrease the volume"),
+	Key(
+		"<XF86AudioMute>", lazy.spawn("pamixer -t"),
+		desc="Mute toggle"),
+	Key(
+		"<XF86AudioRaiseVolume>", lazy.spawn("pamixer -u -i 5"),
+		desc="Increase the volume"),
+	Key(
+		"<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-"),
+		desc="Decrease the brightness"),
+	Key(
+		"<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set 10%+"),
+		desc="Increase the brightness"),
+	Key(
+		"A-j", lazy.spawn("brightnessctl set 10%-"),
+		desc="Decrease the brightness"),
+	Key(
+		"A-k", lazy.spawn("brightnessctl set 10%+"),
+		desc="Increase the brightness"),
 
-	# System Controls
-	Key("<XF86AudioLowerVolume>", lazy.spawn("pamixer -u -d 5"), desc="Decrease the volume"),
-	Key("<XF86AudioMute>", lazy.spawn("pamixer -t"), desc="Mute toggle"),
-	Key("<XF86AudioRaiseVolume>", lazy.spawn("pamixer -u -i 5"), desc="Increase the volume"),
-	Key("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl set 10%-"), desc="Decrease the brightness"),
-	Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl set 10%+"), desc="Increase the brightness"),
-	Key("A-j", lazy.spawn("brightnessctl set 10%-"), desc="Decrease the brightness"),
-	Key("A-k", lazy.spawn("brightnessctl set 10%+"), desc="Increase the brightness"),
-
-	# Applications Launcher
-	Key("M-r", lazy.spawn("rofi -show drun"), desc="Run the application launcher"),
-	Key("M-A-r", lazy.spawn("rofi -show run"), desc="Launch the run prompt"),
-	Key("A-<Tab>", lazy.spawn("rofi -show window"), desc="Open the window switcher"),
-	Key("M-<Return>", lazy.spawn(myTerm), desc="Launch " + myTerm),
-	Key("M-A-i", lazy.spawn(myBrowser), desc="Launch " + myBrowser),
-	Key("M-e", lazy.spawn(myFileManager), desc="Launch " + myFileManager),
-	Key("M-A-d", lazy.spawn(myMarkdown), desc="Launch " + myMarkdown),
-	Key("M-A-m", lazy.spawn(myMusicPlayer), desc="Launch " + myMusicPlayer),
-	Key("M-A-o", lazy.spawn(myOfficeSuite), desc="Launch " + myOfficeSuite),
-	Key("M-A-p", lazy.spawn(myPDFReader), desc="Launch " + myPDFReader),
-	Key("M-A-t", lazy.spawn(myTextEditor), desc="Launch " + myTextEditor),
-	Key("M-A-v", lazy.spawn(myVideoPlayer), desc="Launch " + myVideoPlayer),
-	Key("M-A-e", lazy.spawn(myTerm + " -e vifm"), desc="Launch " + myTerm + " -e vifm"),
-	Key("M-A-s", lazy.spawn("spotify"), desc="Launch spotify"),
-	Key("M-A-g", lazy.spawn("steam"), desc="Launch steam"),
+	Key(
+		"M-r", lazy.spawn("rofi -show drun"),
+		desc="Run the application launcher"),
+	Key(
+		"M-A-r", lazy.spawn("rofi -show run"),
+		desc="Launch the run prompt"),
+	Key(
+		"A-<Tab>", lazy.spawn("rofi -show window"),
+		desc="Open the window switcher"),
+	Key(
+		"M-<Return>", lazy.spawn(myTerm),
+		desc="Launch " + myTerm),
+	Key(
+		"M-A-i", lazy.spawn(myBrowser),
+		desc="Launch " + myBrowser),
+	Key(
+		"M-e", lazy.spawn(myFileManager),
+		desc="Launch " + myFileManager),
+	Key(
+		"M-A-d", lazy.spawn(myMarkdown),
+		desc="Launch " + myMarkdown),
+	Key(
+		"M-A-m", lazy.spawn(myMusicPlayer),
+		desc="Launch " + myMusicPlayer),
+	Key(
+		"M-A-o", lazy.spawn(myOfficeSuite),
+		desc="Launch " + myOfficeSuite),
+	Key(
+		"M-A-p", lazy.spawn(myPDFReader),
+		desc="Launch " + myPDFReader),
+	Key(
+		"M-A-t", lazy.spawn(myTextEditor),
+		desc="Launch " + myTextEditor),
+	Key(
+		"M-A-v", lazy.spawn(myVideoPlayer),
+		desc="Launch " + myVideoPlayer),
+	Key(
+		"M-A-e", lazy.spawn(myTerm + " -e vifm"),
+		desc="Launch " + myTerm + " -e vifm"),
+	Key(
+		"M-A-s", lazy.spawn("spotify"),
+		desc="Launch spotify"),
+	Key(
+		"M-A-g", lazy.spawn("steam"),
+		desc="Launch steam"),
 ]
 #+END_SRC
 
 * GROUPS
 For some reason Qtile decided to call them groups, but basically they are workspaces.
-Feel free to change the names and default layouts on the ~groups~ section. As another thing that I recently discovered in the last Qtile update, I have set some rules for certain windows to open in a specific groups. eg: Brave-browser will always open in the ~web~ workspace, celluloid will open in the ~media~ workspace... You get the idea. If you want to add more rules I strongly advice you to run: ~xprop WM_CLASS~.
+Feel free to change the names and default layouts on the ~groups~ section.
+
+As another thing that I recently discovered in the last Qtile update, I have set some rules for certain windows to open in a specific group. e.g. When you open your web browser you probably want to open it on the ~web~ workspace even if you are not there when you launch the program. I have set some "sane" defaults but as with everything, you are free to change them. 
+
+To add more rules run ~xprop WM_CLASS~ and click on the window you are interested on knowing its properties.
 
 #+BEGIN_SRC python
 groups = [
-	Group("web", layout="max", matches=[Match(wm_class=["Brave-browser", "Min"])]),
-	Group("dev", layout="monadtall", matches=[Match(wm_class=["Emacs", "jetbrains-idea", "Sublime_text"])]),
-	Group("sys", layout="monadtall", matches=[Match(wm_class=["Lxappearance", "Nitrogen"])]),
-	Group("doc", layout="monadtall", matches=[Match(wm_class=["DesktopEditors", "marktext", "Zathura"])]),
-	Group("chat", layout="max", matches=[Match(wm_class=["TelegramDesktop"])]),
-	Group("game", layout="floating"),
-	Group("media", layout="max", matches=[Match(wm_class=["cmus", "Geeqie"]), Match(title=["Celluloid"])]),
-	Group("gfx", layout="floating"),
+	Group(
+		"web",
+		layout="max",
+		matches=[Match(wm_class=["Brave-browser", "Min"])],
+	),
+	Group(
+		"dev",
+		layout="monadtall",
+		matches=[Match(wm_class=["Emacs", "jetbrains-idea", "Sublime_text"])],
+	),
+	Group(
+		"sys",
+		layout="monadtall",
+		matches=[Match(wm_class=["Lxappearance", "Nitrogen"])],
+	),
+	Group(
+		"doc",
+		layout="monadtall",
+		matches=[Match(wm_class=["DesktopEditors", "marktext", "Zathura"])],
+	),
+	Group(
+		"chat",
+		layout="max",
+		matches=[Match(wm_class=["TelegramDesktop"])],
+	),
+	Group(
+		"game",
+		layout="floating"
+	),
+	Group(
+		"media",
+		layout="max",
+		matches=[
+			Match(wm_class=["cmus", "Geeqie"]),
+			Match(title=["Celluloid"]),
+		],
+	),
+	Group(
+		"gfx",
+		layout="floating",
+	),
 ]
 
 for k, group in zip(["1", "2", "3", "4", "5", "6", "7", "8"], groups):
-	keys.append(Key("M-"+(k), lazy.group[group.name].toscreen()))
-	keys.append(Key("M-S-"+(k), lazy.window.togroup(group.name)))
+	keys.append(Key("M-" + (k), lazy.group[group.name].toscreen()))
+	keys.append(Key("M-S-" + (k), lazy.window.togroup(group.name)))
 #+END_SRC
 
 * LAYOUTS
-The layouts are how the windows are going to be positioned on the screen, on ~layout_theme~ you can set your own defaults.
-Also, on the ~layouts~ section you can uncomment the layouts you want to use and comment the ones you dont want to, as a bonus, I have noticed that the order they are written is the same order they will cycle when you are changing them on the go (by pressing the keybinding).
+The layouts are how the windows are going to be positioned on the screen.
+On the ~layouts~ section you can uncomment the layouts you want to use and comment the ones you dont want to, as a bonus, I have noticed that the order they are written is the same order they will cycle when you are changing them on the go (by pressing the keybinding).
 
 #+BEGIN_SRC python
 layout_theme = {
-	"border_focus": "#61AFEF",
-	"border_normal": "#848484",
+	"border_focus": "#4FA6ED",
+	"border_normal": "#535975",
 	"margin": 4,
 	"border_width": 2,
 }
 
 layouts = [
-	#layout.Bsp(**layout_theme),
-	#layout.Columns(**layout_theme),
-	#layout.Matrix(**layout_theme),
-	#layout.MonadWide(**layout_theme),
-	#layout.RatioTile(**layout_theme),
-	#layout.Slice(**layout_theme),
-	#layout.Stack(num_stacks=2),
-	#layout.Stack(stacks=2, **layout_theme),
-	#layout.Tile(shift_windows=True, **layout_theme),
-	#layout.VerticalTile(**layout_theme),
-	#layout.Zoomy(**layout_theme),
+	# layout.Bsp(**layout_theme),
+	# layout.Columns(**layout_theme),
+	# layout.Matrix(**layout_theme),
+	# layout.MonadWide(**layout_theme),
+	# layout.RatioTile(**layout_theme),
+	# layout.Slice(**layout_theme),
+	# layout.Stack(num_stacks=2),
+	# layout.Stack(stacks=2, **layout_theme),
+	# layout.Tile(shift_windows=True, **layout_theme),
+	# layout.VerticalTile(**layout_theme),
+	# layout.Zoomy(**layout_theme),
 	layout.Floating(**layout_theme),
 	layout.Max(**layout_theme),
 	layout.MonadTall(**layout_theme),
@@ -249,15 +398,17 @@ layouts = [
 A set of 9 colours to use in our panel, if you have your own set of colours, this is where you should put them.
 
 #+BEGIN_SRC python
-colours = [["#080808", "#080808"], # Background
-		   ["#FFFFFF", "#FFFFFF"], # Foreground
-		   ["#ABB2BF", "#ABB2BF"], # Grey Colour
-		   ["#E35374", "#E35374"],
-		   ["#89CA78", "#89CA78"],
-		   ["#F0C674", "#F0C674"],
-		   ["#61AFEF", "#61AFEF"],
-		   ["#D55FDE", "#D55FDE"],
-		   ["#2BBAC5", "#2BBAC5"]]
+colours = [
+	["#080808", "#080808"],  # Background
+	["#A0A8B7", "#A0A8B7"],  # Foreground
+	["#535965", "#535965"],  # Grey Colour
+	["#E55561", "#E55561"],
+	["#8EBD6B", "#8EBD6B"],
+	["#E2B86B", "#E2B86B"],
+	["#4FA6ED", "#4FA6ED"],
+	["#BF68D9", "#BF68D9"],
+	["#48B0BD", "#48B0BD"],
+]
 #+END_SRC
 
 * PROMPT
@@ -268,229 +419,243 @@ prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 #+END_SRC
 
 * WIDGETS
-This section configures what you'll see on the bar, the ~widget_defaults~ section has set to... well... the defaults for all the widgets that you will set. Next to it you'll find an array called ~widgets~, those are the widgets that are going to appear on the bar (or panel if you like to call it like that). The widget list that I have defined is mostly oriented to a laptop user. Feel free to add, remove or modify all the widgets that you want, make this config suitable to your needs and liking :). One thing really important, these widgets are going to appear on every screen connected to your computer, if you want a secondary list based on the one showed here, change it's name to something different (eg. ~secondary_widgets~) to avoid conflicts and remove or edit the wigets you want.
+This section configures what you'll see on the bar, the ~widget_defaults~ section has set to... well... the defaults for all the widgets that you will set. Next to it you'll find an array called ~widgets~, those are the widgets that are going to appear on the bar (or panel if you like to call it like that).
+
+The widget list that I have defined is mostly oriented to a laptop user. Feel free to add, remove or modify all the widgets that you want, make this config suitable to your needs and liking :). One thing really important, these widgets are going to appear on every screen connected to your computer, if you want a secondary list based on the one showed here, change it's name to something different (eg. ~secondary_widgets~) to avoid conflicts and remove or edit the wigets you want.
 
 #+BEGIN_SRC python
 widget_defaults = dict(
-	background = colours[0],
-	foreground = colours[1],
-	font = "SF Pro Text Regular",
-	fontsize = 12,
-	padding = 1,
+	background=colours[0],
+	foreground=colours[1],
+	font="SF Pro Text Regular",
+	fontsize=12,
+	padding=1,
 )
 
 extension_defaults = widget_defaults.copy()
 
 widgets = [
 	widget.Sep(
-		foreground = colours[0],
-		linewidth = 4,
+		foreground=colours[0],
+		linewidth=4,
 	),
 	widget.Image(
-		filename = "~/.config/qtile/py.png",
-		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("rofi -show drun")},
-		scale = True,
+		filename="~/.config/qtile/py.png",
+		mouse_callbacks={
+			"Button1": lambda: qtile.cmd_spawn("rofi -show drun")
+		},
+		scale=True,
 	),
 	widget.Sep(
-		foreground = colours[2],
-		linewidth = 1,
-		padding = 10,
+		foreground=colours[2],
+		linewidth=1,
+		padding=10,
 	),
 	widget.GroupBox(
-		active = colours[4],
-		inactive = colours[6],
-		other_current_screen_border = colours[5],
-		other_screen_border = colours[2],
-		this_current_screen_border = colours[7],
-		this_screen_border = colours[2],
-		urgent_border = colours[3],
-		urgent_text = colours[3],
-		disable_drag = True,
-		highlight_method = "text",
-		invert_mouse_wheel = True,
-		margin = 2,
-		padding = 0,
-		rounded = True,
-		urgent_alert_method = "text",
+		active=colours[4],
+		inactive=colours[6],
+		other_current_screen_border=colours[5],
+		other_screen_border=colours[2],
+		this_current_screen_border=colours[7],
+		this_screen_border=colours[2],
+		urgent_border=colours[3],
+		urgent_text=colours[3],
+		disable_drag=True,
+		highlight_method="text",
+		invert_mouse_wheel=True,
+		margin=2,
+		padding=0,
+		rounded=True,
+		urgent_alert_method="text",
 	),
 	widget.Sep(
-		foreground = colours[2],
-		linewidth = 1,
-		padding = 10,
+		foreground=colours[2],
+		linewidth=1,
+		padding=10,
 	),
 	widget.CurrentLayout(
-		foreground = colours[7],
-		font = "SF Pro Text Semibold",
+		foreground=colours[7],
+		font="SF Pro Text Semibold",
 	),
 	widget.Systray(
-		icon_size = 14,
-		padding = 4,
+		icon_size=14,
+		padding=4,
 	),
 	widget.Cmus(
-		noplay_color = colours[2],
-		play_color = colours[1],
+		noplay_color=colours[2],
+		play_color=colours[1],
 	),
 	widget.Sep(
-		foreground = colours[2],
-		linewidth = 1,
-		padding = 10,
+		foreground=colours[2],
+		linewidth=1,
+		padding=10,
 	),
 	widget.WindowName(
-		max_chars = 75,
+		max_chars=75,
 	),
 	widget.TextBox(
-		foreground = colours[3],
-		font = "SF Mono Regular",
-		fontsize = 14,
-		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")},
-		padding = 0,
-		text = " "
+		foreground=colours[3],
+		font="SF Mono Regular",
+		fontsize=14,
+		mouse_callbacks={
+			"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")
+		},
+		padding=0,
+		text=" ",
 	),
 	widget.CPU(
-		foreground = colours[3],
-		format = "{load_percent}%",
-		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")},
-		update_interval = 1.0,
+		foreground=colours[3],
+		format="{load_percent}%",
+		mouse_callbacks={
+			"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")
+		},
+		update_interval=1.0,
 	),
 	widget.Sep(
-		foreground = colours[2],
-		linewidth = 1,
-		padding = 10,
+		foreground=colours[2],
+		linewidth=1,
+		padding=10,
 	),
 	widget.TextBox(
-		foreground = colours[4],
-		font = "SF Mono Regular",
-		fontsize = 14,
-		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")},
-		padding = 0,
-		text = "﬙ ",
+		foreground=colours[4],
+		font="SF Mono Regular",
+		fontsize=14,
+		mouse_callbacks={
+			"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")
+		},
+		padding=0,
+		text="﬙ ",
 	),
 	widget.Memory(
-		foreground = colours[4],
-		format = "{MemUsed:.0f} MB",
-		mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")},
-		update_interval = 1.0,
+		foreground=colours[4],
+		format="{MemUsed:.0f} MB",
+		mouse_callbacks={
+			"Button1": lambda: qtile.cmd_spawn(myTerm + " -e ytop")
+		},
+		update_interval=1.0,
 	),
 	widget.Sep(
-		foreground = colours[2],
-		linewidth = 1,
-		padding = 10,
+		foreground=colours[2],
+		linewidth=1,
+		padding=10,
 	),
-	#widget.TextBox(
-	#	foreground = colours[5],
-	#	font = "SF Mono Regular",
-	#	fontsize = 12,
-	#	padding = 0,
-	#	text = " ",
-	#),
-	#widget.Backlight(
-	#	foreground = colours[5],
-	#	foreground_alert = colours[3],
-	#	backlight_name = "amdgpu_bl0", # ls /sys/class/backlight/
-	#	change_command = "brightnessctl set {0}",
-	#	step = 5,
-	#),
+	# widget.TextBox(
+	# 	foreground = colours[5],
+	# 	font = "SF Mono Regular",
+	# 	fontsize = 12,
+	# 	padding = 0,
+	# 	text = " ",
+	# ),
+	# widget.Backlight(
+	# 	foreground = colours[5],
+	# 	foreground_alert = colours[3],
+	# 	backlight_name = "amdgpu_bl0", # ls /sys/class/backlight/
+	# 	change_command = "brightnessctl set {0}",
+	# 	step = 5,
+	# ),
 	widget.TextBox(
-		foreground = colours[5],
-		font = "SF Mono Regular",
-		fontsize = 14,
-		padding = 0,
-		text = " ",
+		foreground=colours[5],
+		font="SF Mono Regular",
+		fontsize=14,
+		padding=0,
+		text=" ",
 	),
 	widget.CheckUpdates(
-		colour_have_updates = colours[5],
-		colour_no_updates = colours[5],
-		custom_command = "checkupdates",
-	#	custom_command = "dnf updateinfo -q --list",
-		display_format = "{updates} Updates",
-	#	execute = "pkexec /usr/bin/dnf up -y",
-		execute = "pkexec /usr/bin/pacman -Syu --noconfirm",
-		no_update_string = "Up to date!",
-		update_interval = 900,
+		colour_have_updates=colours[5],
+		colour_no_updates=colours[5],
+		custom_command="checkupdates",
+		# 	custom_command = "dnf updateinfo -q --list",
+		display_format="{updates} Updates",
+		# 	execute = "pkexec /usr/bin/dnf up -y",
+		execute="pkexec /usr/bin/pacman -Syu --noconfirm",
+		no_update_string="Up to date!",
+		update_interval=900,
 	),
 	widget.Sep(
-		foreground = colours[2],
-		linewidth = 1,
-		padding = 10,
+		foreground=colours[2],
+		linewidth=1,
+		padding=10,
 	),
 	widget.TextBox(
-		foreground = colours[6],
-		font = "SF Mono Regular",
-		fontsize = 14,
-		mouse_callbacks = ({
-			"Button1": lambda: qtile.cmd_spawn("pamixer -t"),
-			"Button3": lambda: qtile.cmd_spawn("pavucontrol"),
-			"Button4": lambda: qtile.cmd_spawn("pamixer -u -i 5"),
-			"Button5": lambda: qtile.cmd_spawn("pamixer -u -d 5"),
-		}),
-		padding = 0,
-		text = "墳 ",
+		foreground=colours[6],
+		font="SF Mono Regular",
+		fontsize=14,
+		mouse_callbacks=(
+			{
+				"Button1": lambda: qtile.cmd_spawn("pamixer -t"),
+				"Button3": lambda: qtile.cmd_spawn("pavucontrol"),
+				"Button4": lambda: qtile.cmd_spawn("pamixer -u -i 5"),
+				"Button5": lambda: qtile.cmd_spawn("pamixer -u -d 5"),
+			}
+		),
+		padding=0,
+		text="墳 ",
 	),
 	widget.PulseVolume(
-		foreground = colours[6],
-		update_interval = 0.1,
-		volume_app = "pavucontrol",
-		step = 5,
+		foreground=colours[6],
+		update_interval=0.1,
+		volume_app="pavucontrol",
+		step=5,
 	),
 	widget.Sep(
-		foreground = colours[2],
-		linewidth = 1,
-		padding = 10,
+		foreground=colours[2],
+		linewidth=1,
+		padding=10,
 	),
-	#widget.TextBox(
-	#	foreground = colours[7],
-	#	font = "SF Mono Regular",
-	#	fontsize = 14,
-	#	padding = 0,
-	#	text = "爵 ",
-	#),
-	#widget.Net(
-	#	foreground = colours[7],
-	#	format = "{down}  ",
-	#	interface = "enp1s0",
-	#),
+	# widget.TextBox(
+	# 	foreground = colours[7],
+	# 	font = "SF Mono Regular",
+	# 	fontsize = 14,
+	# 	padding = 0,
+	# 	text = "爵 ",
+	# ),
+	# widget.Net(
+	# 	foreground = colours[7],
+	# 	format = "{down}  ",
+	# 	interface = "enp1s0",
+	# ),
 	widget.Battery(
-		foreground = colours[7],
-		low_foreground = colours[3],
-		charge_char = " ",
-		discharge_char = " ",
-		empty_char = " ",
-		full_char = " ",
-		unknown_char = " ",
-		font = "SF Mono Regular",
-		fontsize = 14,
-		format = "{char}",
-		low_percentage = 0.15,
-		padding = 0,
-		show_short_text = False,
+		foreground=colours[7],
+		low_foreground=colours[3],
+		charge_char=" ",
+		discharge_char=" ",
+		empty_char=" ",
+		full_char=" ",
+		unknown_char=" ",
+		font="SF Mono Regular",
+		fontsize=14,
+		format="{char}",
+		low_percentage=0.15,
+		padding=0,
+		show_short_text=False,
 	),
 	widget.Battery(
-		foreground = colours[7],
-		low_foreground = colours[3],
-		format = "{percent:2.0%}",
-		low_percentage = 0.15,
-		notify_below = 15,
+		foreground=colours[7],
+		low_foreground=colours[3],
+		format="{percent:2.0%}",
+		low_percentage=0.15,
+		notify_below=15,
 	),
 	widget.Sep(
-		foreground = colours[2],
-		linewidth = 1,
-		padding = 10,
+		foreground=colours[2],
+		linewidth=1,
+		padding=10,
 	),
 	widget.TextBox(
-		foreground = colours[8],
-		font = "SF Mono Regular",
-		fontsize = 14,
-		padding = 0,
-		text = " ",
+		foreground=colours[8],
+		font="SF Mono Regular",
+		fontsize=14,
+		padding=0,
+		text=" ",
 	),
 	widget.Clock(
-		foreground = colours[8],
-		format = "%a %b %d  %I:%M %P    ",
+		foreground=colours[8],
+		format="%a %b %d  %I:%M %P    ",
 	),
-	#widget.StockTicker(
-	#	apikey = "AESKWL5CJVHHJKR5",
-	#	url = "https://www.alphavantage.co/query?"
-	#),
+	# widget.StockTicker(
+	# 	apikey = "AESKWL5CJVHHJKR5",
+	# 	url = "https://www.alphavantage.co/query?"
+	# ),
 ]
 #+END_SRC
 
@@ -502,33 +667,43 @@ The code that follows ~screens~ detect if other monitors are connected to your c
 #+BEGIN_SRC python
 status_bar = lambda widgets: bar.Bar(widgets, 18, opacity=1.0)
 
-screens = [Screen(top=status_bar(widgets), wallpaper="/usr/share/wallpapers/deepin/Overlooking_by_Lance_Asper.jpg", wallpaper_mode="stretch")]
+screens = [
+	Screen(
+		top=status_bar(widgets),
+		wallpaper="/usr/share/wallpapers/deepin/Overlooking_by_Lance_Asper.jpg",
+		wallpaper_mode="stretch",
+	)
+]
 
-connected_monitors = subprocess.run(
-	"xrandr | grep 'connected' | cut -d ' ' -f 2",
-	shell = True,
-	stdout = subprocess.PIPE,
-).stdout.decode("UTF-8").split("\n")[:-1].count("connected")
+connected_monitors = (
+	subprocess.run(
+		"xrandr | grep 'connected' | cut -d ' ' -f 2",
+		shell=True,
+		stdout=subprocess.PIPE,
+	)
+	.stdout.decode("UTF-8")
+	.split("\n")[:-1]
+	.count("connected")
+)
 
 if connected_monitors > 1:
 	for i in range(1, connected_monitors):
-		screens.append(Screen(top=status_bar(widgets), wallpaper="/usr/share/wallpapers/deepin/Overlooking_by_Lance_Asper.jpg", wallpaper_mode="stretch"))
+		screens.append(
+			Screen(
+				top=status_bar(widgets),
+				wallpaper="/usr/share/wallpapers/deepin/Overlooking_by_Lance_Asper.jpg",
+				wallpaper_mode="stretch",
+			)
+		)
 #+END_SRC
 
-* DRAG FLOATING WINDOWS
-Very descriptive title, if you want to change your current window to floating, press the mod key you've set and then the left click on the mouse. If you want to resize a window press the mod key followed by the right click on the mouse and drag the mouse to the direction you want to resize the window, hope that make sense, if not, sorry for my bad English. And lastly, if one of your floating windows is sitting on top of another one, place the cursor on the window that is below, press the mod key and the key of the scrolling wheel on your mouse in order to bring that window on top.
+** RULES
+Qtile has some settings that you can choose to change the behaviour of certain things. One of them is to focus always the window on which your mouse cursor is sitting on, to reconfigure al screens when an output change is detected, so on and so forth.
 
-After those mouse-key-bindings you will see something called ~floating_layout~, those are certain rules for windows that will always be floating. For example, when you click on a download button on your web browser you want that download dialog (the one that ask where to save the file) to be floating, or when you are moving files you want that little pop-up window that shows you the progress of the operation to be little and not be all weird and take all your screen. To add more rules run ~xprop WM_CLASS~ and click on the window you are interested on knowing its properties.
+Also, there are some windows that you want to always be floating. For example, when you click on a download button on your web browser you want that download dialog (the one that ask where to save the file) to be floating, or when you are moving files you want that little pop-up window that shows you the progress of the operation to be little and not be all weird and take all your screen. You can set more windows to be always floating on the ~float_rules~ section.
+
 
 #+BEGIN_SRC python
-mouse = [
-	Drag("M-1", lazy.window.set_position_floating(),
-		start = lazy.window.get_position()),
-	Drag("M-3", lazy.window.set_size_floating(),
-		start  = lazy.window.get_size()),
-	Click("M-2", lazy.window.bring_to_front()),
-]
-
 auto_fullscreen = True
 auto_minimize = True
 bring_front_click = False
@@ -544,11 +719,20 @@ floating_layout = layout.Floating(**layout_theme,
 		Match(wm_class="Arandr"),
 		Match(wm_class="Blueman-adapters"),
 		Match(wm_class="Blueman-manager"),
+		Match(wm_class="confirm"),
 		Match(wm_class="confirmreset"),
+		Match(wm_class="dialog"),
+		Match(wm_class="download"),
+		Match(wm_class="error"),
+		Match(wm_class="file_progress"),
+		Match(wm_class="Gnome-screenshot"),
 		Match(wm_class="makebranch"),
 		Match(wm_class="maketag"),
+		Match(wm_class="notification"),
 		Match(wm_class="Pavucontrol"),
+		Match(wm_class="splash"),
 		Match(wm_class="ssh-askpass"),
+		Match(wm_class="toolbar"),
 	]
 )
 focus_on_window_activation = "smart"
@@ -567,7 +751,18 @@ def cleanup():
 @hook.subscribe.shutdown
 def killall():
 	shutil.rmtree(os.path.expanduser("~/.config/qtile/__pycache__"))
-	subprocess.Popen(["killall","dunst","lxpolkit","picom"])
+	subprocess.Popen(
+		[
+			"killall",
+			"dunst",
+			"lxpolkit",
+			"picom",
+			"pipewire",
+			"pipewire-pulse",
+			"pipewire-media-",
+			"udiskie",
+		]
+	)
 
 @hook.subscribe.startup_complete
 def checkupdts():
@@ -576,9 +771,13 @@ def checkupdts():
 @hook.subscribe.startup_once
 def autostart():
 	subprocess.Popen(["dunst"])
+	#subprocess.Popen(["emacs","--daemon"])
 	subprocess.Popen(["lxpolkit"])
 	subprocess.Popen(["picom","-b"])
-	#subprocess.Popen(["emacs","--daemon"])
+	subprocess.Popen(["pipewire"])
+	subprocess.Popen(["pipewire-pulse"])
+	subprocess.Popen(["pipewire-media-session"])
+	subprocess.Popen(["udiskie","-asn","-f","pcmanfm"])
 #+END_SRC
 
 * WMNAME
