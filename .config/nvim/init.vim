@@ -135,8 +135,10 @@ EOF
 
 " navarasu/onedark.nvim
 lua <<EOF
-vim.g.onedark_style = 'darker'
-require('onedark').setup()
+require('onedark').setup {
+	style = 'darker'
+}
+require('onedark').load()
 EOF
 
 " norcalli/nvim-colorizer.lua

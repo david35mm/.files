@@ -11,7 +11,8 @@ vis.events.subscribe(
 		vis:command('set ignorecase on')
 		vis:command('set syntax on')
 		vis:command('set theme base16-onedark')
-	end)
+	end
+)
 
 vis.events.subscribe(
 	vis.events.WIN_OPEN, function(win)
@@ -19,4 +20,5 @@ vis.events.subscribe(
 		-- vis:command('set number')
 		vis:command('set cursorline')
 		vis:command('set relativenumbers')
-	end)
+	end
+)

@@ -44,7 +44,7 @@ starship init fish | source
 if [ "$TERM" = "linux" ]
 	printf %b '\e[40m' '\e[8]' # set default background to color 0
 	printf %b '\e[37m' '\e[8]' # set default foreground to color 7
-	printf %b '\e]P0080808'    # redefine 'bg'
+	printf %b '\e]P01f2329'    # redefine 'bg'
 	printf %b '\e]P87a818e'    # redefine 'comment'
 	printf %b '\e]P1e55561'    # redefine 'red'
 	printf %b '\e]P9e55561'    # redefine 'bright-red'

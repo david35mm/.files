@@ -25,7 +25,9 @@
 -- filetype, leading to an infinite loop.
 vis.events.subscribe(
 	vis.events.WIN_OPEN, function(win)
-		if settings == nil then return end
+		if settings == nil then
+			return
+		end
 		local window_settings = settings[win.syntax]
 
 		if type(window_settings) == "table" then
@@ -35,4 +37,5 @@ vis.events.subscribe(
 		elseif type(window_settings) == "function" then
 			window_settings(win)
 		end
-	end)
+	end
+)

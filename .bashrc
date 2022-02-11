@@ -12,35 +12,35 @@ eval "$(starship init bash)"
 
 # Set tty colours
 if [ "$TERM" = "linux" ]; then
-	printf %b '\e[40m' '\e[8]' # set default background to color 0
-	printf %b '\e[37m' '\e[8]' # set default foreground to color 7
-	printf %b '\e]P0080808' # redefine 'bg'
-	printf %b '\e]P87a818e' # redefine 'comment'
-	printf %b '\e]P1e55561' # redefine 'red'
-	printf %b '\e]P9e55561' # redefine 'bright-red'
-	printf %b '\e]P28ebd6b' # redefine 'green'
-	printf %b '\e]PA8ebd6b' # redefine 'bright-green'
-	printf %b '\e]P3cc9057' # redefine 'brown'
-	printf %b '\e]PBe2b86b' # redefine 'yellow'
-	printf %b '\e]P44fa6ed' # redefine 'blue'
-	printf %b '\e]PC4fa6ed' # redefine 'bright-blue'
-	printf %b '\e]P5bf68d9' # redefine 'magenta'
-	printf %b '\e]PDbf68d9' # redefine 'bright-magenta'
-	printf %b '\e]P648b0bd' # redefine 'cyan'
-	printf %b '\e]PE48b0bd' # redefine 'bright-cyan'
-	printf %b '\e]P7a0a8b7' # redefine 'fg'
-	printf %b '\e]PFa0a8b7' # redefine 'white'
-	clear
+  printf %b '\e[40m' '\e[8]' # set default background to color 0
+  printf %b '\e[37m' '\e[8]' # set default foreground to color 7
+  printf %b '\e]P01f2329' # redefine 'bg'
+  printf %b '\e]P87a818e' # redefine 'comment'
+  printf %b '\e]P1e55561' # redefine 'red'
+  printf %b '\e]P9e55561' # redefine 'bright-red'
+  printf %b '\e]P28ebd6b' # redefine 'green'
+  printf %b '\e]PA8ebd6b' # redefine 'bright-green'
+  printf %b '\e]P3cc9057' # redefine 'brown'
+  printf %b '\e]PBe2b86b' # redefine 'yellow'
+  printf %b '\e]P44fa6ed' # redefine 'blue'
+  printf %b '\e]PC4fa6ed' # redefine 'bright-blue'
+  printf %b '\e]P5bf68d9' # redefine 'magenta'
+  printf %b '\e]PDbf68d9' # redefine 'bright-magenta'
+  printf %b '\e]P648b0bd' # redefine 'cyan'
+  printf %b '\e]PE48b0bd' # redefine 'bright-cyan'
+  printf %b '\e]P7a0a8b7' # redefine 'fg'
+  printf %b '\e]PFa0a8b7' # redefine 'white'
+  clear
 fi
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+  . /etc/bashrc
 fi
 
 # User specific environment
 if ! [[ $PATH =~ "$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:"   ]]; then
-	PATH="$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:$PATH"
+  PATH="$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:$PATH"
 fi
 export PATH
 
@@ -50,38 +50,38 @@ export PATH
 # User specific aliases and functions
 
 ex()  {
-	if [ -f "$1" ]; then
-		case "$1" in
-			*.7z) 7z x "$1"    ;;
-			*.bz2) tar xjf "$1" ;;
-			*.deb) ar x "$1"   ;;
-			*.gz) tar xzf "$1" ;;
-			*.rar) unrar x "$1" ;;
-			*.tar) tar xf "$1" ;;
-			*.tar.bz2) tar xjf "$1" ;;
-			*.tar.gz) tar xzf "$1" ;;
-			*.tar.xz) tar xJf "$1" ;;
-			*.tar.zst) unzstd "$1" ;;
-			*.tbz2) tar xjf "$1" ;;
-			*.tgz) tar xzf "$1" ;;
-			*.Z) uncompress "$1" ;;
-			*.zip) unzip "$1"  ;;
-			*) echo -e "\033[0;31m[ex error] => \033[0;33m$1 \033[0mis not" \
-				"a valid archive.\n\n\033[0;34mex() \033[0mcan can only" \
-				"extract the following archives:\n\t.7z\n\t.bz2\n\t.deb" \
-				"\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz" \
-				"\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\nRun\033[0;34m" \
-				"ex() \033[0musing one of the archives supported.\n" ;;
-		esac
-	else
-		echo -e "\033[0;31m[ex error] => \033[0mFile not given." \
-			"\n\n\033[0;34mex() \033[0mis an archive extractor. You need to" \
-			"add a \033[0;33m<path_to/filename> \033[0mwith one of the" \
-			"following extensions:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar" \
-			"\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2" \
-			"\n\t.tgz\n\t.Z\n\t.zip\n\ne.g.\033[0;34m ex" \
-			"\033[0;33m~/Downloads/compressed.tar.xz\n"
-	fi
+  if [ -f "$1" ]; then
+    case "$1" in
+      *.7z) 7z x "$1"    ;;
+      *.bz2) tar xjf "$1" ;;
+      *.deb) ar x "$1"   ;;
+      *.gz) tar xzf "$1" ;;
+      *.rar) unrar x "$1" ;;
+      *.tar) tar xf "$1" ;;
+      *.tar.bz2) tar xjf "$1" ;;
+      *.tar.gz) tar xzf "$1" ;;
+      *.tar.xz) tar xJf "$1" ;;
+      *.tar.zst) unzstd "$1" ;;
+      *.tbz2) tar xjf "$1" ;;
+      *.tgz) tar xzf "$1" ;;
+      *.Z) uncompress "$1" ;;
+      *.zip) unzip "$1"  ;;
+      *) echo -e "\033[0;31m[ex error] => \033[0;33m$1 \033[0mis not" \
+        "a valid archive.\n\n\033[0;34mex() \033[0mcan can only" \
+        "extract the following archives:\n\t.7z\n\t.bz2\n\t.deb" \
+        "\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz" \
+        "\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\nRun\033[0;34m" \
+      "ex() \033[0musing one of the archives supported.\n" ;;
+    esac
+  else
+    echo -e "\033[0;31m[ex error] => \033[0mFile not given." \
+    "\n\n\033[0;34mex() \033[0mis an archive extractor. You need to" \
+    "add a \033[0;33m<path_to/filename> \033[0mwith one of the" \
+    "following extensions:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar" \
+    "\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2" \
+    "\n\t.tgz\n\t.Z\n\t.zip\n\ne.g.\033[0;34m ex" \
+    "\033[0;33m~/Downloads/compressed.tar.xz\n"
+  fi
 }
 
 # Ignore upper and lowercase when TAB completion

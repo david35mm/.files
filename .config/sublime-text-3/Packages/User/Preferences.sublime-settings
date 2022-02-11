@@ -12,5 +12,5 @@
 	"show_line_endings": true,
 	"theme": "Spacegray.sublime-theme",
 	"rulers": [80],
-	"color_scheme": "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme",
+	"color_scheme": "Packages/Theme - TwoDark/TwoDark.tmTheme",
 }
