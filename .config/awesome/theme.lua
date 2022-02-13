@@ -1,14 +1,14 @@
 local theme = {}
 
-theme.colour_black = "#080808" -- Background
-theme.colour_white = "#a0a8b7" -- Foreground
+theme.colour_black = "#0E1013" -- Background
+theme.colour_white = "#DCDCDC" -- Foreground
 theme.colour_grey = "#535965" -- Grey Colour
 theme.colour_red = "#E55561"
 theme.colour_green = "#8EBD6B"
 theme.colour_yellow = "#E2B86B"
 theme.colour_blue = "#4FA6ED"
 theme.colour_purple = "#BF68D9"
-theme.colour_cyan = "#48b0bd"
+theme.colour_cyan = "#48B0BD"
 
 -- Default variables
 theme.bg_normal = theme.colour_black

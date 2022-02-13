@@ -5,9 +5,9 @@
 ! ------------------------------------------------------------------------------
 
 ! special
-*.foreground:   #a0a8b7
-*.background:   #080808
-*.cursorColor:  #a0a8b7
+*.foreground:   #e6e6e6
+*.background:   #0e1013
+*.cursorColor:  #e6e6e6
 
 ! black
 *.color0:       #535965
@@ -38,8 +38,8 @@
 *.color14:      #48b0bd
 
 ! white
-*.color7:       #7a818e
-*.color15:      #a0a8b7
+*.color7:       #a0a8b7
+*.color15:      #e6e6e6
 
 ! XTerm Settings
 XTerm*loginShell: true

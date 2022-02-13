@@ -235,8 +235,8 @@ layouts = [
 ]
 
 colours = [
-	["#080808", "#080808"],  # Background
-	["#A0A8B7", "#A0A8B7"],  # Foreground
+	["#0E1013", "#0E1013"],  # Background
+	["#DCDCDC", "#DCDCDC"],  # Foreground
 	["#535965", "#535965"],  # Grey Colour
 	["#E55561", "#E55561"],
 	["#8EBD6B", "#8EBD6B"],
