@@ -4,22 +4,22 @@
 local lexers = vis.lexers
 
 local colors = {
-	['base00'] = '#282c34',
-	['base01'] = '#353b45',
-	['base02'] = '#3e4451',
-	['base03'] = '#545862',
-	['base04'] = '#565c64',
-	['base05'] = '#abb2bf',
-	['base06'] = '#b6bdca',
-	['base07'] = '#c8ccd4',
-	['base08'] = '#e06c75',
-	['base09'] = '#d19a66',
-	['base0A'] = '#e5c07b',
-	['base0B'] = '#98c379',
-	['base0C'] = '#56b6c2',
-	['base0D'] = '#61afef',
-	['base0E'] = '#c678dd',
-	['base0F'] = '#be5046',
+  ['base00'] = '#282c34',
+  ['base01'] = '#353b45',
+  ['base02'] = '#3e4451',
+  ['base03'] = '#545862',
+  ['base04'] = '#565c64',
+  ['base05'] = '#abb2bf',
+  ['base06'] = '#b6bdca',
+  ['base07'] = '#c8ccd4',
+  ['base08'] = '#e06c75',
+  ['base09'] = '#d19a66',
+  ['base0A'] = '#e5c07b',
+  ['base0B'] = '#98c379',
+  ['base0C'] = '#56b6c2',
+  ['base0D'] = '#61afef',
+  ['base0E'] = '#c678dd',
+  ['base0F'] = '#be5046',
 }
 
 lexers.colors = colors
@@ -52,13 +52,13 @@ lexers.STYLE_IDENTIFIER = 'fore:' .. colors.base08
 lexers.STYLE_LINENUMBER = 'fore:' .. colors.base02 .. ',back:' .. colors.base00
 lexers.STYLE_CURSOR = 'fore:' .. colors.base00 .. ',back:' .. colors.base05
 lexers.STYLE_CURSOR_PRIMARY = 'fore:' .. colors.base00 .. ',back:'
-								  .. colors.base05
+                                .. colors.base05
 lexers.STYLE_CURSOR_LINE = 'back:' .. colors.base01
 lexers.STYLE_COLOR_COLUMN = 'back:' .. colors.base01
 lexers.STYLE_SELECTION = 'back:' .. colors.base02
 lexers.STYLE_STATUS = 'fore:' .. colors.base04 .. ',back:' .. colors.base01
 lexers.STYLE_STATUS_FOCUSED = 'fore:' .. colors.base09 .. ',back:'
-								  .. colors.base01
+                                .. colors.base01
 lexers.STYLE_SEPARATOR = lexers.STYLE_DEFAULT
 lexers.STYLE_INFO = 'fore:default,back:default,bold'
 lexers.STYLE_EOF = ''
