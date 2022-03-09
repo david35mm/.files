@@ -1,20 +1,20 @@
 local theme = {}
 
-theme.colour_black = "#0E1013" -- Background
-theme.colour_white = "#DCDCDC" -- Foreground
+theme.colour_black = "#181b20" -- Background
+theme.colour_white = "#e6e6e6" -- Foreground
 theme.colour_grey = "#535965" -- Grey Colour
-theme.colour_red = "#E55561"
-theme.colour_green = "#8EBD6B"
-theme.colour_yellow = "#E2B86B"
-theme.colour_blue = "#4FA6ED"
-theme.colour_purple = "#BF68D9"
-theme.colour_cyan = "#48B0BD"
+theme.colour_red = "#e55561"
+theme.colour_green = "#8ebd6b"
+theme.colour_yellow = "#e2b86b"
+theme.colour_blue = "#4fa6ed"
+theme.colour_purple = "#bf68d9"
+theme.colour_cyan = "#48b0bd"
 
 -- Default variables
 theme.bg_normal = theme.colour_black
 theme.fg_normal = theme.colour_white
 theme.useless_gap = 2
-theme.font = "SF Pro Text 10"
+theme.font = "Roboto 10"
 -- theme.bg_focus = nil
 -- theme.bg_urgent = nil
 -- theme.bg_minimize = nil
@@ -126,7 +126,7 @@ theme.hotkeys_border_color = theme.border_focus
 theme.hotkeys_modifiers_fg = theme.colour_grey
 -- theme.hotkeys_label_bg = nil
 -- theme.hotkeys_label_fg = nil
-theme.hotkeys_font = "SF Mono 10"
+theme.hotkeys_font = "Iosevka 10"
 theme.hotkeys_description_font = theme.font
 -- theme.hotkeys_group_margin = nil
 
