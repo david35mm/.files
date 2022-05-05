@@ -14,7 +14,7 @@ eval "$(starship init bash)"
 if [ "$TERM" = "linux" ]; then
   printf %b '\e[40m' '\e[8]' # set default background to color 0
   printf %b '\e[37m' '\e[8]' # set default foreground to color 7
-  printf %b '\e]P00e1013' # redefine 'bg'
+  printf %b '\e]P0181b20' # redefine 'bg'
   printf %b '\e]P87a818e' # redefine 'comment'
   printf %b '\e]P1e55561' # redefine 'red'
   printf %b '\e]P9e55561' # redefine 'bright-red'
@@ -28,8 +28,8 @@ if [ "$TERM" = "linux" ]; then
   printf %b '\e]PDbf68d9' # redefine 'bright-magenta'
   printf %b '\e]P648b0bd' # redefine 'cyan'
   printf %b '\e]PE48b0bd' # redefine 'bright-cyan'
-  printf %b '\e]P7dcdcdc' # redefine 'fg'
-  printf %b '\e]PFa0a8b7' # redefine 'white'
+  printf %b '\e]P7a0a8b7' # redefine 'fg'
+  printf %b '\e]PFe6e6e6' # redefine 'white'
   clear
 fi
 

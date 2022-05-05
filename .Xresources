@@ -5,12 +5,12 @@
 ! ------------------------------------------------------------------------------
 
 ! special
-*.foreground:   #e6e6e6
-*.background:   #0e1013
-*.cursorColor:  #e6e6e6
+*.foreground:   #a0a8b7
+*.background:   #181b20
+*.cursorColor:  #a0a8b7
 
 ! black
-*.color0:       #535965
+*.color0:       #181b20
 *.color8:       #535965
 
 ! red

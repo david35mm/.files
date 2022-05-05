@@ -1,109 +1,57 @@
 {
-	font-family: SF Pro Text;
-	font-size: 12px;
-	min-height: 0;
-	padding: 0 1px;
+  font-family: "Roboto Nerd Font";
+  font-size: 12px;
+  min-height: 0;
+  padding: 0 1px;
 }
 
 window#waybar {
-	background-color: #080808;
-	color: #A0A8B7;
-	transition-property: background-color;
-	transition-duration: .5s;
+  background: #181b20;
+  color: #e6e6e6;
+  transition-duration: .5s;
+  transition-property: background-color;
 }
 
 #workspaces {
-	padding: 0 0;
-	margin: 0 2px;
-}
-
-#workspaces button {
-	color: #4FA6ED;
+  margin: 0 2px;
+  padding: 0;
 }
 
 #workspaces button:hover {
-	box-shadow: inset 0 -3px #8EBD6B;
-}
-
-#workspaces button.focused {
-	color: #8EBD6B;
-}
-
-#workspaces button.urgent {
-	color: #E35374;
+  box-shadow: inset 0 -3px #8ebd6b;
 }
 
 #custom-sep {
-	color: #FFF;
-	padding: 0 4px
-}
-
-#cpu {
-	color: #E35374;
-}
-
-#cpu.icon {
-	font-family: SF Mono;
-	font-size: 14;
-	padding: 0 0;
-}
-
-#backlight.icon {
-	font-family: SF Mono;
-	font-size: 14;
-	padding: 0 0;
-}
-
-#backlight {
-	color: #E2B86B;
-}
-
-#custom-memory {
-	color: #8EBD6B;
-}
-
-#custom-memory.icon {
-	font-family: SF Mono;
-	font-size: 14;
-	padding: 0 0;
-}
-
-#custom-pacman, #custom-dnf {
-	color: #E2B86B;
-}
-
-#custom-pacman.icon, #custom-dnf.icon {
-	font-family: SF Mono;
-	font-size: 14;
-	padding: 0 0;
-}
-
-#pulseaudio {
-	color: #4FA6ED;
-}
-
-#pulseaudio.icon {
-	font-family: SF Mono;
-	font-size: 14;
-	padding: 0 0;
+  color: #535965;
+  padding: 0 4px;
 }
 
 #battery {
-	color: #BF68D9;
-}
-
-#battery.icon {
-	font-family: SF Mono;
-	font-size: 14;
-	padding: 0 0;
+  color: #bf68d9;
 }
 
 #clock {
-	color: #48B0BD;
+  color: #48b0bd;
 }
 
-#clock.icon {
-	font-family: SF Mono;
-	font-size: 14;
-	padding: 0 0;
+#workspaces button,#pulseaudio {
+  color: #4fa6ed;
+}
+
+#workspaces button.focused,#custom-memory {
+  color: #8ebd6b;
+}
+
+#workspaces button.urgent,#cpu {
+  color: #e55561;
+}
+
+#cpu.icon,#backlight.icon,#custom-memory.icon,#custom-pacman.icon,#custom-dnf.icon,#pulseaudio.icon,#battery.icon,#clock.icon {
+  font-family: "Iosevka david35mm";
+  font-size: 14px;
+  padding: 0;
+}
+
+#backlight,#custom-pacman,#custom-dnf {
+  color: #e2b86b;
 }

@@ -44,13 +44,13 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 my_term = "alacritty"
 my_browser = "brave"
-my_file_manager = "pcmanfm"
+my_file_manager = "pcmanfm-qt"
 my_markdown = "marktext"
 my_music_player = my_term .. " --class cmus,cmus -e cmus"
 my_office_suite = "desktopeditors"
 my_pdf_reader = "zathura"
 my_text_editor = "subl"
-my_video_player = "mpv --player-operation-mode=pseudo-gui --vo=gpu"
+my_video_player = "celluloid"
 
 M = "Mod4"
 A = "Mod1"
@@ -163,7 +163,7 @@ awful.screen.connect_for_each_screen(
 
         s.start = wibox.widget {
             markup = "<span foreground='" .. beautiful.colour_blue 
-                .. "'>  </span>",
+                .. "'>  </span>",
             widget = wibox.widget.textbox,
         }
 
@@ -197,7 +197,7 @@ awful.screen.connect_for_each_screen(
                 .. "/widgets/memory.sh", 2,
             function(widget, stdout)
                 widget:set_markup_silently(
-                    "<span foreground='" .. beautiful.colour_green .. "'>﬙  "
+                    "<span foreground='" .. beautiful.colour_green .. "'>﬙ "
                         .. stdout .. "</span>")
             end)
 
@@ -213,7 +213,7 @@ awful.screen.connect_for_each_screen(
                 .. "/widgets/updates.sh", 900,
             function(widget, stdout)
                 widget:set_markup_silently(
-                    "<span foreground='" .. beautiful.colour_yellow .. "'>  "
+                    "<span foreground='" .. beautiful.colour_yellow .. "'> "
                         .. stdout .. "</span>")
             end)
 
@@ -221,8 +221,8 @@ awful.screen.connect_for_each_screen(
             gears.table.join(
                 awful.button({}, 1, function()
                     awful.spawn.easy_async(
-                        "pkexec /usr/bin/pacman -Syu --noconfirm --needed",
-                        function() end)
+                        gears.filesystem.get_configuration_dir()
+                            .. "update_system.sh", function() end)
                 end),
                 awful.button({}, 3, function()
                     awful.spawn.easy_async(
@@ -276,7 +276,7 @@ awful.screen.connect_for_each_screen(
 
         s.sep = wibox.widget {
             markup = "<span foreground='" .. beautiful.colour_grey 
-                .. "'> │ </span>",
+                .. "'>  |  </span>",
             widget = wibox.widget.textbox,
         }
 
@@ -291,7 +291,7 @@ awful.screen.connect_for_each_screen(
 
         s.clock = wibox.widget {
             format = "<span foreground='" .. beautiful.colour_cyan .. "'>"
-                .. "  %a %b %d  %I:%M %P    " .. "</span>",
+                .. " %a %b %d  %I:%M %P    " .. "</span>",
             widget = wibox.widget.textclock,
         }
 
@@ -668,7 +668,7 @@ client.connect_signal(
 -- awful.spawn.easy_async("emacs --daemon", function() end)
 awful.spawn.easy_async("lxpolkit", function() end)
 awful.spawn.easy_async("picom -b", function() end)
-awful.spawn.easy_async("pipewire", function() end)
-awful.spawn.easy_async("pipewire-pulse", function() end)
-awful.spawn.easy_async("pipewire-media-session", function() end)
-awful.spawn.easy_async("udiskie -asn -f pcmanfm", function() end)
+-- awful.spawn.easy_async("pipewire", function() end)
+-- awful.spawn.easy_async("pipewire-pulse", function() end)
+-- awful.spawn.easy_async("wireplumber", function() end)
+awful.spawn.easy_async("udiskie -asn -f pcmanfm-qt", function() end)

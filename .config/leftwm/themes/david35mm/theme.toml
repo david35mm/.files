@@ -1,5 +1,5 @@
 border_width = 2
 margin = 4
-default_border_color = "#848484"
-floating_border_color = "#61AFEF"
-focused_border_color = "#61AFEF"
+default_border_color = "#535965"
+floating_border_color = "#4fa6ed"
+focused_border_color = "#4fa6ed"

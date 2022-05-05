@@ -211,89 +211,89 @@ vis.ftdetect.filetypes = {
 }
 
 vis.events.subscribe(
-  vis.events.WIN_OPEN, function(win)
+    vis.events.WIN_OPEN, function(win)
 
-    local set_filetype = function(syntax, filetype)
-      for _, cmd in pairs(filetype.cmd or {}) do
-        vis:command(cmd)
+      local set_filetype = function(syntax, filetype)
+        for _, cmd in pairs(filetype.cmd or {}) do
+          vis:command(cmd)
+        end
+        win:set_syntax(syntax)
       end
-      win:set_syntax(syntax)
-    end
 
-    local name = win.file.name
-    -- remove ignored suffixes from filename
-    local sanitizedfn = name
-    if sanitizedfn ~= nil then
-      sanitizedfn = sanitizedfn:gsub('^.*/', '')
-      repeat
-        local changed = false
-        for _, pattern in pairs(vis.ftdetect.ignoresuffixes) do
-          local start = sanitizedfn:find(pattern)
-          if start then
-            sanitizedfn = sanitizedfn:sub(1, start - 1)
-            changed = true
+      local name = win.file.name
+      -- remove ignored suffixes from filename
+      local sanitizedfn = name
+      if sanitizedfn ~= nil then
+        sanitizedfn = sanitizedfn:gsub('^.*/', '')
+        repeat
+          local changed = false
+          for _, pattern in pairs(vis.ftdetect.ignoresuffixes) do
+            local start = sanitizedfn:find(pattern)
+            if start then
+              sanitizedfn = sanitizedfn:sub(1, start - 1)
+              changed = true
+            end
+          end
+        until not changed
+      end
+
+      -- detect filetype by filename ending with a configured extension
+      if sanitizedfn ~= nil then
+        for lang, ft in pairs(vis.ftdetect.filetypes) do
+          for _, pattern in pairs(ft.ext or {}) do
+            if sanitizedfn:match(pattern) then
+              set_filetype(lang, ft)
+              return
+            end
           end
         end
-      until not changed
-    end
-
-    -- detect filetype by filename ending with a configured extension
-    if sanitizedfn ~= nil then
-      for lang, ft in pairs(vis.ftdetect.filetypes) do
-        for _, pattern in pairs(ft.ext or {}) do
-          if sanitizedfn:match(pattern) then
-            set_filetype(lang, ft)
-            return
-          end
-        end
       end
-    end
 
-    -- run file(1) to determine mime type
-    local mime
-    if name ~= nil then
-      local file = io.popen(
-        string.format(
-          "file -bL --mime-type -- '%s'", name:gsub("'", "'\\''")
+      -- run file(1) to determine mime type
+      local mime
+      if name ~= nil then
+        local file = io.popen(
+            string.format(
+                "file -bL --mime-type -- '%s'", name:gsub("'", "'\\''")
+            )
         )
-      )
-      if file then
-        mime = file:read('*all')
-        file:close()
-        if mime then
-          mime = mime:gsub('%s*$', '')
-        end
-        if mime and #mime > 0 then
-          for lang, ft in pairs(vis.ftdetect.filetypes) do
-            for _, ft_mime in pairs(ft.mime or {}) do
-              if mime == ft_mime then
-                set_filetype(lang, ft)
-                return
+        if file then
+          mime = file:read('*all')
+          file:close()
+          if mime then
+            mime = mime:gsub('%s*$', '')
+          end
+          if mime and #mime > 0 then
+            for lang, ft in pairs(vis.ftdetect.filetypes) do
+              for _, ft_mime in pairs(ft.mime or {}) do
+                if mime == ft_mime then
+                  set_filetype(lang, ft)
+                  return
+                end
               end
             end
           end
         end
       end
-    end
 
-    -- pass first few bytes of file to custom file type detector functions
-    local file = win.file
-    local data = file:content(0, 256)
-    if data and #data > 0 then
-      for lang, ft in pairs(vis.ftdetect.filetypes) do
-        if type(ft.detect) == 'function' and ft.detect(file, data) then
-          set_filetype(lang, ft)
-          return
+      -- pass first few bytes of file to custom file type detector functions
+      local file = win.file
+      local data = file:content(0, 256)
+      if data and #data > 0 then
+        for lang, ft in pairs(vis.ftdetect.filetypes) do
+          if type(ft.detect) == 'function' and ft.detect(file, data) then
+            set_filetype(lang, ft)
+            return
+          end
         end
       end
-    end
 
-    -- try text lexer as a last resort
-    if (mime or 'text/plain'):match('^text/.+$') then
-      set_filetype('text', vis.ftdetect.filetypes.text)
-      return
-    end
+      -- try text lexer as a last resort
+      if (mime or 'text/plain'):match('^text/.+$') then
+        set_filetype('text', vis.ftdetect.filetypes.text)
+        return
+      end
 
-    win:set_syntax(nil)
-  end
+      win:set_syntax(nil)
+    end
 )

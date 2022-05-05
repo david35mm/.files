@@ -206,14 +206,14 @@ exec_always {
 	gsettings set $gnome-schema gtk-theme "Plata-Noir-Compact"
 	gsettings set $gnome-schema icon-theme "Tela-circle-dark"
 	gsettings set $gnome-schema cursor-theme "Vimix-cursors"
-	gsettings set $gnome-schema font-name "SF Pro Text 10"
+	gsettings set $gnome-schema font-name "Roboto Nerd Font 10"
 }
 
 client.focused #4FA6ED #4FA6ED #535965
 client.unfocused #535965 #535965 #A0A8B7
 default_border pixel 2
 default_floating_border pixel 2
-font SF Pro Text 10
+font Roboto Nerd Font 10
 gaps inner 4px
 include /etc/sway/config.d/*
 #xwayland disable

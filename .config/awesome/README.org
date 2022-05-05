@@ -28,7 +28,7 @@
 #+ATTR_HTML: :alt Awesomewm Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.config/awesome/awesome.png]]
 
-This config file was modified by David Salomón on Mar 08, 2022 at 09:43 pm (Bogota DC, Colombia UTC-5).
+This config file was modified by David Salomón on Apr 27, 2022 at 09:31 pm (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david35mm.co
 - My GitHub: https://github.com/david35mm
@@ -99,13 +99,13 @@ Here I have set some variables so that you can set your default programs. If som
 #+BEGIN_SRC lua
 my_term = "alacritty"
 my_browser = "brave"
-my_file_manager = "pcmanfm"
+my_file_manager = "pcmanfm-qt"
 my_markdown = "marktext"
 my_music_player = my_term .. " --class cmus,cmus -e cmus"
 my_office_suite = "desktopeditors"
 my_pdf_reader = "zathura"
 my_text_editor = "subl"
-my_video_player = "mpv --player-operation-mode=pseudo-gui --vo=gpu"
+my_video_player = "celluloid"
 
 M = "Mod4"
 A = "Mod1"
@@ -258,7 +258,7 @@ So in my search to build this widgets myself I found the ~watch~ widget. You jus
 
         s.start = wibox.widget {
             markup = "<span foreground='" .. beautiful.colour_blue 
-                .. "'>  </span>",
+                .. "'>  </span>",
             widget = wibox.widget.textbox,
         }
 
@@ -292,7 +292,7 @@ So in my search to build this widgets myself I found the ~watch~ widget. You jus
                 .. "/widgets/memory.sh", 2,
             function(widget, stdout)
                 widget:set_markup_silently(
-                    "<span foreground='" .. beautiful.colour_green .. "'>﬙  "
+                    "<span foreground='" .. beautiful.colour_green .. "'>﬙ "
                         .. stdout .. "</span>")
             end)
 
@@ -308,7 +308,7 @@ So in my search to build this widgets myself I found the ~watch~ widget. You jus
                 .. "/widgets/updates.sh", 900,
             function(widget, stdout)
                 widget:set_markup_silently(
-                    "<span foreground='" .. beautiful.colour_yellow .. "'>  "
+                    "<span foreground='" .. beautiful.colour_yellow .. "'> "
                         .. stdout .. "</span>")
             end)
 
@@ -316,8 +316,8 @@ So in my search to build this widgets myself I found the ~watch~ widget. You jus
             gears.table.join(
                 awful.button({}, 1, function()
                     awful.spawn.easy_async(
-                        "pkexec /usr/bin/pacman -Syu --noconfirm --needed",
-                        function() end)
+                        gears.filesystem.get_configuration_dir()
+                            .. "update_system.sh", function() end)
                 end),
                 awful.button({}, 3, function()
                     awful.spawn.easy_async(
@@ -371,7 +371,7 @@ So in my search to build this widgets myself I found the ~watch~ widget. You jus
 
         s.sep = wibox.widget {
             markup = "<span foreground='" .. beautiful.colour_grey 
-                .. "'> │ </span>",
+                .. "'>  |  </span>",
             widget = wibox.widget.textbox,
         }
 
@@ -386,7 +386,7 @@ So in my search to build this widgets myself I found the ~watch~ widget. You jus
 
         s.clock = wibox.widget {
             format = "<span foreground='" .. beautiful.colour_cyan .. "'>"
-                .. "  %a %b %d  %I:%M %P    " .. "</span>",
+                .. " %a %b %d  %I:%M %P    " .. "</span>",
             widget = wibox.widget.textclock,
         }
 #+END_SRC
@@ -911,8 +911,8 @@ I have set the ~easy_async~ option in order to not slow down the whole start pro
 -- awful.spawn.easy_async("emacs --daemon", function() end)
 awful.spawn.easy_async("lxpolkit", function() end)
 awful.spawn.easy_async("picom -b", function() end)
-awful.spawn.easy_async("pipewire", function() end)
-awful.spawn.easy_async("pipewire-pulse", function() end)
-awful.spawn.easy_async("pipewire-media-session", function() end)
-awful.spawn.easy_async("udiskie -asn -f pcmanfm", function() end)
+-- awful.spawn.easy_async("pipewire", function() end)
+-- awful.spawn.easy_async("pipewire-pulse", function() end)
+-- awful.spawn.easy_async("wireplumber", function() end)
+awful.spawn.easy_async("udiskie -asn -f pcmanfm-qt", function() end)
 #+END_SRC

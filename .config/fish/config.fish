@@ -7,16 +7,16 @@ set -gx TERMINAL "alacritty"
 set -gx VISUAL "subl"
 
 # One Dark Vivid Color Palette
-set -l foreground A0A8B7
+set -l foreground a0a8b7
 set -l selection 535965
-set -l comment 7A818E
-set -l red E55561
-set -l orange CC9057
-set -l yellow E2B86B
-set -l green 8EBD6B
-set -l purple BF68D9
-set -l blue 4FA6ED
-set -l pink C678DD
+set -l comment 7a818e
+set -l red e55561
+set -l orange cc9057
+set -l yellow e2b86b
+set -l green 8ebd6b
+set -l purple bf68d9
+set -l blue 4fa6ed
+set -l pink c678dd
 
 set -g fish_color_normal $foreground
 set -g fish_color_command $blue
@@ -42,25 +42,25 @@ starship init fish | source
 
 # Set tty colours
 if [ "$TERM" = "linux" ]
-	printf %b '\e[40m' '\e[8]' # set default background to color 0
-	printf %b '\e[37m' '\e[8]' # set default foreground to color 7
-	printf %b '\e]P00e1013'    # redefine 'bg'
-	printf %b '\e]P87a818e'    # redefine 'comment'
-	printf %b '\e]P1e55561'    # redefine 'red'
-	printf %b '\e]P9e55561'    # redefine 'bright-red'
-	printf %b '\e]P28ebd6b'    # redefine 'green'
-	printf %b '\e]PA8ebd6b'    # redefine 'bright-green'
-	printf %b '\e]P3cc9057'    # redefine 'brown'
-	printf %b '\e]PBe2b86b'    # redefine 'yellow'
-	printf %b '\e]P44fa6ed'    # redefine 'blue'
-	printf %b '\e]PC4fa6ed'    # redefine 'bright-blue'
-	printf %b '\e]P5bf68d9'    # redefine 'magenta'
-	printf %b '\e]PDbf68d9'    # redefine 'bright-magenta'
-	printf %b '\e]P648b0bd'    # redefine 'cyan'
-	printf %b '\e]PE48b0bd'    # redefine 'bright-cyan'
-	printf %b '\e]P7dcdcdc'    # redefine 'fg'
-	printf %b '\e]PFa0a8b7'    # redefine 'white'
-	clear
+  printf %b '\e[40m' '\e[8]' # set default background to color 0
+  printf %b '\e[37m' '\e[8]' # set default foreground to color 7
+  printf %b '\e]P0181b20'    # redefine 'bg'
+  printf %b '\e]P87a818e'    # redefine 'comment'
+  printf %b '\e]P1e55561'    # redefine 'red'
+  printf %b '\e]P9e55561'    # redefine 'bright-red'
+  printf %b '\e]P28ebd6b'    # redefine 'green'
+  printf %b '\e]PA8ebd6b'    # redefine 'bright-green'
+  printf %b '\e]P3cc9057'    # redefine 'brown'
+  printf %b '\e]PBe2b86b'    # redefine 'yellow'
+  printf %b '\e]P44fa6ed'    # redefine 'blue'
+  printf %b '\e]PC4fa6ed'    # redefine 'bright-blue'
+  printf %b '\e]P5bf68d9'    # redefine 'magenta'
+  printf %b '\e]PDbf68d9'    # redefine 'bright-magenta'
+  printf %b '\e]P648b0bd'    # redefine 'cyan'
+  printf %b '\e]PE48b0bd'    # redefine 'bright-cyan'
+  printf %b '\e]P7a0a8b7'    # redefine 'fg'
+  printf %b '\e]PFe6e6e6'    # redefine 'white'
+  clear
 end
 
 # User specific environment
@@ -70,22 +70,22 @@ set PATH $PATH $HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFast
 
 # Functions needed for !! and !$
 function __history_previous_command
-	switch (commandline -t)
-	case "!"
-		commandline -t $history[1]; commandline -f repaint
-	case "*"
-		commandline -i !
-	end
+  switch (commandline -t)
+  case "!"
+    commandline -t $history[1]; commandline -f repaint
+  case "*"
+    commandline -i !
+  end
 end
 
 function __history_previous_command_arguments
-	switch (commandline -t)
-	case "!"
-		commandline -t ""
-		commandline -f history-token-search-backward
-	case "*"
-		commandline -i '$'
-	end
+  switch (commandline -t)
+  case "!"
+    commandline -t ""
+    commandline -f history-token-search-backward
+  case "*"
+    commandline -i '$'
+  end
 end
 
 # The bindings for !! and !$
@@ -94,54 +94,54 @@ bind '$' __history_previous_command_arguments
 
 # Function for extracting archives
 function ex
-	set ext 7z bz2 deb gz rar tar tar.bz2 tar.gz tar.xz tar.zst tbz2 tgz Z zip
-	if test -f "$argv"
-		switch $argv
-			case "*.$ext[1]"
-				7z x ./$argv
-			case "*.$ext[2]"
-				tar xjf ./$argv
-			case "*.$ext[3]"
-				ar x ./$argv
-			case "*.$ext[4]"
-				tar xzf ./$argv
-			case "*.$ext[5]"
-				unrar x ./$argv
-			case "*.$ext[6]"
-				tar xf ./$argv
-			case "*.$ext[7]"
-				tar xjf ./$argv
-			case "*.$ext[8]"
-				tar xzf ./$argv
-			case "*.$ext[9]"
-				tar xJf ./$argv
-			case "*.$ext[10]"
-				unzstd ./$argv
-			case "*.$ext[11]"
-				tar xjf ./$argv
-			case "*.$ext[12]"
-				tar xzf ./$argv
-			case "*.$ext[13]"
-				uncompress ./$argv
-			case "*.$ext[14]"
-				unzip ./$argv
-			case '*'
-				echo -e "\033[0;31m[ex error] => \033[0;33m$argv \033[0mis" \
-				"not a valid archive.\n\n\033[0;34mex() \033[0mcan can only" \
-				"extract the following archives:\n\t.7z\n\t.bz2\n\t.deb" \
-				"\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz" \
-				"\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\nRun\033[0;34m" \
-				"ex() \033[0musing one of the archives supported.\n"
-		end
-	else
-		echo -e "\033[0;31m[ex error] => \033[0mFile not given." \
-			"\n\n\033[0;34mex() \033[0mis an archive extractor. You need to" \
-			"add a \033[0;33m<path_to/filename> \033[0mwith one of the" \
-			"following extensions:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar" \
-			"\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2" \
-			"\n\t.tgz\n\t.Z\n\t.zip\n\ne.g.\033[0;34m ex" \
-			"\033[0;33m~/Downloads/compressed.tar.xz\n"
-	end
+  set ext 7z bz2 deb gz rar tar tar.bz2 tar.gz tar.xz tar.zst tbz2 tgz Z zip
+  if test -f "$argv"
+    switch $argv
+      case "*.$ext[1]"
+        7z x ./$argv
+      case "*.$ext[2]"
+        tar xjf ./$argv
+      case "*.$ext[3]"
+        ar x ./$argv
+      case "*.$ext[4]"
+        tar xzf ./$argv
+      case "*.$ext[5]"
+        unrar x ./$argv
+      case "*.$ext[6]"
+        tar xf ./$argv
+      case "*.$ext[7]"
+        tar xjf ./$argv
+      case "*.$ext[8]"
+        tar xzf ./$argv
+      case "*.$ext[9]"
+        tar xJf ./$argv
+      case "*.$ext[10]"
+        unzstd ./$argv
+      case "*.$ext[11]"
+        tar xjf ./$argv
+      case "*.$ext[12]"
+        tar xzf ./$argv
+      case "*.$ext[13]"
+        uncompress ./$argv
+      case "*.$ext[14]"
+        unzip ./$argv
+      case '*'
+        echo -e "\033[0;31m[ex error] => \033[0;33m$argv \033[0mis" \
+        "not a valid archive.\n\n\033[0;34mex() \033[0mcan can only" \
+        "extract the following archives:\n\t.7z\n\t.bz2\n\t.deb" \
+        "\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz" \
+        "\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\nRun\033[0;34m" \
+        "ex() \033[0musing one of the archives supported.\n"
+    end
+  else
+    echo -e "\033[0;31m[ex error] => \033[0mFile not given." \
+      "\n\n\033[0;34mex() \033[0mis an archive extractor. You need to" \
+      "add a \033[0;33m<path_to/filename> \033[0mwith one of the" \
+      "following extensions:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar" \
+      "\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2" \
+      "\n\t.tgz\n\t.Z\n\t.zip\n\ne.g.\033[0;34m ex" \
+      "\033[0;33m~/Downloads/compressed.tar.xz\n"
+  end
 end
 # End of functions
 

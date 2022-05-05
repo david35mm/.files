@@ -1,5 +1,0 @@
---style=grid
---theme="Coldark-Dark"
---italic-text=always
-#--paging=never
---map-syntax "*.Rmd:Markdown"

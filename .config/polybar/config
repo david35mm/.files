@@ -1,15 +1,15 @@
 ############### COLOURS ###############
 
 [colours]
-background = #080808
-foreground = #A0A8B7
+background = #181b20
+foreground = #a0a8b7
 greycolour = #535965
-1colour	   = #E55561
-2colour	   = #8EBD6B
-3colour	   = #E2B86B
-4colour	   = #4FA6ED
-5colour	   = #BF68D9
-6colour	   = #48B0BD
+1colour	   = #e55561
+2colour	   = #8ebd6b
+3colour	   = #e2b86b
+4colour	   = #4fa6ed
+5colour	   = #bf68d9
+6colour	   = #48b0bd
 
 ############### GLOBAL WM SETTINGS ###############
 [global/wm]

@@ -22,25 +22,25 @@ scrolling:
 
 font:
   normal:
-    family: SF Mono
+    family: Iosevka david35mm
     style: Regular
   bold:
-    family: SF Mono
+    family: Iosevka david35mm
     style: Bold
   italic:
-    family: SF Mono
-    style: Regular Italic
+    family: Iosevka david35mm
+    style: Italic
   bold_italic:
-    family: SF Mono
+    family: Iosevka david35mm
     style: Bold Italic
   size: 12.0
 
-draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 colors:
   primary:
-    background: '#0e1013'
-    foreground: '#dcdcdc'
+    background: '#181b20'
+    foreground: '#a0a8b7'
   cursor:
     text: CellBackground
     cursor: CellForeground
@@ -49,21 +49,21 @@ colors:
     cursor: CellForeground
   search:
     matches:
-      foreground: '#0e1013'
-      background: '#dcdcdc'
+      foreground: '#181b20'
+      background: '#a0a8b7'
     focused_match:
-      foreground: '#dcdcdc'
-      background: '#0e1013'
+      foreground: '#a0a8b7'
+      background: '#181b20'
     bar:
-      background: '#dcdcdc'
-      foreground: '#0e1013'
+      background: '#a0a8b7'
+      foreground: '#181b20'
   hints:
     start:
-      foreground: '#0e1013'
+      foreground: '#181b20'
       background: '#e2b86b'
     end:
       foreground: '#e2b86b'
-      background: '#0e1013'
+      background: '#181b20'
   line_indicator:
     foreground: None
     background: None
@@ -71,7 +71,7 @@ colors:
     text: CellBackground
     background: CellForeground
   normal:
-    black:   '#535965'
+    black:   '#181b20'
     red:     '#e55561'
     green:   '#8ebd6b'
     yellow:  '#e2b86b'
@@ -87,7 +87,7 @@ colors:
     blue:    '#4fa6ed'
     magenta: '#bf68d9'
     cyan:    '#48b0bd'
-    white:   '#dcdcdc'
+    white:   '#e6e6e6'
   transparent_background_colors: false
 
 selection:

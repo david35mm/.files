@@ -19,9 +19,9 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "SF Mono" :size 14)
-      doom-variable-pitch-font (font-spec :family "SF Pro Text" :size 12)
-      doom-big-font (font-spec :family "SF Mono" :size 18))
+(setq doom-font (font-spec :family "Iosevka david35mm" :size 14)
+      doom-variable-pitch-font (font-spec :family "Roboto Nerd Font" :size 12)
+      doom-big-font (font-spec :family "Iosevka david35mm" :size 18))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))

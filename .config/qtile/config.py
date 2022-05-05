@@ -20,13 +20,13 @@ from typing import List
 mod = "mod4"
 my_term = guess_terminal()
 my_browser = "brave"
-my_file_manager = "pcmanfm"
+my_file_manager = "pcmanfm-qt"
 my_markdown = "marktext"
 my_music_player = my_term + " --class cmus,cmus -e cmus"
 my_office_suite = "desktopeditors"
 my_pdf_reader = "zathura"
 my_text_editor = "subl"
-my_video_player = "mpv --player-operation-mode=pseudo-gui --vo=gpu"
+my_video_player = "celluloid"
 
 mouse = [
     Drag("M-1",
@@ -247,7 +247,7 @@ prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 widget_defaults = dict(background=colours[0],
                        foreground=colours[1],
-                       font="Roboto Regular",
+                       font="Roboto Nerd Font Regular",
                        fontsize=12,
                        padding=1)
 
@@ -290,7 +290,7 @@ widgets = [
         padding=10),
     widget.CurrentLayout(
         foreground=colours[7],
-        font="Roboto Medium"),
+        font="Roboto Nerd Font Bold"),
     widget.Systray(
         icon_size=14,
         padding=4),
@@ -303,18 +303,9 @@ widgets = [
         padding=10),
     widget.WindowName(
         max_chars=75),
-    widget.TextBox(
-        foreground=colours[3],
-        font="Iosevka david35mm Regular",
-        fontsize=14,
-        mouse_callbacks={
-            "Button1": lambda: qtile.cmd_spawn(my_term + " -e ytop"),
-        },
-        padding=0,
-        text=" "),
     widget.CPU(
         foreground=colours[3],
-        format="{load_percent}%",
+        format=" {load_percent}%",
         mouse_callbacks={
             "Button1": lambda: qtile.cmd_spawn(my_term + " -e ytop"),
         },
@@ -323,18 +314,9 @@ widgets = [
         foreground=colours[2],
         linewidth=1,
         padding=10),
-    widget.TextBox(
-        foreground=colours[4],
-        font="Iosevka david35mm Regular",
-        fontsize=14,
-        mouse_callbacks={
-            "Button1": lambda: qtile.cmd_spawn(my_term + " -e ytop"),
-        },
-        padding=0,
-        text="﬙ "),
     widget.Memory(
         foreground=colours[4],
-        format="{MemUsed:.0f} MB",
+        format="﬙ {MemUsed:.0f} MB",
         mouse_callbacks={
             "Button1": lambda: qtile.cmd_spawn(my_term + " -e ytop"),
         },
@@ -345,7 +327,6 @@ widgets = [
         padding=10),
     # widget.TextBox(
     #     foreground = colours[5],
-    #     font = "Iosevka david35mm Regular",
     #     fontsize = 12,
     #     padding = 0,
     #     text = " "),
@@ -355,21 +336,15 @@ widgets = [
     #     backlight_name = "amdgpu_bl0", # ls /sys/class/backlight/
     #     change_command = "brightnessctl set {0}",
     #     step = 5),
-    widget.TextBox(
-        foreground=colours[5],
-        font="Iosevka david35mm Regular",
-        fontsize=14,
-        padding=0,
-        text=" "),
     widget.CheckUpdates(
         colour_have_updates=colours[5],
         colour_no_updates=colours[5],
         custom_command="checkupdates",
         # custom_command = "dnf updateinfo -q --list",
-        display_format="{updates} Updates",
+        display_format=" {updates} Updates",
         # execute = "pkexec /usr/bin/dnf up -y",
         execute="pkexec /usr/bin/pacman -Syu --noconfirm",
-        no_update_string="Up to date!",
+        no_update_string=" Up to date!",
         update_interval=900),
     widget.Sep(
         foreground=colours[2],
@@ -377,7 +352,6 @@ widgets = [
         padding=10),
     widget.TextBox(
         foreground=colours[6],
-        font="Iosevka david35mm Regular",
         fontsize=14,
         mouse_callbacks=({
             "Button1": lambda: qtile.cmd_spawn("pamixer -t"),
@@ -396,49 +370,29 @@ widgets = [
         foreground=colours[2],
         linewidth=1,
         padding=10),
-    # widget.TextBox(
-    #     foreground = colours[7],
-    #     font = "Iosevka david35mm Regular",
-    #     fontsize = 14,
-    #     padding = 0,
-    #     text = "爵 "),
     # widget.Net(
     #     foreground = colours[7],
-    #     format = "{down}  ",
+    #     format = "爵 {down}  ",
     #     interface = "enp1s0"),
     widget.Battery(
         foreground=colours[7],
-        low_foreground=colours[3],
+        format="{char} {percent:2.0%}",
         charge_char=" ",
         discharge_char=" ",
         empty_char=" ",
         full_char=" ",
         unknown_char=" ",
-        font="Iosevka david35mm Regular",
-        fontsize=14,
-        format="{char}",
-        low_percentage=0.15,
-        padding=0,
-        show_short_text=False),
-    widget.Battery(
-        foreground=colours[7],
         low_foreground=colours[3],
-        format="{percent:2.0%}",
         low_percentage=0.15,
+        show_short_text=False,
         notify_below=15),
     widget.Sep(
         foreground=colours[2],
         linewidth=1,
         padding=10),
-    widget.TextBox(
-        foreground=colours[8],
-        font="Iosevka david35mm Regular",
-        fontsize=14,
-        padding=0,
-        text=" "),
     widget.Clock(
         foreground=colours[8],
-        format="%a %b %d  %I:%M %P    "),
+        format=" %a %b %d  %I:%M %P    "),
     # widget.StockTicker(
     #     apikey = "AESKWL5CJVHHJKR5",
     #     url = "https://www.alphavantage.co/query?"),
@@ -454,7 +408,7 @@ screens = [
 ]
 
 connected_monitors = (subprocess.run(
-    "xrandr | grep 'connected' | cut -d ' ' -f 2",
+    "xrandr | busybox grep 'connected' | busybox cut -d' ' -f2",
     check=True,
     shell=True,
     stdout=subprocess.PIPE,
@@ -522,26 +476,18 @@ def stop_apps():
 @hook.subscribe.startup_complete
 def notify_updates():
   with subprocess.Popen:
-    os.path.expanduser("~/.config/qtile/checkupdts.sh")
+    os.path.expanduser("~/.config/qtile/check_updates.sh")
 
 
 # @hook.subscribe.startup_once
 # def start_apps():
 #   subprocess.Popen(["dunst"])
-#   # subprocess.Popen(["emacs","--daemon"])
+#   subprocess.Popen(["emacs","--daemon"])
 #   subprocess.Popen(["lxpolkit"])
 #   subprocess.Popen(["picom", "-b"])
 #   subprocess.Popen(["pipewire"])
 #   subprocess.Popen(["pipewire-pulse"])
 #   subprocess.Popen(["pipewire-media-session"])
-#   subprocess.Popen(["udiskie", "-asn", "-f", "pcmanfm"])
+#   subprocess.Popen(["udiskie", "-asn", "-f", "pcmanfm-qt"])
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "LG3D"
