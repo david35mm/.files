@@ -3,6 +3,7 @@
 
 * TABLE OF CONTENTS :toc:
 - [[#about][ABOUT]]
+- [[#docstring][DOCSTRING]]
 - [[#imports][IMPORTS]]
 - [[#variables][VARIABLES]]
 - [[#keybindings][KEYBINDINGS]]
@@ -25,7 +26,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.config/qtile/qtile.png]]
 
-This config file was modified by David Salomón on Apr 27, 2022 at 09:19 pm (Bogota DC, Colombia UTC-5).
+This config file was modified by David Salomón on Jul 12, 2022 at 08:03 pm (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -35,6 +36,18 @@ It's important to keep in mind that this config is based on [[https://gitlab.com
 - The YouTube Channel of Derek Taylor (DistroTube): http://www.youtube.com/c/DistroTube
 - Derek Taylor GitLab: https://gitlab.com/dwt1
 - r/unixporn on Reddit: https://reddit.com/r/unixporn
+
+* DOCSTRING
+Here is a quick description of what this script is about, written on Python's docstring syntax.
+
+#+BEGIN_SRC python
+"""This script sets the base configuration for Qtile.
+
+It consists of keybindings, layouts, widgets, rules and hooks.
+An in depth documentation can be found at:
+https://github.com/david35mm/.files/tree/main/.config/qtile
+"""
+#+END_SRC
 
 * IMPORTS
 These are some libraries that Qtile needs to make the widgets, layouts and all of the rest to work.
@@ -412,7 +425,7 @@ layouts = [
 These are the settings for the Qtile prompt, I prefer to use rofi instead.
 
 #+BEGIN_SRC python
-prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
+prompt = f"{os.environ['USER']}@{socket.gethostname()}: "
 #+END_SRC
 
 * WIDGETS
@@ -479,6 +492,13 @@ widgets = [
         padding=10),
     widget.WindowName(
         max_chars=75),
+    # widget.Backlight(
+    #     foreground=colours[3],
+    #     foreground_alert=colours[3],
+    #     format=" {percent:2.0%}",
+    #     backlight_name="amdgpu_bl0", # ls /sys/class/backlight/
+    #     change_command="brightnessctl set {0}%",
+    #     step=10),
     widget.CPU(
         foreground=colours[3],
         format=" {load_percent}%",
@@ -501,24 +521,13 @@ widgets = [
         foreground=colours[2],
         linewidth=1,
         padding=10),
-    # widget.TextBox(
-    #     foreground = colours[5],
-    #     fontsize = 12,
-    #     padding = 0,
-    #     text = " "),
-    # widget.Backlight(
-    #     foreground = colours[5],
-    #     foreground_alert = colours[3],
-    #     backlight_name = "amdgpu_bl0", # ls /sys/class/backlight/
-    #     change_command = "brightnessctl set {0}",
-    #     step = 5),
     widget.CheckUpdates(
         colour_have_updates=colours[5],
         colour_no_updates=colours[5],
         custom_command="checkupdates",
-        # custom_command = "dnf updateinfo -q --list",
+        # custom_command="dnf updateinfo -q --list",
         display_format=" {updates} Updates",
-        # execute = "pkexec /usr/bin/dnf up -y",
+        # execute="pkexec /usr/bin/dnf up -y",
         execute="pkexec /usr/bin/pacman -Syu --noconfirm",
         no_update_string=" Up to date!",
         update_interval=900),
@@ -526,19 +535,9 @@ widgets = [
         foreground=colours[2],
         linewidth=1,
         padding=10),
-    widget.TextBox(
-        foreground=colours[6],
-        fontsize=14,
-        mouse_callbacks=({
-            "Button1": lambda: qtile.cmd_spawn("pamixer -t"),
-            "Button3": lambda: qtile.cmd_spawn("pavucontrol"),
-            "Button4": lambda: qtile.cmd_spawn("pamixer -u -i 5"),
-            "Button5": lambda: qtile.cmd_spawn("pamixer -u -d 5"),
-        }),
-        padding=0,
-        text="墳 "),
     widget.PulseVolume(
         foreground=colours[6],
+        fmt="墳 {}",
         update_interval=0.1,
         volume_app="pavucontrol",
         step=5),
@@ -570,8 +569,8 @@ widgets = [
         foreground=colours[8],
         format=" %a %b %d  %I:%M %P    "),
     # widget.StockTicker(
-    #     apikey = "AESKWL5CJVHHJKR5",
-    #     url = "https://www.alphavantage.co/query?"),
+    #     apikey="AESKWL5CJVHHJKR5",
+    #     url="https://www.alphavantage.co/query?"),
 ]
 #+END_SRC
 
@@ -581,7 +580,8 @@ Despite not having too much lines of code, this section is severely important. I
 The code that follows ~screens~ detect if other monitors are connected to your computer, and if that's the case, the next block of code (the one that starts with the ~if~ statement) will start the rest of the screens automatically (quite cool ehh!). Remember I told you that if you wanted to create a secondary list of widgets you could do that without problem? here's were you'll use it, in the line ~screens.append(Screen(top=status_bar(widgets)))~ change the ~widgets~ word to the name of your secondary list of widgets, if you named it ~secondary_widgets~ then this line will be ~screens.append(Screen(top=status_bar(secondary_widgets)))~, now your main screen will have all the widgets that you set on the ~widgets~ array and the secondary widgets (if you created them) will appear on the secondary screens connected to your computer (eg. A TV when you want to watch Netflix).
 
 #+BEGIN_SRC python
-status_bar = lambda widgets: bar.Bar(widgets, 18, opacity=1.0)
+def status_bar(widget_list):
+  return bar.Bar(widget_list, 18, opacity=1.0)
 
 screens = [
     Screen(
@@ -618,73 +618,63 @@ auto_fullscreen = True
 auto_minimize = True
 bring_front_click = False
 cursor_warp = False
-dgroups_app_rules = []  # type: List
+dgroups_app_rules = [] 
 dgroups_key_binder = None
-floating_layout = layout.Floating(**layout_theme,
-                                  float_rules=[
-                                      *layout.Floating.default_float_rules,
-                                      Match(title="Authentication"),
-                                      Match(title="branchdialog"),
-                                      Match(title="pinentry"),
-                                      Match(wm_class="Arandr"),
-                                      Match(wm_class="Blueman-adapters"),
-                                      Match(wm_class="Blueman-manager"),
-                                      Match(wm_class="confirm"),
-                                      Match(wm_class="confirmreset"),
-                                      Match(wm_class="dialog"),
-                                      Match(wm_class="download"),
-                                      Match(wm_class="error"),
-                                      Match(wm_class="file_progress"),
-                                      Match(wm_class="Gnome-screenshot"),
-                                      Match(wm_class="makebranch"),
-                                      Match(wm_class="maketag"),
-                                      Match(wm_class="notification"),
-                                      Match(wm_class="Pavucontrol"),
-                                      Match(wm_class="splash"),
-                                      Match(wm_class="ssh-askpass"),
-                                      Match(wm_class="toolbar"),
-                                  ])
+floating_layout = layout.Floating(
+    **layout_theme,
+    float_rules=[
+        *layout.Floating.default_float_rules,
+        Match(title="Authentication"),
+        Match(title="branchdialog"),
+        Match(title="pinentry"),
+        Match(wm_class="Arandr"),
+        Match(wm_class="Blueman-adapters"),
+        Match(wm_class="Blueman-manager"),
+        Match(wm_class="confirm"),
+        Match(wm_class="confirmreset"),
+        Match(wm_class="dialog"),
+        Match(wm_class="download"),
+        Match(wm_class="error"),
+        Match(wm_class="file_progress"),
+        Match(wm_class="Gnome-screenshot"),
+        Match(wm_class="makebranch"),
+        Match(wm_class="maketag"),
+        Match(wm_class="notification"),
+        Match(wm_class="Pavucontrol"),
+        Match(wm_class="splash"),
+        Match(wm_class="ssh-askpass"),
+        Match(wm_class="toolbar"),
+    ])
 focus_on_window_activation = "smart"
 follow_mouse_focus = True
 reconfigure_screens = True
 #+END_SRC
 
 * HOOKS
-I have set various hooks to run automatically in certain situations. You should not be concerned about the restart hook. The ~shutdown~ and the ~startup_(complete/once)~ are the ones you should be interested in. The ~startup_once~ is going to launch a few programs that make my life easier (the compositor, notifications daemon, polkit agent, etc), they will be launched only when you log into Qtile, not when you restart it. Change those to your needs. Nonetheless, they are going to be killed when you exit Qtile thanks to the ~shutdown~ hook. The ~startup_complete~ in the other hand, will launch a shell script that will show you in a notification window the updates that you have (*ONLY WORKS FOR ARCH BASED DISTROS, COMMENT IT'S LINES IF YOU ARE USING OTHER DISTRIBUTION*), this hook will only be launched when Qtile has already started its built-in modules and stuff, so it won't affect /that much/ the startup time.
+I have set various hooks to run automatically in certain situations. You should not be concerned about the restart hook. The ~shutdown~ and the ~startup_once~ are the ones you should be interested in. The ~startup_once~ is going to launch a few programs that make my life easier (the compositor, notifications daemon, polkit agent, etc), they will be launched only when you log into Qtile, not when you restart it. Change those to your needs. Nonetheless, they are going to be killed when you exit Qtile thanks to the ~shutdown~ hook.
 
 #+BEGIN_SRC python
+# pylint: disable=consider-using-with
 @hook.subscribe.restart
 def delete_cache():
   shutil.rmtree(os.path.expanduser("~/.config/qtile/__pycache__"))
 
-
 @hook.subscribe.shutdown
 def stop_apps():
-  shutil.rmtree(os.path.expanduser("~/.config/qtile/__pycache__"))
+  delete_cache()
+  subprocess.Popen(["killall", "dunst", "emacs", "lxpolkit", "picom",
+                    "pipewire", "pipewire-pulse", "wireplumber", "udiskie"])
 
-
-#   subprocess.Popen([
-#       "killall", "dunst", "lxpolkit", "picom", "pipewire", "pipewire-pulse",
-#       "pipewire-media-", "udiskie",
-#   ])
-
-
-@hook.subscribe.startup_complete
-def notify_updates():
-  with subprocess.Popen:
-    os.path.expanduser("~/.config/qtile/check_updates.sh")
-
-
-# @hook.subscribe.startup_once
-# def start_apps():
-#   subprocess.Popen(["dunst"])
-#   subprocess.Popen(["emacs","--daemon"])
-#   subprocess.Popen(["lxpolkit"])
-#   subprocess.Popen(["picom", "-b"])
-#   subprocess.Popen(["pipewire"])
-#   subprocess.Popen(["pipewire-pulse"])
-#   subprocess.Popen(["pipewire-media-session"])
-#   subprocess.Popen(["udiskie", "-asn", "-f", "pcmanfm-qt"])
+@hook.subscribe.startup_once
+def start_apps():
+  subprocess.Popen(["dunst"])
+  subprocess.Popen(["emacs", "--daemon"])
+  subprocess.Popen(["lxpolkit"])
+  subprocess.Popen(["picom", "-b"])
+  subprocess.Popen(["pipewire"])
+  subprocess.Popen(["pipewire-pulse"])
+  subprocess.Popen(["wireplumber"])
+  subprocess.Popen(["udiskie", "-asn", "-f", "pcmanfm-qt"])
 #+END_SRC
 
 * WMNAME

@@ -1,3 +1,10 @@
+"""This script sets the base configuration for Qtile.
+
+It consists of keybindings, layouts, widgets, rules and hooks.
+An in depth documentation can be found at:
+https://github.com/david35mm/.files/tree/main/.config/qtile
+"""
+
 import os
 import shutil
 import socket
@@ -243,7 +250,7 @@ layouts = [
     layout.MonadTall(**layout_theme),
 ]
 
-prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
+prompt = f"{os.environ['USER']}@{socket.gethostname()}: "
 
 widget_defaults = dict(background=colours[0],
                        foreground=colours[1],
@@ -303,6 +310,13 @@ widgets = [
         padding=10),
     widget.WindowName(
         max_chars=75),
+    # widget.Backlight(
+    #     foreground=colours[3],
+    #     foreground_alert=colours[3],
+    #     format=" {percent:2.0%}",
+    #     backlight_name="amdgpu_bl0", # ls /sys/class/backlight/
+    #     change_command="brightnessctl set {0}%",
+    #     step=10),
     widget.CPU(
         foreground=colours[3],
         format=" {load_percent}%",
@@ -325,24 +339,13 @@ widgets = [
         foreground=colours[2],
         linewidth=1,
         padding=10),
-    # widget.TextBox(
-    #     foreground = colours[5],
-    #     fontsize = 12,
-    #     padding = 0,
-    #     text = " "),
-    # widget.Backlight(
-    #     foreground = colours[5],
-    #     foreground_alert = colours[3],
-    #     backlight_name = "amdgpu_bl0", # ls /sys/class/backlight/
-    #     change_command = "brightnessctl set {0}",
-    #     step = 5),
     widget.CheckUpdates(
         colour_have_updates=colours[5],
         colour_no_updates=colours[5],
         custom_command="checkupdates",
-        # custom_command = "dnf updateinfo -q --list",
+        # custom_command="dnf updateinfo -q --list",
         display_format=" {updates} Updates",
-        # execute = "pkexec /usr/bin/dnf up -y",
+        # execute="pkexec /usr/bin/dnf up -y",
         execute="pkexec /usr/bin/pacman -Syu --noconfirm",
         no_update_string=" Up to date!",
         update_interval=900),
@@ -350,19 +353,9 @@ widgets = [
         foreground=colours[2],
         linewidth=1,
         padding=10),
-    widget.TextBox(
-        foreground=colours[6],
-        fontsize=14,
-        mouse_callbacks=({
-            "Button1": lambda: qtile.cmd_spawn("pamixer -t"),
-            "Button3": lambda: qtile.cmd_spawn("pavucontrol"),
-            "Button4": lambda: qtile.cmd_spawn("pamixer -u -i 5"),
-            "Button5": lambda: qtile.cmd_spawn("pamixer -u -d 5"),
-        }),
-        padding=0,
-        text="墳 "),
     widget.PulseVolume(
         foreground=colours[6],
+        fmt="墳 {}",
         update_interval=0.1,
         volume_app="pavucontrol",
         step=5),
@@ -394,11 +387,12 @@ widgets = [
         foreground=colours[8],
         format=" %a %b %d  %I:%M %P    "),
     # widget.StockTicker(
-    #     apikey = "AESKWL5CJVHHJKR5",
-    #     url = "https://www.alphavantage.co/query?"),
+    #     apikey="AESKWL5CJVHHJKR5",
+    #     url="https://www.alphavantage.co/query?"),
 ]
 
-status_bar = lambda widgets: bar.Bar(widgets, 18, opacity=1.0)
+def status_bar(widget_list):
+  return bar.Bar(widget_list, 18, opacity=1.0)
 
 screens = [
     Screen(
@@ -427,67 +421,57 @@ auto_fullscreen = True
 auto_minimize = True
 bring_front_click = False
 cursor_warp = False
-dgroups_app_rules = []  # type: List
+dgroups_app_rules = [] 
 dgroups_key_binder = None
-floating_layout = layout.Floating(**layout_theme,
-                                  float_rules=[
-                                      *layout.Floating.default_float_rules,
-                                      Match(title="Authentication"),
-                                      Match(title="branchdialog"),
-                                      Match(title="pinentry"),
-                                      Match(wm_class="Arandr"),
-                                      Match(wm_class="Blueman-adapters"),
-                                      Match(wm_class="Blueman-manager"),
-                                      Match(wm_class="confirm"),
-                                      Match(wm_class="confirmreset"),
-                                      Match(wm_class="dialog"),
-                                      Match(wm_class="download"),
-                                      Match(wm_class="error"),
-                                      Match(wm_class="file_progress"),
-                                      Match(wm_class="Gnome-screenshot"),
-                                      Match(wm_class="makebranch"),
-                                      Match(wm_class="maketag"),
-                                      Match(wm_class="notification"),
-                                      Match(wm_class="Pavucontrol"),
-                                      Match(wm_class="splash"),
-                                      Match(wm_class="ssh-askpass"),
-                                      Match(wm_class="toolbar"),
-                                  ])
+floating_layout = layout.Floating(
+    **layout_theme,
+    float_rules=[
+        *layout.Floating.default_float_rules,
+        Match(title="Authentication"),
+        Match(title="branchdialog"),
+        Match(title="pinentry"),
+        Match(wm_class="Arandr"),
+        Match(wm_class="Blueman-adapters"),
+        Match(wm_class="Blueman-manager"),
+        Match(wm_class="confirm"),
+        Match(wm_class="confirmreset"),
+        Match(wm_class="dialog"),
+        Match(wm_class="download"),
+        Match(wm_class="error"),
+        Match(wm_class="file_progress"),
+        Match(wm_class="Gnome-screenshot"),
+        Match(wm_class="makebranch"),
+        Match(wm_class="maketag"),
+        Match(wm_class="notification"),
+        Match(wm_class="Pavucontrol"),
+        Match(wm_class="splash"),
+        Match(wm_class="ssh-askpass"),
+        Match(wm_class="toolbar"),
+    ])
 focus_on_window_activation = "smart"
 follow_mouse_focus = True
 reconfigure_screens = True
 
+# pylint: disable=consider-using-with
 @hook.subscribe.restart
 def delete_cache():
   shutil.rmtree(os.path.expanduser("~/.config/qtile/__pycache__"))
 
-
 @hook.subscribe.shutdown
 def stop_apps():
-  shutil.rmtree(os.path.expanduser("~/.config/qtile/__pycache__"))
+  delete_cache()
+  subprocess.Popen(["killall", "dunst", "emacs", "lxpolkit", "picom",
+                    "pipewire", "pipewire-pulse", "wireplumber", "udiskie"])
 
-
-#   subprocess.Popen([
-#       "killall", "dunst", "lxpolkit", "picom", "pipewire", "pipewire-pulse",
-#       "pipewire-media-", "udiskie",
-#   ])
-
-
-@hook.subscribe.startup_complete
-def notify_updates():
-  with subprocess.Popen:
-    os.path.expanduser("~/.config/qtile/check_updates.sh")
-
-
-# @hook.subscribe.startup_once
-# def start_apps():
-#   subprocess.Popen(["dunst"])
-#   subprocess.Popen(["emacs","--daemon"])
-#   subprocess.Popen(["lxpolkit"])
-#   subprocess.Popen(["picom", "-b"])
-#   subprocess.Popen(["pipewire"])
-#   subprocess.Popen(["pipewire-pulse"])
-#   subprocess.Popen(["pipewire-media-session"])
-#   subprocess.Popen(["udiskie", "-asn", "-f", "pcmanfm-qt"])
+@hook.subscribe.startup_once
+def start_apps():
+  subprocess.Popen(["dunst"])
+  subprocess.Popen(["emacs", "--daemon"])
+  subprocess.Popen(["lxpolkit"])
+  subprocess.Popen(["picom", "-b"])
+  subprocess.Popen(["pipewire"])
+  subprocess.Popen(["pipewire-pulse"])
+  subprocess.Popen(["wireplumber"])
+  subprocess.Popen(["udiskie", "-asn", "-f", "pcmanfm-qt"])
 
 wmname = "LG3D"
