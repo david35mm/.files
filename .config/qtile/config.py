@@ -22,7 +22,6 @@ from libqtile.config import Match
 from libqtile.config import Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from typing import List
 
 mod = "mod4"
 my_term = guess_terminal()
@@ -345,9 +344,13 @@ widgets = [
         custom_command="checkupdates",
         # custom_command="dnf updateinfo -q --list",
         display_format=" {updates} Updates",
-        # execute="pkexec /usr/bin/dnf up -y",
-        execute="pkexec /usr/bin/pacman -Syu --noconfirm",
         no_update_string=" Up to date!",
+        mouse_callbacks=({
+            "Button1": lambda: qtile.cmd_spawn(os.path.expanduser(
+                "~/.config/scripts/update_system.sh")),
+            "Button3": lambda: qtile.cmd_spawn(os.path.expanduser(
+                "~/.config/qtile/check_updates.sh")),
+        }),
         update_interval=900),
     widget.Sep(
         foreground=colours[2],
@@ -421,7 +424,7 @@ auto_fullscreen = True
 auto_minimize = True
 bring_front_click = False
 cursor_warp = False
-dgroups_app_rules = [] 
+dgroups_app_rules = []
 dgroups_key_binder = None
 floating_layout = layout.Floating(
     **layout_theme,
@@ -460,18 +463,18 @@ def delete_cache():
 @hook.subscribe.shutdown
 def stop_apps():
   delete_cache()
-  subprocess.Popen(["killall", "dunst", "emacs", "lxpolkit", "picom",
+  qtile.cmd_spawn(["killall", "dunst", "emacs", "lxpolkit", "picom",
                     "pipewire", "pipewire-pulse", "wireplumber", "udiskie"])
 
 @hook.subscribe.startup_once
 def start_apps():
-  subprocess.Popen(["dunst"])
-  subprocess.Popen(["emacs", "--daemon"])
-  subprocess.Popen(["lxpolkit"])
-  subprocess.Popen(["picom", "-b"])
-  subprocess.Popen(["pipewire"])
-  subprocess.Popen(["pipewire-pulse"])
-  subprocess.Popen(["wireplumber"])
-  subprocess.Popen(["udiskie", "-asn", "-f", "pcmanfm-qt"])
+  qtile.cmd_spawn(["dunst"])
+  qtile.cmd_spawn(["emacs", "--daemon"])
+  qtile.cmd_spawn(["lxpolkit"])
+  qtile.cmd_spawn(["picom", "-b"])
+  qtile.cmd_spawn(["pipewire"])
+  qtile.cmd_spawn(["pipewire-pulse"])
+  qtile.cmd_spawn(["wireplumber"])
+  qtile.cmd_spawn(["udiskie", "-asn", "-f", "pcmanfm-qt"])
 
 wmname = "LG3D"

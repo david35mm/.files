@@ -174,7 +174,8 @@ awful.screen.connect_for_each_screen(function(s)
       end)))
 
   s.weather = awful.widget.watch(
-      gears.filesystem.get_configuration_dir() .. "/widgets/weather.sh", 300,
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/weather.sh", 
+      300,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_red .. "'>" ..
               stdout .. "</span>")
@@ -186,7 +187,8 @@ awful.screen.connect_for_each_screen(function(s)
       end)))
 
   s.memory = awful.widget.watch(
-      gears.filesystem.get_configuration_dir() .. "/widgets/memory.sh", 2,
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/memory.sh", 
+      2,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_green .. "'>﬙ " ..
               stdout .. "</span>")
@@ -198,7 +200,8 @@ awful.screen.connect_for_each_screen(function(s)
       end)))
 
   s.updates = awful.widget.watch(
-      gears.filesystem.get_configuration_dir() .. "/widgets/updates.sh", 900,
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/updates.sh", 
+      900,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_yellow .. "'> " ..
               stdout .. "</span>")
@@ -207,17 +210,18 @@ awful.screen.connect_for_each_screen(function(s)
   s.updates:buttons(gears.table.join(
       awful.button({}, 1, function()
         awful.spawn.easy_async(
-            gears.filesystem.get_configuration_dir() ..
-                "update_system.sh", function() end)
+            gears.filesystem.get_xdg_config_home() ..
+                "scripts/update_system.sh", function() end)
       end),
       awful.button({}, 3, function()
         awful.spawn.easy_async(
-            gears.filesystem.get_configuration_dir() ..
-                "check_updates.sh", function() end)
+            gears.filesystem.get_xdg_config_home() ..
+                "scripts/check_updates.sh", function() end)
       end)))
 
   s.volume = awful.widget.watch(
-      gears.filesystem.get_configuration_dir() .. "/widgets/volume.sh", 0.2,
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/volume.sh", 
+      0.2,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_blue .. "'>" ..
               stdout .. "</span>")
@@ -238,7 +242,8 @@ awful.screen.connect_for_each_screen(function(s)
       end)))
 
   s.brightness = awful.widget.watch(
-      gears.filesystem.get_configuration_dir() .. "/widgets/brightness.sh", 0.2,
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/brightness.sh", 
+      0.2,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_red .. "'>" ..
               stdout .. "</span>")
@@ -258,7 +263,8 @@ awful.screen.connect_for_each_screen(function(s)
   }
 
   s.battery = awful.widget.watch(
-      gears.filesystem.get_configuration_dir() .. "/widgets/battery.sh", 30,
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/battery.sh", 
+      30,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_purple .. "'>" ..
               stdout .. "</span>")
@@ -372,10 +378,10 @@ globalkeys = gears.table.join(
     awful.key({M}, "l",
               function() awful.tag.incmwfact(0.05) end,
               {description="Grow master pane width", group="Layout"}),
-    awful.key({M}, "Comma",
+    awful.key({M}, ",",
               function() awful.screen.focus_relative(-1) end,
               {description="Focus the previous screen", group="Screen"}),
-    awful.key({M}, "Period",
+    awful.key({M}, ".",
               function() awful.screen.focus_relative(1) end,
               {description="Focus the next screen", group="Screen"}),
     awful.key({}, "XF86AudioLowerVolume",
