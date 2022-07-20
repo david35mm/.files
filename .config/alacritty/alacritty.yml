@@ -1,3 +1,4 @@
+---
 env:
   TERM: alacritty
 
@@ -107,8 +108,10 @@ live_config_reload: true
 working_directory: None
 
 mouse:
-  double_click: { threshold: 300 }
-  triple_click: { threshold: 300 }
+  double_click:
+    threshold: 300
+  triple_click:
+    threshold: 300
   hide_when_typing: false
 
 key_bindings:
