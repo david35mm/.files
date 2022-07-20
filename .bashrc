@@ -49,39 +49,26 @@ export PATH
 
 # User specific aliases and functions
 
-ex()  {
-  if [ -f "$1" ]; then
-    case "$1" in
-      *.7z) 7z x "$1"    ;;
-      *.bz2) tar xjf "$1" ;;
-      *.deb) ar x "$1"   ;;
-      *.gz) tar xzf "$1" ;;
-      *.rar) unrar x "$1" ;;
-      *.tar) tar xf "$1" ;;
-      *.tar.bz2) tar xjf "$1" ;;
-      *.tar.gz) tar xzf "$1" ;;
-      *.tar.xz) tar xJf "$1" ;;
-      *.tar.zst) unzstd "$1" ;;
-      *.tbz2) tar xjf "$1" ;;
-      *.tgz) tar xzf "$1" ;;
-      *.Z) uncompress "$1" ;;
-      *.zip) unzip "$1"  ;;
-      *) echo -e "\033[0;31m[ex error] => \033[0;33m$1 \033[0mis not" \
-        "a valid archive.\n\n\033[0;34mex() \033[0mcan can only" \
-        "extract the following archives:\n\t.7z\n\t.bz2\n\t.deb" \
-        "\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz" \
-        "\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\nRun\033[0;34m" \
-      "ex() \033[0musing one of the archives supported.\n" ;;
-    esac
-  else
-    echo -e "\033[0;31m[ex error] => \033[0mFile not given." \
-    "\n\n\033[0;34mex() \033[0mis an archive extractor. You need to" \
-    "add a \033[0;33m<path_to/filename> \033[0mwith one of the" \
-    "following extensions:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar" \
-    "\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2" \
-    "\n\t.tgz\n\t.Z\n\t.zip\n\ne.g.\033[0;34m ex" \
-    "\033[0;33m~/Downloads/compressed.tar.xz\n"
-  fi
+ex() {
+  case "$1" in
+    *tar.bz2|tbz2|tbz) tar -xvjf "$1" ;;
+    *tar.gz|tgz) tar -xvzf "$1" ;;
+    *tar.xz|txz|tar.lzma) tar -xvJf "$1" ;;
+    *tar.zst) tar --zstd -xvf "$1" ;;
+    *tar.lrz) lrzuntar "$1" ;;
+    *tar) tar -xvf "$1" ;;
+    *rar) unrar x "$1" ;;
+    *lzh) lha x "$1" ;;
+    *7z) 7z x "$1" ;;
+    *zip|jar) unzip "$1" ;;
+    *deb) ar -x "$1" ;;
+    *bz2) bzip2 -d -c "$1" ;;
+    *gz|Z) gzip -d -c "$1" ;;
+    *xz|lzma) xz -d -c "$1" ;;
+    *zst) zstd -d -c "$1" ;;
+    *lrz) lrunzip "$1" ;;
+    *) printf '%s\n' "ERROR: "$1" has unrecognized archive type." ;;
+  esac
 }
 
 # Ignore upper and lowercase when TAB completion

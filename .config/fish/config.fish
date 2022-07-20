@@ -44,22 +44,22 @@ starship init fish | source
 if [ "$TERM" = "linux" ]
   printf %b '\e[40m' '\e[8]' # set default background to color 0
   printf %b '\e[37m' '\e[8]' # set default foreground to color 7
-  printf %b '\e]P0181b20'    # redefine 'bg'
-  printf %b '\e]P87a818e'    # redefine 'comment'
-  printf %b '\e]P1e55561'    # redefine 'red'
-  printf %b '\e]P9e55561'    # redefine 'bright-red'
-  printf %b '\e]P28ebd6b'    # redefine 'green'
-  printf %b '\e]PA8ebd6b'    # redefine 'bright-green'
-  printf %b '\e]P3cc9057'    # redefine 'brown'
-  printf %b '\e]PBe2b86b'    # redefine 'yellow'
-  printf %b '\e]P44fa6ed'    # redefine 'blue'
-  printf %b '\e]PC4fa6ed'    # redefine 'bright-blue'
-  printf %b '\e]P5bf68d9'    # redefine 'magenta'
-  printf %b '\e]PDbf68d9'    # redefine 'bright-magenta'
-  printf %b '\e]P648b0bd'    # redefine 'cyan'
-  printf %b '\e]PE48b0bd'    # redefine 'bright-cyan'
-  printf %b '\e]P7a0a8b7'    # redefine 'fg'
-  printf %b '\e]PFe6e6e6'    # redefine 'white'
+  printf %b '\e]P0181b20' # redefine 'bg'
+  printf %b '\e]P87a818e' # redefine 'comment'
+  printf %b '\e]P1e55561' # redefine 'red'
+  printf %b '\e]P9e55561' # redefine 'bright-red'
+  printf %b '\e]P28ebd6b' # redefine 'green'
+  printf %b '\e]PA8ebd6b' # redefine 'bright-green'
+  printf %b '\e]P3cc9057' # redefine 'brown'
+  printf %b '\e]PBe2b86b' # redefine 'yellow'
+  printf %b '\e]P44fa6ed' # redefine 'blue'
+  printf %b '\e]PC4fa6ed' # redefine 'bright-blue'
+  printf %b '\e]P5bf68d9' # redefine 'magenta'
+  printf %b '\e]PDbf68d9' # redefine 'bright-magenta'
+  printf %b '\e]P648b0bd' # redefine 'cyan'
+  printf %b '\e]PE48b0bd' # redefine 'bright-cyan'
+  printf %b '\e]P7a0a8b7' # redefine 'fg'
+  printf %b '\e]PFe6e6e6' # redefine 'white'
   clear
 end
 
@@ -94,53 +94,41 @@ bind '$' __history_previous_command_arguments
 
 # Function for extracting archives
 function ex
-  set ext 7z bz2 deb gz rar tar tar.bz2 tar.gz tar.xz tar.zst tbz2 tgz Z zip
-  if test -f "$argv"
-    switch $argv
-      case "*.$ext[1]"
-        7z x ./$argv
-      case "*.$ext[2]"
-        tar xjf ./$argv
-      case "*.$ext[3]"
-        ar x ./$argv
-      case "*.$ext[4]"
-        tar xzf ./$argv
-      case "*.$ext[5]"
-        unrar x ./$argv
-      case "*.$ext[6]"
-        tar xf ./$argv
-      case "*.$ext[7]"
-        tar xjf ./$argv
-      case "*.$ext[8]"
-        tar xzf ./$argv
-      case "*.$ext[9]"
-        tar xJf ./$argv
-      case "*.$ext[10]"
-        unzstd ./$argv
-      case "*.$ext[11]"
-        tar xjf ./$argv
-      case "*.$ext[12]"
-        tar xzf ./$argv
-      case "*.$ext[13]"
-        uncompress ./$argv
-      case "*.$ext[14]"
-        unzip ./$argv
-      case '*'
-        echo -e "\033[0;31m[ex error] => \033[0;33m$argv \033[0mis" \
-        "not a valid archive.\n\n\033[0;34mex() \033[0mcan can only" \
-        "extract the following archives:\n\t.7z\n\t.bz2\n\t.deb" \
-        "\n\t.gz\n\t.rar\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz" \
-        "\n\t.tar.zst\n\t.tbz2\n\t.tgz\n\t.Z\n\t.zip\n\nRun\033[0;34m" \
-        "ex() \033[0musing one of the archives supported.\n"
-    end
-  else
-    echo -e "\033[0;31m[ex error] => \033[0mFile not given." \
-      "\n\n\033[0;34mex() \033[0mis an archive extractor. You need to" \
-      "add a \033[0;33m<path_to/filename> \033[0mwith one of the" \
-      "following extensions:\n\t.7z\n\t.bz2\n\t.deb\n\t.gz\n\t.rar" \
-      "\n\t.tar\n\t.tar.bz2\n\t.tar.gz\n\t.tar.xz\n\t.tar.zst\n\t.tbz2" \
-      "\n\t.tgz\n\t.Z\n\t.zip\n\ne.g.\033[0;34m ex" \
-      "\033[0;33m~/Downloads/compressed.tar.xz\n"
+  switch $argv
+    case "*tar.bz2" "*tbz2" "*tbz"
+      tar -xvjf $argv
+    case "*tar.gz" "*tgz"
+      tar -xvzf $argv
+    case "*tar.xz" "*txz" "*tar.lzma"
+      tar -xvJf $argv
+    case "*tar.zst"
+      tar --zstd -xvf $argv
+    case "*tar.lrz"
+      lrzuntar $argv
+    case "*tar"
+      tar -xvf $argv
+    case "*rar"
+      unrar x $argv
+    case "*lzh"
+      lha x $argv
+    case "*7z"
+      7z x $argv
+    case "*zip" "*jar"
+      unzip $argv
+    case "*deb"
+      ar -x $argv
+    case "*bz2"
+      bzip2 -d -c $argv
+    case "*gz" "*Z"
+      gzip -d -c $argv
+    case "*xz" "*lzma"
+      xz -d -c $argv
+    case "*zst"
+      zstd -d -c $argv
+    case "*lrz"
+      lrunzip $argv
+    case "*"
+      printf '%s\n' "ERROR: $argv has unrecognized archive type."
   end
 end
 # End of functions
