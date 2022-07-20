@@ -349,7 +349,7 @@ widgets = [
             "Button1": lambda: qtile.cmd_spawn(os.path.expanduser(
                 "~/.config/scripts/update_system.sh")),
             "Button3": lambda: qtile.cmd_spawn(os.path.expanduser(
-                "~/.config/qtile/check_updates.sh")),
+                "~/.config/scripts/check_updates.sh")),
         }),
         update_interval=900),
     widget.Sep(
