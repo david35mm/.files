@@ -4,16 +4,16 @@
 " \____/___/\__/ /____//_/    /_.__/_/\__/  \___/\___/_/\___/\_,_/_/
 
 if (empty($TMUX))
-	if (has("nvim"))
-		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-	endif
-	if (has("termguicolors"))
-		set termguicolors
-	endif
+    if (has("nvim"))
+        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+    if (has("termguicolors"))
+        set termguicolors
+    endif
 endif
 
 if &shell =~# 'fish$'
-	set shell=sh
+    set shell=sh
 endif
 
 "    ___  __          _
@@ -26,28 +26,30 @@ lua <<EOF
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-	packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
 return require('packer').startup(function(use)
-	use 'hoob3rt/lualine.nvim'
-	use 'jiangmiao/auto-pairs'
-	use 'navarasu/onedark.nvim'
-	use 'norcalli/nvim-colorizer.lua'
-	use {
-		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate'
-	}
-	use 'preservim/nerdtree'
-	use 'tpope/vim-surround'
-	use 'tiagofumo/vim-nerdtree-syntax-highlight'
-	use 'ryanoasis/vim-devicons'
+    use 'hoob3rt/lualine.nvim'
+    --use {
+    --    'echasnovski/mini.nvim',
+    --    branch = 'stable'
+    --}
+    use 'jiangmiao/auto-pairs'
+    use 'navarasu/onedark.nvim'
+    use 'norcalli/nvim-colorizer.lua'
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
+    use 'tpope/vim-surround'
+    use 'ryanoasis/vim-devicons'
 
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
-	if packer_bootstrap then
-		require('packer').sync()
-	end
+    -- Automatically set up your configuration after cloning packer.nvim
+    -- Put this at the end after all plugins
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)
 EOF
 
@@ -58,46 +60,82 @@ EOF
 "                                                      /___/
 
 lua <<EOF
-vim.bo.copyindent = true
-vim.bo.expandtab = false
-vim.bo.modeline = false
-vim.bo.preserveindent = true
-vim.bo.shiftwidth = 4
-vim.bo.softtabstop = 0
-vim.bo.swapfile = false
-vim.bo.tabstop = 4
-vim.o.backup = false
-vim.o.clipboard = "unnamed,unnamedplus"
-vim.o.cmdheight = 1
-vim.o.hidden = true
-vim.o.ignorecase = true
-vim.o.listchars = "extends:,precedes:,eol:,tab:│ "
-vim.o.mouse = "niv"
-vim.o.ruler = false
-vim.o.scrolloff = 4
-vim.o.showcmd = false
-vim.o.showmode = false
-vim.o.sidescrolloff = 8
-vim.o.smartcase = true
-vim.o.title = true
-vim.o.updatetime = 100
-vim.o.visualbell = true
-vim.o.wildignore = "*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem,*.swp,*~,._*,*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*"
-vim.o.wildmode = "longest,list,full"
-vim.o.writebackup = false
-vim.wo.cursorline = true
-vim.wo.foldenable = false
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
-vim.wo.foldmethod = "expr"
-vim.wo.foldnestmax = 3
-vim.wo.list = true
-vim.wo.number = true
-vim.wo.relativenumber = true
+vim.opt.autoindent = true
+vim.opt.autoread = true
+vim.opt.backspace = {"indent", "eol", "start"}
+vim.opt.backup = false
+vim.opt.clipboard = {"unnamed", "unnamedplus"}
+vim.opt.cmdheight = 1
+vim.opt.colorcolumn = "80"
+vim.opt.complete:remove{"i"}
+vim.opt.copyindent = true
+vim.opt.cursorline = true
+vim.opt.display:append{"lastline"}
+vim.opt.encoding = "utf-8"
+vim.opt.errorbells = false
+vim.opt.expandtab = true
+vim.opt.fileencoding = "utf-8"
+vim.opt.fileencodings = "utf-8"
+vim.opt.fileformats = {"unix", "dos", "mac"}
+vim.opt.formatoptions:append{"j"}
+vim.opt.formatoptions:remove{"c", "r", "o"}
+vim.opt.guicursor = {a = "blinkon0"}
+vim.opt.guifont = "Iosevka david35mm 10"
+vim.opt.guioptions = "egmrti"
+vim.opt.hidden = true
+vim.opt.history = 1000
+vim.opt.hlsearch = true
+vim.opt.ignorecase = true
+vim.opt.incsearch = true
+vim.opt.iskeyword = "-"
+vim.opt.laststatus = 3
+vim.opt.list = true
+vim.opt.listchars = {eol = "",extends = "",nbsp = "+",precedes = "",tab = "│ ",trail = "-"}
+vim.opt.modeline = true
+vim.opt.modelines = 10
+vim.opt.mouse = "a"
+vim.opt.mousemodel = "popup"
+vim.opt.nrformats:remove{"octal"}
+vim.opt.number = true
+vim.opt.path = "**"
+vim.opt.preserveindent = true
+vim.opt.relativenumber = true
+vim.opt.ruler = true
+vim.opt.scrolloff = 1
+vim.opt.sessionoptions:remove{"options"}
+vim.opt.shell = "/bin/sh"
+vim.opt.shiftwidth = 4
+vim.opt.shortmess:append{"c", "A"}
+vim.opt.showcmd = false
+vim.opt.showmode = false
+vim.opt.sidescrolloff = 5
+vim.opt.signcolumn = "yes"
+vim.opt.smartcase = true
+vim.opt.smarttab = true
+vim.opt.softtabstop = 0
+vim.opt.statusline = "%F%m%r%h%w%=(%{&ff}/%Y) (line %l/%L, col %c)"
+vim.opt.swapfile = false
+vim.opt.tabpagemax = 50
+vim.opt.tabstop = 4
+vim.opt.tags:prepend{"./tags;"}
+vim.opt.tags:remove{"./tags", "./tags;"}
+vim.opt.termguicolors = true
+vim.opt.textwidth = 79
+vim.opt.title = true
+vim.opt.titleold = "Terminal"
+vim.opt.titlestring = "%F"
+vim.opt.ttimeout = true
+vim.opt.ttimeoutlen = 100
+vim.opt.updatetime = 100
+vim.opt.viewoptions:remove{"options"}
+vim.opt.visualbell = true
+vim.opt.wildignore:append{"*.class","*.db","*.gem","*.o","*.obj","*.out","*.pyc","*.rar","*.rbc","*.rbo","*.so","*.sqlite","*.swp","*.tar.bz2","*.tar.gz","*.tar.xz","*.zip","*/.bundle/*","*/.sass-cache/*","*/tmp/*","*/vendor/cache/*","*/vendor/gems/*","*node_modules/","*~","._*",".git",".svn","__pycache__"}
+vim.opt.wildmenu = true
+vim.opt.wildmode = {list = "full"}
+vim.opt.wrap = true
+vim.opt.wrapmargin = 2
+vim.opt.writebackup = false
 EOF
-set guioptions=a
-set iskeyword+=-
-set path+=**
-set shortmess+=cA
 
 "Fix sizing bug with Alacritty terminal
 autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"
@@ -121,11 +159,11 @@ autocmd CursorHold * checktime
 " hoob3rt/lualine.nvim
 lua <<EOF
 require('lualine').setup {
-	options = {
-		component_separators = '',
-		section_separators = '',
-		theme = 'onedark'
-	}
+    options = {
+        component_separators = '',
+        section_separators = '',
+        theme = 'onedark'
+    }
 }
 EOF
 
@@ -136,7 +174,7 @@ EOF
 " navarasu/onedark.nvim
 lua <<EOF
 require('onedark').setup {
-	style = 'darker'
+    style = 'darker'
 }
 require('onedark').load()
 EOF
@@ -149,43 +187,10 @@ EOF
 "nvim-treesitter/nvim-treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = { "bash", "c", "cpp", "css", "fish", "html", "lua", "python", "toml", "vim", "yaml" },
-	highlight = { enable = true },
-	indent = { enable = true }
+    ensure_installed = { "bash", "c", "cpp", "css", "fish", "html", "lua", "python", "toml", "vim", "yaml" },
+    highlight = { enable = true },
+    indent = { enable = true }
 }
-EOF
-
-
-" preservim/nerdtree
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-	\ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-" Exit Vim if NERDTree is the only window left.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-	\ quit | endif
-
-lua <<EOF
---vim.g.NERDTreeDirArrowCollapsible = ""
---vim.g.NERDTreeDirArrowExpandable = ""
-vim.g.NERDTreeDirArrowCollapsible = ""
-vim.g.NERDTreeDirArrowExpandable = ""
-vim.g.NERDTreeMinimalMenu = 1
-vim.g.NERDTreeMinimalUI = 1
-vim.g.NERDTreeMouseMode = 2
-vim.g.NERDTreeQuitOnOpen = 1
-vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeSortHiddenFirst = 1
-vim.g.NERDTreeWinSize = 32
-vim.g.plug_window = "noautocmd vertical topleft new"
-vim.api.nvim_set_keymap("n", "<C-t>", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
-EOF
-
-" tiagofumo/vim-nerdtree-syntax-highlight
-lua <<EOF
-vim.g.NERDTreeExactMatchHighlightFullName = 1
-vim.g.NERDTreeFileExtensionHighlightFullName = 1
-vim.g.NERDTreeLimitedSyntax = 1
-vim.g.NERDTreePatternMatchHighlightFullName = 1
 EOF
 
 " ryanoasis/vim-devicons
@@ -236,16 +241,13 @@ let WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['swift'] = ""
 "                    /_/              /___/
 
 lua <<EOF
-vim.api.nvim_set_keymap("i", "<C-s>", "<ESC>:w<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("", "<C-s>", "<ESC>:w<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("", "<F6>", ":setlocal spell spelllang=en_gb,es_mx<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "ii", "<Esc>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-a>", "gg v G $", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<F6>", ":setlocal spell spelllang=en_gb,es_mx<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "N", "Nzz", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "Q", "gqap", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "S", ":%s///g<Left><Left><Left>", { noremap = true })
 vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "n", "nzz", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<F9>", ":sort<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "Q", "gq", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "S", ":s///g<Left><Left><Left>", { noremap = true })
@@ -259,19 +261,9 @@ EOF
 
 autocmd Filetype rmd,Rmd nmap <C-b> :!Rscript -e "rmarkdown::render('%', clean=TRUE)"<CR>
 
-"    ____     ___ __        ____      ______     __   __          __
-"   / __/__  / (_) /____   / __/___  /_  __/__ _/ /  / /  ___ ___/ /
-"  _\ \/ _ \/ / / __(_-<   > _/_ _/   / / / _ `/ _ \/ _ \/ -_) _  /
-" /___/ .__/_/_/\__/___/  |_____/    /_/  \_,_/_.__/_.__/\__/\_,_/
-"    /_/
-"    _____ __
-"   / __(_) /__ ___
-"  / _// / / -_|_-<
-" /_/ /_/_/\__/___/
-
 lua <<EOF
-vim.o.splitbelow = true
-vim.o.splitright = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 
 vim.g.mapleader = " "
 vim.api.nvim_set_keymap("n", "<Leader>nw", ":set list nowrap<CR>", { noremap = true, silent = true })
