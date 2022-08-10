@@ -1,35 +1,33 @@
 #!/usr/bin/env bash
+export HISTFILE="\$XDG_STATE_HOME"/bash/history
 
-export BROWSER="brave-browser"
-export EDITOR="nvim"
-export MANPAGER="less -IMRgs --incsearch --use-color -DE+wr -DP+wk -DS+ky -Dd+b -Du+m"
-export READER="zathura"
-export TERMINAL="alacritty"
-export VISUAL="subl"
+if ! [ -d "$XDG_STATE_HOME"/bash ]; then
+  mkdir -p "$XDG_STATE_HOME"/bash
+fi
 
 #export PS1="\[\e[1;33m\][\[\e[m\]\[\e[1;33m\]\u\[\e[m\]\[\e[1;33m\]]\[\e[m\]\[\e[1;34m\][\[\e[m\]\[\e[1;34m\]\w\[\e[m\]\[\e[1;34m\]]\[\e[m\]\[\e[1;31m\]-\[\e[m\]\[\e[1;31m\]>\[\e[m\] "
 eval "$(starship init bash)"
 
 # Set tty colours
 if [ "$TERM" = "linux" ]; then
-  printf %b '\e[40m' '\e[8]' # set default background to color 0
-  printf %b '\e[37m' '\e[8]' # set default foreground to color 7
-  printf %b '\e]P0181b20' # redefine 'bg'
-  printf %b '\e]P87a818e' # redefine 'comment'
-  printf %b '\e]P1e55561' # redefine 'red'
-  printf %b '\e]P9e55561' # redefine 'bright-red'
-  printf %b '\e]P28ebd6b' # redefine 'green'
-  printf %b '\e]PA8ebd6b' # redefine 'bright-green'
-  printf %b '\e]P3cc9057' # redefine 'brown'
-  printf %b '\e]PBe2b86b' # redefine 'yellow'
-  printf %b '\e]P44fa6ed' # redefine 'blue'
-  printf %b '\e]PC4fa6ed' # redefine 'bright-blue'
-  printf %b '\e]P5bf68d9' # redefine 'magenta'
-  printf %b '\e]PDbf68d9' # redefine 'bright-magenta'
-  printf %b '\e]P648b0bd' # redefine 'cyan'
-  printf %b '\e]PE48b0bd' # redefine 'bright-cyan'
-  printf %b '\e]P7a0a8b7' # redefine 'fg'
-  printf %b '\e]PFe6e6e6' # redefine 'white'
+  printf '%b' "\e[40m" "\e[8]" # set default background to color 0
+  printf '%b' "\e[37m" "\e[8]" # set default foreground to color 7
+  printf '%b' "\e]P0181b20" # redefine "bg"
+  printf '%b' "\e]P87a818e" # redefine "comment"
+  printf '%b' "\e]P1e55561" # redefine "red"
+  printf '%b' "\e]P9e55561" # redefine "bright-red"
+  printf '%b' "\e]P28ebd6b" # redefine "green"
+  printf '%b' "\e]PA8ebd6b" # redefine "bright-green"
+  printf '%b' "\e]P3cc9057" # redefine "brown"
+  printf '%b' "\e]PBe2b86b" # redefine "yellow"
+  printf '%b' "\e]P44fa6ed" # redefine "blue"
+  printf '%b' "\e]PC4fa6ed" # redefine "bright-blue"
+  printf '%b' "\e]P5bf68d9" # redefine "magenta"
+  printf '%b' "\e]PDbf68d9" # redefine "bright-magenta"
+  printf '%b' "\e]P648b0bd" # redefine "cyan"
+  printf '%b' "\e]PE48b0bd" # redefine "bright-cyan"
+  printf '%b' "\e]P7a0a8b7" # redefine "fg"
+  printf '%b' "\e]PFe6e6e6" # redefine "white"
   clear
 fi
 
@@ -38,13 +36,7 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
-# User specific environment
-if ! [[ $PATH =~ "$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:"   ]]; then
-  PATH="$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:$HOME/XiaomiADBFastbootTools/platform-tools:$PATH"
-fi
-export PATH
-
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# Uncomment the following line if you don"t like systemctl"s auto-paging feature:
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
@@ -67,7 +59,7 @@ ex() {
     *xz|lzma) xz -d -c "$1" ;;
     *zst) zstd -d -c "$1" ;;
     *lrz) lrunzip "$1" ;;
-    *) printf '%s\n' "ERROR: "$1" has unrecognized archive type." ;;
+    *) printf '%b\n' "ERROR: '$1' has unrecognized archive type." ;;
   esac
 }
 
@@ -98,12 +90,11 @@ alias cp='cp -iv'
 alias df='df -h'
 alias doas='doas --'
 alias free='free -mt'
-alias librespot='librespot -n "A315-41" -b 320 -u yourUsername -p yourPassword -c ./cache --enable-volume-normalisation --initial-volume 75 --device-type computer'
 alias lynx='lynx -accept_all_cookies'
 alias wget='wget -c'
 
 # Merge .Xresources settings
-alias merge='xrdb -merge ~/.Xresources'
+alias merge='xrdb -merge $XDG_CONFIG_HOME/X11/xresources'
 
 # Aliases for software managment
 alias darm='doas dnf autoremove -y'
@@ -151,31 +142,18 @@ alias yta-wav='youtube-dl --extract-audio --audio-format wav'
 alias ytv-best='youtube-dl -f bestvideo+bestaudio'
 
 # nvim/Sublime for important configuration files
-alias valacritty='nvim ~/.config/alacritty/alacritty.yml'
-alias vbashrc='nvim ~/.bashrc'
+alias valacritty='nvim $XDG_CONFIG_HOME/alacritty/alacritty.yml'
+alias vbashrc='nvim $HOME/.bashrc'
 alias vdnf='doas nvim /etc/dnf/dnf.conf'
-alias vfish='nvim ~/.config/fish/config.fish'
-alias vherbstluftwm='nvim ~/.config/herbstluftwm/autostart'
-alias vnnvim='nvim ~/.config/nnvim/init.nvim'
+alias vfish='nvim $XDG_CONFIG_HOME/fish/config.fish'
+alias vherbstluftwm='nvim $XDG_CONFIG_HOME/herbstluftwm/autostart'
+alias vnnvim='nvim $XDG_CONFIG_HOME/nvim/init.lua'
 alias vpacman='doas nvim /etc/pacman.conf'
-alias vpicom='nvim ~/.config/picom/picom.conf'
-alias vqtile='nvim ~/.config/qtile/config.py'
-alias vspectrwm='nvim ~/.config/spectrwm/spectrwm.conf'
-alias vsway='nvim ~/.config/sway/config'
-alias vvifm='nvim ~/.config/vifm/vifmrc'
-
-alias salacritty='subl ~/.config/alacritty/alacritty.yml'
-alias sbashrc='subl ~/.bashrc'
-alias sdnf='doas subl /etc/dnf/dnf.conf'
-alias sfish='subl ~/.config/fish/config.fish'
-alias sherbstluftwm='subl ~/.config/herbstluftwm/autostart'
-alias snnvim='subl ~/.config/nnvim/init.nvim'
-alias spacman='doas subl /etc/pacman.conf'
-alias spicom='subl ~/.config/picom/picom.conf'
-alias sqtile='subl ~/.config/qtile/config.py'
-alias sspectrwm='subl ~/.config/spectrwm/spectrwm.conf'
-alias ssway='subl ~/.config/sway/config'
-alias svifm='subl ~/.config/vifm/vifmrc'
+alias vpicom='nvim $XDG_CONFIG_HOME/picom/picom.conf'
+alias vqtile='nvim $XDG_CONFIG_HOME/qtile/config.py'
+alias vspectrwm='nvim $XDG_CONFIG_HOME/spectrwm/spectrwm.conf'
+alias vsway='nvim $XDG_CONFIG_HOME/sway/config'
+alias vvifm='nvim $XDG_CONFIG_HOME/vifm/vifmrc'
 
 # Git
 alias addnew='git add -u'
