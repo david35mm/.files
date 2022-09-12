@@ -42,13 +42,13 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 my_term = "alacritty"
-my_browser = "brave"
+my_browser = "brave-browser"
 my_file_manager = "pcmanfm-qt"
 my_markdown = "marktext"
 my_music_player = my_term .. " --class cmus,cmus -e cmus"
 my_office_suite = "desktopeditors"
 my_pdf_reader = "zathura"
-my_text_editor = "subl"
+my_text_editor = "geany"
 my_video_player = "celluloid"
 
 M = "Mod4"
@@ -174,7 +174,7 @@ awful.screen.connect_for_each_screen(function(s)
       end)))
 
   s.weather = awful.widget.watch(
-      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/weather.sh", 
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/weather.sh",
       300,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_red .. "'>" ..
@@ -187,7 +187,7 @@ awful.screen.connect_for_each_screen(function(s)
       end)))
 
   s.memory = awful.widget.watch(
-      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/memory.sh", 
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/memory.sh",
       2,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_green .. "'>﬙ " ..
@@ -200,7 +200,7 @@ awful.screen.connect_for_each_screen(function(s)
       end)))
 
   s.updates = awful.widget.watch(
-      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/updates.sh", 
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/updates.sh",
       900,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_yellow .. "'> " ..
@@ -220,7 +220,7 @@ awful.screen.connect_for_each_screen(function(s)
       end)))
 
   s.volume = awful.widget.watch(
-      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/volume.sh", 
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/volume.sh",
       0.2,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_blue .. "'>" ..
@@ -242,7 +242,7 @@ awful.screen.connect_for_each_screen(function(s)
       end)))
 
   s.brightness = awful.widget.watch(
-      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/brightness.sh", 
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/brightness.sh",
       0.2,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_red .. "'>" ..
@@ -263,7 +263,7 @@ awful.screen.connect_for_each_screen(function(s)
   }
 
   s.battery = awful.widget.watch(
-      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/battery.sh", 
+      gears.filesystem.get_xdg_config_home() .. "scripts/widgets/battery.sh",
       30,
       function(widget, stdout) widget:set_markup_silently(
           "<span foreground='" .. beautiful.colour_purple .. "'>" ..
@@ -564,7 +564,7 @@ awful.rules.rules = {
                 "Gnome-screenshot", "makebranch", "maketag", "notification",
                 "Pavucontrol", "splash", "ssh-askpass", "toolbar"},
          role={"utility", "notificion", "toolbar", "splash", "dialog"},
-         name={"Authentication", "branchdialog", "pinentry"},
+         name={"Authentication", "branchdialog", "Chat", "pinentry", "Polls"},
      },
      properties={floating=true}},
     {rule_any={
@@ -572,7 +572,7 @@ awful.rules.rules = {
      },
      properties={maximized=true, tag="web"}},
     {rule_any={
-         class={"Emacs", "jetbrains-idea", "Sublime_text"},
+         class={"Emacs", "Geany", "jetbrains-idea"},
      },
      properties={tag="dev"}},
     {rule_any={
@@ -624,10 +624,6 @@ client.connect_signal("unfocus", function(c)
   c.border_color = beautiful.border_normal
 end)
 
-awful.spawn.easy_async("emacs --daemon", function() end)
 awful.spawn.easy_async("lxpolkit", function() end)
 awful.spawn.easy_async("picom -b", function() end)
-awful.spawn.easy_async("pipewire", function() end)
-awful.spawn.easy_async("pipewire-pulse", function() end)
-awful.spawn.easy_async("wireplumber", function() end)
 awful.spawn.easy_async("udiskie -asn -f pcmanfm-qt", function() end)

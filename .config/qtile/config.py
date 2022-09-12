@@ -25,13 +25,13 @@ from libqtile.utils import guess_terminal
 
 mod = "mod4"
 my_term = guess_terminal()
-my_browser = "brave"
+my_browser = "brave-browser"
 my_file_manager = "pcmanfm-qt"
 my_markdown = "marktext"
 my_music_player = my_term + " --class cmus,cmus -e cmus"
 my_office_suite = "desktopeditors"
 my_pdf_reader = "zathura"
-my_text_editor = "subl"
+my_text_editor = "geany"
 my_video_player = "celluloid"
 
 mouse = [
@@ -180,7 +180,7 @@ groups = [
     Group("dev",
           layout="monadtall",
           matches=[
-              Match(wm_class=["Emacs", "jetbrains-idea", "Sublime_text"]),
+              Match(wm_class=["Emacs", "Geany", "jetbrains-idea"]),
           ]),
     Group("sys",
           layout="monadtall",
@@ -432,7 +432,9 @@ floating_layout = layout.Floating(
         *layout.Floating.default_float_rules,
         Match(title="Authentication"),
         Match(title="branchdialog"),
+        Match(title="Chat"),
         Match(title="pinentry"),
+        Match(title="Polls"),
         Match(wm_class="Arandr"),
         Match(wm_class="Blueman-adapters"),
         Match(wm_class="Blueman-manager"),
@@ -463,18 +465,13 @@ def delete_cache():
 @hook.subscribe.shutdown
 def stop_apps():
   delete_cache()
-  qtile.cmd_spawn(["killall", "dunst", "emacs", "lxpolkit", "picom",
-                    "pipewire", "pipewire-pulse", "wireplumber", "udiskie"])
+  qtile.cmd_spawn(["killall", "dunst", "lxpolkit", "picom", "udiskie"])
 
 @hook.subscribe.startup_once
 def start_apps():
   qtile.cmd_spawn(["dunst"])
-  qtile.cmd_spawn(["emacs", "--daemon"])
   qtile.cmd_spawn(["lxpolkit"])
   qtile.cmd_spawn(["picom", "-b"])
-  qtile.cmd_spawn(["pipewire"])
-  qtile.cmd_spawn(["pipewire-pulse"])
-  qtile.cmd_spawn(["wireplumber"])
   qtile.cmd_spawn(["udiskie", "-asn", "-f", "pcmanfm-qt"])
 
 wmname = "LG3D"

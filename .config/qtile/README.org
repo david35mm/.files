@@ -26,7 +26,7 @@
 #+ATTR_HTML: :alt Qtile Screenshot :title A Brief Look :align left
 [[https://github.com/david35mm/.files/blob/main/.config/qtile/qtile.png]]
 
-This config file was modified by David Salomón on Jul 18, 2022 at 07:35 pm (Bogota DC, Colombia UTC-5).
+This config file was modified by David Salomón on Sun Sep 11, 2022 at 08:42 pm (Bogota DC, Colombia UTC-5).
 - My YouTube Channel: https://9m.no/𑅁텚
 - My Instagram Page: https://www.instagram.com/david.35mm
 - My GitHub: https://github.com/david35mm
@@ -77,13 +77,13 @@ Here I have set some variables so that you can set your default programs. If som
 #+BEGIN_SRC python
 mod = "mod4"
 my_term = guess_terminal()
-my_browser = "brave"
+my_browser = "brave-browser"
 my_file_manager = "pcmanfm-qt"
 my_markdown = "marktext"
 my_music_player = my_term + " --class cmus,cmus -e cmus"
 my_office_suite = "desktopeditors"
 my_pdf_reader = "zathura"
-my_text_editor = "subl"
+my_text_editor = "geany"
 my_video_player = "celluloid"
 #+END_SRC
 
@@ -187,7 +187,7 @@ I have set some easy to remember keybindings for launching the most used applica
 | MODKEY + ALT + m                 | Launch Music Player ([[https://cmus.github.io/][cmus]])                                   |
 | MODKEY + ALT + o                 | Launch Office Suite ([[https://www.onlyoffice.com/download-desktop.aspx][OnlyOffice]])                             |
 | MODKEY + ALT + p                 | Launch PDF Reader ([[https://pwmt.org/projects/zathura/][Zathura]])                                  |
-| MODKEY + ALT + t                 | Launch Text Editor ([[https://www.sublimetext.com/docs/3/linux_repositories.html][Sublime Text]])                            |
+| MODKEY + ALT + t                 | Launch Text Editor ([[https://www.geany.org/][Geany]])                            |
 | MODKEY + ALT + v                 | Launch Video Player ([[https://mpv.io/][mpv]])                                    |
 | MODKEY + ALT + e                 | Launch Terminal-Based File Manager ([[https://github.com/vifm/vifm][vifm]])                    |
 | MODKEY + ALT + s                 | Launch ([[https://www.spotify.com/co/download/linux][Spotify]])                                             |
@@ -339,7 +339,7 @@ groups = [
     Group("dev",
           layout="monadtall",
           matches=[
-              Match(wm_class=["Emacs", "jetbrains-idea", "Sublime_text"]),
+              Match(wm_class=["Emacs", "Geany", "jetbrains-idea"]),
           ]),
     Group("sys",
           layout="monadtall",
@@ -629,7 +629,9 @@ floating_layout = layout.Floating(
         *layout.Floating.default_float_rules,
         Match(title="Authentication"),
         Match(title="branchdialog"),
+        Match(title="Chat"),
         Match(title="pinentry"),
+        Match(title="Polls"),
         Match(wm_class="Arandr"),
         Match(wm_class="Blueman-adapters"),
         Match(wm_class="Blueman-manager"),
@@ -665,18 +667,13 @@ def delete_cache():
 @hook.subscribe.shutdown
 def stop_apps():
   delete_cache()
-  qtile.cmd_spawn(["killall", "dunst", "emacs", "lxpolkit", "picom",
-                    "pipewire", "pipewire-pulse", "wireplumber", "udiskie"])
+  qtile.cmd_spawn(["killall", "dunst", "lxpolkit", "picom", "udiskie"])
 
 @hook.subscribe.startup_once
 def start_apps():
   qtile.cmd_spawn(["dunst"])
-  qtile.cmd_spawn(["emacs", "--daemon"])
   qtile.cmd_spawn(["lxpolkit"])
   qtile.cmd_spawn(["picom", "-b"])
-  qtile.cmd_spawn(["pipewire"])
-  qtile.cmd_spawn(["pipewire-pulse"])
-  qtile.cmd_spawn(["wireplumber"])
   qtile.cmd_spawn(["udiskie", "-asn", "-f", "pcmanfm-qt"])
 #+END_SRC
 
