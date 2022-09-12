@@ -32,7 +32,15 @@ set -g fish_pager_color_prefix $blue
 set -g fish_pager_color_completion $foreground
 set -g fish_pager_color_description $comment
 
-starship init fish | source
+# starship init fish | source
+function fish_prompt
+  #set -g __fish_git_prompt_show_informative_status
+  set -g __fish_git_prompt_showcolorhints
+  set -g __fish_git_prompt_showdirtystate
+  set -g __fish_git_prompt_use_informative_chars
+  echo -s (set_color --bold blue) (prompt_pwd -d0) \
+    (set_color normal) (fish_git_prompt) (set_color green) "  " (set_color normal)
+end
 
 # Set tty colours
 if [ "$TERM" = "linux" ]

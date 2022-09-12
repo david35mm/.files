@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
-export HISTFILE="\$XDG_STATE_HOME"/bash/history
+export HISTFILE="$XDG_STATE_HOME"/bash/history
 
 if ! [ -d "$XDG_STATE_HOME"/bash ]; then
   mkdir -p "$XDG_STATE_HOME"/bash
 fi
 
+export PS1="\e[1;34m\w \e[0;32m \e[m"
 #export PS1="\[\e[1;33m\][\[\e[m\]\[\e[1;33m\]\u\[\e[m\]\[\e[1;33m\]]\[\e[m\]\[\e[1;34m\][\[\e[m\]\[\e[1;34m\]\w\[\e[m\]\[\e[1;34m\]]\[\e[m\]\[\e[1;31m\]-\[\e[m\]\[\e[1;31m\]>\[\e[m\] "
-eval "$(starship init bash)"
+#eval "$(starship init bash)"
 
 # Set tty colours
 if [ "$TERM" = "linux" ]; then
