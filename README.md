@@ -1,5 +1,14 @@
 # David Salomón's dotfiles
 
+<div style="text-align: center;">
+
+[![GitHub license](https://img.shields.io/github/license/david35mm/.files?style=flat-square)](https://choosealicense.com/licenses/0bsd/)
+![GitHub language count](https://img.shields.io/github/languages/count/david35mm/.files?style=flat-square)
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/david35mm/.files?label=codefactor&style=flat-square)](https://www.codefactor.io/repository/github/david35mm/.files)
+![GitHub last commit](https://img.shields.io/github/last-commit/david35mm/.files?style=flat-square)
+
+</div>
+
 ## The Repository
 
 This repository is where I store the dotfiles that I use on my GNU/Linux
@@ -7,11 +16,15 @@ system. What are dotfiles? you may ask, these are files that start with a
 period (a dot). Most of the time this hidden files correspond to
 configurations of certain programs installed on you computer, that's the main
 reason many people store their dotfiles. The contents of this repository are
-available under the terms of the [Zero-Clause BSD License](https://opensource.org/licenses/0BSD).
+available under the terms of the [Zero-Clause BSD License](https://choosealicense.com/licenses/0bsd/).
 
 ## The Dotfiles Stored in Here
 
-<img src="https://raw.githubusercontent.com/david35mm/.files/main/.config/awesome/awesome.png" title="" alt="" data-align="center">
+<div style="text-align: center;">
+
+![awesomewm screenshot](https://raw.githubusercontent.com/david35mm/.files/main/.config/awesome/awesome.png)
+
+</div>
 
 Most of my dotfiles correspond to configuration files for various window
 managers. For the past months I have been using Awesome as my daily window
