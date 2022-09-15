@@ -1,8 +1,8 @@
 #!/bin/sh
 
-battery_level=$(busybox cat /sys/class/power_supply/BAT1/capacity)
+battery_level=$(busybox cat /sys/class/power_supply/BAT?/capacity)
 
-case "$(busybox cat /sys/class/power_supply/BAT1/status)" in
+case "$(busybox cat /sys/class/power_supply/BAT?/status)" in
   "Full") busybox printf '%s' " Full" ;;
   "Discharging")
     case "$battery_level" in
