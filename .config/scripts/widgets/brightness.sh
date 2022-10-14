@@ -1,7 +1,7 @@
 #!/bin/sh
 
-brightness_level="$(brightnessctl -m | busybox cut -d',' -f4)"
-# brightness_level="$(awk '{echo "%0.0f\n",$0 * 100 / 255}' /sys/class/backlight/*/brightness)"
+# brightness_level="$(brightnessctl -m | busybox cut -d',' -f4)"
+brightness_level="$(busybox awk '{printf "%.0f\%", $0 * 100 / 255}' /sys/class/backlight/*/brightness)"
 
 case "$brightness_level" in
   100% | 9[0-9]% | 8[6-9]%) busybox printf '%s' " $brightness_level" ;;

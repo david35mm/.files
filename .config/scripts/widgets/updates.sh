@@ -1,14 +1,13 @@
 #!/bin/sh
 
-case "$(busybox grep -w NAME /etc/os-release | busybox sed 's/NAME=//;s/\"//g' | busybox cut -d' ' -f1)" in
-  "Fedora")
-    number_updates="$(dnf updateinfo -q --list | busybox wc -l)"
-    ;;
-  *)
-    number_updates="$(checkupdates | busybox wc -l)"
-    ;;
-esac
+if command -v dnf > /dev/null; then
+  number_updates="$(dnf updateinfo -q --list | busybox wc -l)"
+else
+  number_updates="$(checkupdates | busybox wc -l)"
+fi
 
-[ "$number_updates" -eq 0 ] \
-  && busybox printf '%s' "Up to date!" \
-  || busybox printf '%s' "$number_updates Updates"
+if [ "$number_updates" -eq 0 ]; then
+  busybox printf '%s' "Up to date!"
+else
+  busybox printf '%s' "$number_updates Updates"
+fi
