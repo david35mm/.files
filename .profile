@@ -5,7 +5,7 @@ export EDITOR=nvim
 export MANPAGER="less -IMRgs --incsearch --use-color -DE+wr -DP+wk -DS+ky -Dd+b -Du+m"
 export READER=zathura
 export TERMINAL=alacritty
-export VISUAL=subl
+export VISUAL=geany
 
 export XDG_CONFIG_HOME="$HOME"/.config
 export XDG_CACHE_HOME="$HOME"/.cache
