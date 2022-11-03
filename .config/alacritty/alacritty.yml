@@ -55,9 +55,6 @@ colors:
     focused_match:
       foreground: '#a0a8b7'
       background: '#181b20'
-    bar:
-      background: '#a0a8b7'
-      foreground: '#181b20'
   hints:
     start:
       foreground: '#181b20'
@@ -68,6 +65,9 @@ colors:
   line_indicator:
     foreground: None
     background: None
+  footer_bar:
+    background: '#a0a8b7'
+    foreground: '#181b20'
   selection:
     text: CellBackground
     background: CellForeground
