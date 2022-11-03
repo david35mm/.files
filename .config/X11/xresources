@@ -38,7 +38,16 @@
 Xft.antialias: true
 Xft.hinting: true
 Xft.hintstyle: hintfull
-Xft.rgba: rgb
+Xft.rgba: vrgb
 Xft.autohint: false
 Xft.lcdfilter: lcddefault
 Xft.dpi: 96
+
+*.termName: xterm-256color
+*.vt100.locale: false
+*.vt100.utf8: true
+*.vt100.scrollBar: false
+*.vt100.geometry: 80x32
+Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+*.vt100.faceName: Iosevka david35mm:size=12:antialias=true
