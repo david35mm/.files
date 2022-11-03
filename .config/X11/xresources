@@ -1,9 +1,3 @@
-! ------------------------------------------------------------------------------
-! xterm standard david35mm theme
-! ------------------------------------------------------------------------------
-! https://critical.ch/xterm/
-! ------------------------------------------------------------------------------
-
 ! special
 *.foreground:   #a0a8b7
 *.background:   #181b20
@@ -41,125 +35,10 @@
 *.color7:       #a0a8b7
 *.color15:      #e6e6e6
 
-! XTerm Settings
-XTerm*loginShell: true
-XTerm.termName: xterm-256color
-XTerm.vt100.saveLines: 10240
-XTerm.vt100.scrollBar: false
-XTerm.vt100.geometry: 80x32
-XTerm.vt100.faceName: SF Mono:size=12:antialias=true, \
-					  JetBrainsMono Nerd Font:size=12:antialias=true
-
-Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
-
-XTerm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
-
-XTerm*eightBitInput: false
-
-! ------------------------------------------------------------------------------
-! URxvt standard david35mm theme - Reload with xrdb -merge ~/.Xresources
-! ------------------------------------------------------------------------------
-
-
-
-! general settings
-URxvt*saveline:         15000
-URxvt*termName:         xterm-256color
-URxvt*urgentOnBell:     false
-URxvt*visualBell:       false
-URxvt*iso14755:         false
-URxvt*iso14755_52:      false
-URxvt*meta8:            false
-URxvt*metaSendsEscape:  true
-URxvt*iconFile:  		/usr/share/icons/Sardi-Mono/scalable/apps/terminal.svg
-
-! appearance
-URxvt*depth:             32
-!URxvt*transparent:      true
-URxvt*shading:          30
-URxvt*background:        [95]#101010
-URxvt*foreground:        #d2c5bc
-URxvt*underlineColor:    #4682B4
-URxvt*highlightColor:    #4682B4
-URxvt*throughColor:      Blue
-URxvt*scrollBar:         false
-URxvt*scrollTtyOutput:   false
-URxvt*scrollWithBuffer:  true
-URxvt*scrollTtyKeypress: true
-URxvt*internalBorder:    0
-URxvt*externalBorder:    0
-URxvt*colorIT:      	 #87af5f
-URxvt*colorBD:      	 #d2c5bc
-URxvt*colorUL:      	 #87afd7
-
-! fonts
-URxvt*letterSpace: 	    		-1
-URxvt*font:                 	xft:SF Mono:Regular:size=12
-URxvt*imFont:               	xft:SF Mono:Regular:size=12
-URxvt*boldFont:             	xft:SF Mono:Bold:size=12
-URxvt*italicFont:           	xft:SF Mono:Regular Italic:size=12
-URxvt*boldItalicFont:     		xft:SF Mono:Bold Italic:size=12
-! run :.!fc-list | grep <font-name>
-
-! perl extensions
-URxvt*perl-ext-common:  default,clipboard,url-select,keyboard-select,resize-font
-!URxvt*perl-ext-common:  default,clipboard,url-select,keyboard-select,tabbed
-
-! macros for clipboard and selection
-URxvt*copyCommand:      xclip -i -selection clipboard
-URxvt*pasteCommand:     xclip -o -selection clipboard
-URxvt*keysym.M-c:       perl:clipboard:copy
-URxvt*keysym.m-v:       perl:clipboard:paste
-URxvt*keysym.M-C-v:     perl:clipboard:paste_escaped
-URxvt*keysym.M-Escape:  perl:keyboard-select:activate
-URxvt*keysym.M-s:       perl:keyboard-select:search
-URxvt*keysym.M-u:       perl:url-select:select_next
-URxvt*resize-font.smaller:	C-Down
-URxvt*resize-font.bigger:	C-Up
-URxvt*urlLauncher:      firefox
-URxvt*underlineURLs:    true
-URxvt*urlButton:        1
-URxvt*geometry: 		90x30
-
-! tabbed
-URxvt*tabbed.tabbar-fg: 4
-URxvt*tabbed.tabbar-bg: 16
-URxvt*tabbed.tab-fg:    15
-URxvt*tabbed.tab-bg:    4
-URxvt*buffered:         false
-URxvt*keysym.Control-Shift-C: perl:clipboard:copy
-URxvt*keysym.Control-Shift-V: perl:clipboard:paste
-
-
-
-
-
-! ------------------------------------------------------------------------------
-! UXTerm standard with david35mm theme
-! ------------------------------------------------------------------------------
-
-
-
-! termtype
-UXTerm*termName: xterm-256color
-
-
-UXTerm*VT100.geometry:     90x30
-UXTerm*font:               SF Mono
-UXTerm*faceSize:		   12
-UXTerm*dynamicColors:      true
-UXTerm*utf8:               2
-UXTerm*eightBitInput:      true
-UXTerm*saveLines:          10000
-UXTerm*scrollKey:          true
-UXTerm*scrollTtyOutput:    false
-UXTerm*scrollBar:          false
-UXTerm*rightScrollBar:     false
-UXTerm*jumpScroll:         true
-UXTerm*multiScroll:        true
-UXTerm*toolBar:            false
-
-UXTerm*boldMode: false
-UXTerm*colorBDMode: true
-UXTerm*colorBD: #d2c5bc
+Xft.antialias: true
+Xft.hinting: true
+Xft.hintstyle: hintfull
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.lcdfilter: lcddefault
+Xft.dpi: 96
