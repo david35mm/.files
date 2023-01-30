@@ -1,11 +1,11 @@
 #!/bin/sh
 
 if command -v dnf; then
-  number_updates="$(dnf updateinfo -q --list | busybox wc -l)"
+  number_updates="$(dnf -q updateinfo --list --updates | busybox wc -l)"
   image_name="fedora-logo-icon.svg"
   package_manager_name="DNF"
   # package_names="$(dnf -q --color never list updates | busybox cut -d'.' -f1 | busybox sed '1d')"
-  package_names="$(dnf -q --color never list updates | busybox awk -F . 'NR > 1 {print $1}')"
+  package_names="$(dnf -q rq --upgrades --qf '%{name}')"
 else
   number_updates="$(checkupdates | busybox wc -l)"
   image_name="archlinux.svg"
