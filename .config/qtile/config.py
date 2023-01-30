@@ -214,8 +214,8 @@ for k, group in zip(["1", "2", "3", "4", "5", "6", "7", "8"], groups):
   keys.append(Key("M-S-" + (k), lazy.window.togroup(group.name)))
 
 colours = [
-    ["#181b20", "#181b20"],  # Background
-    ["#e6e6e6", "#e6e6e6"],  # Foreground
+    ["#1f2329", "#1f2329"],  # Background
+    ["#dcdcdc", "#dcdcdc"],  # Foreground
     ["#535965", "#535965"],  # Grey Colour
     ["#e55561", "#e55561"],
     ["#8ebd6b", "#8ebd6b"],

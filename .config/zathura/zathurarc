@@ -2,41 +2,41 @@ set window-title-basename "true"
 set selection-clipboard "clipboard"
 
 set notification-error-bg       "#e55561" # Red
-set notification-error-fg       "#e6e6e6" # Foreground
+set notification-error-fg       "#dcdcdc" # Foreground
 set notification-warning-bg     "#cc9057" # Orange
 set notification-warning-fg     "#535965" # Selection
-set notification-bg             "#181b20" # Background
-set notification-fg             "#e6e6e6" # Foreground
+set notification-bg             "#1f2329" # Background
+set notification-fg             "#dcdcdc" # Foreground
 
-set completion-bg               "#181b20" # Background
+set completion-bg               "#1f2329" # Background
 set completion-fg               "#a0a8b7" # Comment
-set completion-group-bg         "#181b20" # Background
+set completion-group-bg         "#1f2329" # Background
 set completion-group-fg         "#a0a8b7" # Comment
 set completion-highlight-bg     "#535965" # Selection
-set completion-highlight-fg     "#e6e6e6" # Foreground
+set completion-highlight-fg     "#dcdcdc" # Foreground
 
-set index-bg                    "#181b20" # Background
-set index-fg                    "#e6e6e6" # Foreground
+set index-bg                    "#1f2329" # Background
+set index-fg                    "#dcdcdc" # Foreground
 set index-active-bg             "#535965" # Current Line
-set index-active-fg             "#e6e6e6" # Foreground
+set index-active-fg             "#dcdcdc" # Foreground
 
-set inputbar-bg                 "#181b20" # Background
-set inputbar-fg                 "#e6e6e6" # Foreground
-set statusbar-bg                "#181b20" # Background
-set statusbar-fg                "#e6e6e6" # Foreground
+set inputbar-bg                 "#1f2329" # Background
+set inputbar-fg                 "#dcdcdc" # Foreground
+set statusbar-bg                "#1f2329" # Background
+set statusbar-fg                "#dcdcdc" # Foreground
 
 set highlight-color             "#cc9057" # Orange
 set highlight-active-color      "#bf68d9" # Pink
 
-set default-bg                  "#181b20" # Background
-set default-fg                  "#e6e6e6" # Foreground
+set default-bg                  "#1f2329" # Background
+set default-fg                  "#dcdcdc" # Foreground
 
 set render-loading              true
-set render-loading-fg           "#181b20" # Background
-set render-loading-bg           "#e6e6e6" # Foreground
+set render-loading-fg           "#1f2329" # Background
+set render-loading-bg           "#dcdcdc" # Foreground
 
-set recolor-lightcolor          "#181b20" # Background
-set recolor-darkcolor           "#e6e6e6" # Foreground
+set recolor-lightcolor          "#1f2329" # Background
+set recolor-darkcolor           "#dcdcdc" # Foreground
 
 set adjust-open width
 set recolor true

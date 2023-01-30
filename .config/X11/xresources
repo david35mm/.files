@@ -1,10 +1,10 @@
 ! special
 *.foreground:   #a0a8b7
-*.background:   #181b20
+*.background:   #1f2329
 *.cursorColor:  #a0a8b7
 
 ! black
-*.color0:       #181b20
+*.color0:       #1f2329
 *.color8:       #535965
 
 ! red
@@ -33,11 +33,11 @@
 
 ! white
 *.color7:       #a0a8b7
-*.color15:      #e6e6e6
+*.color15:      #dcdcdc
 
 Xft.antialias: true
 Xft.hinting: true
-Xft.hintstyle: hintfull
+Xft.hintstyle: hintmedium
 Xft.rgba: rgb
 Xft.autohint: false
 Xft.lcdfilter: lcddefault

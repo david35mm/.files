@@ -56,7 +56,7 @@ draw_bold_text_with_bright_colors: true
 
 colors:
   primary:
-    background: "#181b20"
+    background: "#1f2329"
     foreground: "#a0a8b7"
   cursor:
     text: CellBackground
@@ -66,29 +66,29 @@ colors:
     cursor: CellForeground
   search:
     matches:
-      foreground: "#181b20"
+      foreground: "#1f2329"
       background: "#a0a8b7"
     focused_match:
       foreground: "#a0a8b7"
-      background: "#181b20"
+      background: "#1f2329"
   hints:
     start:
-      foreground: "#181b20"
+      foreground: "#1f2329"
       background: "#e2b86b"
     end:
       foreground: "#e2b86b"
-      background: "#181b20"
+      background: "#1f2329"
   line_indicator:
     foreground: None
     background: None
   footer_bar:
     background: "#a0a8b7"
-    foreground: "#181b20"
+    foreground: "#1f2329"
   selection:
     text: CellBackground
     background: CellForeground
   normal:
-    black: "#181b20"
+    black: "#1f2329"
     red: "#e55561"
     green: "#8ebd6b"
     yellow: "#cc9057"
@@ -104,7 +104,7 @@ colors:
     blue: "#4fa6ed"
     magenta: "#bf68d9"
     cyan: "#48b0bd"
-    white: "#e6e6e6"
+    white: "#dcdcdc"
   indexed_colors: []
   transparent_background_colors: false
 
