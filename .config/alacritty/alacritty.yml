@@ -24,7 +24,7 @@ window:
   class:
     instance: Alacritty
     general: Alacritty
-  decorations_theme_variant: dark
+  decorations_theme_variant: Dark
 
 scrolling:
   history: 4096
@@ -136,8 +136,6 @@ live_config_reload: true
 #     - "--login"
 
 working_directory: None
-
-alt_send_esc: true
 
 ipc_socket: true
 
