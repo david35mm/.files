@@ -7,16 +7,13 @@ env:
 
 window:
   dimensions:
-    columns: 0
-    lines: 0
-  position:
-    x: 0
-    y: 0
+    columns: 80
+    lines: 24
   padding:
-    x: 8
-    y: 2
+    x: 4
+    y: 4
   dynamic_padding: true
-  decorations: none
+  decorations: full
   opacity: 1.0
   startup_mode: Windowed
   title: Alacritty
@@ -24,7 +21,7 @@ window:
   class:
     instance: Alacritty
     general: Alacritty
-  decorations_theme_variant: Dark
+  decorations_theme_variant: None
 
 scrolling:
   history: 4096
