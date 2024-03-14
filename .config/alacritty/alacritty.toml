@@ -1,0 +1,138 @@
+live_config_reload = true
+
+[bell]
+animation = "EaseOutExpo"
+color = "#ffffff"
+command = "None"
+duration = 0
+
+[colors]
+draw_bold_text_with_bright_colors = true
+transparent_background_colors = false
+
+[colors.bright]
+black = "#535965"
+blue = "#4fa6ed"
+cyan = "#48b0bd"
+green = "#8ebd6b"
+magenta = "#bf68d9"
+red = "#e55561"
+white = "#dcdcdc"
+yellow = "#e2b86b"
+
+[colors.cursor]
+cursor = "CellForeground"
+text = "CellBackground"
+
+[colors.footer_bar]
+background = "#a0a8b7"
+foreground = "#1f2329"
+
+[colors.hints.end]
+background = "#1f2329"
+foreground = "#e2b86b"
+
+[colors.hints.start]
+background = "#e2b86b"
+foreground = "#1f2329"
+
+[colors.line_indicator]
+background = "None"
+foreground = "None"
+
+[colors.normal]
+black = "#1f2329"
+blue = "#4fa6ed"
+cyan = "#48b0bd"
+green = "#8ebd6b"
+magenta = "#bf68d9"
+red = "#e55561"
+white = "#a0a8b7"
+yellow = "#cc9057"
+
+[colors.primary]
+background = "#1f2329"
+foreground = "#a0a8b7"
+
+[colors.search.focused_match]
+background = "#1f2329"
+foreground = "#a0a8b7"
+
+[colors.search.matches]
+background = "#a0a8b7"
+foreground = "#1f2329"
+
+[colors.selection]
+background = "CellForeground"
+text = "CellBackground"
+
+[colors.vi_mode_cursor]
+cursor = "CellForeground"
+text = "CellBackground"
+
+[cursor]
+blink_interval = 200
+blink_timeout = 0
+thickness = 0.25
+unfocused_hollow = true
+vi_mode_style = "None"
+
+[cursor.style]
+blinking = "Always"
+shape = "Underline"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+builtin_box_drawing = true
+size = 12.0
+
+[font.bold]
+family = "SF Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "SF Mono"
+style = "Bold Italic"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.italic]
+family = "SF Mono"
+style = "Regular Italic"
+
+[font.normal]
+family = "SF Mono"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[scrolling]
+history = 4096
+multiplier = 3
+
+[window]
+decorations = "full"
+decorations_theme_variant = "None"
+dynamic_padding = true
+dynamic_title = true
+opacity = 1.0
+startup_mode = "Windowed"
+title = "Alacritty"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.dimensions]
+columns = 80
+lines = 24
+
+[window.padding]
+x = 4
+y = 4
