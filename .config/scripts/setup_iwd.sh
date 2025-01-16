@@ -49,4 +49,4 @@ sudo hwclock --systohc
 sudo timedatectl set-local-rtc 0
 
 sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-systemctl restart systemd-resolved systemd-timesyncd NetworkManager
+sudo systemctl restart systemd-resolved systemd-timesyncd NetworkManager
