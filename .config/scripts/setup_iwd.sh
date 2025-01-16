@@ -36,8 +36,6 @@ DNSOverTLS=opportunistic
 Domains=~.
 EOF
 
-sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-
 sudo mv -vb /etc/systemd/timesyncd.conf /etc/systemd/timesyncd.conf.bak
 cat << EOF | sudo tee /etc/systemd/timesyncd.conf
 [Time]
@@ -49,3 +47,6 @@ sudo systemctl enable --now systemd-timesyncd
 sudo timedatectl set-ntp true
 sudo hwclock --systohc
 sudo timedatectl set-local-rtc 0
+
+sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+systemctl restart systemd-resolved systemd-timesyncd NetworkManager
