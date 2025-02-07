@@ -1,0 +1,55 @@
+# OneDark Color Palette
+
+# Foreground: a0a8b7
+# Selection: 30363f
+# Comment: 535965
+# Red: e55561
+# Orange: cc9057
+# Yellow: e2b86b
+# Green: 8ebd6b
+# Blue: 4fa6ed
+# Cyan: 48b0bd
+# Purple: bf68d9
+
+# Syntax Highlighting Colors
+fish_color_normal a0a8b7
+fish_color_command 48b0bd
+fish_color_keyword bf68d9
+fish_color_quote e2b86b
+fish_color_redirection a0a8b7
+fish_color_end cc9057
+fish_color_error e55561
+fish_color_param 4fa6ed
+fish_color_comment 535965
+fish_color_selection --background=30363f
+fish_color_search_match --background=30363f
+fish_color_operator 8ebd6b
+fish_color_escape bf68d9
+fish_color_autosuggestion 535965
+fish_color_cancel e55561 --reverse
+fish_color_option cc9057
+fish_color_history_current --bold
+fish_color_status e55561
+fish_color_valid_path --underline
+
+# Default Prompt Colors
+fish_color_cwd 8ebd6b
+fish_color_cwd_root red
+fish_color_host 4fa6ed
+fish_color_host_remote 4fa6ed
+fish_color_user 48b0bd
+
+# Completion Pager Colors
+fish_pager_color_progress 535965
+fish_pager_color_background
+fish_pager_color_prefix 48b0bd
+fish_pager_color_completion a0a8b7
+fish_pager_color_description 535965
+fish_pager_color_selected_background --background=30363f
+fish_pager_color_selected_prefix 48b0bd
+fish_pager_color_selected_completion a0a8b7
+fish_pager_color_selected_description 535965
+fish_pager_color_secondary_background
+fish_pager_color_secondary_prefix 48b0bd
+fish_pager_color_secondary_completion a0a8b7
+fish_pager_color_secondary_description 535965
