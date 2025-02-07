@@ -1,0 +1,111 @@
+{
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "eeyore.yapf",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnType": false
+  },
+  "breadcrumbs.enabled": false,
+  "C_Cpp.clang_format_fallbackStyle": "Google",
+  "C_Cpp.enhancedColorization": "enabled",
+  "editor.detectIndentation": false,
+  "editor.fontFamily": "SF Mono",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true,
+  "editor.glyphMargin": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.minimap.enabled": true,
+  "editor.overviewRulerBorder": false,
+  "editor.rulers": [
+    80
+  ],
+  "editor.scrollbar.vertical": "hidden",
+  "editor.semanticHighlighting.enabled": true,
+  "editor.tabSize": 2,
+  "files.exclude": {
+    "**/.csv": true,
+    "**/.parquet": true,
+    "**/.pkl": true,
+    "**/.xls": true
+  },
+  "isort.args": [
+    "--profile",
+    "google"
+  ],
+  "isort.importStrategy": "useBundled",
+  "isort.interpreter": [
+    "/home/david/py3.12-ml/bin/python"
+  ],
+  "isort.path": [
+    "/home/david/py3.12-ml/bin/python",
+    "-m",
+    "isort"
+  ],
+  "jupyter.themeMatplotlibPlots": true,
+  "jupyter.widgetScriptSources": [
+    "unpkg.com",
+    "jsdelivr.com"
+  ],
+  //"isort.showNotifications": "always",
+  "notebook.codeActionsOnSave": {
+    "notebook.source.fixAll": "explicit",
+    "notebook.source.organizeImports": "explicit"
+  },
+  "notebook.formatOnCellExecution": true,
+  "notebook.formatOnSave.enabled": true,
+  "notebook.lineNumbers": "on",
+  "notebook.outline.showCodeCells": true,
+  "notebook.output.scrolling": true,
+  "pylint.args": [
+    "--rcfile=/home/david/.config/pylint/pylintrc"
+  ],
+  "pylint.importStrategy": "useBundled",
+  "pylint.interpreter": [
+    "/home/david/py3.12-ml/bin/python"
+  ],
+  "pylint.path": [
+    "${interpreter}",
+    "-m",
+    "pylint"
+  ],
+  //"pylint.showNotifications": "always",
+  "python.analysis.autoFormatStrings": true,
+  "python.analysis.autoImportCompletions": false,
+  "python.analysis.completeFunctionParens": true,
+  "python.analysis.enablePytestSupport": false,
+  //"python.analysis.extraPaths": ["/home/david/py3.12-ml/pkgs/"],
+  "python.analysis.fixAll": [
+    "source.convertImportFormat",
+    "source.unusedImports"
+  ],
+  "python.analysis.inlayHints.callArgumentNames": "off",
+  "python.languageServer": "Pylance",
+  "remote.autoForwardPortsSource": "hybrid",
+  "telemetry.telemetryLevel": "off",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "underline",
+  "terminal.integrated.cursorStyleInactive": "block",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "workbench.colorTheme": "One Dark Pro Darker",
+  "workbench.editor.showTabs": "none",
+  "workbench.sideBar.location": "right",
+  "workbench.statusBar.visible": true,
+  "yapf.args": [
+    "--style",
+    "{based_on_style: google, indent_width: 2}"
+  ],
+  "yapf.importStrategy": "useBundled",
+  "yapf.interpreter": [
+    "/home/david/py3.12-ml/bin/python"
+  ],
+  "yapf.path": [
+    "/home/david/py3.12-ml/bin/python",
+    "-m",
+    "yapf"
+  ],
+  "python.defaultInterpreterPath": "/home/david/py3.12-ml/bin/python"
+}
