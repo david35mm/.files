@@ -1,36 +1,5 @@
+fish_config theme choose "OneDark"
 set -U fish_greeting
-
-# One Dark Vivid Color Palette
-set -l foreground a0a8b7
-set -l selection 535965
-set -l comment 7a818e
-set -l red e55561
-set -l orange cc9057
-set -l yellow e2b86b
-set -l green 8ebd6b
-set -l purple bf68d9
-set -l blue 4fa6ed
-set -l pink c678dd
-
-set -g fish_color_normal $foreground
-set -g fish_color_command $blue
-set -g fish_color_keyword $pink
-set -g fish_color_quote $yellow
-set -g fish_color_redirection $foreground
-set -g fish_color_end $orange
-set -g fish_color_error $red
-set -g fish_color_param $purple
-set -g fish_color_comment $comment
-set -g fish_color_selection --background=$selection
-set -g fish_color_search_match --background=$selection
-set -g fish_color_operator $green
-set -g fish_color_escape $pink
-set -g fish_color_autosuggestion $comment
-
-set -g fish_pager_color_progress $comment
-set -g fish_pager_color_prefix $blue
-set -g fish_pager_color_completion $foreground
-set -g fish_pager_color_description $comment
 
 # starship init fish | source
 function fish_prompt
@@ -133,11 +102,15 @@ end
 # End of functions
 
 # ls command beautified
-alias l.='exa -a | rg "^\."'
-alias la='exa -a --color=always --group-directories-first'
-alias ll='exa -l --color=always --group-directories-first'
-alias ls='exa -al --color=always --group-directories-first'
-alias lt='exa -aT --color=always --group-directories-first'
+alias la='eza --group-directories-first -la'
+alias ll='eza --group-directories-first -l'
+alias lh='eza --group-directories-first -hAl'
+alias l='eza --group-directories-first -l'
+# alias l.='exa -a | rg "^\."'
+# alias la='exa -a --color=always --group-directories-first'
+# alias ll='exa -l --color=always --group-directories-first'
+# alias ls='exa -al --color=always --group-directories-first'
+# alias lt='exa -aT --color=always --group-directories-first'
 
 # Navigation shortcuts
 alias .2='cd ../..'
