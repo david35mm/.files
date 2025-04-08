@@ -2,13 +2,36 @@ fish_config theme choose "OneDark"
 set -U fish_greeting
 
 # starship init fish | source
-function fish_prompt
+#function fish_prompt
   #set -g __fish_git_prompt_show_informative_status
-  set -g __fish_git_prompt_showcolorhints
-  set -g __fish_git_prompt_showdirtystate
-  set -g __fish_git_prompt_use_informative_chars
-  echo -s (set_color --bold blue) (prompt_pwd -d0) \
-    (set_color normal) (fish_git_prompt) (set_color green) "  " (set_color normal)
+ # set -g __fish_git_prompt_showcolorhints
+ # set -g __fish_git_prompt_showdirtystate
+ # set -g __fish_git_prompt_use_informative_chars
+ # echo -s (set_color --bold blue) (prompt_pwd -d0) \
+    #(set_color normal) (fish_git_prompt) (set_color green) "  " (set_color normal)
+#end
+
+function fish_prompt
+  set -l last_status $status
+  # Prompt status only if it's not 0
+  set -l stat
+  if test $last_status -ne 0
+    # set stat (set_color --bold red) "$last_status " (set_color normal)
+    set stat (set_color --bold red) "$last_status "
+  end
+
+  string join '' -- $stat (set_color --bold blue) $USER (set_color normal) '@' (prompt_hostname) ' ' (set_color --bold a0a8b7) (prompt_pwd -d0) (set_color normal) ' % '
+end
+
+function fish_right_prompt
+  set -l last_status $status
+  # Prompt status only if it's not 0
+  set -l stat
+  if test $last_status -ne 0
+    set stat ":("
+  end
+
+  string join '' -- $stat
 end
 
 # Set tty colours
