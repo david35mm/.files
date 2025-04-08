@@ -115,5 +115,10 @@ alias ll='eza --group-directories-first -l'
 alias lh='eza --group-directories-first -hAl'
 alias l='eza --group-directories-first -l'
 
-test -r ~/.dir_colors && eval $(dircolors ~/.dir_colors)
+DIR_COLORS_URL="https://raw.githubusercontent.com/nordtheme/dircolors/refs/heads/develop/src/dir_colors"
+DIR_COLORS_PATH="$HOME/.dir_colors"
+
+test -f "$DIR_COLORS_PATH" || curl -fsSL "$DIR_COLORS_URL" -o "$DIR_COLORS_PATH"
+test -r "$DIR_COLORS_PATH" && eval $(dircolors "$DIR_COLORS_PATH")
+
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
