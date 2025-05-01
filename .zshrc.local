@@ -110,10 +110,11 @@ ZSH_HIGHLIGHT_STYLES[arg0]='fg=#A0A8B7'
 ZSH_HIGHLIGHT_STYLES[default]='fg=#A0A8B7'
 ZSH_HIGHLIGHT_STYLES[cursor]='standout'
 
-alias la='eza --group-directories-first -la'
-alias ll='eza --group-directories-first -l'
-alias lh='eza --group-directories-first -hAl'
 alias l='eza --group-directories-first -l'
+alias la='eza --group-directories-first -la'
+alias lh='eza --group-directories-first -hAl'
+alias ll='eza --group-directories-first -l'
+alias ls='eza --group-directories-first'
 
 DIR_COLORS_URL="https://raw.githubusercontent.com/nordtheme/dircolors/refs/heads/develop/src/dir_colors"
 DIR_COLORS_PATH="$HOME/.dir_colors"

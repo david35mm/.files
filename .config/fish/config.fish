@@ -2,14 +2,14 @@ fish_config theme choose "OneDark"
 set -U fish_greeting
 
 # starship init fish | source
-#function fish_prompt
-  #set -g __fish_git_prompt_show_informative_status
- # set -g __fish_git_prompt_showcolorhints
- # set -g __fish_git_prompt_showdirtystate
- # set -g __fish_git_prompt_use_informative_chars
- # echo -s (set_color --bold blue) (prompt_pwd -d0) \
-    #(set_color normal) (fish_git_prompt) (set_color green) "  " (set_color normal)
-#end
+# function fish_prompt
+  # set -g __fish_git_prompt_show_informative_status
+  # set -g __fish_git_prompt_showcolorhints
+  # set -g __fish_git_prompt_showdirtystate
+  # set -g __fish_git_prompt_use_informative_chars
+  # echo -s (set_color --bold blue) (prompt_pwd -d0) \
+    # (set_color normal) (fish_git_prompt) (set_color green) "  " (set_color normal)
+# end
 
 function fish_prompt
   set -l last_status $status
@@ -125,15 +125,11 @@ end
 # End of functions
 
 # ls command beautified
-alias la='eza --group-directories-first -la'
-alias ll='eza --group-directories-first -l'
-alias lh='eza --group-directories-first -hAl'
 alias l='eza --group-directories-first -l'
-# alias l.='exa -a | rg "^\."'
-# alias la='exa -a --color=always --group-directories-first'
-# alias ll='exa -l --color=always --group-directories-first'
-# alias ls='exa -al --color=always --group-directories-first'
-# alias lt='exa -aT --color=always --group-directories-first'
+alias la='eza --group-directories-first -la'
+alias lh='eza --group-directories-first -hAl'
+alias ll='eza --group-directories-first -l'
+alias ls='eza --group-directories-first'
 
 # Navigation shortcuts
 alias .2='cd ../..'
