@@ -1,20 +1,29 @@
 #!/bin/sh
 
-if command -v dnf; then
-  number_updates="$(dnf -q updateinfo --list --updates | busybox wc -l)"
-  image_name="fedora-logo-icon.svg"
-  package_manager_name="DNF"
-  # package_names="$(dnf -q --color never list updates | busybox cut -d'.' -f1 | busybox sed '1d')"
-  package_names="$(dnf -q rq --upgrades --qf '%{name}')"
+ICON_PATH="/usr/share/icons/Tela-circle-dark/scalable/apps"
+notify_icon=""
+package_manager=""
+updates_count=0
+package_list=""
+
+if command -v dnf >/dev/null 2>&1; then
+  notify_icon="$ICON_PATH/fedora-logo-icon.svg"
+  package_manager="DNF"
+  package_list="$(dnf -q rq --upgrades --qf '%{name}')"
+  updates_count=$(printf "%s\n" "$package_list" | wc -l)
+elif command -v checkupdates >/dev/null 2>&1; then
+  notify_icon="$ICON_PATH/archlinux.svg"
+  package_manager="Pacman"
+  package_list="$(checkupdates)"
+  updates_count=$(printf "%s\n" "$package_list" | wc -l)
 else
-  number_updates="$(checkupdates | busybox wc -l)"
-  image_name="archlinux.svg"
-  package_manager_name="Pacman"
-  package_names="$(checkupdates)"
+  notify-send "Update Checker" "No supported package manager found."
+  exit 1
 fi
 
-if [ "$number_updates" -gt 0 ]; then
-  notify-send -i /usr/share/icons/Tela-circle-dark/scalable/apps/"$image_name" -u low -t 15000 "$package_manager_name" "You have $number_updates updates:\n$package_names"
+if [ "$updates_count" -gt 0 ]; then
+  notify-send -i "$notify_icon" -u low -t 15000 "$package_manager" "You have $updates_count updates:\n$package_list"
 else
-  notify-send -i /usr/share/icons/Tela-circle-dark/scalable/apps/"$image_name" -u low -t 2500 "$package_manager_name" "You are up to date!"
+  notify-send -i "$notify_icon" -u low -t 2500 "$package_manager" "You are up to date!"
 fi
+
