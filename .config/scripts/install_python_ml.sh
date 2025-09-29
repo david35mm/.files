@@ -36,7 +36,7 @@ python_pkgs() {
   uv venv "$VENV_DIR" -p 3.12
 
   # Install packages
-  uv pip install --requirement "$REQUIREMENTS_FILE"
+  uv pip install --directory "$VENV_DIR" --requirement "$REQUIREMENTS_FILE"
 
   # Setup Jupyter Kernel
   "$VENV_DIR/bin/python" -m ipykernel install \
